@@ -70,50 +70,73 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            try
+            if (!CampoObrigatorio(txtEstado.Text))
             {
-                string estado = txtEstado.Text;
-                string UF = txtUF.Text;
-                int idPais = int.Parse(txtCodPais.Text);
-                DateTime dataCadastro;
-                DateTime dataUltAlt;
-
-                DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                if (idAlterar != -1)
-                {
-                    DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                }
-                else
-                {
-                    DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                }
-
-                EstadoModel novoEstado = new EstadoModel
-                {
-                    Estado = estado,
-                    UF = UF,
-                    idPais = idPais,
-                    dataCadastro = dataCadastro,
-                    dataUltAlt = dataUltAlt,
-                    Ativo = isAtivo
-                };
-
-                if (idAlterar == -1)
-                {
-                    estadoController.Salvar(novoEstado);
-                }
-                else
-                {
-                    novoEstado.idEstado = idAlterar;
-                    estadoController.Alterar(novoEstado);
-                }
-
-                this.DialogResult = DialogResult.OK;
+                MessageBox.Show("Campo Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtEstado.Focus();
             }
-            catch (Exception ex)
+            else if (!CampoObrigatorio(txtUF.Text))
             {
-                MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo UF é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUF.Focus();
+            }
+            else if (!CampoObrigatorio(txtCodPais.Text))
+            {
+                MessageBox.Show("Campo Código País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodPais.Focus();
+            }
+            else if (!CampoObrigatorio(txtPais.Text))
+            {
+                MessageBox.Show("Campo País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPais.Focus();
+            }
+            else
+            {
+                try
+                {
+                    string estado = txtEstado.Text;
+                    string UF = txtUF.Text;
+                    int idPais = int.Parse(txtCodPais.Text);
+                    DateTime dataCadastro;
+                    DateTime dataUltAlt;
+
+                    DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
+
+                    if (idAlterar != -1)
+                    {
+                        DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
+                    }
+                    else
+                    {
+                        DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
+                    }
+
+                    EstadoModel novoEstado = new EstadoModel
+                    {
+                        Estado = estado,
+                        UF = UF,
+                        idPais = idPais,
+                        dataCadastro = dataCadastro,
+                        dataUltAlt = dataUltAlt,
+                        Ativo = isAtivo
+                    };
+
+                    if (idAlterar == -1)
+                    {
+                        estadoController.Salvar(novoEstado);
+                    }
+                    else
+                    {
+                        novoEstado.idEstado = idAlterar;
+                        estadoController.Alterar(novoEstado);
+                    }
+
+                    this.DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -168,17 +191,43 @@ namespace Sistema_Vendas.Views
 
         private void txtCodPais_Leave(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtCodPais.Text))
+            if (!VerificaNumeros(txtCodPais.Text))
             {
-                PaisModel pais = paisController.GetById(int.Parse(txtCodPais.Text));
-                if (pais != null)
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodPais.Focus();
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(txtCodPais.Text))
                 {
-                    txtPais.Text = pais.Pais;
+                    PaisModel pais = paisController.GetById(int.Parse(txtCodPais.Text));
+                    if (pais != null)
+                    {
+                        txtPais.Text = pais.Pais;
+                    }
+                    else
+                    {
+                        MessageBox.Show("País não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("País não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+        }
+
+        private void txtEstado_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaLetras(txtEstado.Text))
+            {
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtEstado.Focus();
+            }
+        }
+
+        private void txtUF_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaLetrasSemEspaco(txtUF.Text))
+            {
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUF.Focus();
             }
         }
     }

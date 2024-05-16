@@ -9,7 +9,7 @@ namespace Sistema_Vendas.Controller
 {
     public class DadosEmpresaController<T> : ControllerPai<T>
     {
-        private DadosEmpresaDAO<T> dadosEmpresaDAO;
+        protected DadosEmpresaDAO<T> dadosEmpresaDAO;
 
         public DadosEmpresaController() : base()
         {

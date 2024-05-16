@@ -9,7 +9,7 @@ namespace Sistema_Vendas.Controller
 {
     public class FornecedorController<T> : ControllerPai<T>
     {
-        private FornecedorDAO<T> fornecedorDAO;
+        protected FornecedorDAO<T> fornecedorDAO;
         public FornecedorController() : base()
         {
             fornecedorDAO = new FornecedorDAO<T>();

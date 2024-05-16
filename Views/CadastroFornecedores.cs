@@ -252,5 +252,10 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+
+        private void txtIE_RG_Leave(object sender, EventArgs e)
+        {
+
+        }
     }
 }

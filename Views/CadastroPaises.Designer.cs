@@ -62,27 +62,27 @@
             this.lblPais.AutoSize = true;
             this.lblPais.Location = new System.Drawing.Point(13, 88);
             this.lblPais.Name = "lblPais";
-            this.lblPais.Size = new System.Drawing.Size(29, 13);
+            this.lblPais.Size = new System.Drawing.Size(36, 13);
             this.lblPais.TabIndex = 7;
-            this.lblPais.Text = "País";
+            this.lblPais.Text = "País *";
             // 
             // lblSigla
             // 
             this.lblSigla.AutoSize = true;
             this.lblSigla.Location = new System.Drawing.Point(13, 160);
             this.lblSigla.Name = "lblSigla";
-            this.lblSigla.Size = new System.Drawing.Size(30, 13);
+            this.lblSigla.Size = new System.Drawing.Size(37, 13);
             this.lblSigla.TabIndex = 8;
-            this.lblSigla.Text = "Sigla";
+            this.lblSigla.Text = "Sigla *";
             // 
             // lblDDI
             // 
             this.lblDDI.AutoSize = true;
             this.lblDDI.Location = new System.Drawing.Point(143, 160);
             this.lblDDI.Name = "lblDDI";
-            this.lblDDI.Size = new System.Drawing.Size(26, 13);
+            this.lblDDI.Size = new System.Drawing.Size(33, 13);
             this.lblDDI.TabIndex = 9;
-            this.lblDDI.Text = "DDI";
+            this.lblDDI.Text = "DDI *";
             // 
             // txtPais
             // 

@@ -1,12 +1,13 @@
 ﻿using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sistema_Vendas.Controller
 {
     public class PaisController<T> : ControllerPai<T>
     {
-        private PaisDAO<T> paisDAO;
+        protected PaisDAO<T> paisDAO;
 
         public PaisController() : base()
         {
@@ -38,4 +39,6 @@ namespace Sistema_Vendas.Controller
             paisDAO.Salvar(obj);
         }
     }
+
 }
+

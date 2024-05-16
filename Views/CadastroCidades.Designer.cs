@@ -67,9 +67,9 @@
             this.lblCodEstado.AutoSize = true;
             this.lblCodEstado.Location = new System.Drawing.Point(14, 148);
             this.lblCodEstado.Name = "lblCodEstado";
-            this.lblCodEstado.Size = new System.Drawing.Size(76, 13);
+            this.lblCodEstado.Size = new System.Drawing.Size(83, 13);
             this.lblCodEstado.TabIndex = 24;
-            this.lblCodEstado.Text = "Código Estado";
+            this.lblCodEstado.Text = "Código Estado *";
             // 
             // txtCodEstado
             // 
@@ -102,6 +102,7 @@
             this.txtDDD.Name = "txtDDD";
             this.txtDDD.Size = new System.Drawing.Size(100, 20);
             this.txtDDD.TabIndex = 2;
+            this.txtDDD.Leave += new System.EventHandler(this.txtDDD_Leave);
             // 
             // txtCidade
             // 
@@ -109,33 +110,34 @@
             this.txtCidade.Name = "txtCidade";
             this.txtCidade.Size = new System.Drawing.Size(246, 20);
             this.txtCidade.TabIndex = 1;
+            this.txtCidade.Leave += new System.EventHandler(this.txtCidade_Leave);
             // 
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(128, 152);
+            this.lblEstado.Location = new System.Drawing.Point(125, 152);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(40, 13);
+            this.lblEstado.Size = new System.Drawing.Size(47, 13);
             this.lblEstado.TabIndex = 18;
-            this.lblEstado.Text = "Estado";
+            this.lblEstado.Text = "Estado *";
             // 
             // lblDDD
             // 
             this.lblDDD.AutoSize = true;
             this.lblDDD.Location = new System.Drawing.Point(275, 80);
             this.lblDDD.Name = "lblDDD";
-            this.lblDDD.Size = new System.Drawing.Size(31, 13);
+            this.lblDDD.Size = new System.Drawing.Size(38, 13);
             this.lblDDD.TabIndex = 17;
-            this.lblDDD.Text = "DDD";
+            this.lblDDD.Text = "DDD *";
             // 
             // lblCidade
             // 
             this.lblCidade.AutoSize = true;
             this.lblCidade.Location = new System.Drawing.Point(16, 81);
             this.lblCidade.Name = "lblCidade";
-            this.lblCidade.Size = new System.Drawing.Size(40, 13);
+            this.lblCidade.Size = new System.Drawing.Size(47, 13);
             this.lblCidade.TabIndex = 16;
-            this.lblCidade.Text = "Cidade";
+            this.lblCidade.Text = "Cidade *";
             // 
             // CadastroCidades
             // 

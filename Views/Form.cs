@@ -153,6 +153,5 @@ namespace Sistema_Vendas
                 return dv1 == int.Parse(cpf[9].ToString()) && dv2 == int.Parse(cpf[10].ToString());
             }
         }
-
     }
 }

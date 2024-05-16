@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtDescricao = new System.Windows.Forms.TextBox();
+            this.txtUN = new System.Windows.Forms.TextBox();
+            this.txtModelo = new System.Windows.Forms.TextBox();
+            this.txtMarca = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnConsultaModelos = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -87,33 +87,33 @@
             // 
             this.groupBox1.Location = new System.Drawing.Point(12, 415);
             // 
-            // textBox1
+            // txtDescricao
             // 
-            this.textBox1.Location = new System.Drawing.Point(16, 95);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(493, 20);
-            this.textBox1.TabIndex = 12;
+            this.txtDescricao.Location = new System.Drawing.Point(16, 95);
+            this.txtDescricao.Name = "txtDescricao";
+            this.txtDescricao.Size = new System.Drawing.Size(493, 20);
+            this.txtDescricao.TabIndex = 12;
             // 
-            // textBox2
+            // txtUN
             // 
-            this.textBox2.Location = new System.Drawing.Point(526, 95);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(64, 20);
-            this.textBox2.TabIndex = 13;
+            this.txtUN.Location = new System.Drawing.Point(526, 95);
+            this.txtUN.Name = "txtUN";
+            this.txtUN.Size = new System.Drawing.Size(64, 20);
+            this.txtUN.TabIndex = 13;
             // 
-            // textBox3
+            // txtModelo
             // 
-            this.textBox3.Location = new System.Drawing.Point(147, 155);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(175, 20);
-            this.textBox3.TabIndex = 14;
+            this.txtModelo.Location = new System.Drawing.Point(147, 155);
+            this.txtModelo.Name = "txtModelo";
+            this.txtModelo.Size = new System.Drawing.Size(175, 20);
+            this.txtModelo.TabIndex = 14;
             // 
-            // textBox4
+            // txtMarca
             // 
-            this.textBox4.Location = new System.Drawing.Point(334, 155);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(175, 20);
-            this.textBox4.TabIndex = 15;
+            this.txtMarca.Location = new System.Drawing.Point(334, 155);
+            this.txtMarca.Name = "txtMarca";
+            this.txtMarca.Size = new System.Drawing.Size(175, 20);
+            this.txtMarca.TabIndex = 15;
             // 
             // label1
             // 
@@ -344,12 +344,14 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnConsultaModelos);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtMarca);
+            this.Controls.Add(this.txtModelo);
+            this.Controls.Add(this.txtUN);
+            this.Controls.Add(this.txtDescricao);
             this.Name = "CadastroProdutos";
             this.Text = "Cadastro de Produtos";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroProdutos_FormClosed);
+            this.Load += new System.EventHandler(this.CadastroProdutos_Load);
             this.Controls.SetChildIndex(this.txtCodigo, 0);
             this.Controls.SetChildIndex(this.btnSalvar, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);
@@ -358,10 +360,10 @@
             this.Controls.SetChildIndex(this.lblDataCadastro, 0);
             this.Controls.SetChildIndex(this.lblDataUltAlt, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
-            this.Controls.SetChildIndex(this.textBox1, 0);
-            this.Controls.SetChildIndex(this.textBox2, 0);
-            this.Controls.SetChildIndex(this.textBox3, 0);
-            this.Controls.SetChildIndex(this.textBox4, 0);
+            this.Controls.SetChildIndex(this.txtDescricao, 0);
+            this.Controls.SetChildIndex(this.txtUN, 0);
+            this.Controls.SetChildIndex(this.txtModelo, 0);
+            this.Controls.SetChildIndex(this.txtMarca, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.btnConsultaModelos, 0);
             this.Controls.SetChildIndex(this.label2, 0);
@@ -395,10 +397,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtDescricao;
+        private System.Windows.Forms.TextBox txtUN;
+        private System.Windows.Forms.TextBox txtModelo;
+        private System.Windows.Forms.TextBox txtMarca;
         private System.Windows.Forms.Label label1;
         protected System.Windows.Forms.Button btnConsultaModelos;
         private System.Windows.Forms.Label label2;

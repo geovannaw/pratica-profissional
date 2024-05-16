@@ -15,12 +15,9 @@ namespace Sistema_Vendas.Views
         public bool isAtivo = true;
         public bool isFisico = true;
         public int idAlterar = -1;
-        Label novaLabel;
         public CadastroPessoasPai()
         {
             InitializeComponent();
-
-            novaLabel = new Label();
         }
 
         public virtual void Salvar() { }
@@ -47,12 +44,11 @@ namespace Sistema_Vendas.Views
         private void rbFisica_CheckedChanged(object sender, EventArgs e)
         {
             isFisico = rbFisica.Checked;
-            lblCliente_razao_social.Text = "Cliente";
+            lblCliente_razao_social.Text = "Cliente *";
             lblApelido_nome_fantasia.Text = "Apelido";
             lblCPF_CNPJ.Text = "CPF";
             txtCPF_CNPJ.Mask = "000.000.000-00";
             lblIE_RG.Text = "RG";
-            txtIE_RG.Mask = "00.000.000-0";
             txtSexo.Visible = true;
             lblSexo.Visible = true;
             lblDataNasc.Text = "Data Nasc.";
@@ -71,12 +67,11 @@ namespace Sistema_Vendas.Views
         private void rbJuridica_CheckedChanged(object sender, EventArgs e)
         {
             isFisico = !rbJuridica.Checked;
-            lblCliente_razao_social.Text = "Razão Social";
+            lblCliente_razao_social.Text = "Razão Social *";
             lblApelido_nome_fantasia.Text = "Nome Fantasia";
             lblCPF_CNPJ.Text = "CNPJ";
             txtCPF_CNPJ.Mask = "00.000.000/0000-00";
             lblIE_RG.Text = "Inscrição Estadual";
-            txtIE_RG.Mask = "00.000.0000-0";
             txtSexo.Visible = false;
             lblSexo.Visible = false;
             lblDataNasc.Text = "Data Fund.";
@@ -84,21 +79,13 @@ namespace Sistema_Vendas.Views
 
         private void txtCPF_CNPJ_Leave(object sender, EventArgs e)
         {
-            Label novaLabel = new Label();
-            novaLabel.Text = " *Obrigatório*";
-            novaLabel.ForeColor = Color.Red;
-            novaLabel.Font = new Font("Microsoft Sans Serif", 5.0f);
-            this.Controls.Add(novaLabel);
-
-
             string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
             string pais = txtPais.Text.ToLower();
-            if (pais == "brasil")
+            if (pais == "brasil") //TERMINAR
             {
                 if (!CampoObrigatorio(cpf_cnpj))
                 {
-                    //  lblCPF_CNPJ.ForeColor = Color.Red;
-                    lblCPF_CNPJ.Text = lblCPF_CNPJ.Text + novaLabel.Text;
+                    lblCPF_CNPJ.ForeColor = Color.Red;
                 }
             }
             if (!rbFisica.Checked)
@@ -116,6 +103,15 @@ namespace Sistema_Vendas.Views
                     MessageBox.Show("CPF inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCPF_CNPJ.Focus();
                 }
+            }
+        }
+
+        private void txtCliente_razao_social_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaLetras(txtCliente_razao_social.Text))
+            {
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCliente_razao_social.Focus();
             }
         }
     }

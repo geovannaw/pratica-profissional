@@ -67,27 +67,27 @@
             this.lblEstado.AutoSize = true;
             this.lblEstado.Location = new System.Drawing.Point(16, 89);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(40, 13);
+            this.lblEstado.Size = new System.Drawing.Size(47, 13);
             this.lblEstado.TabIndex = 7;
-            this.lblEstado.Text = "Estado";
+            this.lblEstado.Text = "Estado *";
             // 
             // lblUF
             // 
             this.lblUF.AutoSize = true;
             this.lblUF.Location = new System.Drawing.Point(275, 88);
             this.lblUF.Name = "lblUF";
-            this.lblUF.Size = new System.Drawing.Size(21, 13);
+            this.lblUF.Size = new System.Drawing.Size(28, 13);
             this.lblUF.TabIndex = 8;
-            this.lblUF.Text = "UF";
+            this.lblUF.Text = "UF *";
             // 
             // lblPais
             // 
             this.lblPais.AutoSize = true;
             this.lblPais.Location = new System.Drawing.Point(128, 160);
             this.lblPais.Name = "lblPais";
-            this.lblPais.Size = new System.Drawing.Size(29, 13);
+            this.lblPais.Size = new System.Drawing.Size(36, 13);
             this.lblPais.TabIndex = 9;
-            this.lblPais.Text = "País";
+            this.lblPais.Text = "País *";
             // 
             // txtEstado
             // 
@@ -95,6 +95,7 @@
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.Size = new System.Drawing.Size(246, 20);
             this.txtEstado.TabIndex = 1;
+            this.txtEstado.Leave += new System.EventHandler(this.txtEstado_Leave);
             // 
             // txtUF
             // 
@@ -102,6 +103,7 @@
             this.txtUF.Name = "txtUF";
             this.txtUF.Size = new System.Drawing.Size(100, 20);
             this.txtUF.TabIndex = 2;
+            this.txtUF.Leave += new System.EventHandler(this.txtUF_Leave);
             // 
             // txtPais
             // 
@@ -133,9 +135,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 156);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 15;
-            this.label1.Text = "Código País";
+            this.label1.Text = "Código País *";
             // 
             // CadastroEstados
             // 

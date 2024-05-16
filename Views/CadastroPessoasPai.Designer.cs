@@ -79,7 +79,7 @@
             this.txtSexo = new System.Windows.Forms.ComboBox();
             this.lblSexo = new System.Windows.Forms.Label();
             this.txtCPF_CNPJ = new System.Windows.Forms.MaskedTextBox();
-            this.txtIE_RG = new System.Windows.Forms.MaskedTextBox();
+            this.txtIE_RG = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -143,7 +143,7 @@
             this.groupBox1.Location = new System.Drawing.Point(27, 191);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(744, 137);
-            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Endereço";
             // 
@@ -161,7 +161,7 @@
             this.txtCodCidade.Location = new System.Drawing.Point(205, 94);
             this.txtCodCidade.Name = "txtCodCidade";
             this.txtCodCidade.Size = new System.Drawing.Size(62, 20);
-            this.txtCodCidade.TabIndex = 56;
+            this.txtCodCidade.TabIndex = 16;
             // 
             // lblPais
             // 
@@ -177,7 +177,7 @@
             this.txtPais.Location = new System.Drawing.Point(591, 94);
             this.txtPais.Name = "txtPais";
             this.txtPais.Size = new System.Drawing.Size(147, 20);
-            this.txtPais.TabIndex = 24;
+            this.txtPais.TabIndex = 20;
             // 
             // lblUF
             // 
@@ -193,7 +193,7 @@
             this.txtUF.Location = new System.Drawing.Point(518, 94);
             this.txtUF.Name = "txtUF";
             this.txtUF.Size = new System.Drawing.Size(61, 20);
-            this.txtUF.TabIndex = 22;
+            this.txtUF.TabIndex = 19;
             // 
             // btnConsultaCidades
             // 
@@ -201,7 +201,7 @@
             this.btnConsultaCidades.Location = new System.Drawing.Point(277, 92);
             this.btnConsultaCidades.Name = "btnConsultaCidades";
             this.btnConsultaCidades.Size = new System.Drawing.Size(36, 24);
-            this.btnConsultaCidades.TabIndex = 21;
+            this.btnConsultaCidades.TabIndex = 17;
             this.btnConsultaCidades.UseVisualStyleBackColor = true;
             // 
             // lblCidade
@@ -218,7 +218,7 @@
             this.txtCidade.Location = new System.Drawing.Point(324, 94);
             this.txtCidade.Name = "txtCidade";
             this.txtCidade.Size = new System.Drawing.Size(180, 20);
-            this.txtCidade.TabIndex = 19;
+            this.txtCidade.TabIndex = 18;
             // 
             // lblBairro
             // 
@@ -234,7 +234,7 @@
             this.txtBairro.Location = new System.Drawing.Point(12, 94);
             this.txtBairro.Name = "txtBairro";
             this.txtBairro.Size = new System.Drawing.Size(180, 20);
-            this.txtBairro.TabIndex = 17;
+            this.txtBairro.TabIndex = 15;
             // 
             // lblComplemento
             // 
@@ -259,14 +259,14 @@
             this.txtNumero.Location = new System.Drawing.Point(381, 41);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(67, 20);
-            this.txtNumero.TabIndex = 5;
+            this.txtNumero.TabIndex = 13;
             // 
             // txtComplemento
             // 
             this.txtComplemento.Location = new System.Drawing.Point(466, 41);
             this.txtComplemento.Name = "txtComplemento";
             this.txtComplemento.Size = new System.Drawing.Size(272, 20);
-            this.txtComplemento.TabIndex = 4;
+            this.txtComplemento.TabIndex = 14;
             // 
             // lblEndereco
             // 
@@ -282,7 +282,7 @@
             this.txtEndereco.Location = new System.Drawing.Point(87, 41);
             this.txtEndereco.Name = "txtEndereco";
             this.txtEndereco.Size = new System.Drawing.Size(277, 20);
-            this.txtEndereco.TabIndex = 13;
+            this.txtEndereco.TabIndex = 12;
             // 
             // lblCEP
             // 
@@ -299,7 +299,7 @@
             this.txtCEP.Mask = "00000-000";
             this.txtCEP.Name = "txtCEP";
             this.txtCEP.Size = new System.Drawing.Size(59, 20);
-            this.txtCEP.TabIndex = 12;
+            this.txtCEP.TabIndex = 11;
             // 
             // lblCelular
             // 
@@ -325,7 +325,7 @@
             this.txtTelefone.Mask = "(00) 0000-0000";
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(85, 20);
-            this.txtTelefone.TabIndex = 6;
+            this.txtTelefone.TabIndex = 7;
             this.txtTelefone.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblTelefone
@@ -343,6 +343,7 @@
             this.txtCliente_razao_social.Name = "txtCliente_razao_social";
             this.txtCliente_razao_social.Size = new System.Drawing.Size(304, 20);
             this.txtCliente_razao_social.TabIndex = 4;
+            this.txtCliente_razao_social.Leave += new System.EventHandler(this.txtCliente_razao_social_Leave);
             // 
             // txtApelido_nome_fantasia
             // 
@@ -375,9 +376,9 @@
             this.lblCliente_razao_social.AutoSize = true;
             this.lblCliente_razao_social.Location = new System.Drawing.Point(24, 79);
             this.lblCliente_razao_social.Name = "lblCliente_razao_social";
-            this.lblCliente_razao_social.Size = new System.Drawing.Size(39, 13);
+            this.lblCliente_razao_social.Size = new System.Drawing.Size(46, 13);
             this.lblCliente_razao_social.TabIndex = 26;
-            this.lblCliente_razao_social.Text = "Cliente";
+            this.lblCliente_razao_social.Text = "Cliente *";
             // 
             // lblCodigo
             // 
@@ -431,7 +432,7 @@
             this.groupBox3.Location = new System.Drawing.Point(27, 404);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(160, 56);
-            this.groupBox3.TabIndex = 49;
+            this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Status";
             // 
@@ -441,7 +442,7 @@
             this.rbInativo.Location = new System.Drawing.Point(80, 24);
             this.rbInativo.Name = "rbInativo";
             this.rbInativo.Size = new System.Drawing.Size(57, 17);
-            this.rbInativo.TabIndex = 1;
+            this.rbInativo.TabIndex = 26;
             this.rbInativo.TabStop = true;
             this.rbInativo.Text = "Inativo";
             this.rbInativo.UseVisualStyleBackColor = true;
@@ -454,7 +455,7 @@
             this.rbAtivo.Location = new System.Drawing.Point(16, 24);
             this.rbAtivo.Name = "rbAtivo";
             this.rbAtivo.Size = new System.Drawing.Size(49, 17);
-            this.rbAtivo.TabIndex = 0;
+            this.rbAtivo.TabIndex = 25;
             this.rbAtivo.TabStop = true;
             this.rbAtivo.Text = "Ativo";
             this.rbAtivo.UseVisualStyleBackColor = true;
@@ -503,7 +504,7 @@
             this.btnSair.Location = new System.Drawing.Point(696, 489);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(75, 23);
-            this.btnSair.TabIndex = 51;
+            this.btnSair.TabIndex = 28;
             this.btnSair.Text = "Sai&r";
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
@@ -513,7 +514,7 @@
             this.btnSalvar.Location = new System.Drawing.Point(615, 489);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 23);
-            this.btnSalvar.TabIndex = 50;
+            this.btnSalvar.TabIndex = 27;
             this.btnSalvar.Text = "&Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -533,7 +534,7 @@
             this.txtDataNasc.Mask = "00/00/0000";
             this.txtDataNasc.Name = "txtDataNasc";
             this.txtDataNasc.Size = new System.Drawing.Size(67, 20);
-            this.txtDataNasc.TabIndex = 10;
+            this.txtDataNasc.TabIndex = 23;
             this.txtDataNasc.ValidatingType = typeof(System.DateTime);
             // 
             // txtSexo
@@ -563,18 +564,16 @@
             this.txtCPF_CNPJ.Mask = "000.000.000-00";
             this.txtCPF_CNPJ.Name = "txtCPF_CNPJ";
             this.txtCPF_CNPJ.Size = new System.Drawing.Size(107, 20);
-            this.txtCPF_CNPJ.TabIndex = 56;
+            this.txtCPF_CNPJ.TabIndex = 21;
             this.txtCPF_CNPJ.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCPF_CNPJ.Leave += new System.EventHandler(this.txtCPF_CNPJ_Leave);
             // 
             // txtIE_RG
             // 
             this.txtIE_RG.Location = new System.Drawing.Point(153, 362);
-            this.txtIE_RG.Mask = "00.000.000-0";
             this.txtIE_RG.Name = "txtIE_RG";
-            this.txtIE_RG.Size = new System.Drawing.Size(90, 20);
-            this.txtIE_RG.TabIndex = 57;
-            this.txtIE_RG.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtIE_RG.Size = new System.Drawing.Size(93, 20);
+            this.txtIE_RG.TabIndex = 22;
             // 
             // CadastroPessoasPai
             // 
@@ -677,6 +676,6 @@
         protected System.Windows.Forms.Label lblCodCidade;
         protected System.Windows.Forms.TextBox txtCodCidade;
         protected System.Windows.Forms.MaskedTextBox txtCPF_CNPJ;
-        protected System.Windows.Forms.MaskedTextBox txtIE_RG;
+        protected System.Windows.Forms.TextBox txtIE_RG;
     }
 }

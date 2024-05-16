@@ -110,16 +110,19 @@
     <Compile Include="Controller\FornecedorController.cs" />
     <Compile Include="Controller\ModeloController.cs" />
     <Compile Include="Controller\PaisController.cs" />
+    <Compile Include="Controller\ProdutoController.cs" />
     <Compile Include="DAO\CidadeDAO.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\DadosEmpresaDAO.cs" />
     <Compile Include="DAO\FornecedorDAO.cs" />
     <Compile Include="DAO\ModeloDAO.cs" />
+    <Compile Include="DAO\ProdutoDAO.cs" />
     <Compile Include="Models\CidadeModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\DadosEmpresaModel.cs" />
     <Compile Include="Models\FornecedorModel.cs" />
     <Compile Include="Models\ModeloModel.cs" />
+    <Compile Include="Models\ProdutoModel.cs" />
     <Compile Include="Views\CadastroCidades.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +223,12 @@
     <Compile Include="Views\ConsultaPaises.Designer.cs">
       <DependentUpon>ConsultaPaises.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsultaProdutos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultaProdutos.Designer.cs">
+      <DependentUpon>ConsultaProdutos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\DadosEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,6 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaPaises.resx">
       <DependentUpon>ConsultaPaises.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultaProdutos.resx">
+      <DependentUpon>ConsultaProdutos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DadosEmpresa.resx">
       <DependentUpon>DadosEmpresa.cs</DependentUpon>

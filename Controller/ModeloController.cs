@@ -10,7 +10,7 @@ namespace Sistema_Vendas.Controller
 {
     public class ModeloController<T> : ControllerPai<T>
     {
-        private ModeloDAO<T> modeloDAO;
+        protected ModeloDAO<T> modeloDAO;
 
         public ModeloController() : base()
         {

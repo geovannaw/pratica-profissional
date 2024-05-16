@@ -7,41 +7,37 @@ using System.Threading.Tasks;
 
 namespace Sistema_Vendas.Controller
 {
-    public class ClienteController<T> : ControllerPai<T>
+    public class ProdutoController<T> : ControllerPai<T>
     {
-        protected ClienteDAO<T> clienteDAO;
-        public ClienteController() : base()
+        protected ProdutoDAO<T> produtoDAO;
+        public ProdutoController() : base()
         {
-            clienteDAO = new ClienteDAO<T>();
+            produtoDAO = new ProdutoDAO<T>();
         }
+
         public override void Alterar(T obj)
         {
-            clienteDAO.Alterar(obj);
+            produtoDAO.Alterar(obj);
         }
 
         public override void Delete(int idObj)
         {
-            clienteDAO.Delete(idObj);
+            produtoDAO.Delete(idObj);
         }
 
         public override List<T> GetAll(bool incluiInativos)
         {
-            return clienteDAO.GetAll(incluiInativos);
+            return produtoDAO.GetAll(incluiInativos);
         }
 
         public override T GetById(int idObj)
         {
-            return clienteDAO.GetById(idObj);
-        }
-
-        public List<string> GetCEPByCidadeId(int idCidade)
-        {
-            return clienteDAO.GetCEPByCidadeId(idCidade);
+            return produtoDAO.GetById(idObj);
         }
 
         public override void Salvar(T obj)
         {
-            clienteDAO.Salvar(obj);
+            produtoDAO.Salvar(obj);
         }
     }
 }

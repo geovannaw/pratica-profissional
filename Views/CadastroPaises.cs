@@ -55,49 +55,68 @@ namespace Sistema_Vendas.Views
         }
         public override void Salvar()
         {
-            try
+            if (!CampoObrigatorio(txtPais.Text))
             {
-                string pais = txtPais.Text;
-                string sigla = txtSigla.Text;
-                string ddi = txtDDI.Text;
-                DateTime dataCadastro;
-                DateTime dataUltAlt;
-
-                DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                if (idAlterar != -1)
-                {
-                    DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                } else
-                {
-                    DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                }
-
-                PaisModel novoPais = new PaisModel
-                {
-                    Pais = pais,
-                    Sigla = sigla,
-                    DDI = ddi,
-                    dataCadastro = dataCadastro,
-                    dataUltAlt = dataUltAlt,
-                    Ativo = isAtivo
-                };
-
-                if (idAlterar == -1)
-                {
-                    paisController.Salvar(novoPais);
-                }
-                else
-                {
-                    novoPais.idPais = idAlterar; //ID do país alterado
-                    paisController.Alterar(novoPais);
-                }
-
-                this.DialogResult = DialogResult.OK;
+                MessageBox.Show("Campo País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPais.Focus();
             }
-            catch (Exception ex)
+            else if (!CampoObrigatorio(txtSigla.Text))
             {
-                MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Sigla é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtSigla.Focus();
+            }
+            else if (!CampoObrigatorio(txtDDI.Text))
+            {
+                MessageBox.Show("Campo DDI é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDDI.Focus();
+            }
+            else
+            {
+                try
+                {
+                    string pais = txtPais.Text;
+                    string sigla = txtSigla.Text;
+                    string ddi = txtDDI.Text;
+                    DateTime dataCadastro;
+                    DateTime dataUltAlt;
+
+                    DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
+
+                    if (idAlterar != -1)
+                    {
+                        DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
+                    }
+                    else
+                    {
+                        DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
+                    }
+
+                    PaisModel novoPais = new PaisModel
+                    {
+                        Pais = pais,
+                        Sigla = sigla,
+                        DDI = ddi,
+                        dataCadastro = dataCadastro,
+                        dataUltAlt = dataUltAlt,
+                        Ativo = isAtivo
+                    };
+
+                    if (idAlterar == -1)
+                    {
+                        paisController.Salvar(novoPais);
+                    }
+                    else
+                    {
+                        novoPais.idPais = idAlterar; //ID do país alterado
+                        paisController.Alterar(novoPais);
+                    }
+
+                    this.DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

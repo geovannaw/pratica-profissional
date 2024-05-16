@@ -9,7 +9,7 @@ namespace Sistema_Vendas.Controller
 {
     public class EstadoController<T> : ControllerPai<T>
     {
-        private EstadoDAO<T> estadoDAO;
+        protected EstadoDAO<T> estadoDAO;
 
         public EstadoController() : base() 
         { 

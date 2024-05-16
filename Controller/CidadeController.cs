@@ -10,7 +10,7 @@ namespace Sistema_Vendas.Controller
 {
     public class CidadeController<T> : ControllerPai<T>
     {
-        private CidadeDAO<T> cidadeDAO;
+        protected CidadeDAO<T> cidadeDAO;
         public CidadeController() : base()
         { 
             cidadeDAO = new CidadeDAO<T>();

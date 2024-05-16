@@ -32,86 +32,95 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar() 
         {
-            try
+            if (!CampoObrigatorio(txtCliente_razao_social.Text))
             {
-                string cliente_razao_social = txtCliente_razao_social.Text;
-                string apelido_nome_fantasia = txtApelido_nome_fantasia.Text;
-                string endereco = txtEndereco.Text;
-                string bairro = txtBairro.Text;
-                int numero = Convert.ToInt32(txtNumero.Text);
-                string cep = new string(txtCEP.Text.Where(char.IsDigit).ToArray());
-                string complemento = txtComplemento.Text;
-                string email = txtEmail.Text;
-                string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
-                string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
-                string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
-                string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
-                int idCidade = int.Parse(txtCodCidade.Text);
-
-                DateTime data_nasc;
-                DateTime.TryParse(txtDataNasc.Text, out data_nasc);
-
-                DateTime dataCadastro;
-                DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                DateTime dataUltAlt;
-
-                string sexo;
-                if (isFisico) 
-                {
-                    sexo = txtSexo.SelectedItem.ToString();
-                } else
-                {
-                    sexo = "Outro"; //quando for jurídico não tem
-                }
-
-                if (idAlterar != -1)
-                {
-                    DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                }
-                else
-                {
-                    DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                }
-
-                ClienteModel novoCliente = new ClienteModel
-                {
-                    tipo_pessoa = isFisico,
-                    cliente_razao_social = cliente_razao_social,
-                    apelido_nome_fantasia = apelido_nome_fantasia,
-                    endereco = endereco,
-                    bairro = bairro,
-                    numero = numero,
-                    cep = cep,
-                    complemento = complemento,
-                    sexo = sexo,
-                    email = email,
-                    telefone = telefone,
-                    celular = celular,
-                    data_nasc = data_nasc,
-                    cpf_cnpj = cpf_cnpj,
-                    rg_ie = rg_ie,
-                    Ativo = isAtivo,
-                    dataCadastro = dataCadastro,
-                    dataUltAlt = dataUltAlt,
-                    idCidade = idCidade
-                };
-
-                if (idAlterar == -1)
-                {
-                    clienteController.Salvar(novoCliente);
-                }
-                else
-                {
-                    novoCliente.idCliente = idAlterar;
-                    clienteController.Alterar(novoCliente);
-                }
-
-                this.DialogResult = DialogResult.OK;
+                MessageBox.Show("Campo Cliente / Razão Social é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCliente_razao_social.Focus();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    string cliente_razao_social = txtCliente_razao_social.Text;
+                    string apelido_nome_fantasia = txtApelido_nome_fantasia.Text;
+                    string endereco = txtEndereco.Text;
+                    string bairro = txtBairro.Text;
+                    int numero = Convert.ToInt32(txtNumero.Text);
+                    string cep = new string(txtCEP.Text.Where(char.IsDigit).ToArray());
+                    string complemento = txtComplemento.Text;
+                    string email = txtEmail.Text;
+                    string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
+                    string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
+                    string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
+                    string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
+                    int idCidade = int.Parse(txtCodCidade.Text);
+
+                    DateTime data_nasc;
+                    DateTime.TryParse(txtDataNasc.Text, out data_nasc);
+
+                    DateTime dataCadastro;
+                    DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
+
+                    DateTime dataUltAlt;
+
+                    string sexo;
+                    if (isFisico)
+                    {
+                        sexo = txtSexo.SelectedItem.ToString();
+                    }
+                    else
+                    {
+                        sexo = "Outro"; //quando for jurídico não tem
+                    }
+
+                    if (idAlterar != -1)
+                    {
+                        DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
+                    }
+                    else
+                    {
+                        DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
+                    }
+
+                    ClienteModel novoCliente = new ClienteModel
+                    {
+                        tipo_pessoa = isFisico,
+                        cliente_razao_social = cliente_razao_social,
+                        apelido_nome_fantasia = apelido_nome_fantasia,
+                        endereco = endereco,
+                        bairro = bairro,
+                        numero = numero,
+                        cep = cep,
+                        complemento = complemento,
+                        sexo = sexo,
+                        email = email,
+                        telefone = telefone,
+                        celular = celular,
+                        data_nasc = data_nasc,
+                        cpf_cnpj = cpf_cnpj,
+                        rg_ie = rg_ie,
+                        Ativo = isAtivo,
+                        dataCadastro = dataCadastro,
+                        dataUltAlt = dataUltAlt,
+                        idCidade = idCidade
+                    };
+
+                    if (idAlterar == -1)
+                    {
+                        clienteController.Salvar(novoCliente);
+                    }
+                    else
+                    {
+                        novoCliente.idCliente = idAlterar;
+                        clienteController.Alterar(novoCliente);
+                    }
+
+                    this.DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         public override void Carrega()

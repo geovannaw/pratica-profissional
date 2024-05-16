@@ -14,9 +14,20 @@ namespace Sistema_Vendas
 {
     public partial class MenuPrincipal : Form
     {
+        private Timer timerAtualizacao;
         public MenuPrincipal()
         {
+            timerAtualizacao = new Timer();
+            timerAtualizacao.Interval = 1000; //1 segundo
+            timerAtualizacao.Tick += TimerAtualizacao_Tick;
+            timerAtualizacao.Start();
+
             InitializeComponent();
+        }
+
+        private void TimerAtualizacao_Tick(object sender, EventArgs e)
+        {
+            lblDataMenu.Text = DateTime.Now.ToString();
         }
 
         private void modelosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -59,6 +70,12 @@ namespace Sistema_Vendas
         {
             ConsultaFornecedores consultaFornecedores = new ConsultaFornecedores();
             consultaFornecedores.ShowDialog();
+        }
+
+        private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaProdutos consultaProdutos = new ConsultaProdutos();
+            consultaProdutos.ShowDialog();
         }
     }
 }

@@ -50,7 +50,7 @@
             this.Tipo});
             this.dataGridViewClientes.Location = new System.Drawing.Point(18, 55);
             this.dataGridViewClientes.Name = "dataGridViewClientes";
-            this.dataGridViewClientes.Size = new System.Drawing.Size(603, 345);
+            this.dataGridViewClientes.Size = new System.Drawing.Size(600, 345);
             this.dataGridViewClientes.TabIndex = 8;
             this.dataGridViewClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellDoubleClick);
             this.dataGridViewClientes.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewClientes_CellFormatting);
@@ -76,7 +76,6 @@
             // 
             this.Tipo.HeaderText = "Tipo";
             this.Tipo.Name = "Tipo";
-            this.Tipo.Width = 105;
             // 
             // ConsultaClientes
             // 
