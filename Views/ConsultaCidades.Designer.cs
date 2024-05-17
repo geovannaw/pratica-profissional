@@ -52,6 +52,7 @@
             this.DDD});
             this.dataGridViewCidades.Location = new System.Drawing.Point(16, 56);
             this.dataGridViewCidades.Name = "dataGridViewCidades";
+            this.dataGridViewCidades.ReadOnly = true;
             this.dataGridViewCidades.Size = new System.Drawing.Size(600, 344);
             this.dataGridViewCidades.TabIndex = 7;
             this.dataGridViewCidades.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCidades_CellDoubleClick);
@@ -60,17 +61,20 @@
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // Cidade
             // 
             this.Cidade.HeaderText = "Cidade";
             this.Cidade.Name = "Cidade";
+            this.Cidade.ReadOnly = true;
             this.Cidade.Width = 350;
             // 
             // DDD
             // 
             this.DDD.HeaderText = "DDD";
             this.DDD.Name = "DDD";
+            this.DDD.ReadOnly = true;
             this.DDD.Width = 106;
             // 
             // ConsultaCidades

@@ -1,4 +1,5 @@
-﻿using Sistema_Vendas.Controller;
+﻿using MySqlX.XDevAPI;
+using Sistema_Vendas.Controller;
 using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,19 @@ namespace Sistema_Vendas.Views
                 int idCidade = int.Parse(txtCodCidade.Text);
 
                 DateTime data_nasc;
-                DateTime.TryParse(txtDataNasc.Text, out data_nasc);
+                string entradaData = txtDataNasc.Text;
+
+                if (DateTime.TryParse(entradaData, out data_nasc))
+                {
+                    //se a conversão for bem-sucedida, é utilizado a data convertida
+                    txtDataNasc.Text = data_nasc.ToString("dd/MM/yyyy");
+                }
+                else
+                {
+                    //se a conversão falhar, é definida uma data padrão
+                    txtDataNasc.Text = "01/01/1800";
+                    data_nasc = new DateTime(1800, 1, 1);
+                }
 
                 DateTime dataCadastro;
                 DateTime dataUltAlt;
@@ -157,13 +170,21 @@ namespace Sistema_Vendas.Views
                     txtEmail.Text = fornecedor.email;
                     txtTelefone.Text = fornecedor.telefone;
                     txtCelular.Text = fornecedor.celular;
-                    txtDataNasc.Text = fornecedor.data_nasc.ToString();
                     txtCPF_CNPJ.Text = fornecedor.cpf_cnpj;
                     txtIE_RG.Text = fornecedor.rg_ie;
                     txtDataCadastro.Text = fornecedor.dataCadastro.ToString();
                     txtDataUltAlt.Text = fornecedor.dataUltAlt.ToString();
                     rbAtivo.Checked = fornecedor.Ativo;
                     rbInativo.Checked = !fornecedor.Ativo;
+
+                    if (fornecedor.data_nasc.ToString() == "01/01/1800 00:00:00") //ao carregar, se a data for igual a data padrão
+                    {
+                        txtDataNasc.Clear(); //deixa o campo vazio
+                    }
+                    else
+                    {
+                        txtDataNasc.Text = fornecedor.data_nasc.ToString();
+                    }
 
                     List<string> cidadeEstadoPais = fornecedorController.GetCEPByCidadeId(fornecedor.idCidade);
 
@@ -238,16 +259,33 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodCidade.Text))
             {
-                List<string> cidadeEstadoPais = fornecedorController.GetCEPByCidadeId(int.Parse(txtCodCidade.Text));
-
-                if (cidadeEstadoPais.Count > 0)
+                if (!VerificaNumeros(txtCodCidade.Text))
                 {
-                    string[] info = cidadeEstadoPais[0].Split(',');
-                    if (info.Length >= 3)
+                    MessageBox.Show("Cód. Cidade inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodCidade.Focus();
+                }
+                else
+                {
+                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByCidadeId(int.Parse(txtCodCidade.Text));
+
+                    if (cidadeEstadoPais.Count > 0)
                     {
-                        txtCidade.Text = info[0].Trim();
-                        txtUF.Text = info[1].Trim();
-                        txtPais.Text = info[2].Trim();
+                        string[] info = cidadeEstadoPais[0].Split(',');
+                        if (info.Length >= 3)
+                        {
+                            txtCidade.Text = info[0].Trim();
+                            txtUF.Text = info[1].Trim();
+                            txtPais.Text = info[2].Trim();
+                        }
+                    }
+                    else
+                    {
+                        txtCodCidade.Clear();
+                        txtCidade.Clear();
+                        txtUF.Clear();
+                        txtPais.Clear();
+                        txtCodCidade.Focus();
+                        MessageBox.Show("Código Cidade não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

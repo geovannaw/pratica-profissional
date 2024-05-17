@@ -52,6 +52,7 @@
             this.UF});
             this.dataGridViewEstados.Location = new System.Drawing.Point(18, 55);
             this.dataGridViewEstados.Name = "dataGridViewEstados";
+            this.dataGridViewEstados.ReadOnly = true;
             this.dataGridViewEstados.Size = new System.Drawing.Size(600, 343);
             this.dataGridViewEstados.TabIndex = 7;
             this.dataGridViewEstados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEstados_CellDoubleClick);
@@ -60,17 +61,20 @@
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // Estado
             // 
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
+            this.Estado.ReadOnly = true;
             this.Estado.Width = 350;
             // 
             // UF
             // 
             this.UF.HeaderText = "UF";
             this.UF.Name = "UF";
+            this.UF.ReadOnly = true;
             this.UF.Width = 106;
             // 
             // ConsultaEstados

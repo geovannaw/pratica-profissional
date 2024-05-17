@@ -50,6 +50,7 @@
             this.Tipo});
             this.dataGridViewClientes.Location = new System.Drawing.Point(18, 55);
             this.dataGridViewClientes.Name = "dataGridViewClientes";
+            this.dataGridViewClientes.ReadOnly = true;
             this.dataGridViewClientes.Size = new System.Drawing.Size(600, 345);
             this.dataGridViewClientes.TabIndex = 8;
             this.dataGridViewClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellDoubleClick);
@@ -59,23 +60,27 @@
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // Cliente
             // 
             this.Cliente.HeaderText = "Cliente";
             this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
             this.Cliente.Width = 250;
             // 
             // Celular
             // 
             this.Celular.HeaderText = "Celular";
             this.Celular.Name = "Celular";
+            this.Celular.ReadOnly = true;
             this.Celular.Width = 105;
             // 
             // Tipo
             // 
             this.Tipo.HeaderText = "Tipo";
             this.Tipo.Name = "Tipo";
+            this.Tipo.ReadOnly = true;
             // 
             // ConsultaClientes
             // 

@@ -132,6 +132,7 @@
             this.btnConsultaModelos.Size = new System.Drawing.Size(36, 24);
             this.btnConsultaModelos.TabIndex = 22;
             this.btnConsultaModelos.UseVisualStyleBackColor = true;
+            this.btnConsultaModelos.Click += new System.EventHandler(this.btnConsultaModelos_Click);
             // 
             // label2
             // 
@@ -186,6 +187,7 @@
             this.btnConsultaFornecedor.Size = new System.Drawing.Size(36, 24);
             this.btnConsultaFornecedor.TabIndex = 29;
             this.btnConsultaFornecedor.UseVisualStyleBackColor = true;
+            this.btnConsultaFornecedor.Click += new System.EventHandler(this.btnConsultaFornecedor_Click);
             // 
             // txtFornecedor
             // 
@@ -200,6 +202,7 @@
             this.txtCodFornecedor.Name = "txtCodFornecedor";
             this.txtCodFornecedor.Size = new System.Drawing.Size(83, 20);
             this.txtCodFornecedor.TabIndex = 27;
+            this.txtCodFornecedor.Leave += new System.EventHandler(this.txtCodFornecedor_Leave);
             // 
             // lblCodModelol
             // 
@@ -216,6 +219,7 @@
             this.txtCodModelo.Name = "txtCodModelo";
             this.txtCodModelo.Size = new System.Drawing.Size(83, 20);
             this.txtCodModelo.TabIndex = 32;
+            this.txtCodModelo.Leave += new System.EventHandler(this.txtCodModelo_Leave);
             // 
             // txtSaldo
             // 

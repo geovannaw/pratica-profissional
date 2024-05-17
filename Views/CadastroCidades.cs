@@ -76,11 +76,6 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Campo Código Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodEstado.Focus();
             }
-            else if (!CampoObrigatorio(txtEstado.Text))
-            {
-                MessageBox.Show("Campo Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtEstado.Focus();
-            }
             else
             {
                 try
@@ -200,8 +195,7 @@ namespace Sistema_Vendas.Views
                         MessageBox.Show("Estado não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
-            
+            }  
         }
 
         private void txtCidade_Leave(object sender, EventArgs e)

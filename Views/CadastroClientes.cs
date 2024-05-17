@@ -32,13 +32,10 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar() 
         {
-            if (!CampoObrigatorio(txtCliente_razao_social.Text))
+            if (!VerificaCamposObrigatorios())
             {
-                MessageBox.Show("Campo Cliente / Razão Social é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCliente_razao_social.Focus();
+                return;
             }
-            else
-            {
                 try
                 {
                     string cliente_razao_social = txtCliente_razao_social.Text;
@@ -55,10 +52,22 @@ namespace Sistema_Vendas.Views
                     string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
                     int idCidade = int.Parse(txtCodCidade.Text);
 
-                    DateTime data_nasc;
-                    DateTime.TryParse(txtDataNasc.Text, out data_nasc);
+                DateTime data_nasc;
+                string entradaData = txtDataNasc.Text;
 
-                    DateTime dataCadastro;
+                if (DateTime.TryParse(entradaData, out data_nasc))
+                {
+                    //se a conversão for bem-sucedida, é utilizado a data convertida
+                    txtDataNasc.Text = data_nasc.ToString("dd/MM/yyyy");
+                }
+                else
+                {
+                    //se a conversão falhar, é definida uma data padrão
+                    txtDataNasc.Text = "01/01/1800";
+                    data_nasc = new DateTime(1800, 1, 1);
+                }
+
+                DateTime dataCadastro;
                     DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
 
                     DateTime dataUltAlt;
@@ -82,7 +91,7 @@ namespace Sistema_Vendas.Views
                         DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
                     }
 
-                    ClienteModel novoCliente = new ClienteModel
+                ClienteModel novoCliente = new ClienteModel
                     {
                         tipo_pessoa = isFisico,
                         cliente_razao_social = cliente_razao_social,
@@ -121,7 +130,7 @@ namespace Sistema_Vendas.Views
                 {
                     MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            
         }
         public override void Carrega()
         {
@@ -145,13 +154,21 @@ namespace Sistema_Vendas.Views
                     txtEmail.Text = cliente.email;
                     txtTelefone.Text = cliente.telefone;
                     txtCelular.Text = cliente.celular;
-                    txtDataNasc.Text = cliente.data_nasc.ToString();
                     txtCPF_CNPJ.Text = cliente.cpf_cnpj;
                     txtIE_RG.Text = cliente.rg_ie;
                     txtDataCadastro.Text = cliente.dataCadastro.ToString();
                     txtDataUltAlt.Text = cliente.dataUltAlt.ToString();
                     rbAtivo.Checked = cliente.Ativo;
                     rbInativo.Checked = !cliente.Ativo;
+
+                    if (cliente.data_nasc.ToString() == "01/01/1800 00:00:00") //ao carregar, se a data for igual a data padrão
+                    {
+                        txtDataNasc.Clear(); //deixa o campo vazio
+                    }
+                    else
+                    {
+                        txtDataNasc.Text = cliente.data_nasc.ToString();
+                    }
 
                     List<string> cidadeEstadoPais = clienteController.GetCEPByCidadeId(cliente.idCidade);
 
@@ -226,19 +243,34 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodCidade.Text))
             {
-                List<string> cidadeEstadoPais = clienteController.GetCEPByCidadeId(int.Parse(txtCodCidade.Text));
-
-                if (cidadeEstadoPais.Count > 0)
+                if (!VerificaNumeros(txtCodCidade.Text))
                 {
-                    string[] info = cidadeEstadoPais[0].Split(',');
-                    if (info.Length >= 3)
+                    MessageBox.Show("Cód. Cidade inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodCidade.Focus();
+                } else
+                {
+                    List<string> cidadeEstadoPais = clienteController.GetCEPByCidadeId(int.Parse(txtCodCidade.Text));
+
+                    if (cidadeEstadoPais.Count > 0)
                     {
-                        txtCidade.Text = info[0].Trim();
-                        txtUF.Text = info[1].Trim();
-                        txtPais.Text = info[2].Trim();
+                        string[] info = cidadeEstadoPais[0].Split(',');
+                        if (info.Length >= 3)
+                        {
+                            txtCidade.Text = info[0].Trim();
+                            txtUF.Text = info[1].Trim();
+                            txtPais.Text = info[2].Trim();
+                        }
+                    } else
+                    {
+                        txtCodCidade.Clear();
+                        txtCidade.Clear();
+                        txtUF.Clear();
+                        txtPais.Clear();
+                        txtCodCidade.Focus();
+                        MessageBox.Show("Código Cidade não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
+            }            
         }
     }
 }

@@ -52,6 +52,7 @@
             this.Marca});
             this.dataGridViewModelos.Location = new System.Drawing.Point(18, 55);
             this.dataGridViewModelos.Name = "dataGridViewModelos";
+            this.dataGridViewModelos.ReadOnly = true;
             this.dataGridViewModelos.Size = new System.Drawing.Size(600, 345);
             this.dataGridViewModelos.TabIndex = 8;
             this.dataGridViewModelos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewModelos_CellDoubleClick);
@@ -60,17 +61,20 @@
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // Modelo
             // 
             this.Modelo.HeaderText = "Modelo";
             this.Modelo.Name = "Modelo";
+            this.Modelo.ReadOnly = true;
             this.Modelo.Width = 300;
             // 
             // Marca
             // 
             this.Marca.HeaderText = "Marca";
             this.Marca.Name = "Marca";
+            this.Marca.ReadOnly = true;
             this.Marca.Width = 156;
             // 
             // ConsultaModelos

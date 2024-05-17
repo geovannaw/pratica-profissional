@@ -67,6 +67,7 @@
             this.DDI});
             this.dataGridViewPaises.Location = new System.Drawing.Point(18, 58);
             this.dataGridViewPaises.Name = "dataGridViewPaises";
+            this.dataGridViewPaises.ReadOnly = true;
             this.dataGridViewPaises.Size = new System.Drawing.Size(598, 339);
             this.dataGridViewPaises.TabIndex = 7;
             this.dataGridViewPaises.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPaises_CellDoubleClick);
@@ -75,22 +76,26 @@
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // País
             // 
             this.País.HeaderText = "País";
             this.País.Name = "País";
+            this.País.ReadOnly = true;
             this.País.Width = 255;
             // 
             // Sigla
             // 
             this.Sigla.HeaderText = "Sigla";
             this.Sigla.Name = "Sigla";
+            this.Sigla.ReadOnly = true;
             // 
             // DDI
             // 
             this.DDI.HeaderText = "DDI";
             this.DDI.Name = "DDI";
+            this.DDI.ReadOnly = true;
             // 
             // ConsultaPaises
             // 

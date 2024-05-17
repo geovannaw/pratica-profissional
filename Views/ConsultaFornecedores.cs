@@ -168,5 +168,30 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+
+        private void btnSair_Click_1(object sender, EventArgs e)
+        {
+            if (btnSair.Text == "Selecionar")
+            {
+                btnSair.Focus();
+                if (dataGridViewFornecedores.SelectedRows.Count > 0)
+                {
+                    int idFornecedor = Convert.ToInt32(dataGridViewFornecedores.SelectedRows[0].Cells["Código"].Value);
+                    string nomeFornecedor = dataGridViewFornecedores.SelectedRows[0].Cells["Fornecedor"].Value.ToString();
+
+                    this.Tag = new Tuple<int, string>(idFornecedor, nomeFornecedor);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, selecione um fornecedor.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                Close();
+            }
+        }
     }
 }

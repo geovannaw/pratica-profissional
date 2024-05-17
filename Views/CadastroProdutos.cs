@@ -15,12 +15,16 @@ namespace Sistema_Vendas.Views
         private ProdutoController<ProdutoModel> produtoController;
         private ConsultaFornecedores consultaFornecedores;
         private ConsultaModelos consultaModelos;
+        private ModeloController<ModeloModel> modeloController;
+        private FornecedorController<FornecedorModel> fornecedorController;
         public CadastroProdutos()
         {
             InitializeComponent();
             produtoController = new ProdutoController<ProdutoModel>();
             consultaFornecedores = new ConsultaFornecedores();
             consultaModelos = new ConsultaModelos();
+            modeloController = new ModeloController<ModeloModel>();
+            fornecedorController = new FornecedorController<FornecedorModel>();
         }
         public CadastroProdutos(int idProduto) : this()
         {
@@ -82,7 +86,7 @@ namespace Sistema_Vendas.Views
                 }
                 else
                 {
-                    novoProduto.IdProduto = idAlterar;
+                    novoProduto.idProduto = idAlterar;
                     produtoController.Alterar(novoProduto);
                 }
 
@@ -101,7 +105,7 @@ namespace Sistema_Vendas.Views
                 ProdutoModel produto = produtoController.GetById(idAlterar);
                 if (produto != null)
                 {
-                    txtCodigo.Text = produto.IdProduto.ToString();
+                    txtCodigo.Text = produto.idProduto.ToString();
                     txtDescricao.Text = produto.Descricao;
                     txtSaldo.Text = produto.Saldo.ToString();
                     txtUN.Text = produto.Unidade.ToString();
@@ -140,6 +144,93 @@ namespace Sistema_Vendas.Views
             {
                 txtDataCadastro.Text = DateTime.Now.ToString();
                 txtDataUltAlt.Text = DateTime.Now.ToString();
+            }
+        }
+
+        private void btnConsultaModelos_Click(object sender, EventArgs e)
+        {
+            consultaModelos.btnSair.Text = "Selecionar";
+
+            if (consultaModelos.ShowDialog() == DialogResult.OK)
+            {
+                var modelosDetalhes = consultaModelos.Tag as Tuple<int, string>;
+
+                if (modelosDetalhes != null)
+                {
+                    int modeloID = modelosDetalhes.Item1;
+                    string modeloNome = modelosDetalhes.Item2;
+
+                    txtCodModelo.Text = modeloID.ToString();
+                    txtModelo.Text = modeloNome;
+                }
+            }
+        }
+
+        private void btnConsultaFornecedor_Click(object sender, EventArgs e)
+        {
+            consultaFornecedores.btnSair.Text = "Selecionar";
+
+            if (consultaFornecedores.ShowDialog() == DialogResult.OK)
+            {
+                var fornecedoresDetalhes = consultaFornecedores.Tag as Tuple<int, string>;
+
+                if (fornecedoresDetalhes != null)
+                {
+                    int fornecedorID = fornecedoresDetalhes.Item1;
+                    string fornecedorNome = fornecedoresDetalhes.Item2;
+
+                    txtCodFornecedor.Text = fornecedorID.ToString();
+                    txtFornecedor.Text = fornecedorNome;
+                }
+            }
+
+        }
+
+        private void txtCodModelo_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaNumeros(txtCodModelo.Text))
+            {
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodModelo.Focus();
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(txtCodModelo.Text))
+                {
+                    ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Text));
+                    if (modelo != null)
+                    {
+                        txtModelo.Text = modelo.Modelo;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Modelo não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void txtCodFornecedor_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaNumeros(txtCodFornecedor.Text))
+            {
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodFornecedor.Focus();
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(txtCodFornecedor.Text))
+                {
+                    FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Text));
+                    if (fornecedor != null)
+                    {
+                        txtFornecedor.Text = fornecedor.cliente_razao_social;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fornecedor não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }

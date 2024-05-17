@@ -153,5 +153,17 @@ namespace Sistema_Vendas
                 return dv1 == int.Parse(cpf[9].ToString()) && dv2 == int.Parse(cpf[10].ToString());
             }
         }
+
+        public static bool ValidaEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return true;
+            else
+            {
+                string padrao = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+                Regex regex = new Regex(padrao);
+                return regex.IsMatch(email);
+            }
+        }
     }
 }

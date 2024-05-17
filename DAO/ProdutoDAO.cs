@@ -83,7 +83,7 @@ namespace Sistema_Vendas.DAO
                         dynamic obj = Activator.CreateInstance(typeof(T));
                         obj.idProduto = Convert.ToInt32(reader["idProduto"]);
                         obj.Descricao = reader["descricao"].ToString();
-                        obj.Unidade = reader["unidade"];
+                        obj.Unidade = reader["unidade"].ToString();
                         obj.Preco_venda = Convert.ToDecimal(reader["preco_venda"]);
                         produtos.Add(obj);
                     }

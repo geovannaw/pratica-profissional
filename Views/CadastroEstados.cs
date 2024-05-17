@@ -85,11 +85,6 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Campo Código País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodPais.Focus();
             }
-            else if (!CampoObrigatorio(txtPais.Text))
-            {
-                MessageBox.Show("Campo País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPais.Focus();
-            }
             else
             {
                 try

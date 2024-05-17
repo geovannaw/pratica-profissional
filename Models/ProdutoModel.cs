@@ -8,7 +8,7 @@ namespace Sistema_Vendas.Models
 {
     public class ProdutoModel
     {
-        public int IdProduto { get; set; }
+        public int idProduto { get; set; }
         public string Descricao { get; set; }
         public string Unidade { get; set; }
         public int Saldo { get; set; }

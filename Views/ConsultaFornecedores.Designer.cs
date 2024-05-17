@@ -36,6 +36,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFornecedores)).BeginInit();
             this.SuspendLayout();
             // 
+            // btnSair
+            // 
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
+            // 
             // cbBuscaInativos
             // 
             this.cbBuscaInativos.CheckedChanged += new System.EventHandler(this.cbBuscaInativos_CheckedChanged);
@@ -50,6 +54,7 @@
             this.Tipo});
             this.dataGridViewFornecedores.Location = new System.Drawing.Point(18, 56);
             this.dataGridViewFornecedores.Name = "dataGridViewFornecedores";
+            this.dataGridViewFornecedores.ReadOnly = true;
             this.dataGridViewFornecedores.Size = new System.Drawing.Size(600, 344);
             this.dataGridViewFornecedores.TabIndex = 8;
             this.dataGridViewFornecedores.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFornecedores_CellDoubleClick);
@@ -59,22 +64,26 @@
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // Fornecedor
             // 
             this.Fornecedor.HeaderText = "Fornecedor";
             this.Fornecedor.Name = "Fornecedor";
+            this.Fornecedor.ReadOnly = true;
             this.Fornecedor.Width = 255;
             // 
             // Celular
             // 
             this.Celular.HeaderText = "Celular";
             this.Celular.Name = "Celular";
+            this.Celular.ReadOnly = true;
             // 
             // Tipo
             // 
             this.Tipo.HeaderText = "Tipo";
             this.Tipo.Name = "Tipo";
+            this.Tipo.ReadOnly = true;
             // 
             // ConsultaFornecedores
             // 
