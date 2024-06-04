@@ -61,67 +61,75 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (!CampoObrigatorio(txtCidade.Text))
+            if (cidadeController.JaCadastrado(txtCidade.Text, int.Parse(txtCodEstado.Text)))
             {
-                MessageBox.Show("Campo Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cidade já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCidade.Focus();
             }
-            else if (!CampoObrigatorio(txtDDD.Text))
+            else 
             {
-                MessageBox.Show("Campo DDD é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDDD.Focus();
-            }
-            else if (!CampoObrigatorio(txtCodEstado.Text))
-            {
-                MessageBox.Show("Campo Código Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodEstado.Focus();
-            }
-            else
-            {
-                try
+                if (!CampoObrigatorio(txtCidade.Text))
                 {
-                    string cidade = txtCidade.Text;
-                    int DDD = int.Parse(txtDDD.Text);
-                    int idEstado = int.Parse(txtCodEstado.Text);
-                    DateTime dataCadastro;
-                    DateTime dataUltAlt;
-
-                    DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                    if (idAlterar != -1)
-                    {
-                        DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                    }
-                    else
-                    {
-                        DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                    }
-
-                    CidadeModel novaCidade = new CidadeModel
-                    {
-                        Cidade = cidade,
-                        DDD = DDD,
-                        idEstado = idEstado,
-                        dataCadastro = dataCadastro,
-                        dataUltAlt = dataUltAlt,
-                        Ativo = isAtivo
-                    };
-
-                    if (idAlterar == -1)
-                    {
-                        cidadeController.Salvar(novaCidade);
-                    }
-                    else
-                    {
-                        novaCidade.idCidade = idAlterar;
-                        cidadeController.Alterar(novaCidade);
-                    }
-
-                    this.DialogResult = DialogResult.OK;
+                    MessageBox.Show("Campo Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCidade.Focus();
                 }
-                catch (Exception ex)
+                else if (!CampoObrigatorio(txtDDD.Text))
                 {
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Campo DDD é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDDD.Focus();
+                }
+                else if (!CampoObrigatorio(txtCodEstado.Text))
+                {
+                    MessageBox.Show("Campo Código Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodEstado.Focus();
+                }
+                else
+                {
+                    try
+                    {
+                        string cidade = txtCidade.Text;
+                        int DDD = int.Parse(txtDDD.Text);
+                        int idEstado = int.Parse(txtCodEstado.Text);
+                        DateTime dataCadastro;
+                        DateTime dataUltAlt;
+
+                        DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
+
+                        if (idAlterar != -1)
+                        {
+                            DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
+                        }
+                        else
+                        {
+                            DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
+                        }
+
+                        CidadeModel novaCidade = new CidadeModel
+                        {
+                            Cidade = cidade,
+                            DDD = DDD,
+                            idEstado = idEstado,
+                            dataCadastro = dataCadastro,
+                            dataUltAlt = dataUltAlt,
+                            Ativo = isAtivo
+                        };
+
+                        if (idAlterar == -1)
+                        {
+                            cidadeController.Salvar(novaCidade);
+                        }
+                        else
+                        {
+                            novaCidade.idCidade = idAlterar;
+                            cidadeController.Alterar(novaCidade);
+                        }
+
+                        this.DialogResult = DialogResult.OK;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -193,6 +201,7 @@ namespace Sistema_Vendas.Views
                     else
                     {
                         MessageBox.Show("Estado não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCodEstado.Focus();
                     }
                 }
             }  

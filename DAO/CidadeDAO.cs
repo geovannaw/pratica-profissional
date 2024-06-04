@@ -64,6 +64,7 @@ namespace Sistema_Vendas.DAO
                         obj.idCidade = Convert.ToInt32(reader["idCidade"]);
                         obj.Cidade = reader["cidade"].ToString();
                         obj.DDD = Convert.ToInt32(reader["DDD"]);
+                        obj.idEstado = Convert.ToInt32(reader["idEstado"]);
                         cidades.Add(obj);
                     }
                 }

@@ -70,67 +70,75 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (!CampoObrigatorio(txtEstado.Text))
+            if (estadoController.JaCadastrado(txtEstado.Text))
             {
-                MessageBox.Show("Campo Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Estado já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEstado.Focus();
-            }
-            else if (!CampoObrigatorio(txtUF.Text))
-            {
-                MessageBox.Show("Campo UF é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtUF.Focus();
-            }
-            else if (!CampoObrigatorio(txtCodPais.Text))
-            {
-                MessageBox.Show("Campo Código País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodPais.Focus();
             }
             else
             {
-                try
+                if (!CampoObrigatorio(txtEstado.Text))
                 {
-                    string estado = txtEstado.Text;
-                    string UF = txtUF.Text;
-                    int idPais = int.Parse(txtCodPais.Text);
-                    DateTime dataCadastro;
-                    DateTime dataUltAlt;
-
-                    DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                    if (idAlterar != -1)
-                    {
-                        DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                    }
-                    else
-                    {
-                        DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                    }
-
-                    EstadoModel novoEstado = new EstadoModel
-                    {
-                        Estado = estado,
-                        UF = UF,
-                        idPais = idPais,
-                        dataCadastro = dataCadastro,
-                        dataUltAlt = dataUltAlt,
-                        Ativo = isAtivo
-                    };
-
-                    if (idAlterar == -1)
-                    {
-                        estadoController.Salvar(novoEstado);
-                    }
-                    else
-                    {
-                        novoEstado.idEstado = idAlterar;
-                        estadoController.Alterar(novoEstado);
-                    }
-
-                    this.DialogResult = DialogResult.OK;
+                    MessageBox.Show("Campo Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtEstado.Focus();
                 }
-                catch (Exception ex)
+                else if (!CampoObrigatorio(txtUF.Text))
                 {
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Campo UF é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtUF.Focus();
+                }
+                else if (!CampoObrigatorio(txtCodPais.Text))
+                {
+                    MessageBox.Show("Campo Código País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodPais.Focus();
+                }
+                else
+                {
+                    try
+                    {
+                        string estado = txtEstado.Text;
+                        string UF = txtUF.Text;
+                        int idPais = int.Parse(txtCodPais.Text);
+                        DateTime dataCadastro;
+                        DateTime dataUltAlt;
+
+                        DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
+
+                        if (idAlterar != -1)
+                        {
+                            DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
+                        }
+                        else
+                        {
+                            DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
+                        }
+
+                        EstadoModel novoEstado = new EstadoModel
+                        {
+                            Estado = estado,
+                            UF = UF,
+                            idPais = idPais,
+                            dataCadastro = dataCadastro,
+                            dataUltAlt = dataUltAlt,
+                            Ativo = isAtivo
+                        };
+
+                        if (idAlterar == -1)
+                        {
+                            estadoController.Salvar(novoEstado);
+                        }
+                        else
+                        {
+                            novoEstado.idEstado = idAlterar;
+                            estadoController.Alterar(novoEstado);
+                        }
+
+                        this.DialogResult = DialogResult.OK;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -203,6 +211,7 @@ namespace Sistema_Vendas.Views
                     else
                     {
                         MessageBox.Show("País não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCodPais.Focus();
                     }
                 }
             }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Sistema_Vendas.Controller
 {
@@ -43,6 +44,21 @@ namespace Sistema_Vendas.Controller
         public override void Salvar(T obj)
         {
             cidadeDAO.Salvar(obj);
+        }
+
+        public bool JaCadastrado(string nome, int idEstado)
+        {
+            List<CidadeModel> cidades = cidadeDAO.GetAll(false).Cast<CidadeModel>().ToList();
+
+            foreach (CidadeModel cidade in cidades)
+            {
+                if (string.Equals(cidade.Cidade, nome, StringComparison.OrdinalIgnoreCase) && cidade.idEstado == idEstado)
+                //verifica o nome da cidade e o estado, pois podem existir cidades homônimas
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

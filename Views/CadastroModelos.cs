@@ -51,49 +51,69 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            try
+            if (modeloController.JaCadastrado(txtModelo.Text))
             {
-                string modelo = txtModelo.Text;
-                string marca = txtMarca.Text;
-                string observacao = txtObservacao.Text;
-                DateTime dataCadastro;
-                DateTime dataUltAlt;
-
-                DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                if (idAlterar != -1)
-                {
-                    DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                }
-                else
-                {
-                    DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                }
-
-                ModeloModel novoModelo = new ModeloModel
-                {
-                    Modelo = modelo,
-                    Marca = marca,
-                    Observacao = observacao,
-                    dataCadastro = dataCadastro,
-                    dataUltAlt = dataUltAlt,
-                    Ativo = isAtivo
-                };
-
-                if (idAlterar == -1)
-                {
-                    modeloController.Salvar(novoModelo);
-                }
-                else
-                {
-                    novoModelo.idModelo = idAlterar;
-                    modeloController.Alterar(novoModelo);
-                }
-                this.DialogResult = DialogResult.OK;
-            }
-            catch (Exception ex)
+                MessageBox.Show("Modelo já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtModelo.Focus();
+            } else
             {
-                MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!CampoObrigatorio(txtModelo.Text))
+                {
+                    MessageBox.Show("Campo Modelo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtModelo.Focus();
+                }
+                else if (!CampoObrigatorio(txtMarca.Text))
+                {
+                    MessageBox.Show("Campo Marca é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtMarca.Focus();
+                }
+                else 
+                {
+                    try
+                    {
+                        string modelo = txtModelo.Text;
+                        string marca = txtMarca.Text;
+                        string observacao = txtObservacao.Text;
+                        DateTime dataCadastro;
+                        DateTime dataUltAlt;
+
+                        DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
+
+                        if (idAlterar != -1)
+                        {
+                            DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
+                        }
+                        else
+                        {
+                            DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
+                        }
+
+                        ModeloModel novoModelo = new ModeloModel
+                        {
+                            Modelo = modelo,
+                            Marca = marca,
+                            Observacao = observacao,
+                            dataCadastro = dataCadastro,
+                            dataUltAlt = dataUltAlt,
+                            Ativo = isAtivo
+                        };
+
+                        if (idAlterar == -1)
+                        {
+                            modeloController.Salvar(novoModelo);
+                        }
+                        else
+                        {
+                            novoModelo.idModelo = idAlterar;
+                            modeloController.Alterar(novoModelo);
+                        }
+                        this.DialogResult = DialogResult.OK;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
@@ -112,6 +132,19 @@ namespace Sistema_Vendas.Views
             {
                 txtDataCadastro.Text = DateTime.Now.ToString();
                 txtDataUltAlt.Text = DateTime.Now.ToString();
+            }
+        }
+
+        private void txtModelo_Leave(object sender, EventArgs e)
+        {
+        }
+
+        private void txtMarca_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaLetras(txtMarca.Text))
+            {
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMarca.Focus();
             }
         }
     }

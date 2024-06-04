@@ -41,5 +41,29 @@ namespace Sistema_Vendas.Controller
         {
             modeloDAO.Salvar(obj);
         }
+
+        public bool JaCadastrado(string nome)
+        {
+            List<T> obj = modeloDAO.GetAll(false);
+
+            if (typeof(T) == typeof(ModeloModel))
+            {
+                var Model = obj.Cast<ModeloModel>().ToList();
+
+                foreach (var modelo in Model)
+                {
+                    if (modelo.Modelo.Equals(nome, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Aviso: O tipo genérico T não é compatível.");
+            }
+
+            return false;
+        }
     }
 }

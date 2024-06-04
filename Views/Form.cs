@@ -30,8 +30,8 @@ namespace Sistema_Vendas
             if (string.IsNullOrWhiteSpace(texto))
                 return true;
 
-            //verificar se a string contém somente letras e espaços
-            Regex regex = new Regex("^[a-zA-Z ]+$");
+            //verificar se a string contém somente letras, espaços, acentos e ç
+            Regex regex = new Regex(@"^[a-zA-ZÀ-ü\sçÇ]+$");
 
             return regex.IsMatch(texto);
         }

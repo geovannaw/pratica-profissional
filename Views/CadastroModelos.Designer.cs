@@ -65,6 +65,7 @@
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(248, 20);
             this.txtModelo.TabIndex = 1;
+            this.txtModelo.Leave += new System.EventHandler(this.txtModelo_Leave);
             // 
             // txtMarca
             // 
@@ -72,6 +73,7 @@
             this.txtMarca.Name = "txtMarca";
             this.txtMarca.Size = new System.Drawing.Size(145, 20);
             this.txtMarca.TabIndex = 2;
+            this.txtMarca.Leave += new System.EventHandler(this.txtMarca_Leave);
             // 
             // lblModelo
             // 
