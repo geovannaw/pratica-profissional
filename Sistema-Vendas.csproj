@@ -147,6 +147,12 @@
     <Compile Include="Views\CadastroFornecedores.Designer.cs">
       <DependentUpon>CadastroFornecedores.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\CadastroFuncionarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CadastroFuncionarios.Designer.cs">
+      <DependentUpon>CadastroFuncionarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CadastroModelos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroFornecedores.resx">
       <DependentUpon>CadastroFornecedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CadastroFuncionarios.resx">
+      <DependentUpon>CadastroFuncionarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroModelos.resx">
       <DependentUpon>CadastroModelos.cs</DependentUpon>

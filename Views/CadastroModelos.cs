@@ -51,7 +51,7 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (modeloController.JaCadastrado(txtModelo.Text))
+            if (modeloController.JaCadastrado(txtModelo.Text, txtMarca.Text))
             {
                 MessageBox.Show("Modelo já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtModelo.Focus();

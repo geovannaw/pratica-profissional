@@ -163,6 +163,7 @@
             this.txtCodCidade.Name = "txtCodCidade";
             this.txtCodCidade.Size = new System.Drawing.Size(62, 20);
             this.txtCodCidade.TabIndex = 16;
+            this.txtCodCidade.Leave += new System.EventHandler(this.txtCodCidade_Leave);
             // 
             // lblPais
             // 

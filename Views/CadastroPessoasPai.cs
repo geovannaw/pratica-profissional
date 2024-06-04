@@ -262,5 +262,10 @@ namespace Sistema_Vendas.Views
                 txtIE_RG.Focus();
             }
         }
+
+        private void txtCodCidade_Leave(object sender, EventArgs e)
+        {
+
+        }
     }
 }

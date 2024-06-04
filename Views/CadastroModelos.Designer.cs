@@ -80,18 +80,18 @@
             this.lblModelo.AutoSize = true;
             this.lblModelo.Location = new System.Drawing.Point(13, 83);
             this.lblModelo.Name = "lblModelo";
-            this.lblModelo.Size = new System.Drawing.Size(42, 13);
+            this.lblModelo.Size = new System.Drawing.Size(49, 13);
             this.lblModelo.TabIndex = 14;
-            this.lblModelo.Text = "Modelo";
+            this.lblModelo.Text = "Modelo *";
             // 
             // lblMarca
             // 
             this.lblMarca.AutoSize = true;
             this.lblMarca.Location = new System.Drawing.Point(282, 83);
             this.lblMarca.Name = "lblMarca";
-            this.lblMarca.Size = new System.Drawing.Size(37, 13);
+            this.lblMarca.Size = new System.Drawing.Size(44, 13);
             this.lblMarca.TabIndex = 15;
-            this.lblMarca.Text = "Marca";
+            this.lblMarca.Text = "Marca *";
             // 
             // txtObservacao
             // 
