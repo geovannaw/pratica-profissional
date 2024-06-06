@@ -32,7 +32,7 @@ namespace Sistema_Vendas.Views
         {
             if (!CampoObrigatorio(txtCliente_razao_social.Text))
             {
-                MessageBox.Show("Campo Cliente / Razão Social é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCliente_razao_social.Focus();
                 return false;
             }
@@ -111,7 +111,6 @@ namespace Sistema_Vendas.Views
         private void rbFisica_CheckedChanged(object sender, EventArgs e)
         {
             isFisico = rbFisica.Checked;
-            lblCliente_razao_social.Text = "Cliente *";
             lblApelido_nome_fantasia.Text = "Apelido";
             lblCPF_CNPJ.Text = "CPF *";
             txtCPF_CNPJ.Mask = "000.000.000-00";
@@ -211,11 +210,7 @@ namespace Sistema_Vendas.Views
 
         private void txtBairro_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtBairro.Text))
-            {
-                MessageBox.Show("Bairro inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtBairro.Focus();
-            }
+
         }
 
         private void txtSexo_Leave(object sender, EventArgs e)
@@ -229,7 +224,8 @@ namespace Sistema_Vendas.Views
 
         private void txtCelular_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtCelular.Text))
+            string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
+            if (!VerificaNumeros(celular))
             {
                 MessageBox.Show("Celular inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCelular.Focus();
@@ -238,7 +234,8 @@ namespace Sistema_Vendas.Views
 
         private void txtTelefone_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtTelefone.Text))
+            string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
+            if (!VerificaNumeros(telefone))
             {
                 MessageBox.Show("Telefone inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtTelefone.Focus();

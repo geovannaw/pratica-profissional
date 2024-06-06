@@ -55,11 +55,13 @@ namespace Sistema_Vendas.Views
         }
         public override void Salvar()
         {
-            if (paisController.JaCadastrado(txtPais.Text))
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+
+            if (paisController.JaCadastrado(txtPais.Text, idAtual))
             {
                 MessageBox.Show("País já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPais.Focus();
-            } 
+            }
             else
             {
                 if (!CampoObrigatorio(txtPais.Text))
@@ -114,7 +116,7 @@ namespace Sistema_Vendas.Views
                         }
                         else
                         {
-                            novoPais.idPais = idAlterar; //ID do país alterado
+                            novoPais.idPais = idAlterar; // ID do país alterado
                             paisController.Alterar(novoPais);
                         }
 

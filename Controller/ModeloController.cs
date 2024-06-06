@@ -42,13 +42,13 @@ namespace Sistema_Vendas.Controller
             modeloDAO.Salvar(obj);
         }
 
-        public bool JaCadastrado(string nome, string marca)
+        public bool JaCadastrado(string nome, string marca, int idAtual)
         {
             List<ModeloModel> modelos = modeloDAO.GetAll(false).Cast<ModeloModel>().ToList();
 
             foreach (ModeloModel modelo in modelos)
             {
-                if (string.Equals(modelo.Modelo, nome, StringComparison.OrdinalIgnoreCase) && string.Equals(modelo.Marca, marca, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(modelo.Modelo, nome, StringComparison.OrdinalIgnoreCase) && string.Equals(modelo.Marca, marca, StringComparison.OrdinalIgnoreCase) && modelo.idModelo != idAtual)
                 {
                     return true;
                 }

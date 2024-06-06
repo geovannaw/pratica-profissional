@@ -45,7 +45,7 @@ namespace Sistema_Vendas.Controller
             estadoDAO.Salvar(obj);
         }
 
-        public bool JaCadastrado(string nome)
+        public bool JaCadastrado(string nome, int idAtual)
         {
             List<T> obj = estadoDAO.GetAll(false);
 
@@ -55,7 +55,7 @@ namespace Sistema_Vendas.Controller
 
                 foreach (var estado in Model)
                 {
-                    if (estado.Estado.Equals(nome, StringComparison.OrdinalIgnoreCase))
+                    if (estado.Estado.Equals(nome, StringComparison.OrdinalIgnoreCase) && estado.idEstado != idAtual)
                     {
                         return true;
                     }

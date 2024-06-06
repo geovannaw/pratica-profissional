@@ -54,6 +54,7 @@
             this.dataGridViewProdutos.Size = new System.Drawing.Size(600, 342);
             this.dataGridViewProdutos.TabIndex = 8;
             this.dataGridViewProdutos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProdutos_CellDoubleClick);
+            this.dataGridViewProdutos.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewProdutos_RowPrePaint);
             // 
             // Código
             // 

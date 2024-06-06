@@ -57,6 +57,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Location = new System.Drawing.Point(276, 15);
             this.groupBox1.TabIndex = 4;
             // 
             // txtModelo

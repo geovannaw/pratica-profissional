@@ -69,11 +69,11 @@ namespace Sistema_Vendas.Views
                     var fornecedores = fornecedorController.GetAll(cbBuscaInativos.Checked);
 
                     var resultadosPesquisa = fornecedores
-                        .Where(p => p.cliente_razao_social.ToLower().Contains(pesquisa.ToLower()))
+                        .Where(p => p.fornecedor_razao_social.ToLower().Contains(pesquisa.ToLower()))
                         .Select(fornecedor => new
                         {
                             fornecedor.idFornecedor,
-                            fornecedor.cliente_razao_social,
+                            fornecedor.fornecedor_razao_social,
                             tipo_pessoa = fornecedor.tipo_pessoa ? "Físico" : "Jurídico",
                             fornecedor.celular
                         })
@@ -103,7 +103,7 @@ namespace Sistema_Vendas.Views
                 var fornecedoresFormatados = fornecedores.Select(fornecedor => new
                 {
                     fornecedor.idFornecedor,
-                    fornecedor.cliente_razao_social,
+                    fornecedor.fornecedor_razao_social,
                     tipo_pessoa = fornecedor.tipo_pessoa ? "Físico" : "Jurídico",
                     fornecedor.celular
                 }).ToList();
@@ -125,7 +125,7 @@ namespace Sistema_Vendas.Views
 
                 dataGridViewFornecedores.AutoGenerateColumns = false;
                 dataGridViewFornecedores.Columns["Código"].DataPropertyName = "idFornecedor";
-                dataGridViewFornecedores.Columns["Fornecedor"].DataPropertyName = "cliente_razao_social";
+                dataGridViewFornecedores.Columns["Fornecedor"].DataPropertyName = "fornecedor_razao_social";
                 dataGridViewFornecedores.Columns["Tipo"].DataPropertyName = "tipo_pessoa";
                 dataGridViewFornecedores.Columns["Celular"].DataPropertyName = "celular";
 

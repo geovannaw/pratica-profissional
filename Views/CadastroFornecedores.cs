@@ -20,7 +20,8 @@ namespace Sistema_Vendas.Views
         {
             InitializeComponent();
             fornecedorController = new FornecedorController<FornecedorModel>();
-            consultaCidades = new ConsultaCidades();    
+            consultaCidades = new ConsultaCidades();
+            lblCliente_razao_social.Text = "Fornecedor *";
         }
         public CadastroFornecedores(int idFornecedor) : this()
         {
@@ -32,119 +33,113 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            try
+            if (!VerificaCamposObrigatorios())
             {
-                string cliente_razao_social = txtCliente_razao_social.Text;
-                string apelido_nome_fantasia = txtApelido_nome_fantasia.Text;
-                string endereco = txtEndereco.Text;
-                string bairro = txtBairro.Text;
-                int numero = Convert.ToInt32(txtNumero.Text);
-                string cep = new string(txtCEP.Text.Where(char.IsDigit).ToArray());
-                string complemento = txtComplemento.Text;
-                string email = txtEmail.Text;
-                string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
-                string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
-                string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
-                string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
-                int idCidade = int.Parse(txtCodCidade.Text);
-
-                DateTime data_nasc;
-                string entradaData = txtDataNasc.Text;
-
-                if (DateTime.TryParse(entradaData, out data_nasc))
-                {
-                    //se a conversão for bem-sucedida, é utilizado a data convertida
-                    txtDataNasc.Text = data_nasc.ToString("dd/MM/yyyy");
-                }
-                else
-                {
-                    //se a conversão falhar, é definida uma data padrão
-                    txtDataNasc.Text = "01/01/1800";
-                    data_nasc = new DateTime(1800, 1, 1);
-                }
-
-                DateTime dataCadastro;
-                DateTime dataUltAlt;
-
-                DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                string sexo;
-                if (isFisico)
-                {
-                    sexo = txtSexo.SelectedItem.ToString();
-                }
-                else
-                {
-                    sexo = "Outro"; //quando for jurídico não tem
-                }
-
-                if (idAlterar != -1)
-                {
-                    DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                }
-                else
-                {
-                    DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                }
-
-                FornecedorModel novoFornecedor = new FornecedorModel
-                {
-                    tipo_pessoa = isFisico,
-                    cliente_razao_social = cliente_razao_social,
-                    apelido_nome_fantasia = apelido_nome_fantasia,
-                    endereco = endereco,
-                    bairro = bairro,
-                    numero = numero,
-                    cep = cep,
-                    complemento = complemento,
-                    sexo = sexo,
-                    email = email,
-                    telefone = telefone,
-                    celular = celular,
-                    data_nasc = data_nasc,
-                    cpf_cnpj = cpf_cnpj,
-                    rg_ie = rg_ie,
-                    Ativo = isAtivo,
-                    dataCadastro = dataCadastro,
-                    dataUltAlt = dataUltAlt,
-                    idCidade = idCidade
-                };
-
-                MessageBox.Show("TIPO PESSOA: " + isFisico +
-                " CLIENTE: " + cliente_razao_social +
-                " APELIDO: " + apelido_nome_fantasia +
-                " ENDERECO: " + endereco +
-                " BAIRRO: " + bairro +
-                " NRO: " + numero +
-                " CEP: " + cep +
-                " COMP: " + complemento +
-                " SEXO: " + sexo +
-                " TEL: " + telefone +
-                " CEL: " + celular +
-                " DATA_NASC: " + data_nasc +
-                " CPF: " + cpf_cnpj +
-                " RG IE: " + rg_ie +
-                " ATIVO: " + isAtivo +
-                " DATA CAD: " + dataCadastro +
-                " DATA ULT ALT: " + dataUltAlt +
-                " ID CIDADE: " + idCidade
-                , "DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                if (idAlterar == -1)
-                {
-                    fornecedorController.Salvar(novoFornecedor);
-                }
-                else
-                {
-                    novoFornecedor.idFornecedor = idAlterar;
-                    fornecedorController.Alterar(novoFornecedor);
-                }
-
-                this.DialogResult = DialogResult.OK;
+                return;
             }
-            catch (Exception ex)
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+            string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
+
+            if (fornecedorController.JaCadastrado(cpf_cnpj, idAtual))
             {
-                MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Fornecedor já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCPF_CNPJ.Focus();
+            }
+            else
+            {
+                try
+                {
+                    string cliente_razao_social = txtCliente_razao_social.Text;
+                    string apelido_nome_fantasia = txtApelido_nome_fantasia.Text;
+                    string endereco = txtEndereco.Text;
+                    string bairro = txtBairro.Text;
+                    int numero = Convert.ToInt32(txtNumero.Text);
+                    string cep = new string(txtCEP.Text.Where(char.IsDigit).ToArray());
+                    string complemento = txtComplemento.Text;
+                    string email = txtEmail.Text;
+                    string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
+                    string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
+                    string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
+                    int idCidade = int.Parse(txtCodCidade.Text);
+
+                    DateTime data_nasc;
+                    string entradaData = txtDataNasc.Text;
+
+                    if (DateTime.TryParse(entradaData, out data_nasc))
+                    {
+                        //se a conversão for bem-sucedida, é utilizado a data convertida
+                        txtDataNasc.Text = data_nasc.ToString("dd/MM/yyyy");
+                    }
+                    else
+                    {
+                        //se a conversão falhar, é definida uma data padrão
+                        txtDataNasc.Text = "01/01/1800";
+                        data_nasc = new DateTime(1800, 1, 1);
+                    }
+
+                    DateTime dataCadastro;
+                    DateTime dataUltAlt;
+
+                    DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
+
+                    string sexo;
+                    if (isFisico)
+                    {
+                        sexo = txtSexo.SelectedItem.ToString();
+                    }
+                    else
+                    {
+                        sexo = "Outro"; //quando for jurídico não tem
+                    }
+
+                    if (idAlterar != -1)
+                    {
+                        DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
+                    }
+                    else
+                    {
+                        DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
+                    }
+
+                    FornecedorModel novoFornecedor = new FornecedorModel
+                    {
+                        tipo_pessoa = isFisico,
+                        fornecedor_razao_social = cliente_razao_social,
+                        apelido_nome_fantasia = apelido_nome_fantasia,
+                        endereco = endereco,
+                        bairro = bairro,
+                        numero = numero,
+                        cep = cep,
+                        complemento = complemento,
+                        sexo = sexo,
+                        email = email,
+                        telefone = telefone,
+                        celular = celular,
+                        data_nasc = data_nasc,
+                        cpf_cnpj = cpf_cnpj,
+                        rg_ie = rg_ie,
+                        Ativo = isAtivo,
+                        dataCadastro = dataCadastro,
+                        dataUltAlt = dataUltAlt,
+                        idCidade = idCidade
+                    };
+
+                    if (idAlterar == -1)
+                    {
+                        fornecedorController.Salvar(novoFornecedor);
+                    }
+                    else
+                    {
+                        novoFornecedor.idFornecedor = idAlterar;
+                        fornecedorController.Alterar(novoFornecedor);
+                    }
+
+                    this.DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -158,7 +153,7 @@ namespace Sistema_Vendas.Views
                     txtCodigo.Text = fornecedor.idFornecedor.ToString();
                     rbFisica.Checked = fornecedor.tipo_pessoa;
                     rbJuridica.Checked = !fornecedor.tipo_pessoa;
-                    txtCliente_razao_social.Text = fornecedor.cliente_razao_social;
+                    txtCliente_razao_social.Text = fornecedor.fornecedor_razao_social;
                     txtApelido_nome_fantasia.Text = fornecedor.apelido_nome_fantasia;
                     txtEndereco.Text = fornecedor.endereco;
                     txtBairro.Text = fornecedor.bairro;
@@ -237,24 +232,6 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void CadastroFornecedor_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            ((ConsultaFornecedores)this.Owner).AtualizarConsultaFornecedores(false);
-        }
-
-        private void CadastroFornecedores_Load(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
-            }
-        }
-
         private void txtCodCidade_Leave(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtCodCidade.Text))
@@ -294,6 +271,38 @@ namespace Sistema_Vendas.Views
         private void txtIE_RG_Leave(object sender, EventArgs e)
         {
 
+        }
+
+        private void CadastroFornecedores_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ((ConsultaFornecedores)this.Owner).AtualizarConsultaFornecedores(false);
+        }
+
+        private void CadastroFornecedores_Load(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                txtCodigo.Text = "0";
+            }
+            if (idAlterar == -1)
+            {
+                txtDataCadastro.Text = DateTime.Now.ToString();
+                txtDataUltAlt.Text = DateTime.Now.ToString();
+            }
+        }
+
+        private void txtCliente_razao_social_Leave(object sender, EventArgs e)
+        {
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+            if (fornecedorController.BuscaNome(txtCliente_razao_social.Text, idAtual))
+            {
+                MessageBox.Show("Fornecedor / Razão Social já existe no cadastro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void rbFisica_CheckedChanged(object sender, EventArgs e)
+        {
+            lblCliente_razao_social.Text = "Fornecedor *";
         }
     }
 }

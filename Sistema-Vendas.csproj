@@ -108,6 +108,7 @@
     <Compile Include="Controller\DadosEmpresaController.cs" />
     <Compile Include="Controller\EstadoController.cs" />
     <Compile Include="Controller\FornecedorController.cs" />
+    <Compile Include="Controller\FuncionarioController.cs" />
     <Compile Include="Controller\ModeloController.cs" />
     <Compile Include="Controller\PaisController.cs" />
     <Compile Include="Controller\ProdutoController.cs" />
@@ -115,12 +116,14 @@
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\DadosEmpresaDAO.cs" />
     <Compile Include="DAO\FornecedorDAO.cs" />
+    <Compile Include="DAO\FuncionarioDAO.cs" />
     <Compile Include="DAO\ModeloDAO.cs" />
     <Compile Include="DAO\ProdutoDAO.cs" />
     <Compile Include="Models\CidadeModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\DadosEmpresaModel.cs" />
     <Compile Include="Models\FornecedorModel.cs" />
+    <Compile Include="Models\FuncionarioModel.cs" />
     <Compile Include="Models\ModeloModel.cs" />
     <Compile Include="Models\ProdutoModel.cs" />
     <Compile Include="Views\CadastroCidades.cs">
@@ -211,6 +214,12 @@
     <Compile Include="Views\ConsultaFornecedores.Designer.cs">
       <DependentUpon>ConsultaFornecedores.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsultaFuncionarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultaFuncionarios.Designer.cs">
+      <DependentUpon>ConsultaFuncionarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConsultaModelos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -294,6 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaFornecedores.resx">
       <DependentUpon>ConsultaFornecedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultaFuncionarios.resx">
+      <DependentUpon>ConsultaFuncionarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaModelos.resx">
       <DependentUpon>ConsultaModelos.cs</DependentUpon>

@@ -60,9 +60,6 @@
             this.lblApelido_nome_fantasia = new System.Windows.Forms.Label();
             this.lblCliente_razao_social = new System.Windows.Forms.Label();
             this.lblCodigo = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbJuridica = new System.Windows.Forms.RadioButton();
-            this.rbFisica = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rbInativo = new System.Windows.Forms.RadioButton();
             this.rbAtivo = new System.Windows.Forms.RadioButton();
@@ -80,9 +77,12 @@
             this.txtIE_RG = new System.Windows.Forms.TextBox();
             this.txtTelefone = new System.Windows.Forms.TextBox();
             this.txtCelular = new System.Windows.Forms.TextBox();
+            this.rbFisica = new System.Windows.Forms.RadioButton();
+            this.rbJuridica = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblIE_RG
@@ -380,47 +380,11 @@
             this.lblCodigo.TabIndex = 25;
             this.lblCodigo.Text = "Código";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rbJuridica);
-            this.groupBox2.Controls.Add(this.rbFisica);
-            this.groupBox2.Location = new System.Drawing.Point(147, 19);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(157, 49);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Pessoa";
-            // 
-            // rbJuridica
-            // 
-            this.rbJuridica.AutoSize = true;
-            this.rbJuridica.Location = new System.Drawing.Point(80, 20);
-            this.rbJuridica.Name = "rbJuridica";
-            this.rbJuridica.Size = new System.Drawing.Size(63, 17);
-            this.rbJuridica.TabIndex = 3;
-            this.rbJuridica.TabStop = true;
-            this.rbJuridica.Text = "Jurídica";
-            this.rbJuridica.UseVisualStyleBackColor = true;
-            this.rbJuridica.CheckedChanged += new System.EventHandler(this.rbJuridica_CheckedChanged);
-            // 
-            // rbFisica
-            // 
-            this.rbFisica.AutoSize = true;
-            this.rbFisica.Checked = true;
-            this.rbFisica.Location = new System.Drawing.Point(16, 20);
-            this.rbFisica.Name = "rbFisica";
-            this.rbFisica.Size = new System.Drawing.Size(54, 17);
-            this.rbFisica.TabIndex = 2;
-            this.rbFisica.TabStop = true;
-            this.rbFisica.Text = "Física";
-            this.rbFisica.UseVisualStyleBackColor = true;
-            this.rbFisica.CheckedChanged += new System.EventHandler(this.rbFisica_CheckedChanged);
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.rbInativo);
             this.groupBox3.Controls.Add(this.rbAtivo);
-            this.groupBox3.Location = new System.Drawing.Point(27, 406);
+            this.groupBox3.Location = new System.Drawing.Point(614, 19);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(157, 49);
             this.groupBox3.TabIndex = 24;
@@ -455,7 +419,7 @@
             // lblDataUltAlt
             // 
             this.lblDataUltAlt.AutoSize = true;
-            this.lblDataUltAlt.Location = new System.Drawing.Point(112, 476);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(112, 434);
             this.lblDataUltAlt.Name = "lblDataUltAlt";
             this.lblDataUltAlt.Size = new System.Drawing.Size(67, 13);
             this.lblDataUltAlt.TabIndex = 48;
@@ -464,7 +428,7 @@
             // lblDataCadastro
             // 
             this.lblDataCadastro.AutoSize = true;
-            this.lblDataCadastro.Location = new System.Drawing.Point(24, 476);
+            this.lblDataCadastro.Location = new System.Drawing.Point(24, 434);
             this.lblDataCadastro.Name = "lblDataCadastro";
             this.lblDataCadastro.Size = new System.Drawing.Size(75, 13);
             this.lblDataCadastro.TabIndex = 47;
@@ -473,7 +437,7 @@
             // txtDataUltAlt
             // 
             this.txtDataUltAlt.Enabled = false;
-            this.txtDataUltAlt.Location = new System.Drawing.Point(115, 492);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(115, 450);
             this.txtDataUltAlt.Mask = "00/00/0000";
             this.txtDataUltAlt.Name = "txtDataUltAlt";
             this.txtDataUltAlt.Size = new System.Drawing.Size(67, 20);
@@ -483,7 +447,7 @@
             // txtDataCadastro
             // 
             this.txtDataCadastro.Enabled = false;
-            this.txtDataCadastro.Location = new System.Drawing.Point(27, 492);
+            this.txtDataCadastro.Location = new System.Drawing.Point(27, 450);
             this.txtDataCadastro.Mask = "00/00/0000";
             this.txtDataCadastro.Name = "txtDataCadastro";
             this.txtDataCadastro.Size = new System.Drawing.Size(67, 20);
@@ -492,7 +456,7 @@
             // 
             // btnSair
             // 
-            this.btnSair.Location = new System.Drawing.Point(696, 489);
+            this.btnSair.Location = new System.Drawing.Point(696, 447);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(75, 23);
             this.btnSair.TabIndex = 28;
@@ -502,7 +466,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(615, 489);
+            this.btnSalvar.Location = new System.Drawing.Point(615, 447);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 23);
             this.btnSalvar.TabIndex = 27;
@@ -585,11 +549,47 @@
             this.txtCelular.TabIndex = 8;
             this.txtCelular.Leave += new System.EventHandler(this.txtCelular_Leave);
             // 
+            // rbFisica
+            // 
+            this.rbFisica.AutoSize = true;
+            this.rbFisica.Checked = true;
+            this.rbFisica.Location = new System.Drawing.Point(16, 20);
+            this.rbFisica.Name = "rbFisica";
+            this.rbFisica.Size = new System.Drawing.Size(54, 17);
+            this.rbFisica.TabIndex = 2;
+            this.rbFisica.TabStop = true;
+            this.rbFisica.Text = "Física";
+            this.rbFisica.UseVisualStyleBackColor = true;
+            this.rbFisica.CheckedChanged += new System.EventHandler(this.rbFisica_CheckedChanged);
+            // 
+            // rbJuridica
+            // 
+            this.rbJuridica.AutoSize = true;
+            this.rbJuridica.Location = new System.Drawing.Point(80, 20);
+            this.rbJuridica.Name = "rbJuridica";
+            this.rbJuridica.Size = new System.Drawing.Size(63, 17);
+            this.rbJuridica.TabIndex = 3;
+            this.rbJuridica.TabStop = true;
+            this.rbJuridica.Text = "Jurídica";
+            this.rbJuridica.UseVisualStyleBackColor = true;
+            this.rbJuridica.CheckedChanged += new System.EventHandler(this.rbJuridica_CheckedChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rbJuridica);
+            this.groupBox2.Controls.Add(this.rbFisica);
+            this.groupBox2.Location = new System.Drawing.Point(147, 19);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(157, 49);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Pessoa";
+            // 
             // CadastroPessoasPai
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 536);
+            this.ClientSize = new System.Drawing.Size(800, 491);
             this.Controls.Add(this.txtCelular);
             this.Controls.Add(this.txtTelefone);
             this.Controls.Add(this.txtIE_RG);
@@ -625,10 +625,10 @@
             this.Load += new System.EventHandler(this.CadastroPessoasPai_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -637,10 +637,6 @@
         #endregion
         private System.Windows.Forms.Label lblEndereco;
         private System.Windows.Forms.Label lblCEP;
-        protected System.Windows.Forms.RadioButton rbJuridica;
-        protected System.Windows.Forms.RadioButton rbFisica;
-        protected System.Windows.Forms.RadioButton rbInativo;
-        protected System.Windows.Forms.RadioButton rbAtivo;
         protected System.Windows.Forms.Label lblDataUltAlt;
         protected System.Windows.Forms.Label lblDataCadastro;
         protected System.Windows.Forms.MaskedTextBox txtDataUltAlt;
@@ -660,8 +656,6 @@
         protected System.Windows.Forms.Label lblApelido_nome_fantasia;
         protected System.Windows.Forms.Label lblCliente_razao_social;
         protected System.Windows.Forms.Label lblCodigo;
-        protected System.Windows.Forms.GroupBox groupBox2;
-        protected System.Windows.Forms.GroupBox groupBox3;
         protected System.Windows.Forms.Label lblPais;
         protected System.Windows.Forms.TextBox txtPais;
         protected System.Windows.Forms.Label lblUF;
@@ -687,5 +681,11 @@
         protected System.Windows.Forms.TextBox txtIE_RG;
         protected System.Windows.Forms.TextBox txtTelefone;
         protected System.Windows.Forms.TextBox txtCelular;
+        public System.Windows.Forms.RadioButton rbInativo;
+        public System.Windows.Forms.RadioButton rbAtivo;
+        public System.Windows.Forms.GroupBox groupBox3;
+        protected System.Windows.Forms.RadioButton rbFisica;
+        protected System.Windows.Forms.RadioButton rbJuridica;
+        protected System.Windows.Forms.GroupBox groupBox2;
     }
 }

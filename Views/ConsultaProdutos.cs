@@ -14,6 +14,7 @@ namespace Sistema_Vendas.Views
     public partial class ConsultaProdutos : Sistema_Vendas.ConsultaPai
     {
         private ProdutoController<ProdutoModel> produtoController;
+
         public ConsultaProdutos()
         {
             InitializeComponent();
@@ -59,9 +60,21 @@ namespace Sistema_Vendas.Views
             }
         }
 
+        public void AtualizarConsultaProdutos(bool incluirInativos)
+        {
+            try
+            { 
+                dataGridViewProdutos.DataSource = produtoController.GetAll(incluirInativos); ;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu um erro ao atualizar a consulta de produtos: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public override void Pesquisar()
         {
-            string pesquisa = txtPesquisar.Text.Trim(); 
+            string pesquisa = txtPesquisar.Text.Trim();
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
@@ -78,18 +91,6 @@ namespace Sistema_Vendas.Views
             else
             {
                 AtualizarConsultaProdutos(cbBuscaInativos.Checked);
-            }
-        }
-
-        public void AtualizarConsultaProdutos(bool incluirInativos)
-        {
-            try
-            {
-                dataGridViewProdutos.DataSource = produtoController.GetAll(incluirInativos);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ocorreu um erro ao atualizar a consulta de produtos: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -130,6 +131,11 @@ namespace Sistema_Vendas.Views
         {
             bool incluirInativos = cbBuscaInativos.Checked;
             AtualizarConsultaProdutos(incluirInativos);
+        }
+
+        private void dataGridViewProdutos_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+
         }
     }
 }

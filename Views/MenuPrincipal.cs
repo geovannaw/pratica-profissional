@@ -77,5 +77,11 @@ namespace Sistema_Vendas
             ConsultaProdutos consultaProdutos = new ConsultaProdutos();
             consultaProdutos.ShowDialog();
         }
+
+        private void funcionáriosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaFuncionarios consultaFuncionarios = new ConsultaFuncionarios();
+            consultaFuncionarios.ShowDialog();
+        }
     }
 }

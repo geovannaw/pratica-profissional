@@ -61,7 +61,8 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (cidadeController.JaCadastrado(txtCidade.Text, int.Parse(txtCodEstado.Text)))
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+            if (cidadeController.JaCadastrado(txtCidade.Text, int.Parse(txtCodEstado.Text), idAtual))
             {
                 MessageBox.Show("Cidade já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCidade.Focus();

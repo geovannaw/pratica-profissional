@@ -46,13 +46,13 @@ namespace Sistema_Vendas.Controller
             cidadeDAO.Salvar(obj);
         }
 
-        public bool JaCadastrado(string nome, int idEstado)
+        public bool JaCadastrado(string nome, int idEstado, int idAtual)
         {
             List<CidadeModel> cidades = cidadeDAO.GetAll(false).Cast<CidadeModel>().ToList();
 
             foreach (CidadeModel cidade in cidades)
             {
-                if (string.Equals(cidade.Cidade, nome, StringComparison.OrdinalIgnoreCase) && cidade.idEstado == idEstado)
+                if (string.Equals(cidade.Cidade, nome, StringComparison.OrdinalIgnoreCase) && cidade.idEstado == idEstado && cidade.idCidade != idAtual)
                 //verifica o nome da cidade e o estado, pois podem existir cidades homônimas
                 {
                     return true;

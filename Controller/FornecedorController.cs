@@ -1,4 +1,5 @@
 ﻿using Sistema_Vendas.DAO;
+using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,34 @@ namespace Sistema_Vendas.Controller
         public override void Salvar(T obj)
         {
             fornecedorDAO.Salvar(obj);
+        }
+
+        public bool JaCadastrado(string cpf_cnpj, int idAtual)
+        {
+            List<FornecedorModel> fornecedores = fornecedorDAO.GetAll(false).Cast<FornecedorModel>().ToList();
+
+            foreach (FornecedorModel fornecedor in fornecedores)
+            {
+                if (string.Equals(fornecedor.cpf_cnpj, cpf_cnpj, StringComparison.OrdinalIgnoreCase) && fornecedor.idFornecedor != idAtual)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool BuscaNome(string fornecedor_razao_social, int idAtual)
+        {
+            List<FornecedorModel> fornecedores = fornecedorDAO.GetAll(false).Cast<FornecedorModel>().ToList();
+
+            foreach (FornecedorModel fornecedor in fornecedores)
+            {
+                if (string.Equals(fornecedor.fornecedor_razao_social, fornecedor_razao_social, StringComparison.OrdinalIgnoreCase) && fornecedor.idFornecedor != idAtual)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

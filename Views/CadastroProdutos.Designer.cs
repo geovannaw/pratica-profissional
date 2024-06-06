@@ -61,31 +61,31 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(434, 500);
+            this.btnSalvar.Location = new System.Drawing.Point(437, 415);
             // 
             // btnSair
             // 
-            this.btnSair.Location = new System.Drawing.Point(515, 500);
+            this.btnSair.Location = new System.Drawing.Point(518, 415);
             // 
             // txtDataCadastro
             // 
-            this.txtDataCadastro.Location = new System.Drawing.Point(12, 503);
+            this.txtDataCadastro.Location = new System.Drawing.Point(15, 418);
             // 
             // txtDataUltAlt
             // 
-            this.txtDataUltAlt.Location = new System.Drawing.Point(100, 503);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(103, 418);
             // 
             // lblDataCadastro
             // 
-            this.lblDataCadastro.Location = new System.Drawing.Point(9, 487);
+            this.lblDataCadastro.Location = new System.Drawing.Point(12, 402);
             // 
             // lblDataUltAlt
             // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(97, 487);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(100, 402);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(12, 415);
+            this.groupBox1.Location = new System.Drawing.Point(444, 14);
             // 
             // txtDescricao
             // 
@@ -100,9 +100,11 @@
             this.txtUN.Name = "txtUN";
             this.txtUN.Size = new System.Drawing.Size(64, 20);
             this.txtUN.TabIndex = 13;
+            this.txtUN.Leave += new System.EventHandler(this.txtUN_Leave);
             // 
             // txtModelo
             // 
+            this.txtModelo.Enabled = false;
             this.txtModelo.Location = new System.Drawing.Point(147, 155);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(175, 20);
@@ -110,6 +112,7 @@
             // 
             // txtMarca
             // 
+            this.txtMarca.Enabled = false;
             this.txtMarca.Location = new System.Drawing.Point(334, 155);
             this.txtMarca.Name = "txtMarca";
             this.txtMarca.Size = new System.Drawing.Size(175, 20);
@@ -120,9 +123,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 79);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 16;
-            this.label1.Text = "Descrição";
+            this.label1.Text = "Descrição *";
             // 
             // btnConsultaModelos
             // 
@@ -139,9 +142,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(523, 79);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(23, 13);
+            this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 23;
-            this.label2.Text = "UN";
+            this.label2.Text = "UN *";
             // 
             // label3
             // 
@@ -175,9 +178,9 @@
             this.lblCodFornecedor.AutoSize = true;
             this.lblCodFornecedor.Location = new System.Drawing.Point(13, 200);
             this.lblCodFornecedor.Name = "lblCodFornecedor";
-            this.lblCodFornecedor.Size = new System.Drawing.Size(86, 13);
+            this.lblCodFornecedor.Size = new System.Drawing.Size(93, 13);
             this.lblCodFornecedor.TabIndex = 30;
-            this.lblCodFornecedor.Text = "Cód. Fornecedor";
+            this.lblCodFornecedor.Text = "Cód. Fornecedor *";
             // 
             // btnConsultaFornecedor
             // 
@@ -191,6 +194,7 @@
             // 
             // txtFornecedor
             // 
+            this.txtFornecedor.Enabled = false;
             this.txtFornecedor.Location = new System.Drawing.Point(147, 216);
             this.txtFornecedor.Name = "txtFornecedor";
             this.txtFornecedor.Size = new System.Drawing.Size(360, 20);
@@ -209,9 +213,9 @@
             this.lblCodModelol.AutoSize = true;
             this.lblCodModelol.Location = new System.Drawing.Point(13, 139);
             this.lblCodModelol.Name = "lblCodModelol";
-            this.lblCodModelol.Size = new System.Drawing.Size(67, 13);
+            this.lblCodModelol.Size = new System.Drawing.Size(74, 13);
             this.lblCodModelol.TabIndex = 33;
-            this.lblCodModelol.Text = "Cód. Modelo";
+            this.lblCodModelol.Text = "Cód. Modelo *";
             // 
             // txtCodModelo
             // 
@@ -227,6 +231,7 @@
             this.txtSaldo.Name = "txtSaldo";
             this.txtSaldo.Size = new System.Drawing.Size(100, 20);
             this.txtSaldo.TabIndex = 34;
+            this.txtSaldo.Leave += new System.EventHandler(this.txtSaldo_Leave);
             // 
             // txtCustoMedio
             // 
@@ -234,6 +239,7 @@
             this.txtCustoMedio.Name = "txtCustoMedio";
             this.txtCustoMedio.Size = new System.Drawing.Size(100, 20);
             this.txtCustoMedio.TabIndex = 35;
+            this.txtCustoMedio.Leave += new System.EventHandler(this.txtCustoMedio_Leave);
             // 
             // txtPrecoVenda
             // 
@@ -241,33 +247,34 @@
             this.txtPrecoVenda.Name = "txtPrecoVenda";
             this.txtPrecoVenda.Size = new System.Drawing.Size(100, 20);
             this.txtPrecoVenda.TabIndex = 36;
+            this.txtPrecoVenda.Leave += new System.EventHandler(this.txtPrecoVenda_Leave);
             // 
             // lblSaldo
             // 
             this.lblSaldo.AutoSize = true;
             this.lblSaldo.Location = new System.Drawing.Point(13, 256);
             this.lblSaldo.Name = "lblSaldo";
-            this.lblSaldo.Size = new System.Drawing.Size(34, 13);
+            this.lblSaldo.Size = new System.Drawing.Size(41, 13);
             this.lblSaldo.TabIndex = 37;
-            this.lblSaldo.Text = "Saldo";
+            this.lblSaldo.Text = "Saldo *";
             // 
             // lblCustoMedio
             // 
             this.lblCustoMedio.AutoSize = true;
             this.lblCustoMedio.Location = new System.Drawing.Point(136, 256);
             this.lblCustoMedio.Name = "lblCustoMedio";
-            this.lblCustoMedio.Size = new System.Drawing.Size(66, 13);
+            this.lblCustoMedio.Size = new System.Drawing.Size(73, 13);
             this.lblCustoMedio.TabIndex = 38;
-            this.lblCustoMedio.Text = "Custo Médio";
+            this.lblCustoMedio.Text = "Custo Médio *";
             // 
             // lblPrecoVenda
             // 
             this.lblPrecoVenda.AutoSize = true;
             this.lblPrecoVenda.Location = new System.Drawing.Point(257, 256);
             this.lblPrecoVenda.Name = "lblPrecoVenda";
-            this.lblPrecoVenda.Size = new System.Drawing.Size(69, 13);
+            this.lblPrecoVenda.Size = new System.Drawing.Size(76, 13);
             this.lblPrecoVenda.TabIndex = 39;
-            this.lblPrecoVenda.Text = "Preço Venda";
+            this.lblPrecoVenda.Text = "Preço Venda *";
             // 
             // txtPrecoUltCompra
             // 
@@ -275,6 +282,7 @@
             this.txtPrecoUltCompra.Name = "txtPrecoUltCompra";
             this.txtPrecoUltCompra.Size = new System.Drawing.Size(100, 20);
             this.txtPrecoUltCompra.TabIndex = 40;
+            this.txtPrecoUltCompra.Leave += new System.EventHandler(this.txtPrecoUltCompra_Leave);
             // 
             // lblPrecoUltCompra
             // 
@@ -316,14 +324,14 @@
             this.lblObservacao.AutoSize = true;
             this.lblObservacao.Location = new System.Drawing.Point(13, 316);
             this.lblObservacao.Name = "lblObservacao";
-            this.lblObservacao.Size = new System.Drawing.Size(65, 13);
+            this.lblObservacao.Size = new System.Drawing.Size(72, 13);
             this.lblObservacao.TabIndex = 45;
-            this.lblObservacao.Text = "Observação";
+            this.lblObservacao.Text = "Observação *";
             // 
             // CadastroProdutos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(608, 536);
+            this.ClientSize = new System.Drawing.Size(608, 454);
             this.Controls.Add(this.lblObservacao);
             this.Controls.Add(this.txtObservacao);
             this.Controls.Add(this.lblDataUltCompra);

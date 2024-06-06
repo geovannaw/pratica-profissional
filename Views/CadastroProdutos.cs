@@ -118,9 +118,20 @@ namespace Sistema_Vendas.Views
                     txtDataUltAlt.Text = produto.dataUltAlt.ToString();
                     rbAtivo.Checked = produto.Ativo;
                     rbInativo.Checked = !produto.Ativo;
-                    txtFornecedor.Text = produto.idFornecedor.ToString();
-                    txtModelo.Text = produto.idModelo.ToString();
+                    txtCodFornecedor.Text = produto.idFornecedor.ToString();
+                    txtCodModelo.Text = produto.idModelo.ToString();
 
+                    ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Text));
+                    if (modelo != null)
+                    {
+                        txtModelo.Text = modelo.Modelo;
+                    }
+
+                    FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Text));
+                    if (fornecedor != null)
+                    {
+                        txtFornecedor.Text = fornecedor.fornecedor_razao_social;
+                    }
                 }
                 else
                 {
@@ -224,13 +235,58 @@ namespace Sistema_Vendas.Views
                     FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Text));
                     if (fornecedor != null)
                     {
-                        txtFornecedor.Text = fornecedor.cliente_razao_social;
+                        txtFornecedor.Text = fornecedor.fornecedor_razao_social;
                     }
                     else
                     {
                         MessageBox.Show("Fornecedor não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+        }
+
+        private void txtUN_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaLetras(txtUN.Text))
+            {
+                MessageBox.Show("UN inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUN.Focus();
+            }
+        }
+
+        private void txtSaldo_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaNumeros(txtSaldo.Text))
+            {
+                MessageBox.Show("Saldo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtSaldo.Focus();
+            }
+        }
+
+        private void txtCustoMedio_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaNumeros(txtCustoMedio.Text))
+            {
+                MessageBox.Show("Custo Médio inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCustoMedio.Focus();
+            }
+        }
+
+        private void txtPrecoVenda_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaNumeros(txtPrecoVenda.Text))
+            {
+                MessageBox.Show("Preço Venda inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPrecoVenda.Focus();
+            }
+        }
+
+        private void txtPrecoUltCompra_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaNumeros(txtPrecoUltCompra.Text))
+            {
+                MessageBox.Show("Preço Última Compra inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPrecoUltCompra.Focus();
             }
         }
     }

@@ -91,6 +91,7 @@ namespace Sistema_Vendas.DAO
                         obj.cliente_razao_social = reader["cliente_razao_social"].ToString();
                         obj.tipo_pessoa = Convert.ToBoolean(reader["tipo_pessoa"]);
                         obj.celular = reader["celular"].ToString();
+                        obj.cpf_cnpj = reader["cpf_cnpj"].ToString();
                         clientes.Add(obj);
                     }
                 }

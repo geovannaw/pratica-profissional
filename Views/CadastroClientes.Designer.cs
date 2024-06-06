@@ -29,9 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // txtCliente_razao_social
+            // 
+            this.txtCliente_razao_social.Leave += new System.EventHandler(this.txtCliente_razao_social_Leave);
             // 
             // btnConsultaCidades
             // 
@@ -46,20 +50,28 @@
             // 
             this.txtCodCidade.Leave += new System.EventHandler(this.txtCodCidade_Leave);
             // 
+            // rbFisica
+            // 
+            this.rbFisica.CheckedChanged += new System.EventHandler(this.rbFisica_CheckedChanged);
+            // 
+            // rbJuridica
+            // 
+//            this.rbJuridica.CheckedChanged += new System.EventHandler(this.rbJuridica_CheckedChanged);
+            // 
             // CadastroClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(800, 536);
+            this.ClientSize = new System.Drawing.Size(800, 489);
             this.Name = "CadastroClientes";
             this.Text = "Cadastro de Clientes";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroClientes_FormClosed);
             this.Load += new System.EventHandler(this.CadastroClientes_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

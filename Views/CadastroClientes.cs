@@ -36,6 +36,17 @@ namespace Sistema_Vendas.Views
             {
                 return;
             }
+
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+            string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
+
+            if (clienteController.JaCadastrado(cpf_cnpj, idAtual))
+            {
+                MessageBox.Show("Cliente já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCPF_CNPJ.Focus();
+            }
+            else
+            {
                 try
                 {
                     string cliente_razao_social = txtCliente_razao_social.Text;
@@ -48,26 +59,25 @@ namespace Sistema_Vendas.Views
                     string email = txtEmail.Text;
                     string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
                     string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
-                    string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
                     string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
                     int idCidade = int.Parse(txtCodCidade.Text);
 
-                DateTime data_nasc;
-                string entradaData = txtDataNasc.Text;
+                    DateTime data_nasc;
+                    string entradaData = txtDataNasc.Text;
 
-                if (DateTime.TryParse(entradaData, out data_nasc))
-                {
-                    //se a conversão for bem-sucedida, é utilizado a data convertida
-                    txtDataNasc.Text = data_nasc.ToString("dd/MM/yyyy");
-                }
-                else
-                {
-                    //se a conversão falhar, é definida uma data padrão
-                    txtDataNasc.Text = "01/01/1800";
-                    data_nasc = new DateTime(1800, 1, 1);
-                }
+                    if (DateTime.TryParse(entradaData, out data_nasc))
+                    {
+                        //se a conversão for bem-sucedida, é utilizado a data convertida
+                        txtDataNasc.Text = data_nasc.ToString("dd/MM/yyyy");
+                    }
+                    else
+                    {
+                        //se a conversão falhar, é definida uma data padrão
+                        txtDataNasc.Text = "01/01/1800";
+                        data_nasc = new DateTime(1800, 1, 1);
+                    }
 
-                DateTime dataCadastro;
+                    DateTime dataCadastro;
                     DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
 
                     DateTime dataUltAlt;
@@ -91,7 +101,7 @@ namespace Sistema_Vendas.Views
                         DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
                     }
 
-                ClienteModel novoCliente = new ClienteModel
+                    ClienteModel novoCliente = new ClienteModel
                     {
                         tipo_pessoa = isFisico,
                         cliente_razao_social = cliente_razao_social,
@@ -130,6 +140,7 @@ namespace Sistema_Vendas.Views
                 {
                     MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
             
         }
         public override void Carrega()
@@ -271,6 +282,20 @@ namespace Sistema_Vendas.Views
                     }
                 }
             }            
+        }
+
+        private void txtCliente_razao_social_Leave(object sender, EventArgs e)
+        {
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+            if (clienteController.BuscaNome(txtCliente_razao_social.Text, idAtual))
+            {
+                MessageBox.Show("Cliente / Razão Social já existe no cadastro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void rbFisica_CheckedChanged(object sender, EventArgs e)
+        {
+            lblCliente_razao_social.Text = "Cliente *";
         }
     }
 }

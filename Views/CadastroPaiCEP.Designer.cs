@@ -123,9 +123,9 @@
             // 
             this.groupBox1.Controls.Add(this.rbInativo);
             this.groupBox1.Controls.Add(this.rbAtivo);
-            this.groupBox1.Location = new System.Drawing.Point(16, 328);
+            this.groupBox1.Location = new System.Drawing.Point(231, 17);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(160, 56);
+            this.groupBox1.Size = new System.Drawing.Size(149, 49);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Status";
@@ -133,7 +133,7 @@
             // rbInativo
             // 
             this.rbInativo.AutoSize = true;
-            this.rbInativo.Location = new System.Drawing.Point(80, 24);
+            this.rbInativo.Location = new System.Drawing.Point(80, 20);
             this.rbInativo.Name = "rbInativo";
             this.rbInativo.Size = new System.Drawing.Size(57, 17);
             this.rbInativo.TabIndex = 1;
@@ -146,7 +146,7 @@
             // 
             this.rbAtivo.AutoSize = true;
             this.rbAtivo.Checked = true;
-            this.rbAtivo.Location = new System.Drawing.Point(16, 24);
+            this.rbAtivo.Location = new System.Drawing.Point(16, 20);
             this.rbAtivo.Name = "rbAtivo";
             this.rbAtivo.Size = new System.Drawing.Size(49, 17);
             this.rbAtivo.TabIndex = 0;

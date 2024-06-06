@@ -39,7 +39,7 @@ namespace Sistema_Vendas.Controller
             paisDAO.Salvar(obj);
         }
 
-        public bool JaCadastrado(string nome)
+        public bool JaCadastrado(string nome, int idAtual)
         {
             List<T> obj = paisDAO.GetAll(false);
 
@@ -49,9 +49,10 @@ namespace Sistema_Vendas.Controller
 
                 foreach (var pais in Model)
                 {
-                    if (pais.Pais.Equals(nome, StringComparison.OrdinalIgnoreCase))
+                    // Verifica se o nome já existe e não é o país atual que está sendo alterado
+                    if (pais.Pais.Equals(nome, StringComparison.OrdinalIgnoreCase) && pais.idPais != idAtual)
                     {
-                        return true; 
+                        return true;
                     }
                 }
             }
@@ -60,7 +61,7 @@ namespace Sistema_Vendas.Controller
                 Console.WriteLine("Aviso: O tipo genérico T não é compatível.");
             }
 
-            return false; 
+            return false;
         }
 
     }

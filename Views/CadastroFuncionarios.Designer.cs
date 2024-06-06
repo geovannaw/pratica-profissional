@@ -66,37 +66,49 @@
             this.txtDataNasc = new System.Windows.Forms.MaskedTextBox();
             this.lblRG = new System.Windows.Forms.Label();
             this.lblCPF = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblDataDemissao = new System.Windows.Forms.Label();
+            this.lblDataAdmissao = new System.Windows.Forms.Label();
+            this.txtDataDemissao = new System.Windows.Forms.MaskedTextBox();
+            this.txtDataAdmissao = new System.Windows.Forms.MaskedTextBox();
+            this.lblPis = new System.Windows.Forms.Label();
+            this.lblSalario = new System.Windows.Forms.Label();
+            this.lblCargo = new System.Windows.Forms.Label();
+            this.txtPis = new System.Windows.Forms.TextBox();
+            this.txtSalario = new System.Windows.Forms.TextBox();
+            this.txtCargo = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(598, 498);
+            this.btnSalvar.Location = new System.Drawing.Point(598, 551);
             // 
             // btnSair
             // 
-            this.btnSair.Location = new System.Drawing.Point(679, 498);
+            this.btnSair.Location = new System.Drawing.Point(679, 551);
             // 
             // txtDataCadastro
             // 
-            this.txtDataCadastro.Location = new System.Drawing.Point(16, 501);
+            this.txtDataCadastro.Location = new System.Drawing.Point(16, 554);
             // 
             // txtDataUltAlt
             // 
-            this.txtDataUltAlt.Location = new System.Drawing.Point(104, 501);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(104, 554);
             // 
             // lblDataCadastro
             // 
-            this.lblDataCadastro.Location = new System.Drawing.Point(13, 485);
+            this.lblDataCadastro.Location = new System.Drawing.Point(13, 538);
             // 
             // lblDataUltAlt
             // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(101, 485);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(101, 538);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(16, 413);
+            this.groupBox1.Location = new System.Drawing.Point(605, 17);
             // 
             // txtCelular
             // 
@@ -104,6 +116,7 @@
             this.txtCelular.Name = "txtCelular";
             this.txtCelular.Size = new System.Drawing.Size(91, 20);
             this.txtCelular.TabIndex = 60;
+            this.txtCelular.Leave += new System.EventHandler(this.txtCelular_Leave);
             // 
             // txtTelefone
             // 
@@ -111,6 +124,7 @@
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(85, 20);
             this.txtTelefone.TabIndex = 59;
+            this.txtTelefone.Leave += new System.EventHandler(this.txtTelefone_Leave);
             // 
             // lblSexo
             // 
@@ -140,6 +154,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(203, 20);
             this.txtEmail.TabIndex = 61;
+            this.txtEmail.Leave += new System.EventHandler(this.txtEmail_Leave);
             // 
             // lblEmail
             // 
@@ -174,6 +189,7 @@
             this.txtFuncionario.Name = "txtFuncionario";
             this.txtFuncionario.Size = new System.Drawing.Size(304, 20);
             this.txtFuncionario.TabIndex = 56;
+            this.txtFuncionario.Leave += new System.EventHandler(this.txtFuncionario_Leave);
             // 
             // txtApelido
             // 
@@ -181,6 +197,7 @@
             this.txtApelido.Name = "txtApelido";
             this.txtApelido.Size = new System.Drawing.Size(297, 20);
             this.txtApelido.TabIndex = 57;
+            this.txtApelido.Leave += new System.EventHandler(this.txtApelido_Leave);
             // 
             // lblApelido
             // 
@@ -243,6 +260,7 @@
             this.txtCodCidade.Name = "txtCodCidade";
             this.txtCodCidade.Size = new System.Drawing.Size(62, 20);
             this.txtCodCidade.TabIndex = 16;
+            this.txtCodCidade.Leave += new System.EventHandler(this.txtCodCidade_Leave);
             // 
             // lblPais
             // 
@@ -286,6 +304,7 @@
             this.btnConsultaCidades.Size = new System.Drawing.Size(36, 24);
             this.btnConsultaCidades.TabIndex = 17;
             this.btnConsultaCidades.UseVisualStyleBackColor = true;
+            this.btnConsultaCidades.Click += new System.EventHandler(this.btnConsultaCidades_Click);
             // 
             // lblCidade
             // 
@@ -319,6 +338,7 @@
             this.txtBairro.Name = "txtBairro";
             this.txtBairro.Size = new System.Drawing.Size(180, 20);
             this.txtBairro.TabIndex = 15;
+            this.txtBairro.Leave += new System.EventHandler(this.txtBairro_Leave);
             // 
             // lblComplemento
             // 
@@ -344,6 +364,7 @@
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(67, 20);
             this.txtNumero.TabIndex = 13;
+            this.txtNumero.Leave += new System.EventHandler(this.txtNumero_Leave);
             // 
             // txtComplemento
             // 
@@ -367,6 +388,7 @@
             this.txtEndereco.Name = "txtEndereco";
             this.txtEndereco.Size = new System.Drawing.Size(277, 20);
             this.txtEndereco.TabIndex = 12;
+            this.txtEndereco.Leave += new System.EventHandler(this.txtEndereco_Leave);
             // 
             // lblCEP
             // 
@@ -391,6 +413,7 @@
             this.txtRG.Name = "txtRG";
             this.txtRG.Size = new System.Drawing.Size(93, 20);
             this.txtRG.TabIndex = 70;
+            this.txtRG.Leave += new System.EventHandler(this.txtRG_Leave);
             // 
             // txtCPF
             // 
@@ -400,6 +423,7 @@
             this.txtCPF.Size = new System.Drawing.Size(107, 20);
             this.txtCPF.TabIndex = 69;
             this.txtCPF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCPF.Leave += new System.EventHandler(this.txtCPF_Leave);
             // 
             // lblDataNasc
             // 
@@ -437,10 +461,116 @@
             this.lblCPF.TabIndex = 72;
             this.lblCPF.Text = "CPF *";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.lblDataDemissao);
+            this.groupBox3.Controls.Add(this.lblDataAdmissao);
+            this.groupBox3.Controls.Add(this.txtDataDemissao);
+            this.groupBox3.Controls.Add(this.txtDataAdmissao);
+            this.groupBox3.Controls.Add(this.lblPis);
+            this.groupBox3.Controls.Add(this.lblSalario);
+            this.groupBox3.Controls.Add(this.lblCargo);
+            this.groupBox3.Controls.Add(this.txtPis);
+            this.groupBox3.Controls.Add(this.txtSalario);
+            this.groupBox3.Controls.Add(this.txtCargo);
+            this.groupBox3.Location = new System.Drawing.Point(16, 414);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(738, 80);
+            this.groupBox3.TabIndex = 85;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Dados";
+            // 
+            // lblDataDemissao
+            // 
+            this.lblDataDemissao.AutoSize = true;
+            this.lblDataDemissao.Location = new System.Drawing.Point(642, 23);
+            this.lblDataDemissao.Name = "lblDataDemissao";
+            this.lblDataDemissao.Size = new System.Drawing.Size(53, 13);
+            this.lblDataDemissao.TabIndex = 94;
+            this.lblDataDemissao.Text = "Demissão";
+            // 
+            // lblDataAdmissao
+            // 
+            this.lblDataAdmissao.AutoSize = true;
+            this.lblDataAdmissao.Location = new System.Drawing.Point(553, 23);
+            this.lblDataAdmissao.Name = "lblDataAdmissao";
+            this.lblDataAdmissao.Size = new System.Drawing.Size(59, 13);
+            this.lblDataAdmissao.TabIndex = 93;
+            this.lblDataAdmissao.Text = "Admissão *";
+            // 
+            // txtDataDemissao
+            // 
+            this.txtDataDemissao.Location = new System.Drawing.Point(645, 39);
+            this.txtDataDemissao.Mask = "00/00/0000";
+            this.txtDataDemissao.Name = "txtDataDemissao";
+            this.txtDataDemissao.Size = new System.Drawing.Size(67, 20);
+            this.txtDataDemissao.TabIndex = 92;
+            this.txtDataDemissao.ValidatingType = typeof(System.DateTime);
+            // 
+            // txtDataAdmissao
+            // 
+            this.txtDataAdmissao.Location = new System.Drawing.Point(556, 39);
+            this.txtDataAdmissao.Mask = "00/00/0000";
+            this.txtDataAdmissao.Name = "txtDataAdmissao";
+            this.txtDataAdmissao.Size = new System.Drawing.Size(67, 20);
+            this.txtDataAdmissao.TabIndex = 91;
+            this.txtDataAdmissao.ValidatingType = typeof(System.DateTime);
+            // 
+            // lblPis
+            // 
+            this.lblPis.AutoSize = true;
+            this.lblPis.Location = new System.Drawing.Point(427, 23);
+            this.lblPis.Name = "lblPis";
+            this.lblPis.Size = new System.Drawing.Size(31, 13);
+            this.lblPis.TabIndex = 90;
+            this.lblPis.Text = "PIS *";
+            // 
+            // lblSalario
+            // 
+            this.lblSalario.AutoSize = true;
+            this.lblSalario.Location = new System.Drawing.Point(305, 23);
+            this.lblSalario.Name = "lblSalario";
+            this.lblSalario.Size = new System.Drawing.Size(46, 13);
+            this.lblSalario.TabIndex = 89;
+            this.lblSalario.Text = "Salário *";
+            // 
+            // lblCargo
+            // 
+            this.lblCargo.AutoSize = true;
+            this.lblCargo.Location = new System.Drawing.Point(25, 23);
+            this.lblCargo.Name = "lblCargo";
+            this.lblCargo.Size = new System.Drawing.Size(42, 13);
+            this.lblCargo.TabIndex = 88;
+            this.lblCargo.Text = "Cargo *";
+            // 
+            // txtPis
+            // 
+            this.txtPis.Location = new System.Drawing.Point(430, 39);
+            this.txtPis.Name = "txtPis";
+            this.txtPis.Size = new System.Drawing.Size(100, 20);
+            this.txtPis.TabIndex = 87;
+            this.txtPis.Leave += new System.EventHandler(this.txtPis_Leave);
+            // 
+            // txtSalario
+            // 
+            this.txtSalario.Location = new System.Drawing.Point(308, 39);
+            this.txtSalario.Name = "txtSalario";
+            this.txtSalario.Size = new System.Drawing.Size(100, 20);
+            this.txtSalario.TabIndex = 86;
+            // 
+            // txtCargo
+            // 
+            this.txtCargo.Location = new System.Drawing.Point(28, 39);
+            this.txtCargo.Name = "txtCargo";
+            this.txtCargo.Size = new System.Drawing.Size(258, 20);
+            this.txtCargo.TabIndex = 85;
+            this.txtCargo.Leave += new System.EventHandler(this.txtCargo_Leave);
+            // 
             // CadastroFuncionarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(774, 536);
+            this.ClientSize = new System.Drawing.Size(774, 594);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.txtRG);
             this.Controls.Add(this.txtCPF);
             this.Controls.Add(this.lblDataNasc);
@@ -462,14 +592,8 @@
             this.Controls.Add(this.lblFuncionario);
             this.Name = "CadastroFuncionarios";
             this.Text = "Cadastro de Funcionários";
-            this.Controls.SetChildIndex(this.txtCodigo, 0);
-            this.Controls.SetChildIndex(this.btnSalvar, 0);
-            this.Controls.SetChildIndex(this.btnSair, 0);
-            this.Controls.SetChildIndex(this.txtDataCadastro, 0);
-            this.Controls.SetChildIndex(this.txtDataUltAlt, 0);
-            this.Controls.SetChildIndex(this.lblDataCadastro, 0);
-            this.Controls.SetChildIndex(this.lblDataUltAlt, 0);
-            this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroFuncionarios_FormClosed);
+            this.Load += new System.EventHandler(this.CadastroFuncionarios_Load);
             this.Controls.SetChildIndex(this.lblFuncionario, 0);
             this.Controls.SetChildIndex(this.lblApelido, 0);
             this.Controls.SetChildIndex(this.txtApelido, 0);
@@ -489,10 +613,21 @@
             this.Controls.SetChildIndex(this.lblDataNasc, 0);
             this.Controls.SetChildIndex(this.txtCPF, 0);
             this.Controls.SetChildIndex(this.txtRG, 0);
+            this.Controls.SetChildIndex(this.groupBox3, 0);
+            this.Controls.SetChildIndex(this.txtCodigo, 0);
+            this.Controls.SetChildIndex(this.btnSalvar, 0);
+            this.Controls.SetChildIndex(this.btnSair, 0);
+            this.Controls.SetChildIndex(this.txtDataCadastro, 0);
+            this.Controls.SetChildIndex(this.txtDataUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblDataCadastro, 0);
+            this.Controls.SetChildIndex(this.lblDataUltAlt, 0);
+            this.Controls.SetChildIndex(this.groupBox1, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -538,5 +673,16 @@
         protected System.Windows.Forms.MaskedTextBox txtDataNasc;
         protected System.Windows.Forms.Label lblRG;
         protected System.Windows.Forms.Label lblCPF;
+        protected System.Windows.Forms.MaskedTextBox txtDataDemissao;
+        protected System.Windows.Forms.MaskedTextBox txtDataAdmissao;
+        protected System.Windows.Forms.GroupBox groupBox3;
+        protected System.Windows.Forms.Label lblDataDemissao;
+        protected System.Windows.Forms.Label lblDataAdmissao;
+        protected System.Windows.Forms.Label lblPis;
+        protected System.Windows.Forms.Label lblSalario;
+        protected System.Windows.Forms.Label lblCargo;
+        protected System.Windows.Forms.TextBox txtPis;
+        protected System.Windows.Forms.TextBox txtSalario;
+        protected System.Windows.Forms.TextBox txtCargo;
     }
 }

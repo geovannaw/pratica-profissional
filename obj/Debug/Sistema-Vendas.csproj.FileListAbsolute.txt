@@ -59,3 +59,5 @@ C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaM
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroModelos.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroProdutos.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaProdutos.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroFuncionarios.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaFuncionarios.resources

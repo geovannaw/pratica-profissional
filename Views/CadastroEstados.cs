@@ -70,7 +70,9 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (estadoController.JaCadastrado(txtEstado.Text))
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+
+            if (estadoController.JaCadastrado(txtEstado.Text, idAtual))
             {
                 MessageBox.Show("Estado já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEstado.Focus();
