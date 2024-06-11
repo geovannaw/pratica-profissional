@@ -66,7 +66,6 @@ namespace Sistema_Vendas.Models
                         obj.idEstado = Convert.ToInt32(reader["idEstado"]);
                         obj.Estado = reader["Estado"].ToString();
                         obj.UF = reader["UF"].ToString();
-                        //  obj.idPais = Convert.ToInt32(reader["idPais "]);
                         estados.Add(obj);
                     }
                 }

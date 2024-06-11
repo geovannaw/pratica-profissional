@@ -40,6 +40,7 @@
             // txtCodigo
             // 
             this.txtCodigo.TabIndex = 0;
+            this.txtCodigo.Text = "0";
             // 
             // btnSalvar
             // 
@@ -48,6 +49,14 @@
             // btnSair
             // 
             this.btnSair.TabIndex = 7;
+            // 
+            // txtDataCadastro
+            // 
+            this.txtDataCadastro.Text = "11062024";
+            // 
+            // txtDataUltAlt
+            // 
+            this.txtDataUltAlt.Text = "11062024";
             // 
             // rbInativo
             // 
@@ -87,6 +96,7 @@
             // txtPais
             // 
             this.txtPais.Location = new System.Drawing.Point(16, 104);
+            this.txtPais.MaxLength = 100;
             this.txtPais.Name = "txtPais";
             this.txtPais.Size = new System.Drawing.Size(368, 20);
             this.txtPais.TabIndex = 1;
@@ -95,6 +105,7 @@
             // txtSigla
             // 
             this.txtSigla.Location = new System.Drawing.Point(16, 176);
+            this.txtSigla.MaxLength = 5;
             this.txtSigla.Name = "txtSigla";
             this.txtSigla.Size = new System.Drawing.Size(112, 20);
             this.txtSigla.TabIndex = 2;
@@ -103,6 +114,7 @@
             // txtDDI
             // 
             this.txtDDI.Location = new System.Drawing.Point(146, 176);
+            this.txtDDI.MaxLength = 5;
             this.txtDDI.Name = "txtDDI";
             this.txtDDI.Size = new System.Drawing.Size(110, 20);
             this.txtDDI.TabIndex = 3;
@@ -145,11 +157,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblPais;
-        private System.Windows.Forms.Label lblSigla;
-        private System.Windows.Forms.Label lblDDI;
-        private System.Windows.Forms.TextBox txtPais;
-        private System.Windows.Forms.TextBox txtSigla;
-        private System.Windows.Forms.TextBox txtDDI;
+        protected System.Windows.Forms.Label lblPais;
+        protected System.Windows.Forms.Label lblSigla;
+        protected System.Windows.Forms.Label lblDDI;
+        protected System.Windows.Forms.TextBox txtPais;
+        protected System.Windows.Forms.TextBox txtSigla;
+        protected System.Windows.Forms.TextBox txtDDI;
     }
 }

@@ -107,6 +107,7 @@
     <Compile Include="Controller\ControllerPai.cs" />
     <Compile Include="Controller\DadosEmpresaController.cs" />
     <Compile Include="Controller\EstadoController.cs" />
+    <Compile Include="Controller\FormaPagamentoController.cs" />
     <Compile Include="Controller\FornecedorController.cs" />
     <Compile Include="Controller\FuncionarioController.cs" />
     <Compile Include="Controller\ModeloController.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="DAO\CidadeDAO.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\DadosEmpresaDAO.cs" />
+    <Compile Include="DAO\FormaPagamentoDAO.cs" />
     <Compile Include="DAO\FornecedorDAO.cs" />
     <Compile Include="DAO\FuncionarioDAO.cs" />
     <Compile Include="DAO\ModeloDAO.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Models\CidadeModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\DadosEmpresaModel.cs" />
+    <Compile Include="Models\FormaPagamentoModel.cs" />
     <Compile Include="Models\FornecedorModel.cs" />
     <Compile Include="Models\FuncionarioModel.cs" />
     <Compile Include="Models\ModeloModel.cs" />
@@ -138,11 +141,23 @@
     <Compile Include="Views\CadastroClientes.Designer.cs">
       <DependentUpon>CadastroClientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\CadastroCondicaoPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CadastroCondicaoPagamento.Designer.cs">
+      <DependentUpon>CadastroCondicaoPagamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CadastroEstados.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\CadastroEstados.Designer.cs">
       <DependentUpon>CadastroEstados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CadastroFormaPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CadastroFormaPagamento.Designer.cs">
+      <DependentUpon>CadastroFormaPagamento.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CadastroFornecedores.cs">
       <SubType>Form</SubType>
@@ -186,6 +201,12 @@
     <Compile Include="Views\ConsultaClientes.Designer.cs">
       <DependentUpon>ConsultaClientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsultaCondicaoPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultaCondicaoPagamento.Designer.cs">
+      <DependentUpon>ConsultaCondicaoPagamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConsultaEstados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,6 +228,12 @@
     </Compile>
     <Compile Include="Views\CadastroPaises.Designer.cs">
       <DependentUpon>CadastroPaises.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConsultaFormasPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultaFormasPagamento.Designer.cs">
+      <DependentUpon>ConsultaFormasPagamento.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ConsultaFornecedores.cs">
       <SubType>Form</SubType>
@@ -268,8 +295,14 @@
     <EmbeddedResource Include="Views\CadastroClientes.resx">
       <DependentUpon>CadastroClientes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CadastroCondicaoPagamento.resx">
+      <DependentUpon>CadastroCondicaoPagamento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroEstados.resx">
       <DependentUpon>CadastroEstados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CadastroFormaPagamento.resx">
+      <DependentUpon>CadastroFormaPagamento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroFornecedores.resx">
       <DependentUpon>CadastroFornecedores.cs</DependentUpon>
@@ -292,6 +325,9 @@
     <EmbeddedResource Include="Views\ConsultaClientes.resx">
       <DependentUpon>ConsultaClientes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultaCondicaoPagamento.resx">
+      <DependentUpon>ConsultaCondicaoPagamento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaEstados.resx">
       <DependentUpon>ConsultaEstados.cs</DependentUpon>
     </EmbeddedResource>
@@ -300,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroPaises.resx">
       <DependentUpon>CadastroPaises.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultaFormasPagamento.resx">
+      <DependentUpon>ConsultaFormasPagamento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaFornecedores.resx">
       <DependentUpon>ConsultaFornecedores.cs</DependentUpon>

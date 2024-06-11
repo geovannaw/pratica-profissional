@@ -33,17 +33,29 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
+            // txtEmail
+            // 
+            this.txtEmail.TabIndex = 7;
+            // 
             // txtCliente_razao_social
             // 
             this.txtCliente_razao_social.Leave += new System.EventHandler(this.txtCliente_razao_social_Leave);
+            // 
+            // txtTelefone
+            // 
+            this.txtTelefone.TabIndex = 8;
+            // 
+            // txtCelular
+            // 
+            this.txtCelular.TabIndex = 9;
             // 
             // rbFisica
             // 
             this.rbFisica.CheckedChanged += new System.EventHandler(this.rbFisica_CheckedChanged);
             // 
-            // rbJuridica
+            // txtContato
             // 
-//            this.rbJuridica.CheckedChanged += new System.EventHandler(this.rbJuridica_CheckedChanged);
+            this.txtContato.TabIndex = 10;
             // 
             // CadastroFornecedores
             // 

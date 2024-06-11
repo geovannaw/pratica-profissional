@@ -14,15 +14,18 @@ namespace Sistema_Vendas.Views
     public partial class ConsultaPaises : Sistema_Vendas.ConsultaPai
     {
         private PaisController<PaisModel> paisController;
+        private CadastroPaises cadastroPaises;
         public ConsultaPaises()
         {
             InitializeComponent();
             paisController = new PaisController<PaisModel>();
+            cadastroPaises = new CadastroPaises();
+            cadastroPaises.Owner = this;
         }
 
-        public override void Incluir() {
-            CadastroPaises cadastroPaises = new CadastroPaises();
-            cadastroPaises.Owner = this;
+        public override void Incluir() 
+        {
+            ResetCadastro();
             cadastroPaises.ShowDialog();
         }
         public override void Alterar()
@@ -30,8 +33,7 @@ namespace Sistema_Vendas.Views
             if (dataGridViewPaises.SelectedRows.Count > 0)
             {
                 int idPais = (int)dataGridViewPaises.SelectedRows[0].Cells["Código"].Value;
-                CadastroPaises cadastroPaises = new CadastroPaises(idPais);
-                cadastroPaises.Owner = this;
+                ResetCadastro(idPais);
                 cadastroPaises.ShowDialog();
             }
             else
@@ -86,7 +88,6 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                CadastroPaises cadastroPaises = new CadastroPaises();
                 cadastroPaises.FormClosed += (s, args) => AtualizarConsultaPaises(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
 
                 dataGridViewPaises.AutoGenerateColumns = false;
@@ -102,6 +103,17 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Ocorreu um erro ao carregar os países: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void ResetCadastro()
+        {
+            cadastroPaises.LimparCampos();
+        }
+
+        private void ResetCadastro(int id)
+        {
+            cadastroPaises.SetID(id);
+            cadastroPaises.Carrega();
         }
 
         //atualizar a consulta de países
@@ -125,9 +137,7 @@ namespace Sistema_Vendas.Views
             {
                 //ID do país da linha selecionada
                 int idPais = (int)dataGridViewPaises.Rows[e.RowIndex].Cells["Código"].Value;
-
-                CadastroPaises cadastroPaises = new CadastroPaises(idPais);
-                cadastroPaises.Owner = this;
+                ResetCadastro(idPais);
                 cadastroPaises.ShowDialog();
             }
         }

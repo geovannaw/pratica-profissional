@@ -55,29 +55,29 @@ namespace Sistema_Vendas.Views
         }
         public override void Salvar()
         {
-            int idAtual = idAlterar != -1 ? idAlterar : -1;
-
-            if (paisController.JaCadastrado(txtPais.Text, idAtual))
+            if (!CampoObrigatorio(txtPais.Text))
             {
-                MessageBox.Show("País já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPais.Focus();
+            }
+            else if (!CampoObrigatorio(txtSigla.Text))
+            {
+                MessageBox.Show("Campo Sigla é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtSigla.Focus();
+            }
+            else if (!CampoObrigatorio(txtDDI.Text))
+            {
+                MessageBox.Show("Campo DDI é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDDI.Focus();
             }
             else
             {
-                if (!CampoObrigatorio(txtPais.Text))
+                int idAtual = idAlterar != -1 ? idAlterar : -1;
+
+                if (paisController.JaCadastrado(txtPais.Text, idAtual))
                 {
-                    MessageBox.Show("Campo País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("País já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtPais.Focus();
-                }
-                else if (!CampoObrigatorio(txtSigla.Text))
-                {
-                    MessageBox.Show("Campo Sigla é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtSigla.Focus();
-                }
-                else if (!CampoObrigatorio(txtDDI.Text))
-                {
-                    MessageBox.Show("Campo DDI é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtDDI.Focus();
                 }
                 else
                 {
@@ -86,19 +86,9 @@ namespace Sistema_Vendas.Views
                         string pais = txtPais.Text;
                         string sigla = txtSigla.Text;
                         string ddi = txtDDI.Text;
-                        DateTime dataCadastro;
-                        DateTime dataUltAlt;
 
-                        DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                        if (idAlterar != -1)
-                        {
-                            DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                        }
-                        else
-                        {
-                            DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                        }
+                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
 
                         PaisModel novoPais = new PaisModel
                         {
@@ -129,10 +119,22 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+        public override void LimparCampos()
+        {
+            idAlterar = -1;
+            txtCodigo.Clear();
+            txtPais.Clear();
+            txtSigla.Clear();
+            txtDDI.Clear();
+            txtDataCadastro.Clear();
+            txtDataUltAlt.Clear();
+            rbAtivo.Checked = true;
+        }
 
-        public override void Bloqueia() { }
-        public override void Desbloqueia() { }
-        public override void LimparCampos() { }
+        public void SetID(int id)
+        {
+            idAlterar = id;
+        }
 
         private void CadastroPaises_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -142,15 +144,7 @@ namespace Sistema_Vendas.Views
 
         private void CadastroPaises_Load(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
-            }
+
         }
 
         private void txtPais_Leave(object sender, EventArgs e)

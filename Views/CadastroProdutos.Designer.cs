@@ -32,11 +32,11 @@
             this.txtUN = new System.Windows.Forms.TextBox();
             this.txtModelo = new System.Windows.Forms.TextBox();
             this.txtMarca = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblDescricao = new System.Windows.Forms.Label();
             this.btnConsultaModelos = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblUN = new System.Windows.Forms.Label();
+            this.lblModelo = new System.Windows.Forms.Label();
+            this.lblMarca = new System.Windows.Forms.Label();
             this.lblFornecedor = new System.Windows.Forms.Label();
             this.lblCodFornecedor = new System.Windows.Forms.Label();
             this.btnConsultaFornecedor = new System.Windows.Forms.Button();
@@ -59,21 +59,29 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // txtCodigo
+            // 
+            this.txtCodigo.Text = "0";
+            // 
             // btnSalvar
             // 
             this.btnSalvar.Location = new System.Drawing.Point(437, 415);
+            this.btnSalvar.TabIndex = 13;
             // 
             // btnSair
             // 
             this.btnSair.Location = new System.Drawing.Point(518, 415);
+            this.btnSair.TabIndex = 14;
             // 
             // txtDataCadastro
             // 
             this.txtDataCadastro.Location = new System.Drawing.Point(15, 418);
+            this.txtDataCadastro.Text = "11062024";
             // 
             // txtDataUltAlt
             // 
             this.txtDataUltAlt.Location = new System.Drawing.Point(103, 418);
+            this.txtDataUltAlt.Text = "11062024";
             // 
             // lblDataCadastro
             // 
@@ -83,23 +91,34 @@
             // 
             this.lblDataUltAlt.Location = new System.Drawing.Point(100, 402);
             // 
+            // rbInativo
+            // 
+            this.rbInativo.TabIndex = 17;
+            // 
+            // rbAtivo
+            // 
+            this.rbAtivo.TabIndex = 16;
+            // 
             // groupBox1
             // 
             this.groupBox1.Location = new System.Drawing.Point(444, 14);
+            this.groupBox1.TabIndex = 15;
             // 
             // txtDescricao
             // 
             this.txtDescricao.Location = new System.Drawing.Point(16, 95);
+            this.txtDescricao.MaxLength = 200;
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.Size = new System.Drawing.Size(493, 20);
-            this.txtDescricao.TabIndex = 12;
+            this.txtDescricao.TabIndex = 1;
             // 
             // txtUN
             // 
             this.txtUN.Location = new System.Drawing.Point(526, 95);
+            this.txtUN.MaxLength = 5;
             this.txtUN.Name = "txtUN";
             this.txtUN.Size = new System.Drawing.Size(64, 20);
-            this.txtUN.TabIndex = 13;
+            this.txtUN.TabIndex = 2;
             this.txtUN.Leave += new System.EventHandler(this.txtUN_Leave);
             // 
             // txtModelo
@@ -118,14 +137,14 @@
             this.txtMarca.Size = new System.Drawing.Size(175, 20);
             this.txtMarca.TabIndex = 15;
             // 
-            // label1
+            // lblDescricao
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 79);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 13);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Descrição *";
+            this.lblDescricao.AutoSize = true;
+            this.lblDescricao.Location = new System.Drawing.Point(13, 79);
+            this.lblDescricao.Name = "lblDescricao";
+            this.lblDescricao.Size = new System.Drawing.Size(62, 13);
+            this.lblDescricao.TabIndex = 16;
+            this.lblDescricao.Text = "Descrição *";
             // 
             // btnConsultaModelos
             // 
@@ -133,36 +152,36 @@
             this.btnConsultaModelos.Location = new System.Drawing.Point(105, 152);
             this.btnConsultaModelos.Name = "btnConsultaModelos";
             this.btnConsultaModelos.Size = new System.Drawing.Size(36, 24);
-            this.btnConsultaModelos.TabIndex = 22;
+            this.btnConsultaModelos.TabIndex = 4;
             this.btnConsultaModelos.UseVisualStyleBackColor = true;
             this.btnConsultaModelos.Click += new System.EventHandler(this.btnConsultaModelos_Click);
             // 
-            // label2
+            // lblUN
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(523, 79);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "UN *";
+            this.lblUN.AutoSize = true;
+            this.lblUN.Location = new System.Drawing.Point(523, 79);
+            this.lblUN.Name = "lblUN";
+            this.lblUN.Size = new System.Drawing.Size(30, 13);
+            this.lblUN.TabIndex = 23;
+            this.lblUN.Text = "UN *";
             // 
-            // label3
+            // lblModelo
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(144, 139);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 13);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "Modelo";
+            this.lblModelo.AutoSize = true;
+            this.lblModelo.Location = new System.Drawing.Point(144, 139);
+            this.lblModelo.Name = "lblModelo";
+            this.lblModelo.Size = new System.Drawing.Size(42, 13);
+            this.lblModelo.TabIndex = 24;
+            this.lblModelo.Text = "Modelo";
             // 
-            // label4
+            // lblMarca
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(331, 139);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
-            this.label4.TabIndex = 25;
-            this.label4.Text = "Marca";
+            this.lblMarca.AutoSize = true;
+            this.lblMarca.Location = new System.Drawing.Point(331, 139);
+            this.lblMarca.Name = "lblMarca";
+            this.lblMarca.Size = new System.Drawing.Size(37, 13);
+            this.lblMarca.TabIndex = 25;
+            this.lblMarca.Text = "Marca";
             // 
             // lblFornecedor
             // 
@@ -188,7 +207,7 @@
             this.btnConsultaFornecedor.Location = new System.Drawing.Point(105, 214);
             this.btnConsultaFornecedor.Name = "btnConsultaFornecedor";
             this.btnConsultaFornecedor.Size = new System.Drawing.Size(36, 24);
-            this.btnConsultaFornecedor.TabIndex = 29;
+            this.btnConsultaFornecedor.TabIndex = 6;
             this.btnConsultaFornecedor.UseVisualStyleBackColor = true;
             this.btnConsultaFornecedor.Click += new System.EventHandler(this.btnConsultaFornecedor_Click);
             // 
@@ -205,7 +224,7 @@
             this.txtCodFornecedor.Location = new System.Drawing.Point(16, 216);
             this.txtCodFornecedor.Name = "txtCodFornecedor";
             this.txtCodFornecedor.Size = new System.Drawing.Size(83, 20);
-            this.txtCodFornecedor.TabIndex = 27;
+            this.txtCodFornecedor.TabIndex = 5;
             this.txtCodFornecedor.Leave += new System.EventHandler(this.txtCodFornecedor_Leave);
             // 
             // lblCodModelol
@@ -222,7 +241,7 @@
             this.txtCodModelo.Location = new System.Drawing.Point(16, 155);
             this.txtCodModelo.Name = "txtCodModelo";
             this.txtCodModelo.Size = new System.Drawing.Size(83, 20);
-            this.txtCodModelo.TabIndex = 32;
+            this.txtCodModelo.TabIndex = 3;
             this.txtCodModelo.Leave += new System.EventHandler(this.txtCodModelo_Leave);
             // 
             // txtSaldo
@@ -230,7 +249,7 @@
             this.txtSaldo.Location = new System.Drawing.Point(16, 272);
             this.txtSaldo.Name = "txtSaldo";
             this.txtSaldo.Size = new System.Drawing.Size(100, 20);
-            this.txtSaldo.TabIndex = 34;
+            this.txtSaldo.TabIndex = 7;
             this.txtSaldo.Leave += new System.EventHandler(this.txtSaldo_Leave);
             // 
             // txtCustoMedio
@@ -238,7 +257,7 @@
             this.txtCustoMedio.Location = new System.Drawing.Point(139, 272);
             this.txtCustoMedio.Name = "txtCustoMedio";
             this.txtCustoMedio.Size = new System.Drawing.Size(100, 20);
-            this.txtCustoMedio.TabIndex = 35;
+            this.txtCustoMedio.TabIndex = 8;
             this.txtCustoMedio.Leave += new System.EventHandler(this.txtCustoMedio_Leave);
             // 
             // txtPrecoVenda
@@ -246,7 +265,7 @@
             this.txtPrecoVenda.Location = new System.Drawing.Point(260, 272);
             this.txtPrecoVenda.Name = "txtPrecoVenda";
             this.txtPrecoVenda.Size = new System.Drawing.Size(100, 20);
-            this.txtPrecoVenda.TabIndex = 36;
+            this.txtPrecoVenda.TabIndex = 9;
             this.txtPrecoVenda.Leave += new System.EventHandler(this.txtPrecoVenda_Leave);
             // 
             // lblSaldo
@@ -281,7 +300,7 @@
             this.txtPrecoUltCompra.Location = new System.Drawing.Point(380, 272);
             this.txtPrecoUltCompra.Name = "txtPrecoUltCompra";
             this.txtPrecoUltCompra.Size = new System.Drawing.Size(100, 20);
-            this.txtPrecoUltCompra.TabIndex = 40;
+            this.txtPrecoUltCompra.TabIndex = 10;
             this.txtPrecoUltCompra.Leave += new System.EventHandler(this.txtPrecoUltCompra_Leave);
             // 
             // lblPrecoUltCompra
@@ -299,7 +318,7 @@
             this.txtDataUltCompra.Mask = "00/00/0000";
             this.txtDataUltCompra.Name = "txtDataUltCompra";
             this.txtDataUltCompra.Size = new System.Drawing.Size(90, 20);
-            this.txtDataUltCompra.TabIndex = 42;
+            this.txtDataUltCompra.TabIndex = 11;
             this.txtDataUltCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataUltCompra.ValidatingType = typeof(System.DateTime);
             // 
@@ -315,18 +334,19 @@
             // txtObservacao
             // 
             this.txtObservacao.Location = new System.Drawing.Point(16, 332);
+            this.txtObservacao.MaxLength = 200;
             this.txtObservacao.Name = "txtObservacao";
             this.txtObservacao.Size = new System.Drawing.Size(574, 20);
-            this.txtObservacao.TabIndex = 44;
+            this.txtObservacao.TabIndex = 12;
             // 
             // lblObservacao
             // 
             this.lblObservacao.AutoSize = true;
             this.lblObservacao.Location = new System.Drawing.Point(13, 316);
             this.lblObservacao.Name = "lblObservacao";
-            this.lblObservacao.Size = new System.Drawing.Size(72, 13);
+            this.lblObservacao.Size = new System.Drawing.Size(65, 13);
             this.lblObservacao.TabIndex = 45;
-            this.lblObservacao.Text = "Observação *";
+            this.lblObservacao.Text = "Observação";
             // 
             // CadastroProdutos
             // 
@@ -351,11 +371,11 @@
             this.Controls.Add(this.btnConsultaFornecedor);
             this.Controls.Add(this.txtFornecedor);
             this.Controls.Add(this.txtCodFornecedor);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblMarca);
+            this.Controls.Add(this.lblModelo);
+            this.Controls.Add(this.lblUN);
             this.Controls.Add(this.btnConsultaModelos);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblDescricao);
             this.Controls.Add(this.txtMarca);
             this.Controls.Add(this.txtModelo);
             this.Controls.Add(this.txtUN);
@@ -376,11 +396,11 @@
             this.Controls.SetChildIndex(this.txtUN, 0);
             this.Controls.SetChildIndex(this.txtModelo, 0);
             this.Controls.SetChildIndex(this.txtMarca, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.lblDescricao, 0);
             this.Controls.SetChildIndex(this.btnConsultaModelos, 0);
-            this.Controls.SetChildIndex(this.label2, 0);
-            this.Controls.SetChildIndex(this.label3, 0);
-            this.Controls.SetChildIndex(this.label4, 0);
+            this.Controls.SetChildIndex(this.lblUN, 0);
+            this.Controls.SetChildIndex(this.lblModelo, 0);
+            this.Controls.SetChildIndex(this.lblMarca, 0);
             this.Controls.SetChildIndex(this.txtCodFornecedor, 0);
             this.Controls.SetChildIndex(this.txtFornecedor, 0);
             this.Controls.SetChildIndex(this.btnConsultaFornecedor, 0);
@@ -413,11 +433,11 @@
         private System.Windows.Forms.TextBox txtUN;
         private System.Windows.Forms.TextBox txtModelo;
         private System.Windows.Forms.TextBox txtMarca;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblDescricao;
         protected System.Windows.Forms.Button btnConsultaModelos;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblUN;
+        private System.Windows.Forms.Label lblModelo;
+        private System.Windows.Forms.Label lblMarca;
         private System.Windows.Forms.Label lblFornecedor;
         private System.Windows.Forms.Label lblCodFornecedor;
         protected System.Windows.Forms.Button btnConsultaFornecedor;

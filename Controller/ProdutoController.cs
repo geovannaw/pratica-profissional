@@ -1,4 +1,5 @@
 ﻿using Sistema_Vendas.DAO;
+using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,20 @@ namespace Sistema_Vendas.Controller
         public override void Salvar(T obj)
         {
             produtoDAO.Salvar(obj);
+        }
+
+        public bool JaCadastrado(string descricao, int idFornecedor, int idAtual)
+        {
+            List<ProdutoModel> produtos = produtoDAO.GetAll(false).Cast<ProdutoModel>().ToList();
+
+            foreach (ProdutoModel produto in produtos)
+            {
+                if (string.Equals(produto.Descricao, descricao, StringComparison.OrdinalIgnoreCase) && produto.idFornecedor == idFornecedor && produto.idProduto != idAtual)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

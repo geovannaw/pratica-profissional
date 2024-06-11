@@ -31,7 +31,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@saldo", produto.Saldo);
                 command.Parameters.AddWithValue("@custo_medio", produto.Custo_medio);
                 command.Parameters.AddWithValue("@preco_venda", produto.Preco_venda);
-                command.Parameters.AddWithValue("@preco_ult_compra", produto.Preco_ult_compra);
+                command.Parameters.AddWithValue("@preco_ult_compra", produto.Preco_ult_compra ?? DBNull.Value);
                 command.Parameters.AddWithValue("@data_ult_compra", produto.Data_ult_compra);
                 command.Parameters.AddWithValue("@observacao", produto.Observacao);
                 command.Parameters.AddWithValue("@ativo", produto.Ativo);
@@ -85,6 +85,7 @@ namespace Sistema_Vendas.DAO
                         obj.Descricao = reader["descricao"].ToString();
                         obj.Unidade = reader["unidade"].ToString();
                         obj.Preco_venda = Convert.ToDecimal(reader["preco_venda"]);
+                        obj.idFornecedor = Convert.ToInt32(reader["idFornecedor"]);
                         produtos.Add(obj);
                     }
                 }
@@ -113,7 +114,7 @@ namespace Sistema_Vendas.DAO
                         obj.Saldo = Convert.ToInt32(reader["saldo"]);
                         obj.Custo_medio = Convert.ToDecimal(reader["custo_medio"]);
                         obj.Preco_venda = Convert.ToDecimal(reader["preco_venda"]);
-                        obj.Preco_ult_compra = Convert.ToDecimal(reader["preco_ult_compra"]);
+                        obj.Preco_ult_compra = reader.IsDBNull(reader.GetOrdinal("preco_ult_compra")) ? (decimal?)null : Convert.ToDecimal(reader["preco_ult_compra"]);
                         obj.Data_ult_compra = DateTime.Parse(reader["data_ult_compra"].ToString());
                         obj.Observacao = reader["observacao"].ToString();
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
@@ -148,7 +149,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@saldo", produto.Saldo);
                 command.Parameters.AddWithValue("@custo_medio", produto.Custo_medio);
                 command.Parameters.AddWithValue("@preco_venda", produto.Preco_venda);
-                command.Parameters.AddWithValue("@preco_ult_compra", produto.Preco_ult_compra);
+                command.Parameters.AddWithValue("@preco_ult_compra", produto.Preco_ult_compra ?? DBNull.Value);
                 command.Parameters.AddWithValue("@data_ult_compra", produto.Data_ult_compra);
                 command.Parameters.AddWithValue("@observacao", produto.Observacao);
                 command.Parameters.AddWithValue("@ativo", produto.Ativo);

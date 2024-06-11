@@ -68,31 +68,49 @@ namespace Sistema_Vendas.Views
             }
         }
 
+        public override void LimparCampos()
+        {
+            idAlterar = -1;
+            txtCodigo.Clear();
+            txtEstado.Clear();
+            txtUF.Clear();
+            txtCodPais.Clear();
+            txtPais.Clear();
+            txtDataCadastro.Clear();
+            txtDataUltAlt.Clear();
+            rbAtivo.Checked = true;
+        }
+
+        public void SetID(int id)
+        {
+            idAlterar = id;
+        }
+
         public override void Salvar()
         {
-            int idAtual = idAlterar != -1 ? idAlterar : -1;
-
-            if (estadoController.JaCadastrado(txtEstado.Text, idAtual))
+            if (!CampoObrigatorio(txtEstado.Text))
             {
-                MessageBox.Show("Estado já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEstado.Focus();
+            }
+            else if (!CampoObrigatorio(txtUF.Text))
+            {
+                MessageBox.Show("Campo UF é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUF.Focus();
+            }
+            else if (!CampoObrigatorio(txtCodPais.Text))
+            {
+                MessageBox.Show("Campo Código País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodPais.Focus();
             }
             else
             {
-                if (!CampoObrigatorio(txtEstado.Text))
+                int idAtual = idAlterar != -1 ? idAlterar : -1;
+
+                if (estadoController.JaCadastrado(txtEstado.Text, idAtual))
                 {
-                    MessageBox.Show("Campo Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Estado já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtEstado.Focus();
-                }
-                else if (!CampoObrigatorio(txtUF.Text))
-                {
-                    MessageBox.Show("Campo UF é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtUF.Focus();
-                }
-                else if (!CampoObrigatorio(txtCodPais.Text))
-                {
-                    MessageBox.Show("Campo Código País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodPais.Focus();
                 }
                 else
                 {
@@ -101,19 +119,9 @@ namespace Sistema_Vendas.Views
                         string estado = txtEstado.Text;
                         string UF = txtUF.Text;
                         int idPais = int.Parse(txtCodPais.Text);
-                        DateTime dataCadastro;
-                        DateTime dataUltAlt;
 
-                        DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                        if (idAlterar != -1)
-                        {
-                            DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                        }
-                        else
-                        {
-                            DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                        }
+                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
 
                         EstadoModel novoEstado = new EstadoModel
                         {
@@ -173,15 +181,6 @@ namespace Sistema_Vendas.Views
 
         private void CadastroEstados_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
-            }
         }
 
         private void rbAtivo_CheckedChanged(object sender, EventArgs e)

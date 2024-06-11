@@ -59,28 +59,14 @@ namespace Sistema_Vendas.Views
                     string email = txtEmail.Text;
                     string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
                     string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
+                    string nome_contato = txtContato.Text;
                     string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
                     int idCidade = int.Parse(txtCodCidade.Text);
 
-                    DateTime data_nasc;
-                    string entradaData = txtDataNasc.Text;
+                    AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
 
-                    if (DateTime.TryParse(entradaData, out data_nasc))
-                    {
-                        //se a conversão for bem-sucedida, é utilizado a data convertida
-                        txtDataNasc.Text = data_nasc.ToString("dd/MM/yyyy");
-                    }
-                    else
-                    {
-                        //se a conversão falhar, é definida uma data padrão
-                        txtDataNasc.Text = "01/01/1800";
-                        data_nasc = new DateTime(1800, 1, 1);
-                    }
-
-                    DateTime dataCadastro;
-                    DateTime dataUltAlt;
-
-                    DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
+                    DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
+                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
 
                     string sexo;
                     if (isFisico)
@@ -90,15 +76,6 @@ namespace Sistema_Vendas.Views
                     else
                     {
                         sexo = "Outro"; //quando for jurídico não tem
-                    }
-
-                    if (idAlterar != -1)
-                    {
-                        DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                    }
-                    else
-                    {
-                        DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
                     }
 
                     FornecedorModel novoFornecedor = new FornecedorModel
@@ -115,6 +92,7 @@ namespace Sistema_Vendas.Views
                         email = email,
                         telefone = telefone,
                         celular = celular,
+                        nome_contato = nome_contato,
                         data_nasc = data_nasc,
                         cpf_cnpj = cpf_cnpj,
                         rg_ie = rg_ie,
@@ -165,6 +143,7 @@ namespace Sistema_Vendas.Views
                     txtEmail.Text = fornecedor.email;
                     txtTelefone.Text = fornecedor.telefone;
                     txtCelular.Text = fornecedor.celular;
+                    txtContato.Text = fornecedor.nome_contato;
                     txtCPF_CNPJ.Text = fornecedor.cpf_cnpj;
                     txtIE_RG.Text = fornecedor.rg_ie;
                     txtDataCadastro.Text = fornecedor.dataCadastro.ToString();
@@ -172,14 +151,7 @@ namespace Sistema_Vendas.Views
                     rbAtivo.Checked = fornecedor.Ativo;
                     rbInativo.Checked = !fornecedor.Ativo;
 
-                    if (fornecedor.data_nasc.ToString() == "01/01/1800 00:00:00") //ao carregar, se a data for igual a data padrão
-                    {
-                        txtDataNasc.Clear(); //deixa o campo vazio
-                    }
-                    else
-                    {
-                        txtDataNasc.Text = fornecedor.data_nasc.ToString();
-                    }
+                    AtualizarCampoData(fornecedor.data_nasc, txtDataNasc);
 
                     List<string> cidadeEstadoPais = fornecedorController.GetCEPByCidadeId(fornecedor.idCidade);
 
@@ -280,15 +252,6 @@ namespace Sistema_Vendas.Views
 
         private void CadastroFornecedores_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
-            }
         }
 
         private void txtCliente_razao_social_Leave(object sender, EventArgs e)

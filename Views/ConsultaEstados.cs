@@ -14,16 +14,18 @@ namespace Sistema_Vendas.Models
     public partial class ConsultaEstados : Sistema_Vendas.ConsultaPai
     {
         private EstadoController<EstadoModel> estadoController;
+        private CadastroEstados cadastroEstados;
         public ConsultaEstados()
         {
             InitializeComponent();
             estadoController = new EstadoController<EstadoModel>();
+            cadastroEstados = new CadastroEstados();
+            cadastroEstados.Owner = this;
         }
 
         public override void Incluir()
         {
-            CadastroEstados cadastroEstados = new CadastroEstados();
-            cadastroEstados.Owner = this;
+            ResetCadastro();
             cadastroEstados.ShowDialog();
         }
         public override void Alterar()
@@ -31,8 +33,7 @@ namespace Sistema_Vendas.Models
             if (dataGridViewEstados.SelectedRows.Count > 0)
             {
                 int idEstado = (int)dataGridViewEstados.SelectedRows[0].Cells["Código"].Value;
-                CadastroEstados cadastroEstados = new CadastroEstados(idEstado);
-                cadastroEstados.Owner = this;
+                ResetCadastro(idEstado);
                 cadastroEstados.ShowDialog();
             }
             else
@@ -84,6 +85,17 @@ namespace Sistema_Vendas.Models
             }
         }
 
+        private void ResetCadastro()
+        {
+            cadastroEstados.LimparCampos();
+        }
+
+        private void ResetCadastro(int id)
+        {
+            cadastroEstados.SetID(id);
+            cadastroEstados.Carrega();
+        }
+
         //atualizar a consulta de estados
         public void AtualizarConsultaEstados(bool incluirInativos)
         {
@@ -102,7 +114,6 @@ namespace Sistema_Vendas.Models
         {
             try
             {
-                CadastroEstados cadastroEstados = new CadastroEstados();
                 cadastroEstados.FormClosed += (s, args) => AtualizarConsultaEstados(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
 
                 dataGridViewEstados.AutoGenerateColumns = false;
@@ -124,9 +135,7 @@ namespace Sistema_Vendas.Models
             {
                 //ID do estado da linha selecionada
                 int idEstado = (int)dataGridViewEstados.Rows[e.RowIndex].Cells["Código"].Value;
-
-                CadastroEstados cadastroEstados = new CadastroEstados(idEstado);
-                cadastroEstados.Owner = this;
+                ResetCadastro(idEstado);
                 cadastroEstados.ShowDialog();
             }
         }

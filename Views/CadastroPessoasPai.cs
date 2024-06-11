@@ -30,6 +30,17 @@ namespace Sistema_Vendas.Views
 
         protected bool VerificaCamposObrigatorios()
         {
+            string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
+            string pais = txtPais.Text.ToLower();
+            if (pais == "brasil")
+            {
+                if (!CampoObrigatorio(cpf_cnpj))
+                {
+                    MessageBox.Show("CPF / CNPJ obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCPF_CNPJ.Focus();
+                    return false;
+                }
+            }
             if (!CampoObrigatorio(txtCliente_razao_social.Text))
             {
                 MessageBox.Show("Campo obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -42,6 +53,15 @@ namespace Sistema_Vendas.Views
                 {
                     MessageBox.Show("Campo Sexo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtSexo.Focus();
+                    return false;
+                }
+            }
+            if (rbJuridica.Checked)
+            {
+                if (!CampoObrigatorio(txtContato.Text))
+                {
+                    MessageBox.Show("Campo Nome Contato é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtContato.Focus();
                     return false;
                 }
             }
@@ -93,11 +113,6 @@ namespace Sistema_Vendas.Views
             return true;
         }
 
-        private void CadastroPessoasPai_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             Salvar();
@@ -117,6 +132,8 @@ namespace Sistema_Vendas.Views
             lblIE_RG.Text = "RG";
             txtSexo.Visible = true;
             lblSexo.Visible = true;
+            lblContato.Visible = false;
+            txtContato.Visible = false;
             lblDataNasc.Text = "Data Nasc.";
         }
 
@@ -140,6 +157,8 @@ namespace Sistema_Vendas.Views
             lblIE_RG.Text = "Inscrição Estadual";
             txtSexo.Visible = false;
             lblSexo.Visible = false;
+            lblContato.Visible = true;
+            txtContato.Visible = true;
             lblDataNasc.Text = "Data Fund.";
         }
 
@@ -151,7 +170,8 @@ namespace Sistema_Vendas.Views
             {
                 if (!CampoObrigatorio(cpf_cnpj))
                 {
-                    MessageBox.Show("CPF obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("CPF / CNPJ obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCPF_CNPJ.Focus();
                 }               
             }
             if (!rbFisica.Checked)
@@ -192,11 +212,6 @@ namespace Sistema_Vendas.Views
 
         private void txtEndereco_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtEndereco.Text))
-            {
-                MessageBox.Show("Endereço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtEndereco.Focus();
-            }
         }
 
         private void txtNumero_Leave(object sender, EventArgs e)
@@ -253,16 +268,48 @@ namespace Sistema_Vendas.Views
 
         private void txtIE_RG_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtIE_RG.Text))
+            string RG_IE = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
+            if (!VerificaNumeros(RG_IE))
             {
                 MessageBox.Show("RG / IE inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtIE_RG.Focus();
+            }
+            if (!string.IsNullOrEmpty(txtIE_RG.Text) && !rbFisica.Checked)
+            {
+                 if (!ValidaIE(txtUF.Text, RG_IE))
+                  {
+                      MessageBox.Show("IE inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                      txtIE_RG.Focus();
+                  }
+                
             }
         }
 
         private void txtCodCidade_Leave(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtContato_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaLetras(txtContato.Text))
+            {
+                MessageBox.Show("Nome do Contato inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtContato.Focus();
+            }
+        }
+
+        private void CadastroPessoasPai_Load(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                txtCodigo.Text = "0";
+            }
+            if (idAlterar == -1)
+            {
+                txtDataCadastro.Text = DateTime.Now.ToString();
+                txtDataUltAlt.Text = DateTime.Now.ToString();
+            }
         }
     }
 }

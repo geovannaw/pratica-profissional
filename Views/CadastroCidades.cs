@@ -61,49 +61,40 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            int idAtual = idAlterar != -1 ? idAlterar : -1;
-            if (cidadeController.JaCadastrado(txtCidade.Text, int.Parse(txtCodEstado.Text), idAtual))
+            if (!CampoObrigatorio(txtCidade.Text))
             {
-                MessageBox.Show("Cidade já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCidade.Focus();
             }
-            else 
+            else if (!CampoObrigatorio(txtDDD.Text))
             {
-                if (!CampoObrigatorio(txtCidade.Text))
+                MessageBox.Show("Campo DDD é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDDD.Focus();
+            }
+            else if (!CampoObrigatorio(txtCodEstado.Text))
+            {
+                MessageBox.Show("Campo Código Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodEstado.Focus();
+            }
+            else
+            {
+                int idAtual = idAlterar != -1 ? idAlterar : -1;
+                if (cidadeController.JaCadastrado(txtCidade.Text, int.Parse(txtCodEstado.Text), idAtual))
                 {
-                    MessageBox.Show("Campo Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Cidade já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCidade.Focus();
                 }
-                else if (!CampoObrigatorio(txtDDD.Text))
+                else 
                 {
-                    MessageBox.Show("Campo DDD é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtDDD.Focus();
-                }
-                else if (!CampoObrigatorio(txtCodEstado.Text))
-                {
-                    MessageBox.Show("Campo Código Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodEstado.Focus();
-                }
-                else
-                {
+                
                     try
                     {
                         string cidade = txtCidade.Text;
                         int DDD = int.Parse(txtDDD.Text);
                         int idEstado = int.Parse(txtCodEstado.Text);
-                        DateTime dataCadastro;
-                        DateTime dataUltAlt;
 
-                        DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                        if (idAlterar != -1)
-                        {
-                            DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                        }
-                        else
-                        {
-                            DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                        }
+                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
 
                         CidadeModel novaCidade = new CidadeModel
                         {
@@ -162,15 +153,6 @@ namespace Sistema_Vendas.Views
 
         private void CadastroCidades_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
-            }
         }
 
         private void rbAtivo_CheckedChanged(object sender, EventArgs e)

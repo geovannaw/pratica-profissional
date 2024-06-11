@@ -45,5 +45,18 @@ namespace Sistema_Vendas.Views
         {
             isAtivo = !rbInativo.Checked;
         }
+
+        private void CadastroPaiCEP_Load(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                txtCodigo.Text = "0";
+            }
+            if (idAlterar == -1)
+            {
+                txtDataCadastro.Text = DateTime.Now.ToString();
+                txtDataUltAlt.Text = DateTime.Now.ToString();
+            }
+        }
     }
 }

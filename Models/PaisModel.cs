@@ -11,9 +11,7 @@ namespace Sistema_Vendas.Models
     public class PaisModel
     {
         public int idPais { get; set; }
-        [Required]
         public string Pais { get; set; }
-        [Required]
         public string DDI { get; set; }
         public string Sigla { get; set; }
         public DateTime dataCadastro { get; set; }

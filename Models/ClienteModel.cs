@@ -21,6 +21,7 @@ namespace Sistema_Vendas.Models
         public string email { get; set; }
         public string telefone { get; set; }
         public string celular { get; set; }
+        public string nome_contato { get; set; }
         public DateTime data_nasc { get; set; }
         public string cpf_cnpj { get; set; }
         public string rg_ie { get; set; }

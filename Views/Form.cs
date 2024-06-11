@@ -24,6 +24,37 @@ namespace Sistema_Vendas
             }
         }
 
+        public void AtualizarCampoComDataPadrao(MaskedTextBox campoTexto, out DateTime data) //atualiza campo data no Salvar();
+        {
+            string entrada = campoTexto.Text;
+            DateTime dataPadrao = new DateTime(1800, 1, 1);
+
+            if (DateTime.TryParse(entrada, out data))
+            {
+                // Se a conversão for bem-sucedida, é utilizada a data convertida
+                campoTexto.Text = data.ToString("dd/MM/yyyy");
+            }
+            else
+            {
+                // Se a conversão falhar, é definida uma data padrão
+                campoTexto.Text = dataPadrao.ToString("dd/MM/yyyy");
+                data = dataPadrao;
+            }
+        }
+
+        public void AtualizarCampoData(DateTime data, MaskedTextBox campoTexto) //atualiza campo data no Carrega();
+        {
+            DateTime dataPadrao = new DateTime(1800, 1, 1);
+            if (data == dataPadrao)
+            {
+                campoTexto.Clear(); // Deixa o campo vazio
+            }
+            else
+            {
+                campoTexto.Text = data.ToString();
+            }
+        }
+
         public static bool VerificaLetras(string texto)
         {
             //se o campo estiver vazio, considera-se válido
@@ -193,6 +224,1325 @@ namespace Sistema_Vendas
                 return pis.EndsWith(resto.ToString());
             }
         }
+
+
+        public static bool ValidaIE(string estado, string inscricaoEstadual)
+        {
+            if (string.IsNullOrEmpty(estado) || string.IsNullOrEmpty(inscricaoEstadual))
+                return false;
+
+            if (estado.Length != 2)
+                return false;
+
+            if (inscricaoEstadual.Length == 0)
+                return false;
+
+            var IE = inscricaoEstadual.Trim().Replace(".", "").Replace("-", "").Replace("/", "");
+
+            if ((IE.Trim().ToUpper() == "ISENTO"))
+                return true;
+
+            try
+            {
+                switch (estado.ToUpper())
+                {
+
+                    case "AC":
+                        return validaAC(IE);
+
+                    case "AL":
+                        return validaAL(IE);
+
+                    case "AM":
+                        return validaAM(IE);
+
+                    case "AP":
+                        return validaAP(IE);
+
+                    case "BA":
+                        return validaBA(IE);
+
+                    case "CE":
+                        return validaCE(IE);
+
+                    case "DF":
+                        return validaDF(IE);
+
+                    case "ES":
+                        return validaES(IE);
+
+                    case "GO":
+                        return validaGO(IE);
+
+                    case "MA":
+                        return validaMA(IE);
+
+                    case "MT":
+                        return validaMT(IE);
+
+                    case "MS":
+                        return validaMS(IE);
+
+                    case "MG":
+                        return validaMG(IE);
+
+                    case "PA":
+                        return validaPA(IE);
+
+                    case "PB":
+                        return validaPB(IE);
+
+                    case "PE":
+                        return validaPE(IE);
+
+                    case "PI":
+                        return validaPI(IE);
+
+                    case "PR":
+                        return validaPR(IE);
+
+                    case "RJ":
+                        return validaRJ(IE);
+
+                    case "RN":
+                        return validaRN(IE);
+
+                    case "RO":
+                        return validaRO(IE);
+
+                    case "RR":
+                        return validaRR(IE);
+
+                    case "RS":
+                        return validaRS(IE);
+
+                    case "SC":
+                        return validaSC(IE);
+
+                    case "SE":
+                        return validaSE(IE);
+
+                    case "SP":
+                        return validaSP(IE);
+
+                    case "TO":
+                        return validaTO(IE);
+
+                    default:
+                        return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        private static bool validaAC(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 13 || IE.Substring(0, 2) != "01")
+                return false;
+
+            var strBase = IE.Trim();
+
+            if (strBase.Substring(0, 2) != "01") return false;
+
+            var intSoma = 0;
+            var intPeso = 4;
+            var intValor = 0;
+
+            for (var intPos = 1; (intPos <= 11); intPos++)
+            {
+
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                if (intPeso == 1) intPeso = 9;
+
+                intSoma += intValor * intPeso;
+
+                intPeso--;
+            }
+
+            var intResto = (intSoma % 11);
+
+            intSoma = 0;
+            strBase = (IE.Trim() + "000000000000").Substring(0, 12);
+            intPeso = 5;
+
+            for (var intPos = 1; (intPos <= 12); intPos++)
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                if (intPeso == 1) intPeso = 9;
+
+                intSoma += intValor * intPeso;
+                intPeso--;
+            }
+
+            intResto = (intSoma % 11);
+            var strDigito2 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+
+            var strBase2 = (strBase.Substring(0, 12) + strDigito2);
+
+            return (strBase2 == IE);
+        }
+
+        private static bool validaAL(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9 || IE.Substring(0, 2) != "24")
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+
+            if ((strBase.Substring(0, 2) != "24")) return false;
+
+            var intSoma = 0;
+            var intPeso = 9;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                intSoma += intValor * intPeso;
+                intPeso--;
+            }
+
+            intSoma = (intSoma * 10);
+            var intResto = (intSoma % 11);
+
+            var strDigito1 = ((intResto == 10) ? "0" : Convert.ToString(intResto)).Substring((((intResto == 10) ? "0" : Convert.ToString(intResto)).Length - 1));
+
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+        }
+
+        private static bool validaAM(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9)
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+            var intPeso = 9;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                intSoma += intValor * intPeso;
+                intPeso--;
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = intSoma < 11 ? (11 - intSoma).ToString() : ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return (strBase2 == IE);
+
+        }
+
+        private static bool validaAP(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9)
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intPeso = 9;
+
+            if (strBase.Substring(0, 2) != "03") return false;
+
+            strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+
+            int intValor;
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                intSoma += intValor * intPeso;
+                intPeso--;
+            }
+
+            var intResto = (intSoma % 11);
+            intValor = (11 - intResto);
+
+            var strDigito1 = Convert.ToString(intValor).Substring((Convert.ToString(intValor).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+        }
+
+        private static bool validaBA(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+
+            if (IE.Length != 9 && IE.Length != 8)
+                return false;
+
+            var strBase = "";
+
+            switch (IE.Length)
+            {
+                case 8:
+                    strBase = (IE.Trim() + "00000000").Substring(0, 8);
+                    break;
+                case 9:
+                    strBase = (IE.Trim() + "00000000").Substring(0, 9);
+                    break;
+            }
+
+            var intSoma = 0;
+            int intValor;
+            var intPeso = 0;
+            int intResto;
+            var strDigito1 = "";
+            var strDigito2 = "";
+            var strBase2 = "";
+
+
+            #region Validação 8 dígitos
+            if (strBase.Length == 8)
+            {
+
+                if ((("0123458".IndexOf(strBase.Substring(0, 1), 0, StringComparison.OrdinalIgnoreCase) + 1) > 0))
+                {
+
+                    for (var intPos = 1; (intPos <= 6); intPos++)
+                    {
+                        intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                        if (intPos == 1) intPeso = 7;
+
+                        intSoma += intValor * intPeso;
+                        intPeso--;
+                    }
+
+
+                    intResto = (intSoma % 10);
+                    strDigito2 = ((intResto == 0) ? "0" : Convert.ToString((10 - intResto))).Substring((((intResto == 0) ? "0" : Convert.ToString((10 - intResto))).Length - 1));
+
+
+                    strBase2 = strBase.Substring(0, 7) + strDigito2;
+
+                    if (strBase2 == IE)
+                    {
+
+                        intSoma = 0;
+                        intPeso = 0;
+
+                        for (var intPos = 1; (intPos <= 7); intPos++)
+                        {
+                            intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                            if (intPos == 7)
+                                intValor = int.Parse(strBase.Substring((intPos), 1));
+
+                            if (intPos == 1) intPeso = 8;
+
+                            intSoma += intValor * intPeso;
+                            intPeso--;
+                        }
+
+
+                        intResto = (intSoma % 10);
+                        strDigito1 = ((intResto == 0) ? "0" : Convert.ToString((10 - intResto))).Substring((((intResto == 0) ? "0" : Convert.ToString((10 - intResto))).Length - 1));
+
+                        strBase2 = (strBase.Substring(0, 6) + strDigito1 + strDigito2);
+
+                        return strBase2 == IE;
+
+                    }
+
+                    return false;
+
+
+                }
+
+
+                if ((("679".IndexOf(strBase.Substring(0, 1), 0, StringComparison.OrdinalIgnoreCase) + 1) > 0))
+                {
+
+                    intSoma = 0;
+
+                    for (var intPos = 1; (intPos <= 6); intPos++)
+                    {
+                        intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                        if (intPos == 1) intPeso = 7;
+
+                        intSoma += intValor * intPeso;
+                        intPeso--;
+                    }
+
+
+                    intResto = (intSoma % 11);
+                    strDigito2 = ((intResto == 0) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto == 0) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+
+
+                    strBase2 = strBase.Substring(0, 7) + strDigito2;
+
+                    if (strBase2 == IE)
+                    {
+
+                        intSoma = 0;
+                        intPeso = 0;
+
+                        for (var intPos = 1; (intPos <= 7); intPos++)
+                        {
+                            intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                            if (intPos == 7)
+                                intValor = int.Parse(strBase.Substring((intPos), 1));
+
+                            if (intPos == 1) intPeso = 8;
+
+                            intSoma += intValor * intPeso;
+                            intPeso--;
+                        }
+
+
+                        intResto = (intSoma % 11);
+                        strDigito1 = ((intResto == 0) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto == 0) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+
+                        strBase2 = (strBase.Substring(0, 6) + strDigito1 + strDigito2);
+
+                        return strBase2 == IE;
+
+                    }
+
+                    return false;
+
+                }
+
+            }
+            #endregion
+
+
+            #region Validação 9 dígitos
+            if (strBase.Length == 9)
+            {
+
+                var modulo = (("0123458".IndexOf(strBase.Substring(1, 1), 0, StringComparison.OrdinalIgnoreCase) + 1) > 0) ? 10 : 11;
+
+
+                intSoma = 0;
+
+
+                for (var intPos = 1; (intPos <= 7); intPos++)
+                {
+                    intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                    if (intPos == 1) intPeso = 8;
+
+                    intSoma += intValor * intPeso;
+                    intPeso--;
+                }
+
+                intResto = (intSoma % modulo);
+
+                if (modulo == 11)
+                    strDigito2 = ((intResto == 0 || intResto == 1) ? "0" : Convert.ToString((modulo - intResto))).Substring((((intResto == 0 || intResto == 1) ? "0" : Convert.ToString((modulo - intResto))).Length - 1));
+                else
+                    strDigito2 = ((intResto == 0) ? "0" : Convert.ToString((modulo - intResto))).Substring((((intResto == 0) ? "0" : Convert.ToString((modulo - intResto))).Length - 1));
+
+
+                strBase2 = strBase.Substring(0, 8) + strDigito2;
+
+                if (strBase2 == IE)
+                {
+
+                    intSoma = 0;
+                    intPeso = 0;
+
+                    for (var intPos = 1; (intPos <= 8); intPos++)
+                    {
+                        intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+
+                        if (intPos == 8)
+                            intValor = int.Parse(strBase.Substring((intPos), 1));
+
+                        if (intPos == 1) intPeso = 9;
+
+                        intSoma += intValor * intPeso;
+                        intPeso--;
+                    }
+
+
+                    intResto = (intSoma % modulo);
+
+                    if (modulo == 11)
+                        strDigito1 = ((intResto == 0 || intResto == 1) ? "0" : Convert.ToString((modulo - intResto))).Substring((((intResto == 0 || intResto == 1) ? "0" : Convert.ToString((modulo - intResto))).Length - 1));
+                    else
+                        strDigito1 = ((intResto == 0) ? "0" : Convert.ToString((modulo - intResto))).Substring((((intResto == 0) ? "0" : Convert.ToString((modulo - intResto))).Length - 1));
+
+
+                    strBase2 = (strBase.Substring(0, 7) + strDigito1 + strDigito2);
+
+                    return strBase2 == IE;
+
+                }
+
+                return false;
+
+
+            }
+            #endregion
+
+            return false;
+
+        }
+
+
+        private static bool validaCE(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length > 9)
+                return false;
+
+            while (IE.Length <= 8)
+                IE = "0" + IE;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+            var intValor = 0;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            intValor = (11 - intResto);
+
+            if ((intValor > 9))
+                intValor = 0;
+
+            var strDigito1 = Convert.ToString(intValor).Substring((Convert.ToString(intValor).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaDF(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 13 || IE.Substring(0, 3) != "073")
+                return false;
+
+            var strBase = (IE.Trim() + "0000000000000").Substring(0, 13);
+
+            var intSoma = 0;
+            var intPeso = 2;
+            var intValor = 0;
+
+            for (var intPos = 11; (intPos >= 1); intPos = (intPos + -1))
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * intPeso);
+                intSoma = (intSoma + intValor);
+                intPeso = (intPeso + 1);
+
+                if ((intPeso > 9))
+                    intPeso = 2;
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 11) + strDigito1);
+
+            intSoma = 0;
+            intPeso = 2;
+
+            for (var intPos = 12; (intPos >= 1); intPos = (intPos + -1))
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * intPeso);
+                intSoma = (intSoma + intValor);
+                intPeso = (intPeso + 1);
+
+                if ((intPeso > 9))
+                    intPeso = 2;
+            }
+
+            intResto = (intSoma % 11);
+            var strDigito2 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            strBase2 = (strBase.Substring(0, 12) + strDigito2);
+
+            return strBase2 == IE;
+        }
+
+        private static bool validaES(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9)
+                return false;
+
+            var strBase = IE.Trim();
+            var intSoma = 0;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaGO(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9)
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+
+            if ((("10,11,15".IndexOf(strBase.Substring(0, 2), 0, StringComparison.OrdinalIgnoreCase) + 1) <= 0))
+                return false;
+
+            var intSoma = 0;
+            var strDigito1 = "";
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+
+            switch (intResto)
+            {
+                case 0:
+                    strDigito1 = "0";
+                    break;
+
+                case 1:
+                    var intNumero = int.Parse(strBase.Substring(0, 8));
+                    strDigito1 = (((intNumero >= 10103105) && (intNumero <= 10119997)) ? "1" : "0").Substring(((((intNumero >= 10103105) && (intNumero <= 10119997)) ? "1" : "0").Length - 1));
+                    break;
+
+                default:
+                    strDigito1 = Convert.ToString((11 - intResto)).Substring((Convert.ToString((11 - intResto)).Length - 1));
+                    break;
+            }
+
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+        }
+
+        private static bool validaMA(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9 || IE.Substring(0, 2) != "12")
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaMT(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length < 9)
+                return false;
+
+            while (IE.Length <= 11)
+                IE = "0" + IE;
+
+            var strBase = (IE.Trim() + "0000000000").Substring(0, 10);
+            var intSoma = 0;
+            var intPeso = 2;
+
+            for (var intPos = 10; intPos >= 1; intPos = (intPos + -1))
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * intPeso);
+                intSoma = (intSoma + intValor);
+                intPeso = (intPeso + 1);
+
+                if ((intPeso > 9))
+                    intPeso = 2;
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 10) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaMS(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9 || IE.Substring(0, 2) != "28")
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaMG(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 13)
+                return false;
+
+            if (IE.Substring(0, 2).ToUpper() == "PR")
+                return true;
+
+
+            var strBase = (IE.Trim() + "0000000000000").Substring(0, 13);
+            var strBase2 = strBase.Substring(0, 3) + "0" + strBase.Substring(3, 9);
+            var intNumero = 1;
+
+            var intSoma = 0;
+
+            for (var intPos = 0; intPos < 12; intPos++)
+            {
+
+                if (int.Parse(strBase2.Substring(intPos, 1)) * intNumero >= 10)
+                    intSoma += (int.Parse(strBase2.Substring(intPos, 1)) * intNumero) - 9;
+                else
+                    intSoma += int.Parse(strBase2.Substring(intPos, 1)) * intNumero;
+
+                intNumero = intNumero + 1;
+
+                if (intNumero == 3)
+                    intNumero = 1;
+
+            }
+
+            intNumero = (int)((Math.Floor((Convert.ToDecimal(intSoma) + 10) / 10) * 10) - intSoma);
+            if (intNumero % 10 == 0)
+                intNumero = 0;
+
+            if (intNumero != Convert.ToInt32(IE.Substring(11, 1)))
+                return false;
+
+
+            intNumero = 3;
+            intSoma = 0;
+
+            for (var intPos = 0; intPos < 12; intPos++)
+            {
+
+                intSoma += int.Parse(IE.Substring(intPos, 1)) * intNumero;
+
+                intNumero = intNumero - 1;
+                if (intNumero == 1)
+                    intNumero = 11;
+
+            }
+
+            intNumero = 11 - (intSoma % 11);
+            if (intNumero >= 10)
+                intNumero = 0;
+
+
+            return intNumero == Convert.ToInt32(IE.Substring(12, 1));
+
+        }
+
+        private static bool validaPA(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9 || IE.Substring(0, 2) != "15")
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaPB(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9)
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+            int intValor;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            intValor = (11 - intResto);
+
+            if ((intValor > 9))
+                intValor = 0;
+
+            var strDigito1 = Convert.ToString(intValor).Substring((Convert.ToString(intValor).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaPE(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9)
+                return false;
+
+            var strBase = (IE.Trim() + "00000000000000").Substring(0, 14);
+            var intSoma = 0;
+            var intPeso = 2;
+            int intValor;
+
+            for (var intPos = 7; (intPos >= 1); intPos = (intPos + -1))
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * intPeso);
+                intSoma = (intSoma + intValor);
+                intPeso = (intPeso + 1);
+
+                if ((intPeso > 9))
+                    intPeso = 2;
+            }
+
+            var intResto = (intSoma % 11);
+            intValor = (11 - intResto);
+
+            if ((intValor >= 10))
+                intValor = 0;
+
+            if (intValor != Convert.ToInt32(IE.Substring(7, 1)))
+                return false;
+
+            var strDigito1 = Convert.ToString(intValor).Substring((Convert.ToString(intValor).Length - 1));
+            var strBase2 = (strBase.Substring(0, 7) + strDigito1);
+
+            if (strBase2 != IE.Substring(0, 8))
+                return false;
+
+            intSoma = 0;
+            intPeso = 2;
+
+            for (var intPos = 8; (intPos >= 1); intPos = (intPos + -1))
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * intPeso);
+                intSoma = (intSoma + intValor);
+                intPeso = (intPeso + 1);
+
+                if ((intPeso > 9))
+                    intPeso = 2;
+            }
+
+            intResto = (intSoma % 11);
+            intValor = (11 - intResto);
+
+            if ((intValor >= 10))
+                intValor = 0;
+
+
+            return intValor.ToString() == IE.Substring(8, 1);
+
+        }
+
+        private static bool validaPI(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9)
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaPR(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 10)
+                return false;
+
+            var strBase = (IE.Trim() + "0000000000").Substring(0, 10);
+            var intSoma = 0;
+            var intPeso = 2;
+            int intValor;
+
+            for (var intPos = 8; (intPos >= 1); intPos = (intPos + -1))
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * intPeso);
+                intSoma = (intSoma + intValor);
+                intPeso = (intPeso + 1);
+
+                if ((intPeso > 7))
+                    intPeso = 2;
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+            intSoma = 0;
+            intPeso = 2;
+
+            for (var intPos = 9; (intPos >= 1); intPos = (intPos + -1))
+            {
+                intValor = int.Parse(strBase2.Substring((intPos - 1), 1));
+                intValor = (intValor * intPeso);
+                intSoma = (intSoma + intValor);
+                intPeso = (intPeso + 1);
+
+                if ((intPeso > 7))
+                    intPeso = 2;
+            }
+
+            intResto = (intSoma % 11);
+            var strDigito2 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            strBase2 = (strBase2 + strDigito2);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaRJ(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 8)
+                return false;
+
+            var strBase = (IE.Trim() + "00000000").Substring(0, 8);
+            var intSoma = 0;
+            var intPeso = 2;
+
+            for (var intPos = 7; (intPos >= 1); intPos = (intPos + -1))
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * intPeso);
+                intSoma = (intSoma + intValor);
+                intPeso = (intPeso + 1);
+
+                if ((intPeso > 7))
+                    intPeso = 2;
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 7) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaRN(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            var strBase = "";
+            switch (IE.Length)
+            {
+                case 9:
+                    strBase = (IE.Trim() + "000000000").Substring(0, 9);
+                    break;
+
+                case 10:
+                    strBase = (IE.Trim() + "000000000").Substring(0, 10);
+                    break;
+            }
+
+            var intSoma = 0;
+
+            if ((strBase.Substring(0, 2) == "20") && strBase.Length == 9)
+            {
+
+                for (var intPos = 1; (intPos <= 8); intPos++)
+                {
+                    var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                    intValor = (intValor * (10 - intPos));
+                    intSoma = (intSoma + intValor);
+                }
+
+                intSoma = (intSoma * 10);
+                var intResto = (intSoma % 11);
+                var strDigito1 = ((intResto > 9) ? "0" : Convert.ToString(intResto)).Substring((((intResto > 9) ? "0" : Convert.ToString(intResto)).Length - 1));
+                var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+                return strBase2 == IE;
+
+            }
+
+
+            if (strBase.Length == 10)
+            {
+                intSoma = 0;
+
+                for (var intPos = 1; (intPos <= 9); intPos++)
+                {
+                    var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                    intValor = (intValor * (11 - intPos));
+                    intSoma = (intSoma + intValor);
+                }
+
+                intSoma = (intSoma * 10);
+                var intResto = (intSoma % 11);
+                var strDigito1 = ((intResto > 10) ? "0" : Convert.ToString(intResto)).Substring((((intResto > 10) ? "0" : Convert.ToString(intResto)).Length - 1));
+                var strBase2 = (strBase.Substring(0, 9) + strDigito1);
+
+                return strBase2 == IE;
+
+            }
+
+            return false;
+
+        }
+
+        private static bool validaRO(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 14)
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var strBase2 = strBase.Substring(3, 5);
+            var intSoma = 0;
+            int intValor;
+
+            for (var intPos = 1; (intPos <= 5); intPos++)
+            {
+                intValor = int.Parse(strBase2.Substring((intPos - 1), 1));
+                intValor = (intValor * (7 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            intValor = (11 - intResto);
+
+            if ((intValor > 9))
+                intValor = (intValor - 10);
+
+            var strDigito1 = Convert.ToString(intValor).Substring((Convert.ToString(intValor).Length - 1));
+            strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaRR(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9 || IE.Substring(0, 2) != "24")
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = intValor * intPos;
+                intSoma += intValor;
+            }
+
+            var intResto = (intSoma % 9);
+            var strDigito1 = Convert.ToString(intResto).Substring((Convert.ToString(intResto).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaRS(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 10 || Convert.ToInt32(IE) > 467)
+                return false;
+
+            var strBase = (IE.Trim() + "0000000000").Substring(0, 10);
+            var intSoma = 0;
+            var intPeso = 2;
+            var intValor = 0;
+
+            for (var intPos = 9; (intPos >= 1); intPos = (intPos + -1))
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * intPeso);
+                intSoma = (intSoma + intValor);
+                intPeso = (intPeso + 1);
+
+                if ((intPeso > 9))
+                    intPeso = 2;
+            }
+
+            var intResto = (intSoma % 11);
+            intValor = (11 - intResto);
+
+            if ((intValor > 9))
+                intValor = 0;
+
+            var strDigito1 = Convert.ToString(intValor).Substring((Convert.ToString(intValor).Length - 1));
+            var strBase2 = (strBase.Substring(0, 9) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaSC(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9)
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaSE(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 9)
+                return false;
+
+            var strBase = (IE.Trim() + "000000000").Substring(0, 9);
+            var intSoma = 0;
+            int intValor;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            intValor = (11 - intResto);
+
+            if ((intValor > 9))
+                intValor = 0;
+
+            var strDigito1 = Convert.ToString(intValor).Substring((Convert.ToString(intValor).Length - 1));
+            var strBase2 = (strBase.Substring(0, 8) + strDigito1);
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaSP(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            string strBase;
+            string strBase2;
+            int intSoma;
+            int intPeso;
+
+            if ((IE.Substring(0, 1) == "P"))
+            {
+                strBase = (IE.Trim() + "0000000000000").Substring(0, 13);
+                intSoma = 0;
+                intPeso = 1;
+
+                for (var intPos = 1; (intPos <= 8); intPos++)
+                {
+                    var intValor = int.Parse(strBase.Substring((intPos), 1));
+                    intValor = (intValor * intPeso);
+                    intSoma = (intSoma + intValor);
+                    intPeso = (intPeso + 1);
+
+                    if ((intPeso == 2))
+                        intPeso = 3;
+
+                    if ((intPeso == 9))
+                        intPeso = 10;
+                }
+
+                var intResto = (intSoma % 11);
+                var strDigito1 = Convert.ToString(intResto).Substring((Convert.ToString(intResto).Length - 1));
+                strBase2 = (strBase.Substring(0, 9) + (strDigito1 + strBase.Substring(10, 3)));
+            }
+            else
+            {
+                strBase = (IE.Trim() + "000000000000").Substring(0, 12);
+                intSoma = 0;
+                intPeso = 1;
+
+                for (var intPos = 1; (intPos <= 8); intPos++)
+                {
+                    var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                    intValor = (intValor * intPeso);
+                    intSoma = (intSoma + intValor);
+                    intPeso = (intPeso + 1);
+
+                    if ((intPeso == 2))
+                        intPeso = 3;
+
+                    if ((intPeso == 9))
+                        intPeso = 10;
+                }
+
+                var intResto = (intSoma % 11);
+                var strDigito1 = Convert.ToString(intResto).Substring((Convert.ToString(intResto).Length - 1));
+                strBase2 = (strBase.Substring(0, 8) + (strDigito1 + strBase.Substring(9, 2)));
+                intSoma = 0;
+                intPeso = 2;
+
+                for (var intPos = 11; (intPos >= 1); intPos = (intPos + -1))
+                {
+                    var intValor = int.Parse(strBase.Substring((intPos - 1), 1));
+                    intValor = (intValor * intPeso);
+                    intSoma = (intSoma + intValor);
+                    intPeso = (intPeso + 1);
+
+                    if ((intPeso > 10))
+                        intPeso = 2;
+                }
+
+                intResto = (intSoma % 11);
+                var strDigito2 = Convert.ToString(intResto).Substring((Convert.ToString(intResto).Length - 1));
+                strBase2 = (strBase2 + strDigito2);
+            }
+
+            return strBase2 == IE;
+
+        }
+
+        private static bool validaTO(string inscricaoEstadual)
+        {
+
+            var IE = inscricaoEstadual;
+            if (IE.Length != 11 || IE.Substring(2, 2) != "01" || IE.Substring(2, 2) != "02" || IE.Substring(2, 2) != "03" || IE.Substring(2, 2) != "99")
+                return false;
+
+            var strBase = (IE.Trim() + "00000000000").Substring(0, 11);
+            var strBase2 = (strBase.Substring(0, 2) + strBase.Substring(4, 6));
+            var intSoma = 0;
+
+            for (var intPos = 1; (intPos <= 8); intPos++)
+            {
+                var intValor = int.Parse(strBase2.Substring((intPos - 1), 1));
+                intValor = (intValor * (10 - intPos));
+                intSoma = (intSoma + intValor);
+            }
+
+            var intResto = (intSoma % 11);
+            var strDigito1 = ((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Substring((((intResto < 2) ? "0" : Convert.ToString((11 - intResto))).Length - 1));
+            strBase2 = (strBase.Substring(0, 10) + strDigito1);
+
+            return strBase2 == IE;
+
+
+        }
+
+
 
     }
 }

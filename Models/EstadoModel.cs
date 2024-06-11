@@ -10,9 +10,7 @@ namespace Sistema_Vendas.Models
     public class EstadoModel
     {
         public int idEstado { get; set; }
-        [Required]
         public string Estado { get; set; }
-        [Required]
         public string UF { get; set; }
         public int idPais { get; set; }
         public DateTime dataCadastro { get; set; }

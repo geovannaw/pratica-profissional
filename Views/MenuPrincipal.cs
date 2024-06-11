@@ -83,5 +83,17 @@ namespace Sistema_Vendas
             ConsultaFuncionarios consultaFuncionarios = new ConsultaFuncionarios();
             consultaFuncionarios.ShowDialog();
         }
+
+        private void condiçãoDePagamentoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaCondicaoPagamento consultaCondicaoPagamento = new ConsultaCondicaoPagamento();
+            consultaCondicaoPagamento.ShowDialog();
+        }
+
+        private void formasDePagamentoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaFormasPagamento consultaFormasPagamento = new ConsultaFormasPagamento();
+            consultaFormasPagamento.ShowDialog();
+        }
     }
 }

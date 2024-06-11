@@ -37,6 +37,10 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // txtCodigo
+            // 
+            this.txtCodigo.Text = "0";
+            // 
             // btnSalvar
             // 
             this.btnSalvar.Location = new System.Drawing.Point(274, 413);
@@ -46,6 +50,14 @@
             // 
             this.btnSair.Location = new System.Drawing.Point(355, 413);
             this.btnSair.TabIndex = 8;
+            // 
+            // txtDataCadastro
+            // 
+            this.txtDataCadastro.Text = "11062024";
+            // 
+            // txtDataUltAlt
+            // 
+            this.txtDataUltAlt.Text = "11062024";
             // 
             // rbInativo
             // 
@@ -63,6 +75,7 @@
             // txtModelo
             // 
             this.txtModelo.Location = new System.Drawing.Point(16, 99);
+            this.txtModelo.MaxLength = 100;
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(248, 20);
             this.txtModelo.TabIndex = 1;
@@ -71,6 +84,7 @@
             // txtMarca
             // 
             this.txtMarca.Location = new System.Drawing.Point(285, 99);
+            this.txtMarca.MaxLength = 100;
             this.txtMarca.Name = "txtMarca";
             this.txtMarca.Size = new System.Drawing.Size(145, 20);
             this.txtMarca.TabIndex = 2;
@@ -97,6 +111,7 @@
             // txtObservacao
             // 
             this.txtObservacao.Location = new System.Drawing.Point(16, 164);
+            this.txtObservacao.MaxLength = 100;
             this.txtObservacao.Name = "txtObservacao";
             this.txtObservacao.Size = new System.Drawing.Size(414, 20);
             this.txtObservacao.TabIndex = 3;

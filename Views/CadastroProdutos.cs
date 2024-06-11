@@ -1,4 +1,5 @@
-﻿using Sistema_Vendas.Controller;
+﻿using MySqlX.XDevAPI;
+using Sistema_Vendas.Controller;
 using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
@@ -34,68 +35,122 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            try
+            if (!VerificaCamposObrigatorios())
             {
-                string descricao = txtDescricao.Text;
-                string unidade = txtUN.Text;
-                int saldo = int.Parse(txtSaldo.Text);
-                decimal custo_medio = Convert.ToDecimal(txtCustoMedio.Text);
-                decimal preco_venda = Convert.ToDecimal(txtPrecoVenda.Text);
-                decimal preco_ult_compra = Convert.ToDecimal(txtPrecoUltCompra.Text);
-                string observacao = txtObservacao.Text;
-                int idFornecedor = int.Parse(txtCodFornecedor.Text);
-                int idModelo = int.Parse(txtCodModelo.Text);
-
-                DateTime data_ult_compra;
-                DateTime.TryParse(txtDataUltCompra.Text, out data_ult_compra);
-
-                DateTime dataCadastro;
-                DateTime dataUltAlt;
-
-                DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                if (idAlterar != -1)
-                {
-                    DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                }
-                else
-                {
-                    DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                }
-
-                ProdutoModel novoProduto = new ProdutoModel
-                {
-                    Descricao = descricao,
-                    Unidade = unidade,
-                    Saldo = saldo,
-                    Custo_medio = custo_medio,
-                    Preco_venda = preco_venda,
-                    Preco_ult_compra = preco_ult_compra,
-                    Data_ult_compra = data_ult_compra,
-                    Observacao = observacao,
-                    Ativo = isAtivo,
-                    dataCadastro = dataCadastro,
-                    dataUltAlt = dataUltAlt,
-                    idFornecedor = idFornecedor,
-                    idModelo = idModelo,
-                };
-
-                if (idAlterar == -1)
-                {
-                    produtoController.Salvar(novoProduto);
-                }
-                else
-                {
-                    novoProduto.idProduto = idAlterar;
-                    produtoController.Alterar(novoProduto);
-                }
-
-                this.DialogResult = DialogResult.OK;
+                return;
             }
-            catch (Exception ex)
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+            if (produtoController.JaCadastrado(txtDescricao.Text, Convert.ToInt32(txtCodFornecedor.Text), idAtual))
             {
-                MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Produto já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else
+            {
+                try
+                {
+                    string descricao = txtDescricao.Text;
+                    string unidade = txtUN.Text;
+                    int saldo = int.Parse(txtSaldo.Text);
+                    decimal custo_medio = Convert.ToDecimal(txtCustoMedio.Text);
+                    decimal preco_venda = Convert.ToDecimal(txtPrecoVenda.Text);
+
+                    string observacao = txtObservacao.Text;
+                    int idFornecedor = int.Parse(txtCodFornecedor.Text);
+                    int idModelo = int.Parse(txtCodModelo.Text);
+
+                    decimal? preco_ult_compra = null;
+
+                    if (!string.IsNullOrWhiteSpace(txtPrecoUltCompra.Text))
+                    {
+                        preco_ult_compra = Convert.ToDecimal(txtPrecoUltCompra.Text);
+                    }
+
+                    AtualizarCampoComDataPadrao(txtDataUltCompra, out DateTime data_ult_compra);
+
+                    DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
+                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+
+                    ProdutoModel novoProduto = new ProdutoModel
+                    {
+                        Descricao = descricao,
+                        Unidade = unidade,
+                        Saldo = saldo,
+                        Custo_medio = custo_medio,
+                        Preco_venda = preco_venda,
+                        Preco_ult_compra = preco_ult_compra,
+                        Data_ult_compra = data_ult_compra,
+                        Observacao = observacao,
+                        Ativo = isAtivo,
+                        dataCadastro = dataCadastro,
+                        dataUltAlt = dataUltAlt,
+                        idFornecedor = idFornecedor,
+                        idModelo = idModelo,
+                    };
+
+                    if (idAlterar == -1)
+                    {
+                        produtoController.Salvar(novoProduto);
+                    }
+                    else
+                    {
+                        novoProduto.idProduto = idAlterar;
+                        produtoController.Alterar(novoProduto);
+                    }
+
+                    this.DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        protected bool VerificaCamposObrigatorios()
+        {
+            if (!CampoObrigatorio(txtDescricao.Text))
+            {
+                MessageBox.Show("Campo Descrição é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDescricao.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtUN.Text))
+            {
+                MessageBox.Show("Campo UN é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUN.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtCodModelo.Text))
+            {
+                MessageBox.Show("Campo Cód. Modelo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodModelo.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtCodFornecedor.Text))
+            {
+                MessageBox.Show("Campo Cód. Fornecedor é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodFornecedor.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtSaldo.Text))
+            {
+                MessageBox.Show("Campo Saldo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtSaldo.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtCustoMedio.Text))
+            {
+                MessageBox.Show("Campo Custo Médio é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCustoMedio.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtPrecoVenda.Text))
+            {
+                MessageBox.Show("Campo Preço Venda é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPrecoVenda.Focus();
+                return false;
+            }
+            return true;
         }
 
         public override void Carrega()
@@ -112,7 +167,6 @@ namespace Sistema_Vendas.Views
                     txtCustoMedio.Text = produto.Custo_medio.ToString();
                     txtPrecoVenda.Text = produto.Preco_venda.ToString();
                     txtPrecoUltCompra.Text = produto.Preco_ult_compra.ToString();
-                    txtDataUltCompra.Text = produto.Data_ult_compra.ToString();
                     txtObservacao.Text = produto.Observacao;
                     txtDataCadastro.Text = produto.dataCadastro.ToString();
                     txtDataUltAlt.Text = produto.dataUltAlt.ToString();
@@ -120,6 +174,8 @@ namespace Sistema_Vendas.Views
                     rbInativo.Checked = !produto.Ativo;
                     txtCodFornecedor.Text = produto.idFornecedor.ToString();
                     txtCodModelo.Text = produto.idModelo.ToString();
+
+                    AtualizarCampoData(produto.Data_ult_compra, txtDataUltCompra);
 
                     ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Text));
                     if (modelo != null)
@@ -147,15 +203,6 @@ namespace Sistema_Vendas.Views
 
         private void CadastroProdutos_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
-            }
         }
 
         private void btnConsultaModelos_Click(object sender, EventArgs e)
@@ -212,10 +259,12 @@ namespace Sistema_Vendas.Views
                     if (modelo != null)
                     {
                         txtModelo.Text = modelo.Modelo;
+                        txtMarca.Text = modelo.Marca;
                     }
                     else
                     {
                         MessageBox.Show("Modelo não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCodModelo.Focus();
                     }
                 }
             }
@@ -240,6 +289,7 @@ namespace Sistema_Vendas.Views
                     else
                     {
                         MessageBox.Show("Fornecedor não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCodFornecedor.Focus();
                     }
                 }
             }

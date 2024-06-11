@@ -43,6 +43,7 @@
             // txtCodigo
             // 
             this.txtCodigo.TabIndex = 0;
+            this.txtCodigo.Text = "0";
             // 
             // btnSalvar
             // 
@@ -51,6 +52,14 @@
             // btnSair
             // 
             this.btnSair.TabIndex = 9;
+            // 
+            // txtDataCadastro
+            // 
+            this.txtDataCadastro.Text = "11062024";
+            // 
+            // txtDataUltAlt
+            // 
+            this.txtDataUltAlt.Text = "11062024";
             // 
             // rbInativo
             // 
@@ -92,6 +101,7 @@
             // txtEstado
             // 
             this.txtEstado.Location = new System.Drawing.Point(16, 104);
+            this.txtEstado.MaxLength = 100;
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.Size = new System.Drawing.Size(246, 20);
             this.txtEstado.TabIndex = 1;
@@ -100,6 +110,7 @@
             // txtUF
             // 
             this.txtUF.Location = new System.Drawing.Point(278, 104);
+            this.txtUF.MaxLength = 5;
             this.txtUF.Name = "txtUF";
             this.txtUF.Size = new System.Drawing.Size(100, 20);
             this.txtUF.TabIndex = 2;
@@ -107,6 +118,7 @@
             // 
             // txtPais
             // 
+            this.txtPais.Enabled = false;
             this.txtPais.Location = new System.Drawing.Point(128, 176);
             this.txtPais.Name = "txtPais";
             this.txtPais.Size = new System.Drawing.Size(248, 20);

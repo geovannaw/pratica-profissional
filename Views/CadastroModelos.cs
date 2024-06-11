@@ -75,19 +75,9 @@ namespace Sistema_Vendas.Views
                         string modelo = txtModelo.Text;
                         string marca = txtMarca.Text;
                         string observacao = txtObservacao.Text;
-                        DateTime dataCadastro;
-                        DateTime dataUltAlt;
 
-                        DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                        if (idAlterar != -1)
-                        {
-                            DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                        }
-                        else
-                        {
-                            DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                        }
+                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
 
                         ModeloModel novoModelo = new ModeloModel
                         {
@@ -125,15 +115,6 @@ namespace Sistema_Vendas.Views
 
         private void CadastroModelos_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
-            }
         }
 
         private void txtModelo_Leave(object sender, EventArgs e)

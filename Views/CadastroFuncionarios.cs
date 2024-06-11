@@ -67,19 +67,8 @@ namespace Sistema_Vendas.Views
                     AtualizarCampoComDataPadrao(txtDataAdmissao, out DateTime data_admissao);
                     AtualizarCampoComDataPadrao(txtDataDemissao, out DateTime data_demissao);
 
-                    DateTime dataCadastro;
-                    DateTime dataUltAlt;
-
-                    DateTime.TryParse(txtDataCadastro.Text, out dataCadastro);
-
-                    if (idAlterar != -1)
-                    {
-                        DateTime.TryParse(DateTime.Now.ToString(), out dataUltAlt);
-                    }
-                    else
-                    {
-                        DateTime.TryParse(txtDataUltAlt.Text, out dataUltAlt);
-                    }
+                    DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
+                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
 
                     FuncionarioModel novoFuncionario = new FuncionarioModel
                     {
@@ -124,24 +113,6 @@ namespace Sistema_Vendas.Views
                 {
                     MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-        }
-
-        void AtualizarCampoComDataPadrao(MaskedTextBox campoTexto, out DateTime data)
-        {
-            string entrada = campoTexto.Text;
-            DateTime dataPadrao = new DateTime(1800, 1, 1);
-
-            if (DateTime.TryParse(entrada, out data))
-            {
-                // Se a conversão for bem-sucedida, é utilizada a data convertida
-                campoTexto.Text = data.ToString("dd/MM/yyyy");
-            }
-            else
-            {
-                // Se a conversão falhar, é definida uma data padrão
-                campoTexto.Text = dataPadrao.ToString("dd/MM/yyyy");
-                data = dataPadrao;
             }
         }
 
@@ -196,19 +167,6 @@ namespace Sistema_Vendas.Views
                 {
                     MessageBox.Show("Funcionário não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-        }
-
-        void AtualizarCampoData(DateTime data, MaskedTextBox campoTexto)
-        {
-            DateTime dataPadrao = new DateTime(1800, 1, 1);
-            if (data == dataPadrao)
-            {
-                campoTexto.Clear(); // Deixa o campo vazio
-            }
-            else
-            {
-                campoTexto.Text = data.ToString();
             }
         }
         private void btnConsultaCidades_Click(object sender, EventArgs e)
@@ -280,15 +238,6 @@ namespace Sistema_Vendas.Views
 
         private void CadastroFuncionarios_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
-            }
         }
 
         private void CadastroFuncionarios_FormClosed(object sender, FormClosedEventArgs e)
@@ -298,6 +247,17 @@ namespace Sistema_Vendas.Views
 
         protected bool VerificaCamposObrigatorios()
         {
+            string cpf = new string(txtCPF.Text.Where(char.IsDigit).ToArray());
+            string pais = txtPais.Text.ToLower();
+            if (pais == "brasil")
+            {
+                if (!CampoObrigatorio(cpf))
+                {
+                    MessageBox.Show("CPF obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCPF.Focus();
+                    return false;
+                }
+            }
             if (!CampoObrigatorio(txtFuncionario.Text))
             {
                 MessageBox.Show("Campo Funcionário é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -449,11 +409,6 @@ namespace Sistema_Vendas.Views
 
         private void txtEndereco_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtEndereco.Text))
-            {
-                MessageBox.Show("Endereço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtEndereco.Focus();
-            }
         }
 
         private void txtNumero_Leave(object sender, EventArgs e)

@@ -172,6 +172,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "CadastroPaiCEP";
             this.Text = "CadastroPaiCEP";
+            this.Load += new System.EventHandler(this.CadastroPaiCEP_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
