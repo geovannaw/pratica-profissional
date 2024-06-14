@@ -49,6 +49,23 @@ namespace Sistema_Vendas.Views
             }
         }
 
+        public override void LimparCampos()
+        {
+            idAlterar = -1;
+            txtCodigo.Clear();
+            txtModelo.Clear();
+            txtMarca.Clear();
+            txtObservacao.Clear();
+            txtDataCadastro.Clear();
+            txtDataUltAlt.Clear();
+            rbAtivo.Checked = true;
+        }
+
+        public void SetID(int id)
+        {
+            idAlterar = id;
+        }
+
         public override void Salvar()
         {
             int idAtual = idAlterar != -1 ? idAlterar : -1;

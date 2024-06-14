@@ -35,6 +35,10 @@
             this.btnIncluir = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.cbBuscaInativos = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rbCodigo = new System.Windows.Forms.RadioButton();
+            this.rbNome = new System.Windows.Forms.RadioButton();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtPesquisar
@@ -43,6 +47,7 @@
             this.txtPesquisar.Name = "txtPesquisar";
             this.txtPesquisar.Size = new System.Drawing.Size(185, 20);
             this.txtPesquisar.TabIndex = 0;
+            this.txtPesquisar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPesquisar_KeyDown);
             // 
             // btnPesquisar
             // 
@@ -97,18 +102,53 @@
             // cbBuscaInativos
             // 
             this.cbBuscaInativos.AutoSize = true;
-            this.cbBuscaInativos.Location = new System.Drawing.Point(296, 20);
+            this.cbBuscaInativos.Location = new System.Drawing.Point(519, 20);
             this.cbBuscaInativos.Name = "cbBuscaInativos";
             this.cbBuscaInativos.Size = new System.Drawing.Size(99, 17);
             this.cbBuscaInativos.TabIndex = 7;
             this.cbBuscaInativos.Text = "Buscar Inativos";
             this.cbBuscaInativos.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rbCodigo);
+            this.groupBox2.Controls.Add(this.rbNome);
+            this.groupBox2.Location = new System.Drawing.Point(296, 4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(145, 40);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Busca";
+            // 
+            // rbCodigo
+            // 
+            this.rbCodigo.AutoSize = true;
+            this.rbCodigo.Location = new System.Drawing.Point(80, 14);
+            this.rbCodigo.Name = "rbCodigo";
+            this.rbCodigo.Size = new System.Drawing.Size(58, 17);
+            this.rbCodigo.TabIndex = 3;
+            this.rbCodigo.TabStop = true;
+            this.rbCodigo.Text = "Código";
+            this.rbCodigo.UseVisualStyleBackColor = true;
+            // 
+            // rbNome
+            // 
+            this.rbNome.AutoSize = true;
+            this.rbNome.Checked = true;
+            this.rbNome.Location = new System.Drawing.Point(16, 14);
+            this.rbNome.Name = "rbNome";
+            this.rbNome.Size = new System.Drawing.Size(53, 17);
+            this.rbNome.TabIndex = 2;
+            this.rbNome.TabStop = true;
+            this.rbNome.Text = "Nome";
+            this.rbNome.UseVisualStyleBackColor = true;
+            // 
             // ConsultaPai
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 454);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.cbBuscaInativos);
             this.Controls.Add(this.btnAlterar);
             this.Controls.Add(this.btnIncluir);
@@ -119,6 +159,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ConsultaPai";
             this.Text = "ConsultaPai";
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,5 +175,8 @@
         protected System.Windows.Forms.Button btnAlterar;
         public System.Windows.Forms.Button btnSair;
         public System.Windows.Forms.CheckBox cbBuscaInativos;
+        protected System.Windows.Forms.GroupBox groupBox2;
+        protected System.Windows.Forms.RadioButton rbCodigo;
+        protected System.Windows.Forms.RadioButton rbNome;
     }
 }

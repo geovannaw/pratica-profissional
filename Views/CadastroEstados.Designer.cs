@@ -94,9 +94,9 @@
             this.lblPais.AutoSize = true;
             this.lblPais.Location = new System.Drawing.Point(128, 160);
             this.lblPais.Name = "lblPais";
-            this.lblPais.Size = new System.Drawing.Size(36, 13);
+            this.lblPais.Size = new System.Drawing.Size(29, 13);
             this.lblPais.TabIndex = 9;
-            this.lblPais.Text = "País *";
+            this.lblPais.Text = "País";
             // 
             // txtEstado
             // 

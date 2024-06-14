@@ -40,7 +40,7 @@ namespace Sistema_Vendas.Views
                 return;
             }
             int idAtual = idAlterar != -1 ? idAlterar : -1;
-            if (produtoController.JaCadastrado(txtDescricao.Text, Convert.ToInt32(txtCodFornecedor.Text), idAtual))
+            if (produtoController.JaCadastrado(txtProduto.Text, Convert.ToInt32(txtCodFornecedor.Text), idAtual))
             {
                 MessageBox.Show("Produto já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -48,31 +48,26 @@ namespace Sistema_Vendas.Views
             {
                 try
                 {
-                    string descricao = txtDescricao.Text;
+                    string produto = txtProduto.Text;
                     string unidade = txtUN.Text;
                     int saldo = int.Parse(txtSaldo.Text);
+
                     decimal custo_medio = Convert.ToDecimal(txtCustoMedio.Text);
                     decimal preco_venda = Convert.ToDecimal(txtPrecoVenda.Text);
+                    decimal preco_ult_compra = Convert.ToDecimal(txtPrecoUltCompra.Text);
 
                     string observacao = txtObservacao.Text;
                     int idFornecedor = int.Parse(txtCodFornecedor.Text);
                     int idModelo = int.Parse(txtCodModelo.Text);
 
-                    decimal? preco_ult_compra = null;
-
-                    if (!string.IsNullOrWhiteSpace(txtPrecoUltCompra.Text))
-                    {
-                        preco_ult_compra = Convert.ToDecimal(txtPrecoUltCompra.Text);
-                    }
-
                     AtualizarCampoComDataPadrao(txtDataUltCompra, out DateTime data_ult_compra);
 
                     DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
-
+                    
                     ProdutoModel novoProduto = new ProdutoModel
                     {
-                        Descricao = descricao,
+                        Produto = produto,
                         Unidade = unidade,
                         Saldo = saldo,
                         Custo_medio = custo_medio,
@@ -106,12 +101,39 @@ namespace Sistema_Vendas.Views
             }
         }
 
+        public override void LimparCampos()
+        {
+            idAlterar = -1;
+            txtCodigo.Clear();
+            txtProduto.Clear();
+            txtUN.Clear();
+            txtCodModelo.Clear();
+            txtModelo.Clear();
+            txtMarca.Clear();
+            txtCodFornecedor.Clear();
+            txtFornecedor.Clear();
+            txtSaldo.Clear();
+            txtCustoMedio.Clear();
+            txtPrecoVenda.Clear();
+            txtPrecoUltCompra.Clear();
+            txtDataUltCompra.Clear();
+            txtObservacao.Clear();
+            txtDataCadastro.Clear();
+            txtDataUltAlt.Clear();
+            rbAtivo.Checked = true;
+        }
+
+        public void SetID(int id)
+        {
+            idAlterar = id;
+        }
+
         protected bool VerificaCamposObrigatorios()
         {
-            if (!CampoObrigatorio(txtDescricao.Text))
+            if (!CampoObrigatorio(txtProduto.Text))
             {
                 MessageBox.Show("Campo Descrição é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDescricao.Focus();
+                txtProduto.Focus();
                 return false;
             }
             if (!CampoObrigatorio(txtUN.Text))
@@ -132,18 +154,6 @@ namespace Sistema_Vendas.Views
                 txtCodFornecedor.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtSaldo.Text))
-            {
-                MessageBox.Show("Campo Saldo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtSaldo.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtCustoMedio.Text))
-            {
-                MessageBox.Show("Campo Custo Médio é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCustoMedio.Focus();
-                return false;
-            }
             if (!CampoObrigatorio(txtPrecoVenda.Text))
             {
                 MessageBox.Show("Campo Preço Venda é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -161,7 +171,7 @@ namespace Sistema_Vendas.Views
                 if (produto != null)
                 {
                     txtCodigo.Text = produto.idProduto.ToString();
-                    txtDescricao.Text = produto.Descricao;
+                    txtProduto.Text = produto.Produto;
                     txtSaldo.Text = produto.Saldo.ToString();
                     txtUN.Text = produto.Unidade.ToString();
                     txtCustoMedio.Text = produto.Custo_medio.ToString();
@@ -203,6 +213,9 @@ namespace Sistema_Vendas.Views
 
         private void CadastroProdutos_Load(object sender, EventArgs e)
         {
+            txtSaldo.Text = "0";
+            txtCustoMedio.Text = "0";
+            txtPrecoUltCompra.Text = "0";
         }
 
         private void btnConsultaModelos_Click(object sender, EventArgs e)

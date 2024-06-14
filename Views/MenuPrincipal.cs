@@ -1,4 +1,5 @@
-﻿using Sistema_Vendas.Models;
+﻿using Sistema_Vendas.Controller;
+using Sistema_Vendas.Models;
 using Sistema_Vendas.Views;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Sistema_Vendas
     public partial class MenuPrincipal : Form
     {
         private Timer timerAtualizacao;
+        private DadosEmpresaController<DadosEmpresaModel> dadosEmpresaController;
         public MenuPrincipal()
         {
             timerAtualizacao = new Timer();
@@ -23,6 +25,7 @@ namespace Sistema_Vendas
             timerAtualizacao.Start();
 
             InitializeComponent();
+
         }
 
         private void TimerAtualizacao_Tick(object sender, EventArgs e)
@@ -94,6 +97,12 @@ namespace Sistema_Vendas
         {
             ConsultaFormasPagamento consultaFormasPagamento = new ConsultaFormasPagamento();
             consultaFormasPagamento.ShowDialog();
+        }
+
+        private void serviçosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaServicos consultaServicos = new ConsultaServicos();
+            consultaServicos.ShowDialog();
         }
     }
 }

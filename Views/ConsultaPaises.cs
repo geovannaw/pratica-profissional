@@ -59,18 +59,43 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        public override void Pesquisar() {
-            string pesquisa = txtPesquisar.Text.Trim(); //obtem a pesquisa do txt
+        public override void Pesquisar()
+        {
+            string pesquisa = txtPesquisar.Text.Trim(); // Obtém a pesquisa do txt
 
-            //verifica se há um termo de pesquisa
+            // Verifica se há um termo de pesquisa
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
                 {
-                    //filtra os dados dos países
-                    List<PaisModel> resultadosPesquisa = paisController.GetAll(cbBuscaInativos.Checked).Where(p => p.Pais.ToLower().Contains(pesquisa.ToLower())).ToList();
-                    dataGridViewPaises.DataSource = resultadosPesquisa; //atualiza o DataSource do DataGridView com os resultados da pesquisa
-                    txtPesquisar.Text = string.Empty; //limpa o txt pesquisa
+                    List<PaisModel> resultadosPesquisa = new List<PaisModel>();
+                    bool buscaInativos = cbBuscaInativos.Checked;
+
+                    if (rbNome.Checked)
+                    {
+                        // Pesquisa por Nome
+                        resultadosPesquisa = paisController.GetAll(buscaInativos)
+                                                           .Where(p => p.Pais.ToLower().Contains(pesquisa.ToLower()))
+                                                           .ToList();
+                    }
+                    else if (rbCodigo.Checked)
+                    {
+                        // Pesquisa por Código
+                        if (int.TryParse(pesquisa, out int codigoPesquisa))
+                        {
+                            resultadosPesquisa = paisController.GetAll(buscaInativos)
+                                                               .Where(p => p.idPais == codigoPesquisa)
+                                                               .ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor, insira um código válido.", "Código inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    dataGridViewPaises.DataSource = resultadosPesquisa; // Atualiza o DataSource do DataGridView com os resultados da pesquisa
+                    txtPesquisar.Text = string.Empty; // Limpa o txt pesquisa
                 }
                 catch (Exception ex)
                 {
@@ -79,7 +104,7 @@ namespace Sistema_Vendas.Views
             }
             else
             {
-                //se não houver nada no txt, atualiza a consulta de países normalmente
+                // Se não houver nada no txt, atualiza a consulta de países normalmente
                 AtualizarConsultaPaises(cbBuscaInativos.Checked);
             }
         }

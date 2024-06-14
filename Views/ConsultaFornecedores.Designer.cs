@@ -33,6 +33,7 @@
             this.Fornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Celular = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFornecedores)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,6 +94,7 @@
             this.Name = "ConsultaFornecedores";
             this.Text = "Consulta Fornecedores";
             this.Load += new System.EventHandler(this.ConsultaFornecedores_Load);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
@@ -101,6 +103,8 @@
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.dataGridViewFornecedores, 0);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFornecedores)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

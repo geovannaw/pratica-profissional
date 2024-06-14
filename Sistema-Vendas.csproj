@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="Controller\CidadeController.cs" />
     <Compile Include="Controller\ClienteController.cs" />
+    <Compile Include="Controller\CondicaoPagamentoController.cs" />
     <Compile Include="Controller\ControllerPai.cs" />
     <Compile Include="Controller\DadosEmpresaController.cs" />
     <Compile Include="Controller\EstadoController.cs" />
@@ -113,22 +114,28 @@
     <Compile Include="Controller\ModeloController.cs" />
     <Compile Include="Controller\PaisController.cs" />
     <Compile Include="Controller\ProdutoController.cs" />
+    <Compile Include="Controller\ServicoController.cs" />
     <Compile Include="DAO\CidadeDAO.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
+    <Compile Include="DAO\CondicaoPagamentoDAO.cs" />
     <Compile Include="DAO\DadosEmpresaDAO.cs" />
     <Compile Include="DAO\FormaPagamentoDAO.cs" />
     <Compile Include="DAO\FornecedorDAO.cs" />
     <Compile Include="DAO\FuncionarioDAO.cs" />
     <Compile Include="DAO\ModeloDAO.cs" />
     <Compile Include="DAO\ProdutoDAO.cs" />
+    <Compile Include="DAO\ServicoDAO.cs" />
     <Compile Include="Models\CidadeModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\CondicaoPagamentoModel.cs" />
     <Compile Include="Models\DadosEmpresaModel.cs" />
     <Compile Include="Models\FormaPagamentoModel.cs" />
     <Compile Include="Models\FornecedorModel.cs" />
     <Compile Include="Models\FuncionarioModel.cs" />
     <Compile Include="Models\ModeloModel.cs" />
+    <Compile Include="Models\ParcelaModel.cs" />
     <Compile Include="Models\ProdutoModel.cs" />
+    <Compile Include="Models\ServicoModel.cs" />
     <Compile Include="Views\CadastroCidades.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +195,12 @@
     </Compile>
     <Compile Include="Views\CadastroProdutos.Designer.cs">
       <DependentUpon>CadastroProdutos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CadastroServicos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CadastroServicos.Designer.cs">
+      <DependentUpon>CadastroServicos.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ConsultaCidades.cs">
       <SubType>Form</SubType>
@@ -271,6 +284,12 @@
     <Compile Include="Views\ConsultaProdutos.Designer.cs">
       <DependentUpon>ConsultaProdutos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsultaServicos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultaServicos.Designer.cs">
+      <DependentUpon>ConsultaServicos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\DadosEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -319,6 +338,9 @@
     <EmbeddedResource Include="Views\CadastroProdutos.resx">
       <DependentUpon>CadastroProdutos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CadastroServicos.resx">
+      <DependentUpon>CadastroServicos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaCidades.resx">
       <DependentUpon>ConsultaCidades.cs</DependentUpon>
     </EmbeddedResource>
@@ -357,6 +379,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaProdutos.resx">
       <DependentUpon>ConsultaProdutos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultaServicos.resx">
+      <DependentUpon>ConsultaServicos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DadosEmpresa.resx">
       <DependentUpon>DadosEmpresa.cs</DependentUpon>

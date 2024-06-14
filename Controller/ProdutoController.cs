@@ -41,13 +41,13 @@ namespace Sistema_Vendas.Controller
             produtoDAO.Salvar(obj);
         }
 
-        public bool JaCadastrado(string descricao, int idFornecedor, int idAtual)
+        public bool JaCadastrado(string nome, int idFornecedor, int idAtual)
         {
             List<ProdutoModel> produtos = produtoDAO.GetAll(false).Cast<ProdutoModel>().ToList();
 
             foreach (ProdutoModel produto in produtos)
             {
-                if (string.Equals(produto.Descricao, descricao, StringComparison.OrdinalIgnoreCase) && produto.idFornecedor == idFornecedor && produto.idProduto != idAtual)
+                if (string.Equals(produto.Produto, nome, StringComparison.OrdinalIgnoreCase) && produto.idFornecedor == idFornecedor && produto.idProduto != idAtual)
                 {
                     return true;
                 }

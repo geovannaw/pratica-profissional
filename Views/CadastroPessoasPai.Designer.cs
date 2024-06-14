@@ -223,9 +223,9 @@
             this.lblCidade.AutoSize = true;
             this.lblCidade.Location = new System.Drawing.Point(321, 78);
             this.lblCidade.Name = "lblCidade";
-            this.lblCidade.Size = new System.Drawing.Size(47, 13);
+            this.lblCidade.Size = new System.Drawing.Size(40, 13);
             this.lblCidade.TabIndex = 20;
-            this.lblCidade.Text = "Cidade *";
+            this.lblCidade.Text = "Cidade";
             // 
             // txtCidade
             // 
@@ -640,7 +640,7 @@
             // lblCondPag
             // 
             this.lblCondPag.AutoSize = true;
-            this.lblCondPag.Location = new System.Drawing.Point(14, 23);
+            this.lblCondPag.Location = new System.Drawing.Point(27, 23);
             this.lblCondPag.Name = "lblCondPag";
             this.lblCondPag.Size = new System.Drawing.Size(40, 13);
             this.lblCondPag.TabIndex = 63;
@@ -649,14 +649,14 @@
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(111, 39);
+            this.textBox2.Location = new System.Drawing.Point(124, 39);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 20);
+            this.textBox2.Size = new System.Drawing.Size(270, 20);
             this.textBox2.TabIndex = 60;
             // 
             // txtCodCondPag
             // 
-            this.txtCodCondPag.Location = new System.Drawing.Point(17, 39);
+            this.txtCodCondPag.Location = new System.Drawing.Point(30, 39);
             this.txtCodCondPag.Name = "txtCodCondPag";
             this.txtCodCondPag.Size = new System.Drawing.Size(37, 20);
             this.txtCodCondPag.TabIndex = 58;
@@ -664,7 +664,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(108, 23);
+            this.label3.Location = new System.Drawing.Point(121, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(124, 13);
             this.label3.TabIndex = 61;
@@ -673,7 +673,7 @@
             // btnConsultaCondPag
             // 
             this.btnConsultaCondPag.Image = global::Sistema_Vendas.Properties.Resources.imagem_lupa;
-            this.btnConsultaCondPag.Location = new System.Drawing.Point(64, 36);
+            this.btnConsultaCondPag.Location = new System.Drawing.Point(77, 37);
             this.btnConsultaCondPag.Name = "btnConsultaCondPag";
             this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 24);
             this.btnConsultaCondPag.TabIndex = 59;

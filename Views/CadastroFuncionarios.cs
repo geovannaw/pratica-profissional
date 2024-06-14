@@ -116,6 +116,41 @@ namespace Sistema_Vendas.Views
             }
         }
 
+        public override void LimparCampos()
+        {
+            idAlterar = -1;
+            txtCodigo.Clear();
+            txtFuncionario.Clear();
+            txtApelido.Clear();
+            txtTelefone.Clear();
+            txtCelular.Clear();
+            txtEmail.Clear();
+            txtCEP.Clear();
+            txtEndereco.Clear();
+            txtNumero.Clear();
+            txtComplemento.Clear();
+            txtBairro.Clear();
+            txtCodCidade.Clear();
+            txtCidade.Clear();
+            txtUF.Clear();
+            txtPais.Clear();
+            txtCPF.Clear();
+            txtRG.Clear();
+            txtDataNasc.Clear();
+            txtCargo.Clear();
+            txtSalario.Clear();
+            txtPis.Clear();
+            txtDataAdmissao.Clear();
+            txtDataDemissao.Clear();
+            txtDataCadastro.Clear();
+            txtDataUltAlt.Clear();
+            rbAtivo.Checked = true;
+        }
+
+        public void SetID(int id)
+        {
+            idAlterar = id;
+        }
         public override void Carrega()
         {
             if (idAlterar != -1)
@@ -150,7 +185,7 @@ namespace Sistema_Vendas.Views
                     AtualizarCampoData(funcionario.data_admissao, txtDataAdmissao);
                     AtualizarCampoData(funcionario.data_demissao, txtDataDemissao);
 
-                    List<string> cidadeEstadoPais = funcionarioController.GetCEPByCidadeId(funcionario.idCidade);
+                    List<string> cidadeEstadoPais = funcionarioController.GetCEPByIdCidade(funcionario.idCidade);
 
                     if (cidadeEstadoPais.Count > 0)
                     {
@@ -185,7 +220,7 @@ namespace Sistema_Vendas.Views
                     txtCodCidade.Text = cidadeID.ToString();
                     txtCidade.Text = cidadeNome;
 
-                    List<string> cidadeEstadoPais = funcionarioController.GetCEPByCidadeId(cidadeID);
+                    List<string> cidadeEstadoPais = funcionarioController.GetCEPByIdCidade(cidadeID);
 
                     if (cidadeEstadoPais.Count > 0)
                     {
@@ -211,7 +246,7 @@ namespace Sistema_Vendas.Views
                 }
                 else
                 {
-                    List<string> cidadeEstadoPais = funcionarioController.GetCEPByCidadeId(int.Parse(txtCodCidade.Text));
+                    List<string> cidadeEstadoPais = funcionarioController.GetCEPByIdCidade(int.Parse(txtCodCidade.Text));
 
                     if (cidadeEstadoPais.Count > 0)
                     {
@@ -262,6 +297,12 @@ namespace Sistema_Vendas.Views
             {
                 MessageBox.Show("Campo Funcionário é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtFuncionario.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtSexo.Text))
+            {
+                MessageBox.Show("Campo Sexo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtSexo.Focus();
                 return false;
             }
             string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
@@ -326,13 +367,13 @@ namespace Sistema_Vendas.Views
                 txtPis.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtDataAdmissao.Text))
+            string dataAdmissao = new string(txtDataAdmissao.Text.Where(char.IsDigit).ToArray());
+            if (!CampoObrigatorio(dataAdmissao))
             {
                 MessageBox.Show("Campo Data Admissão é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtDataAdmissao.Focus();
                 return false;
             }
-
             return true;
         }
 

@@ -14,16 +14,18 @@ namespace Sistema_Vendas.Views
     public partial class ConsultaClientes : Sistema_Vendas.ConsultaPai
     {
         private ClienteController<ClienteModel> clientesController;
+        private CadastroClientes cadastroClientes;
         public ConsultaClientes()
         {
             InitializeComponent();
             clientesController = new ClienteController<ClienteModel>();
+            cadastroClientes = new CadastroClientes();
+            cadastroClientes.Owner = this;
         }
 
         public override void Incluir()
         {
-            CadastroClientes cadastroClientes = new CadastroClientes();
-            cadastroClientes.Owner = this;
+            ResetCadastro();
             cadastroClientes.ShowDialog();
         }
         public override void Alterar()
@@ -31,8 +33,7 @@ namespace Sistema_Vendas.Views
             if (dataGridViewClientes.SelectedRows.Count > 0)
             {
                 int idCliente = (int)dataGridViewClientes.SelectedRows[0].Cells["Código"].Value;
-                CadastroClientes cadastroClientes = new CadastroClientes(idCliente);
-                cadastroClientes.Owner = this;
+                ResetCadastro(idCliente);
                 cadastroClientes.ShowDialog();
             }
             else
@@ -61,23 +62,28 @@ namespace Sistema_Vendas.Views
         public override void Pesquisar()
         {
             string pesquisa = txtPesquisar.Text.Trim();
-
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
                 {
-                    var clientes = clientesController.GetAll(cbBuscaInativos.Checked);
-
-                    var resultadosPesquisa = clientes
-                        .Where(p => p.cliente_razao_social.ToLower().Contains(pesquisa.ToLower()))
-                        .Select(cliente => new
+                    List<ClienteModel> resultadosPesquisa = new List<ClienteModel>();
+                    bool buscaInativos = cbBuscaInativos.Checked;
+                    if (rbNome.Checked)
+                    {
+                        resultadosPesquisa = clientesController.GetAll(buscaInativos).Where(p => p.cliente_razao_social.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    }
+                    else if (rbCodigo.Checked)
+                    {
+                        if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            cliente.idCliente,
-                            cliente.cliente_razao_social,
-                            tipo_pessoa = cliente.tipo_pessoa ? "Físico" : "Jurídico",
-                            cliente.celular
-                        })
-                        .ToList();
+                            resultadosPesquisa = clientesController.GetAll(buscaInativos).Where(p => p.idCliente == codigoPesquisa).ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor, insira um código válido.", "Código inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
 
                     dataGridViewClientes.DataSource = resultadosPesquisa;
                     txtPesquisar.Text = string.Empty;
@@ -97,18 +103,7 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                var clientes = clientesController.GetAll(incluirInativos);
-
-                // Converte o valor bool em uma string "Físico" ou "Jurídico"
-                var clientesFormatados = clientes.Select(cliente => new
-                {
-                    cliente.idCliente,
-                    cliente.cliente_razao_social,
-                    tipo_pessoa = cliente.tipo_pessoa ? "Físico" : "Jurídico",
-                    cliente.celular
-                }).ToList();
-
-                dataGridViewClientes.DataSource = clientesFormatados;
+                dataGridViewClientes.DataSource = clientesController.GetAll(incluirInativos);
             }
             catch (Exception ex)
             {
@@ -120,7 +115,6 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                CadastroClientes cadastroClientes = new CadastroClientes();
                 cadastroClientes.FormClosed += (s, args) => AtualizarConsultaClientes(cbBuscaInativos.Checked); 
 
                 dataGridViewClientes.AutoGenerateColumns = false;
@@ -142,11 +136,20 @@ namespace Sistema_Vendas.Views
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 int idCliente = (int)dataGridViewClientes.Rows[e.RowIndex].Cells["Código"].Value;
-
-                CadastroClientes cadastroClientes = new CadastroClientes(idCliente);
-                cadastroClientes.Owner = this;
+                ResetCadastro(idCliente);
                 cadastroClientes.ShowDialog();
             }
+        }
+
+        private void ResetCadastro()
+        {
+            cadastroClientes.LimparCampos();
+        }
+
+        private void ResetCadastro(int id)
+        {
+            cadastroClientes.SetID(id);
+            cadastroClientes.Carrega();
         }
 
         private void cbBuscaInativos_CheckedChanged(object sender, EventArgs e)
@@ -159,13 +162,20 @@ namespace Sistema_Vendas.Views
         {
             if (e.ColumnIndex == dataGridViewClientes.Columns["Celular"].Index && e.Value != null)
             {
-                //formata o número de celular
+                // Formata o número de celular
                 string celular = e.Value.ToString();
                 if (celular.Length == 11)
                 {
                     e.Value = string.Format("({0}) {1}-{2}", celular.Substring(0, 2), celular.Substring(2, 5), celular.Substring(7));
                     e.FormattingApplied = true;
                 }
+            }
+            else if (e.ColumnIndex == dataGridViewClientes.Columns["Tipo"].Index && e.Value != null)
+            {
+                // Converte o valor bool em uma string "Físico" ou "Jurídico"
+                bool tipoPessoa = (bool)e.Value;
+                e.Value = tipoPessoa ? "Físico" : "Jurídico";
+                e.FormattingApplied = true;
             }
         }
     }

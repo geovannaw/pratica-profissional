@@ -126,6 +126,24 @@ namespace Sistema_Vendas.Views
             }
         }
 
+        public override void LimparCampos()
+        {
+            idAlterar = -1;
+            txtCodigo.Clear();
+            txtCidade.Clear();
+            txtCodEstado.Clear();
+            txtEstado.Clear();
+            txtDDD.Clear();
+            txtDataCadastro.Clear();
+            txtDataUltAlt.Clear();
+            rbAtivo.Checked = true;
+        }
+
+        public void SetID(int id)
+        {
+            idAlterar = id;
+        }
+
         private void CadastroCidades_FormClosed(object sender, FormClosedEventArgs e)
         {
             ((ConsultaCidades)this.Owner).AtualizarConsultaCidades(false);

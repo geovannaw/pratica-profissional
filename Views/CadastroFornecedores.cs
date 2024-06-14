@@ -153,7 +153,7 @@ namespace Sistema_Vendas.Views
 
                     AtualizarCampoData(fornecedor.data_nasc, txtDataNasc);
 
-                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByCidadeId(fornecedor.idCidade);
+                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByIdCidade(fornecedor.idCidade);
 
                     if (cidadeEstadoPais.Count > 0)
                     {
@@ -169,73 +169,6 @@ namespace Sistema_Vendas.Views
                 else
                 {
                     MessageBox.Show("Fornecedor não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void btnConsultaCidades_Click(object sender, EventArgs e)
-        {
-            consultaCidades.btnSair.Text = "Selecionar";
-
-            if (consultaCidades.ShowDialog() == DialogResult.OK)
-            {
-                var cidadeDetalhes = consultaCidades.Tag as Tuple<int, string>;
-
-                if (cidadeDetalhes != null)
-                {
-                    int cidadeID = cidadeDetalhes.Item1;
-                    string cidadeNome = cidadeDetalhes.Item2;
-
-                    txtCodCidade.Text = cidadeID.ToString();
-                    txtCidade.Text = cidadeNome;
-
-                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByCidadeId(cidadeID);
-
-                    if (cidadeEstadoPais.Count > 0)
-                    {
-                        string[] info = cidadeEstadoPais[0].Split(',');
-                        if (info.Length >= 3)
-                        {
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
-                        }
-                    }
-                }
-            }
-        }
-
-        private void txtCodCidade_Leave(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtCodCidade.Text))
-            {
-                if (!VerificaNumeros(txtCodCidade.Text))
-                {
-                    MessageBox.Show("Cód. Cidade inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodCidade.Focus();
-                }
-                else
-                {
-                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByCidadeId(int.Parse(txtCodCidade.Text));
-
-                    if (cidadeEstadoPais.Count > 0)
-                    {
-                        string[] info = cidadeEstadoPais[0].Split(',');
-                        if (info.Length >= 3)
-                        {
-                            txtCidade.Text = info[0].Trim();
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
-                        }
-                    }
-                    else
-                    {
-                        txtCodCidade.Clear();
-                        txtCidade.Clear();
-                        txtUF.Clear();
-                        txtPais.Clear();
-                        txtCodCidade.Focus();
-                        MessageBox.Show("Código Cidade não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
                 }
             }
         }
@@ -266,6 +199,73 @@ namespace Sistema_Vendas.Views
         private void rbFisica_CheckedChanged(object sender, EventArgs e)
         {
             lblCliente_razao_social.Text = "Fornecedor *";
+        }
+
+        private void btnConsultaCidades_Click(object sender, EventArgs e)
+        {
+            consultaCidades.btnSair.Text = "Selecionar";
+
+            if (consultaCidades.ShowDialog() == DialogResult.OK)
+            {
+                var cidadeDetalhes = consultaCidades.Tag as Tuple<int, string>;
+
+                if (cidadeDetalhes != null)
+                {
+                    int cidadeID = cidadeDetalhes.Item1;
+                    string cidadeNome = cidadeDetalhes.Item2;
+
+                    txtCodCidade.Text = cidadeID.ToString();
+                    txtCidade.Text = cidadeNome;
+
+                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByIdCidade(cidadeID);
+
+                    if (cidadeEstadoPais.Count > 0)
+                    {
+                        string[] info = cidadeEstadoPais[0].Split(',');
+                        if (info.Length >= 3)
+                        {
+                            txtUF.Text = info[1].Trim();
+                            txtPais.Text = info[2].Trim();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void txtCodCidade_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtCodCidade.Text))
+            {
+                if (!VerificaNumeros(txtCodCidade.Text))
+                {
+                    MessageBox.Show("Cód. Cidade inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodCidade.Focus();
+                }
+                else
+                {
+                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByIdCidade(int.Parse(txtCodCidade.Text));
+
+                    if (cidadeEstadoPais.Count > 0)
+                    {
+                        string[] info = cidadeEstadoPais[0].Split(',');
+                        if (info.Length >= 3)
+                        {
+                            txtCidade.Text = info[0].Trim();
+                            txtUF.Text = info[1].Trim();
+                            txtPais.Text = info[2].Trim();
+                        }
+                    }
+                    else
+                    {
+                        txtCodCidade.Clear();
+                        txtCidade.Clear();
+                        txtUF.Clear();
+                        txtPais.Clear();
+                        txtCodCidade.Focus();
+                        MessageBox.Show("Código Cidade não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

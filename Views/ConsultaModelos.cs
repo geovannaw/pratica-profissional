@@ -14,16 +14,18 @@ namespace Sistema_Vendas.Views
     public partial class ConsultaModelos : Sistema_Vendas.ConsultaPai
     {
         private ModeloController<ModeloModel> modeloController;
+        private CadastroModelos cadastroModelos;
         public ConsultaModelos()
         {
             InitializeComponent();
             modeloController = new ModeloController<ModeloModel>();
+            cadastroModelos = new CadastroModelos();
+            cadastroModelos.Owner = this;
         }
 
         public override void Incluir()
         {
-            CadastroModelos cadastroModelos = new CadastroModelos();
-            cadastroModelos.Owner = this;
+            ResetCadastro();
             cadastroModelos.ShowDialog();
         }
         public override void Alterar()
@@ -31,8 +33,7 @@ namespace Sistema_Vendas.Views
             if (dataGridViewModelos.SelectedRows.Count > 0)
             {
                 int idModelo = (int)dataGridViewModelos.SelectedRows[0].Cells["Código"].Value;
-                CadastroModelos cadastroModelos = new CadastroModelos(idModelo);
-                cadastroModelos.Owner = this;
+                ResetCadastro(idModelo);
                 cadastroModelos.ShowDialog();
             }
             else
@@ -60,14 +61,31 @@ namespace Sistema_Vendas.Views
 
         public override void Pesquisar()
         {
-            string pesquisa = txtPesquisar.Text.Trim(); 
-
+            string pesquisa = txtPesquisar.Text.Trim();
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
                 {
-                    List<ModeloModel> resultadosPesquisa = modeloController.GetAll(cbBuscaInativos.Checked).Where(p => p.Modelo.ToLower().Contains(pesquisa.ToLower())).ToList();
-                    dataGridViewModelos.DataSource = resultadosPesquisa; 
+                    List<ModeloModel> resultadosPesquisa = new List<ModeloModel>();
+                    bool buscaInativos = cbBuscaInativos.Checked;
+                    if (rbNome.Checked)
+                    {
+                        resultadosPesquisa = modeloController.GetAll(buscaInativos).Where(p => p.Modelo.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    }
+                    else if (rbCodigo.Checked)
+                    {
+                        if (int.TryParse(pesquisa, out int codigoPesquisa))
+                        {
+                            resultadosPesquisa = modeloController.GetAll(buscaInativos).Where(p => p.idModelo == codigoPesquisa).ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor, insira um código válido.", "Código inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    dataGridViewModelos.DataSource = resultadosPesquisa;
                     txtPesquisar.Text = string.Empty;
                 }
                 catch (Exception ex)
@@ -97,7 +115,6 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                CadastroModelos cadastroModelos = new CadastroModelos();
                 cadastroModelos.FormClosed += (s, args) => AtualizarConsultaModelos(cbBuscaInativos.Checked); 
 
                 dataGridViewModelos.AutoGenerateColumns = false;
@@ -118,13 +135,21 @@ namespace Sistema_Vendas.Views
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 int idModelo = (int)dataGridViewModelos.Rows[e.RowIndex].Cells["Código"].Value;
-
-                CadastroModelos cadastroModelos = new CadastroModelos(idModelo);
-                cadastroModelos.Owner = this;
+                ResetCadastro(idModelo);
                 cadastroModelos.ShowDialog();
             }
         }
 
+        private void ResetCadastro()
+        {
+            cadastroModelos.LimparCampos();
+        }
+
+        private void ResetCadastro(int id)
+        {
+            cadastroModelos.SetID(id);
+            cadastroModelos.Carrega();
+        }
         private void btnSair_Click_1(object sender, EventArgs e)
         {
             if (btnSair.Text == "Selecionar")

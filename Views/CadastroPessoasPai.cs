@@ -26,7 +26,39 @@ namespace Sistema_Vendas.Views
         public virtual void Bloqueia() { }
         public virtual void Desbloqueia() { }
         public virtual void Carrega() { }
-        public virtual void LimparCampos() { }
+        public virtual void LimparCampos()
+        {
+            idAlterar = -1;
+            txtCodigo.Clear();
+            txtCliente_razao_social.Clear();
+            txtApelido_nome_fantasia.Clear();
+            txtEmail.Clear();
+            txtTelefone.Clear();
+            txtCelular.Clear();
+            txtContato.Clear();
+            txtCEP.Clear();
+            txtEndereco.Clear();
+            txtNumero.Clear();
+            txtComplemento.Clear();
+            txtBairro.Clear();
+            txtCodCidade.Clear();
+            txtCidade.Clear();
+            txtUF.Clear();
+            txtPais.Clear();
+            txtCPF_CNPJ.Clear();
+            txtIE_RG.Clear();
+            txtDataNasc.Clear();
+            //FALTA A PARTE DE PAGAMENTO
+            txtDataCadastro.Clear();
+            txtDataUltAlt.Clear();
+            rbFisica.Checked = true;
+            rbAtivo.Checked = true;
+        }
+
+        public void SetID(int id)
+        {
+            idAlterar = id;
+        }
 
         protected bool VerificaCamposObrigatorios()
         {

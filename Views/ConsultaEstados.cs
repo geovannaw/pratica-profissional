@@ -61,17 +61,32 @@ namespace Sistema_Vendas.Models
 
         public override void Pesquisar()
         {
-            string pesquisa = txtPesquisar.Text.Trim(); //obtem a pesquisa do txt
-
-            //verifica se há um termo de pesquisa
+            string pesquisa = txtPesquisar.Text.Trim();
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
                 {
-                    //filtra os dados
-                    List<EstadoModel> resultadosPesquisa = estadoController.GetAll(cbBuscaInativos.Checked).Where(p => p.Estado.ToLower().Contains(pesquisa.ToLower())).ToList();
-                    dataGridViewEstados.DataSource = resultadosPesquisa; //atualiza o DataSource do DataGridView com os resultados da pesquisa
-                    txtPesquisar.Text = string.Empty; //limpa o txt pesquisa
+                    List<EstadoModel> resultadosPesquisa = new List<EstadoModel>();
+                    bool buscaInativos = cbBuscaInativos.Checked;
+                    if (rbNome.Checked)
+                    {
+                        resultadosPesquisa = estadoController.GetAll(buscaInativos).Where(p => p.Estado.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    }
+                    else if (rbCodigo.Checked)
+                    {
+                        if (int.TryParse(pesquisa, out int codigoPesquisa))
+                        {
+                            resultadosPesquisa = estadoController.GetAll(buscaInativos).Where(p => p.idEstado == codigoPesquisa).ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor, insira um código válido.", "Código inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    dataGridViewEstados.DataSource = resultadosPesquisa;
+                    txtPesquisar.Text = string.Empty;
                 }
                 catch (Exception ex)
                 {
@@ -80,7 +95,6 @@ namespace Sistema_Vendas.Models
             }
             else
             {
-                //se não houver nada no txt, atualiza a consulta de estados normalmente
                 AtualizarConsultaEstados(cbBuscaInativos.Checked);
             }
         }

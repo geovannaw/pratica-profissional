@@ -46,5 +46,11 @@ namespace Sistema_Vendas
         {
             Pesquisar();
         }
+
+        private void txtPesquisar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                Pesquisar();
+        }
     }
 }

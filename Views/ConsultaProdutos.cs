@@ -14,17 +14,19 @@ namespace Sistema_Vendas.Views
     public partial class ConsultaProdutos : Sistema_Vendas.ConsultaPai
     {
         private ProdutoController<ProdutoModel> produtoController;
+        private CadastroProdutos cadastroProdutos;
 
         public ConsultaProdutos()
         {
             InitializeComponent();
             produtoController = new ProdutoController<ProdutoModel>();
+            cadastroProdutos = new CadastroProdutos();
+            cadastroProdutos.Owner = this;
         }
 
         public override void Incluir()
         {
-            CadastroProdutos cadastroProdutos = new CadastroProdutos();
-            cadastroProdutos.Owner = this;
+            ResetCadastro();
             cadastroProdutos.ShowDialog();
         }
 
@@ -33,8 +35,7 @@ namespace Sistema_Vendas.Views
             if (dataGridViewProdutos.SelectedRows.Count > 0)
             {
                 int idProduto = (int)dataGridViewProdutos.SelectedRows[0].Cells["Código"].Value;
-                CadastroProdutos cadastroProdutos = new CadastroProdutos(idProduto);
-                cadastroProdutos.Owner = this;
+                ResetCadastro(idProduto);
                 cadastroProdutos.ShowDialog();
             }
             else
@@ -79,7 +80,25 @@ namespace Sistema_Vendas.Views
             {
                 try
                 {
-                    List<ProdutoModel> resultadosPesquisa = produtoController.GetAll(cbBuscaInativos.Checked).Where(p => p.Descricao.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    List<ProdutoModel> resultadosPesquisa = new List<ProdutoModel>();
+                    bool buscaInativos = cbBuscaInativos.Checked;
+                    if (rbNome.Checked)
+                    {
+                        resultadosPesquisa = produtoController.GetAll(buscaInativos).Where(p => p.Produto.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    }
+                    else if (rbCodigo.Checked)
+                    {
+                        if (int.TryParse(pesquisa, out int codigoPesquisa))
+                        {
+                            resultadosPesquisa = produtoController.GetAll(buscaInativos).Where(p => p.idProduto == codigoPesquisa).ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor, insira um código válido.", "Código inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
                     dataGridViewProdutos.DataSource = resultadosPesquisa;
                     txtPesquisar.Text = string.Empty;
                 }
@@ -98,12 +117,11 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                CadastroProdutos cadastroProdutos = new CadastroProdutos();
                 cadastroProdutos.FormClosed += (s, args) => AtualizarConsultaProdutos(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
 
                 dataGridViewProdutos.AutoGenerateColumns = false;
                 dataGridViewProdutos.Columns["Código"].DataPropertyName = "idProduto";
-                dataGridViewProdutos.Columns["Descrição"].DataPropertyName = "Descricao";
+                dataGridViewProdutos.Columns["Produto"].DataPropertyName = "Produto";
                 dataGridViewProdutos.Columns["Unidade"].DataPropertyName = "Unidade";
                 dataGridViewProdutos.Columns["Preco_venda"].DataPropertyName = "Preco_venda";
 
@@ -115,14 +133,23 @@ namespace Sistema_Vendas.Views
             }
         }
 
+        private void ResetCadastro()
+        {
+            cadastroProdutos.LimparCampos();
+        }
+
+        private void ResetCadastro(int id)
+        {
+            cadastroProdutos.SetID(id);
+            cadastroProdutos.Carrega();
+        }
+
         private void dataGridViewProdutos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 int idProduto = (int)dataGridViewProdutos.Rows[e.RowIndex].Cells["Código"].Value;
-
-                CadastroProdutos cadastroProdutos = new CadastroProdutos(idProduto);
-                cadastroProdutos.Owner = this;
+                ResetCadastro(idProduto);
                 cadastroProdutos.ShowDialog();
             }
         }

@@ -14,16 +14,18 @@ namespace Sistema_Vendas.Views
     public partial class ConsultaFornecedores : Sistema_Vendas.ConsultaPai
     {
         private FornecedorController<FornecedorModel> fornecedorController;
+        private CadastroFornecedores cadastroFornecedores;
         public ConsultaFornecedores()
         {
             InitializeComponent();
             fornecedorController = new FornecedorController<FornecedorModel>();
+            cadastroFornecedores = new CadastroFornecedores();
+            cadastroFornecedores.Owner = this;
         }
 
         public override void Incluir()
         {
-            CadastroFornecedores cadastroFornecedores = new CadastroFornecedores();
-            cadastroFornecedores.Owner = this;
+            ResetCadastro();
             cadastroFornecedores.ShowDialog();
         }
         public override void Alterar()
@@ -31,8 +33,7 @@ namespace Sistema_Vendas.Views
             if (dataGridViewFornecedores.SelectedRows.Count > 0)
             {
                 int idFornecedor = (int)dataGridViewFornecedores.SelectedRows[0].Cells["Código"].Value;
-                CadastroFornecedores cadastroFornecedores = new CadastroFornecedores(idFornecedor);
-                cadastroFornecedores.Owner = this;
+                ResetCadastro(idFornecedor);
                 cadastroFornecedores.ShowDialog();
             }
             else
@@ -61,30 +62,35 @@ namespace Sistema_Vendas.Views
         public override void Pesquisar()
         {
             string pesquisa = txtPesquisar.Text.Trim();
-
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
                 {
-                    var fornecedores = fornecedorController.GetAll(cbBuscaInativos.Checked);
-
-                    var resultadosPesquisa = fornecedores
-                        .Where(p => p.fornecedor_razao_social.ToLower().Contains(pesquisa.ToLower()))
-                        .Select(fornecedor => new
+                    List<FornecedorModel> resultadosPesquisa = new List<FornecedorModel>();
+                    bool buscaInativos = cbBuscaInativos.Checked;
+                    if (rbNome.Checked)
+                    {
+                        resultadosPesquisa = fornecedorController.GetAll(buscaInativos).Where(p => p.fornecedor_razao_social.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    }
+                    else if (rbCodigo.Checked)
+                    {
+                        if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            fornecedor.idFornecedor,
-                            fornecedor.fornecedor_razao_social,
-                            tipo_pessoa = fornecedor.tipo_pessoa ? "Físico" : "Jurídico",
-                            fornecedor.celular
-                        })
-                        .ToList();
+                            resultadosPesquisa = fornecedorController.GetAll(buscaInativos).Where(p => p.idFornecedor == codigoPesquisa).ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor, insira um código válido.", "Código inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
 
                     dataGridViewFornecedores.DataSource = resultadosPesquisa;
                     txtPesquisar.Text = string.Empty;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao pesquisar fornecedor: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao pesquisar fornecedores: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -97,18 +103,7 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                var fornecedores = fornecedorController.GetAll(incluirInativos);
-
-                // Converte o valor bool em uma string "Físico" ou "Jurídico"
-                var fornecedoresFormatados = fornecedores.Select(fornecedor => new
-                {
-                    fornecedor.idFornecedor,
-                    fornecedor.fornecedor_razao_social,
-                    tipo_pessoa = fornecedor.tipo_pessoa ? "Físico" : "Jurídico",
-                    fornecedor.celular
-                }).ToList();
-
-                dataGridViewFornecedores.DataSource = fornecedoresFormatados;
+                dataGridViewFornecedores.DataSource = fornecedorController.GetAll(incluirInativos);
             }
             catch (Exception ex)
             {
@@ -120,7 +115,6 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                CadastroFornecedores cadastroFornecedores = new CadastroFornecedores();
                 cadastroFornecedores.FormClosed += (s, args) => AtualizarConsultaFornecedores(cbBuscaInativos.Checked);
 
                 dataGridViewFornecedores.AutoGenerateColumns = false;
@@ -142,13 +136,21 @@ namespace Sistema_Vendas.Views
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 int idFornecedor = (int)dataGridViewFornecedores.Rows[e.RowIndex].Cells["Código"].Value;
-
-                CadastroFornecedores cadastroFornecedores = new CadastroFornecedores(idFornecedor);
-                cadastroFornecedores.Owner = this;
+                ResetCadastro(idFornecedor);
                 cadastroFornecedores.ShowDialog();
             }
         }
 
+        private void ResetCadastro()
+        {
+            cadastroFornecedores.LimparCampos();
+        }
+
+        private void ResetCadastro(int id)
+        {
+            cadastroFornecedores.SetID(id);
+            cadastroFornecedores.Carrega();
+        }
         private void cbBuscaInativos_CheckedChanged(object sender, EventArgs e)
         {
             bool incluirInativos = cbBuscaInativos.Checked;
@@ -159,13 +161,20 @@ namespace Sistema_Vendas.Views
         {
             if (e.ColumnIndex == dataGridViewFornecedores.Columns["Celular"].Index && e.Value != null)
             {
-                //formata o número de celular
+                // Formata o número de celular
                 string celular = e.Value.ToString();
-                if (celular.Length == 11) 
+                if (celular.Length == 11)
                 {
                     e.Value = string.Format("({0}) {1}-{2}", celular.Substring(0, 2), celular.Substring(2, 5), celular.Substring(7));
                     e.FormattingApplied = true;
                 }
+            }
+            else if (e.ColumnIndex == dataGridViewFornecedores.Columns["Tipo"].Index && e.Value != null)
+            {
+                // Converte o valor bool em uma string "Físico" ou "Jurídico"
+                bool tipoPessoa = (bool)e.Value;
+                e.Value = tipoPessoa ? "Físico" : "Jurídico";
+                e.FormattingApplied = true;
             }
         }
 

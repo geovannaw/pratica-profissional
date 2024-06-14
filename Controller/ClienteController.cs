@@ -35,9 +35,9 @@ namespace Sistema_Vendas.Controller
             return clienteDAO.GetById(idObj);
         }
 
-        public List<string> GetCEPByCidadeId(int idCidade)
+        public List<string> GetCEPByIdCidade(int idCidade)
         {
-            return clienteDAO.GetCEPByCidadeId(idCidade);
+            return clienteDAO.GetCEPByIdCidade(idCidade);
         }
 
         public override void Salvar(T obj)

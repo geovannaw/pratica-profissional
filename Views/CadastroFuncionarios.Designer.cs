@@ -333,9 +333,9 @@
             this.lblCidade.AutoSize = true;
             this.lblCidade.Location = new System.Drawing.Point(321, 78);
             this.lblCidade.Name = "lblCidade";
-            this.lblCidade.Size = new System.Drawing.Size(47, 13);
+            this.lblCidade.Size = new System.Drawing.Size(40, 13);
             this.lblCidade.TabIndex = 20;
-            this.lblCidade.Text = "Cidade *";
+            this.lblCidade.Text = "Cidade";
             // 
             // txtCidade
             // 

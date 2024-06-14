@@ -31,8 +31,13 @@
             this.dataGridViewFormaPag = new System.Windows.Forms.DataGridView();
             this.Código = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.formaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFormaPag)).BeginInit();
             this.SuspendLayout();
+            // 
+            // btnSair
+            // 
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
             // 
             // cbBuscaInativos
             // 
@@ -69,6 +74,7 @@
             this.Name = "ConsultaFormasPagamento";
             this.Text = "Consulta Formas de Pagamento";
             this.Load += new System.EventHandler(this.ConsultaFormasPagamento_Load);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
@@ -77,6 +83,8 @@
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.dataGridViewFormaPag, 0);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFormaPag)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

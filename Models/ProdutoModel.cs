@@ -9,12 +9,12 @@ namespace Sistema_Vendas.Models
     public class ProdutoModel
     {
         public int idProduto { get; set; }
-        public string Descricao { get; set; }
+        public string Produto { get; set; }
         public string Unidade { get; set; }
         public int Saldo { get; set; }
         public decimal Custo_medio { get; set; }
         public decimal Preco_venda { get; set; }
-        public decimal? Preco_ult_compra { get; set; }
+        public decimal Preco_ult_compra { get; set; }
         public DateTime Data_ult_compra { get; set; }
         public string Observacao { get; set; }
         public int idFornecedor { get; set; }

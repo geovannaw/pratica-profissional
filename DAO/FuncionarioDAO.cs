@@ -151,8 +151,7 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
-
-        public List<string> GetCEPByCidadeId(int cidadeId)
+        public List<string> GetCEPByIdCidade(int idCidade)
         {
             List<string> cidadeInfos = new List<string>();
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -169,9 +168,9 @@ namespace Sistema_Vendas.DAO
                 JOIN 
                     pais ON estado.idPais = pais.idPais
                 WHERE 
-                    cidade.idCidade = @cidadeId";
+                    cidade.idCidade = @idCidade";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@cidadeId", cidadeId);
+                command.Parameters.AddWithValue("@idCidade", idCidade);
 
                 try
                 {

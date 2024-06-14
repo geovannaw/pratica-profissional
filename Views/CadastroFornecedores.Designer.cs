@@ -33,6 +33,14 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
+            // txtDataUltAlt
+            // 
+            this.txtDataUltAlt.Text = "12062024";
+            // 
+            // txtDataCadastro
+            // 
+            this.txtDataCadastro.Text = "12062024";
+            // 
             // txtEmail
             // 
             this.txtEmail.TabIndex = 7;
@@ -40,6 +48,14 @@
             // txtCliente_razao_social
             // 
             this.txtCliente_razao_social.Leave += new System.EventHandler(this.txtCliente_razao_social_Leave);
+            // 
+            // btnConsultaCidades
+            // 
+            this.btnConsultaCidades.Click += new System.EventHandler(this.btnConsultaCidades_Click);
+            // 
+            // txtCodCidade
+            // 
+            this.txtCodCidade.Leave += new System.EventHandler(this.txtCodCidade_Leave);
             // 
             // txtTelefone
             // 

@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtDescricao = new System.Windows.Forms.TextBox();
+            this.txtProduto = new System.Windows.Forms.TextBox();
             this.txtUN = new System.Windows.Forms.TextBox();
             this.txtModelo = new System.Windows.Forms.TextBox();
             this.txtMarca = new System.Windows.Forms.TextBox();
-            this.lblDescricao = new System.Windows.Forms.Label();
+            this.lblProduto = new System.Windows.Forms.Label();
             this.btnConsultaModelos = new System.Windows.Forms.Button();
             this.lblUN = new System.Windows.Forms.Label();
             this.lblModelo = new System.Windows.Forms.Label();
@@ -44,7 +44,6 @@
             this.txtCodFornecedor = new System.Windows.Forms.TextBox();
             this.lblCodModelol = new System.Windows.Forms.Label();
             this.txtCodModelo = new System.Windows.Forms.TextBox();
-            this.txtSaldo = new System.Windows.Forms.TextBox();
             this.txtCustoMedio = new System.Windows.Forms.TextBox();
             this.txtPrecoVenda = new System.Windows.Forms.TextBox();
             this.lblSaldo = new System.Windows.Forms.Label();
@@ -56,6 +55,7 @@
             this.lblDataUltCompra = new System.Windows.Forms.Label();
             this.txtObservacao = new System.Windows.Forms.TextBox();
             this.lblObservacao = new System.Windows.Forms.Label();
+            this.txtSaldo = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -104,13 +104,13 @@
             this.groupBox1.Location = new System.Drawing.Point(444, 14);
             this.groupBox1.TabIndex = 15;
             // 
-            // txtDescricao
+            // txtProduto
             // 
-            this.txtDescricao.Location = new System.Drawing.Point(16, 95);
-            this.txtDescricao.MaxLength = 200;
-            this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(493, 20);
-            this.txtDescricao.TabIndex = 1;
+            this.txtProduto.Location = new System.Drawing.Point(16, 95);
+            this.txtProduto.MaxLength = 200;
+            this.txtProduto.Name = "txtProduto";
+            this.txtProduto.Size = new System.Drawing.Size(493, 20);
+            this.txtProduto.TabIndex = 1;
             // 
             // txtUN
             // 
@@ -137,14 +137,14 @@
             this.txtMarca.Size = new System.Drawing.Size(175, 20);
             this.txtMarca.TabIndex = 15;
             // 
-            // lblDescricao
+            // lblProduto
             // 
-            this.lblDescricao.AutoSize = true;
-            this.lblDescricao.Location = new System.Drawing.Point(13, 79);
-            this.lblDescricao.Name = "lblDescricao";
-            this.lblDescricao.Size = new System.Drawing.Size(62, 13);
-            this.lblDescricao.TabIndex = 16;
-            this.lblDescricao.Text = "Descrição *";
+            this.lblProduto.AutoSize = true;
+            this.lblProduto.Location = new System.Drawing.Point(13, 79);
+            this.lblProduto.Name = "lblProduto";
+            this.lblProduto.Size = new System.Drawing.Size(51, 13);
+            this.lblProduto.TabIndex = 16;
+            this.lblProduto.Text = "Produto *";
             // 
             // btnConsultaModelos
             // 
@@ -244,20 +244,15 @@
             this.txtCodModelo.TabIndex = 3;
             this.txtCodModelo.Leave += new System.EventHandler(this.txtCodModelo_Leave);
             // 
-            // txtSaldo
-            // 
-            this.txtSaldo.Location = new System.Drawing.Point(16, 272);
-            this.txtSaldo.Name = "txtSaldo";
-            this.txtSaldo.Size = new System.Drawing.Size(100, 20);
-            this.txtSaldo.TabIndex = 7;
-            this.txtSaldo.Leave += new System.EventHandler(this.txtSaldo_Leave);
-            // 
             // txtCustoMedio
             // 
+            this.txtCustoMedio.Enabled = false;
             this.txtCustoMedio.Location = new System.Drawing.Point(139, 272);
             this.txtCustoMedio.Name = "txtCustoMedio";
             this.txtCustoMedio.Size = new System.Drawing.Size(100, 20);
             this.txtCustoMedio.TabIndex = 8;
+            this.txtCustoMedio.Text = "0";
+            this.txtCustoMedio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCustoMedio.Leave += new System.EventHandler(this.txtCustoMedio_Leave);
             // 
             // txtPrecoVenda
@@ -266,6 +261,7 @@
             this.txtPrecoVenda.Name = "txtPrecoVenda";
             this.txtPrecoVenda.Size = new System.Drawing.Size(100, 20);
             this.txtPrecoVenda.TabIndex = 9;
+            this.txtPrecoVenda.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecoVenda.Leave += new System.EventHandler(this.txtPrecoVenda_Leave);
             // 
             // lblSaldo
@@ -273,18 +269,18 @@
             this.lblSaldo.AutoSize = true;
             this.lblSaldo.Location = new System.Drawing.Point(13, 256);
             this.lblSaldo.Name = "lblSaldo";
-            this.lblSaldo.Size = new System.Drawing.Size(41, 13);
+            this.lblSaldo.Size = new System.Drawing.Size(34, 13);
             this.lblSaldo.TabIndex = 37;
-            this.lblSaldo.Text = "Saldo *";
+            this.lblSaldo.Text = "Saldo";
             // 
             // lblCustoMedio
             // 
             this.lblCustoMedio.AutoSize = true;
             this.lblCustoMedio.Location = new System.Drawing.Point(136, 256);
             this.lblCustoMedio.Name = "lblCustoMedio";
-            this.lblCustoMedio.Size = new System.Drawing.Size(73, 13);
+            this.lblCustoMedio.Size = new System.Drawing.Size(66, 13);
             this.lblCustoMedio.TabIndex = 38;
-            this.lblCustoMedio.Text = "Custo Médio *";
+            this.lblCustoMedio.Text = "Custo Médio";
             // 
             // lblPrecoVenda
             // 
@@ -297,10 +293,13 @@
             // 
             // txtPrecoUltCompra
             // 
+            this.txtPrecoUltCompra.Enabled = false;
             this.txtPrecoUltCompra.Location = new System.Drawing.Point(380, 272);
             this.txtPrecoUltCompra.Name = "txtPrecoUltCompra";
             this.txtPrecoUltCompra.Size = new System.Drawing.Size(100, 20);
             this.txtPrecoUltCompra.TabIndex = 10;
+            this.txtPrecoUltCompra.Text = "0";
+            this.txtPrecoUltCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecoUltCompra.Leave += new System.EventHandler(this.txtPrecoUltCompra_Leave);
             // 
             // lblPrecoUltCompra
@@ -314,6 +313,7 @@
             // 
             // txtDataUltCompra
             // 
+            this.txtDataUltCompra.Enabled = false;
             this.txtDataUltCompra.Location = new System.Drawing.Point(500, 272);
             this.txtDataUltCompra.Mask = "00/00/0000";
             this.txtDataUltCompra.Name = "txtDataUltCompra";
@@ -348,10 +348,21 @@
             this.lblObservacao.TabIndex = 45;
             this.lblObservacao.Text = "Observação";
             // 
+            // txtSaldo
+            // 
+            this.txtSaldo.Enabled = false;
+            this.txtSaldo.Location = new System.Drawing.Point(16, 272);
+            this.txtSaldo.Name = "txtSaldo";
+            this.txtSaldo.Size = new System.Drawing.Size(100, 20);
+            this.txtSaldo.TabIndex = 7;
+            this.txtSaldo.Text = "0";
+            this.txtSaldo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // CadastroProdutos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(608, 454);
+            this.Controls.Add(this.txtSaldo);
             this.Controls.Add(this.lblObservacao);
             this.Controls.Add(this.txtObservacao);
             this.Controls.Add(this.lblDataUltCompra);
@@ -363,7 +374,6 @@
             this.Controls.Add(this.lblSaldo);
             this.Controls.Add(this.txtPrecoVenda);
             this.Controls.Add(this.txtCustoMedio);
-            this.Controls.Add(this.txtSaldo);
             this.Controls.Add(this.lblCodModelol);
             this.Controls.Add(this.txtCodModelo);
             this.Controls.Add(this.lblFornecedor);
@@ -375,11 +385,11 @@
             this.Controls.Add(this.lblModelo);
             this.Controls.Add(this.lblUN);
             this.Controls.Add(this.btnConsultaModelos);
-            this.Controls.Add(this.lblDescricao);
+            this.Controls.Add(this.lblProduto);
             this.Controls.Add(this.txtMarca);
             this.Controls.Add(this.txtModelo);
             this.Controls.Add(this.txtUN);
-            this.Controls.Add(this.txtDescricao);
+            this.Controls.Add(this.txtProduto);
             this.Name = "CadastroProdutos";
             this.Text = "Cadastro de Produtos";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroProdutos_FormClosed);
@@ -392,11 +402,11 @@
             this.Controls.SetChildIndex(this.lblDataCadastro, 0);
             this.Controls.SetChildIndex(this.lblDataUltAlt, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
-            this.Controls.SetChildIndex(this.txtDescricao, 0);
+            this.Controls.SetChildIndex(this.txtProduto, 0);
             this.Controls.SetChildIndex(this.txtUN, 0);
             this.Controls.SetChildIndex(this.txtModelo, 0);
             this.Controls.SetChildIndex(this.txtMarca, 0);
-            this.Controls.SetChildIndex(this.lblDescricao, 0);
+            this.Controls.SetChildIndex(this.lblProduto, 0);
             this.Controls.SetChildIndex(this.btnConsultaModelos, 0);
             this.Controls.SetChildIndex(this.lblUN, 0);
             this.Controls.SetChildIndex(this.lblModelo, 0);
@@ -408,7 +418,6 @@
             this.Controls.SetChildIndex(this.lblFornecedor, 0);
             this.Controls.SetChildIndex(this.txtCodModelo, 0);
             this.Controls.SetChildIndex(this.lblCodModelol, 0);
-            this.Controls.SetChildIndex(this.txtSaldo, 0);
             this.Controls.SetChildIndex(this.txtCustoMedio, 0);
             this.Controls.SetChildIndex(this.txtPrecoVenda, 0);
             this.Controls.SetChildIndex(this.lblSaldo, 0);
@@ -420,6 +429,7 @@
             this.Controls.SetChildIndex(this.lblDataUltCompra, 0);
             this.Controls.SetChildIndex(this.txtObservacao, 0);
             this.Controls.SetChildIndex(this.lblObservacao, 0);
+            this.Controls.SetChildIndex(this.txtSaldo, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -429,11 +439,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtDescricao;
+        private System.Windows.Forms.TextBox txtProduto;
         private System.Windows.Forms.TextBox txtUN;
         private System.Windows.Forms.TextBox txtModelo;
         private System.Windows.Forms.TextBox txtMarca;
-        private System.Windows.Forms.Label lblDescricao;
+        private System.Windows.Forms.Label lblProduto;
         protected System.Windows.Forms.Button btnConsultaModelos;
         private System.Windows.Forms.Label lblUN;
         private System.Windows.Forms.Label lblModelo;
@@ -445,7 +455,6 @@
         private System.Windows.Forms.TextBox txtCodFornecedor;
         private System.Windows.Forms.Label lblCodModelol;
         private System.Windows.Forms.TextBox txtCodModelo;
-        private System.Windows.Forms.TextBox txtSaldo;
         private System.Windows.Forms.TextBox txtCustoMedio;
         private System.Windows.Forms.TextBox txtPrecoVenda;
         private System.Windows.Forms.Label lblSaldo;
@@ -457,5 +466,6 @@
         private System.Windows.Forms.Label lblDataUltCompra;
         private System.Windows.Forms.TextBox txtObservacao;
         private System.Windows.Forms.Label lblObservacao;
+        protected System.Windows.Forms.TextBox txtSaldo;
     }
 }

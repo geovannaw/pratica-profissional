@@ -30,7 +30,7 @@
         {
             this.dataGridViewProdutos = new System.Windows.Forms.DataGridView();
             this.Código = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Descrição = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Produto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Unidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Preco_venda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).BeginInit();
@@ -45,7 +45,7 @@
             this.dataGridViewProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProdutos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
-            this.Descrição,
+            this.Produto,
             this.Unidade,
             this.Preco_venda});
             this.dataGridViewProdutos.Location = new System.Drawing.Point(18, 58);
@@ -62,12 +62,12 @@
             this.Código.Name = "Código";
             this.Código.ReadOnly = true;
             // 
-            // Descrição
+            // Produto
             // 
-            this.Descrição.HeaderText = "Descrição";
-            this.Descrição.Name = "Descrição";
-            this.Descrição.ReadOnly = true;
-            this.Descrição.Width = 255;
+            this.Produto.HeaderText = "Produto";
+            this.Produto.Name = "Produto";
+            this.Produto.ReadOnly = true;
+            this.Produto.Width = 255;
             // 
             // Unidade
             // 
@@ -107,7 +107,7 @@
 
         private System.Windows.Forms.DataGridView dataGridViewProdutos;
         private System.Windows.Forms.DataGridViewTextBoxColumn Código;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Descrição;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Produto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unidade;
         private System.Windows.Forms.DataGridViewTextBoxColumn Preco_venda;
     }

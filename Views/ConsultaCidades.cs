@@ -14,16 +14,18 @@ namespace Sistema_Vendas.Views
     public partial class ConsultaCidades : Sistema_Vendas.ConsultaPai
     {
         private CidadeController<CidadeModel> cidadeController;
+        private CadastroCidades cadastroCidades;
         public ConsultaCidades()
         {
             InitializeComponent();
             cidadeController = new CidadeController<CidadeModel>();
+            cadastroCidades = new CadastroCidades();
+            cadastroCidades.Owner = this;
         }
 
         public override void Incluir()
         {
-            CadastroCidades cadastroCidades = new CadastroCidades();
-            cadastroCidades.Owner = this;
+            ResetCadastro();
             cadastroCidades.ShowDialog();
         }
         public override void Alterar()
@@ -31,8 +33,7 @@ namespace Sistema_Vendas.Views
             if (dataGridViewCidades.SelectedRows.Count > 0)
             {
                 int idCidade = (int)dataGridViewCidades.SelectedRows[0].Cells["Código"].Value;
-                CadastroCidades cadastroCidades = new CadastroCidades(idCidade);
-                cadastroCidades.Owner = this;
+                ResetCadastro(idCidade);
                 cadastroCidades.ShowDialog();
             }
             else
@@ -58,19 +59,45 @@ namespace Sistema_Vendas.Views
             }
         }
 
+        private void ResetCadastro()
+        {
+            cadastroCidades.LimparCampos();
+        }
+
+        private void ResetCadastro(int id)
+        {
+            cadastroCidades.SetID(id);
+            cadastroCidades.Carrega();
+        }
+
         public override void Pesquisar()
         {
-            string pesquisa = txtPesquisar.Text.Trim(); //obtem a pesquisa do txt
-
-            //verifica se há um termo de pesquisa
+            string pesquisa = txtPesquisar.Text.Trim();
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
                 {
-                    //filtra os dados
-                    List<CidadeModel> resultadosPesquisa = cidadeController.GetAll(cbBuscaInativos.Checked).Where(p => p.Cidade.ToLower().Contains(pesquisa.ToLower())).ToList();
-                    dataGridViewCidades.DataSource = resultadosPesquisa; //atualiza o DataSource do DataGridView com os resultados da pesquisa
-                    txtPesquisar.Text = string.Empty; //limpa o txt pesquisa
+                    List<CidadeModel> resultadosPesquisa = new List<CidadeModel>();
+                    bool buscaInativos = cbBuscaInativos.Checked;
+                    if (rbNome.Checked)
+                    {
+                        resultadosPesquisa = cidadeController.GetAll(buscaInativos).Where(p => p.Cidade.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    }
+                    else if (rbCodigo.Checked)
+                    {
+                        if (int.TryParse(pesquisa, out int codigoPesquisa))
+                        {
+                            resultadosPesquisa = cidadeController.GetAll(buscaInativos).Where(p => p.idCidade == codigoPesquisa).ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor, insira um código válido.", "Código inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    dataGridViewCidades.DataSource = resultadosPesquisa;
+                    txtPesquisar.Text = string.Empty;
                 }
                 catch (Exception ex)
                 {
@@ -79,7 +106,6 @@ namespace Sistema_Vendas.Views
             }
             else
             {
-                //se não houver nada no txt, atualiza a consulta de cidades normalmente
                 AtualizarConsultaCidades(cbBuscaInativos.Checked);
             }
         }
@@ -102,7 +128,6 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                CadastroCidades cadastroCidades = new CadastroCidades();
                 cadastroCidades.FormClosed += (s, args) => AtualizarConsultaCidades(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
 
                 dataGridViewCidades.AutoGenerateColumns = false;
@@ -124,9 +149,7 @@ namespace Sistema_Vendas.Views
             {
                 //ID da cidade da linha selecionada
                 int idCidade = (int)dataGridViewCidades.Rows[e.RowIndex].Cells["Código"].Value;
-
-                CadastroCidades cadastroCidades = new CadastroCidades(idCidade);
-                cadastroCidades.Owner = this;
+                ResetCadastro(idCidade);
                 cadastroCidades.ShowDialog();
             }
         }

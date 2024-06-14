@@ -62,14 +62,31 @@ namespace Sistema_Vendas.Views
         public override void Pesquisar()
         {
             string pesquisa = txtPesquisar.Text.Trim();
-
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
                 {
-                    List<FormaPagamentoModel> resultadosPesquisa = formaPagamentoController.GetAll(cbBuscaInativos.Checked).Where(p => p.formaPagamento.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    List<FormaPagamentoModel> resultadosPesquisa = new List<FormaPagamentoModel>();
+                    bool buscaInativos = cbBuscaInativos.Checked;
+                    if (rbNome.Checked)
+                    {
+                        resultadosPesquisa = formaPagamentoController.GetAll(buscaInativos).Where(p => p.formaPagamento.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    }
+                    else if (rbCodigo.Checked)
+                    {
+                        if (int.TryParse(pesquisa, out int codigoPesquisa))
+                        {
+                            resultadosPesquisa = formaPagamentoController.GetAll(buscaInativos).Where(p => p.idFormaPagamento == codigoPesquisa).ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor, insira um código válido.", "Código inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
                     dataGridViewFormaPag.DataSource = resultadosPesquisa;
-                    txtPesquisar.Text = string.Empty; 
+                    txtPesquisar.Text = string.Empty;
                 }
                 catch (Exception ex)
                 {
@@ -81,7 +98,6 @@ namespace Sistema_Vendas.Views
                 AtualizarConsultaFormasPag(cbBuscaInativos.Checked);
             }
         }
-
         private void ResetCadastro()
         {
             //reseta a instância para uma nova inclusão
@@ -138,6 +154,30 @@ namespace Sistema_Vendas.Views
                 int idFormaPag = (int)dataGridViewFormaPag.Rows[e.RowIndex].Cells["Código"].Value;
                 ResetCadastro(idFormaPag);
                 cadastroFormaPagamento.ShowDialog();
+            }
+        }
+
+        private void btnSair_Click_1(object sender, EventArgs e)
+        {
+            if (btnSair.Text == "Selecionar")
+            {
+                if (dataGridViewFormaPag.SelectedRows.Count > 0)
+                {
+                    int idFormaPag = Convert.ToInt32(dataGridViewFormaPag.SelectedRows[0].Cells["Código"].Value);
+                    string formaPag = dataGridViewFormaPag.SelectedRows[0].Cells["formaPagamento"].Value.ToString();
+
+                    this.Tag = new Tuple<int, string>(idFormaPag, formaPag);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, selecione uma forma de pagamento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                Close();
             }
         }
     }

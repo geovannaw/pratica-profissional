@@ -153,7 +153,7 @@ namespace Sistema_Vendas.Views
 
                     AtualizarCampoData(cliente.data_nasc, txtDataNasc);
 
-                    List<string> cidadeEstadoPais = clienteController.GetCEPByCidadeId(cliente.idCidade);
+                    List<string> cidadeEstadoPais = clienteController.GetCEPByIdCidade(cliente.idCidade);
 
                     if (cidadeEstadoPais.Count > 0)
                     {
@@ -189,7 +189,7 @@ namespace Sistema_Vendas.Views
                     txtCodCidade.Text = cidadeID.ToString();
                     txtCidade.Text = cidadeNome;
 
-                    List<string> cidadeEstadoPais = clienteController.GetCEPByCidadeId(cidadeID);
+                    List<string> cidadeEstadoPais = clienteController.GetCEPByIdCidade(cidadeID);
 
                     if (cidadeEstadoPais.Count > 0)
                     {
@@ -211,15 +211,6 @@ namespace Sistema_Vendas.Views
 
         private void CadastroClientes_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
-            }
         }
 
         private void txtCodCidade_Leave(object sender, EventArgs e)
@@ -232,7 +223,7 @@ namespace Sistema_Vendas.Views
                     txtCodCidade.Focus();
                 } else
                 {
-                    List<string> cidadeEstadoPais = clienteController.GetCEPByCidadeId(int.Parse(txtCodCidade.Text));
+                    List<string> cidadeEstadoPais = clienteController.GetCEPByIdCidade(int.Parse(txtCodCidade.Text));
 
                     if (cidadeEstadoPais.Count > 0)
                     {

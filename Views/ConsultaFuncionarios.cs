@@ -13,25 +13,27 @@ namespace Sistema_Vendas.Views
 {
     public partial class ConsultaFuncionarios : Sistema_Vendas.ConsultaPai
     {
-        FuncionarioController<FuncionarioModel> funcionarioController;
+        private FuncionarioController<FuncionarioModel> funcionarioController;
+        private CadastroFuncionarios cadastroFuncionarios;
         public ConsultaFuncionarios()
         {
             InitializeComponent();
             funcionarioController = new FuncionarioController<FuncionarioModel>();
+            cadastroFuncionarios = new CadastroFuncionarios();
+            cadastroFuncionarios.Owner = this;
         }
         public override void Incluir()
         {
-            CadastroFuncionarios cadastroFuncionarios = new CadastroFuncionarios();
-            cadastroFuncionarios.Owner = this;
+            ResetCadastro();
             cadastroFuncionarios.ShowDialog();
+
         }
         public override void Alterar()
         {
             if (dataGridViewFuncionarios.SelectedRows.Count > 0)
             {
                 int idFuncionario = (int)dataGridViewFuncionarios.SelectedRows[0].Cells["Código"].Value;
-                CadastroFuncionarios cadastroFuncionarios = new CadastroFuncionarios(idFuncionario);
-                cadastroFuncionarios.Owner = this;
+                ResetCadastro(idFuncionario);
                 cadastroFuncionarios.ShowDialog();
             }
             else
@@ -59,14 +61,31 @@ namespace Sistema_Vendas.Views
         public override void Pesquisar()
         {
             string pesquisa = txtPesquisar.Text.Trim();
-
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
                 {
-                    List<FuncionarioModel> resultadosPesquisa = funcionarioController.GetAll(cbBuscaInativos.Checked).Where(p => p.funcionario.ToLower().Contains(pesquisa.ToLower())).ToList();
-                    dataGridViewFuncionarios.DataSource = resultadosPesquisa; 
-                    txtPesquisar.Text = string.Empty; 
+                    List<FuncionarioModel> resultadosPesquisa = new List<FuncionarioModel>();
+                    bool buscaInativos = cbBuscaInativos.Checked;
+                    if (rbNome.Checked)
+                    {
+                        resultadosPesquisa = funcionarioController.GetAll(buscaInativos).Where(p => p.funcionario.ToLower().Contains(pesquisa.ToLower())).ToList();
+                    }
+                    else if (rbCodigo.Checked)
+                    {
+                        if (int.TryParse(pesquisa, out int codigoPesquisa))
+                        {
+                            resultadosPesquisa = funcionarioController.GetAll(buscaInativos).Where(p => p.idFuncionario == codigoPesquisa).ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Por favor, insira um código válido.", "Código inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    dataGridViewFuncionarios.DataSource = resultadosPesquisa;
+                    txtPesquisar.Text = string.Empty;
                 }
                 catch (Exception ex)
                 {
@@ -93,9 +112,7 @@ namespace Sistema_Vendas.Views
 
         private void ConsultaFuncionarios_Load(object sender, EventArgs e)
         {
-            try
-            {
-                CadastroFuncionarios cadastroFuncionarios = new CadastroFuncionarios();
+            try { 
                 cadastroFuncionarios.FormClosed += (s, args) => AtualizarConsultaFuncionarios(cbBuscaInativos.Checked);
 
                 dataGridViewFuncionarios.AutoGenerateColumns = false;
@@ -117,11 +134,20 @@ namespace Sistema_Vendas.Views
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 int idFuncionario = (int)dataGridViewFuncionarios.Rows[e.RowIndex].Cells["Código"].Value;
-
-                CadastroFuncionarios cadastroFuncionarios = new CadastroFuncionarios(idFuncionario);
-                cadastroFuncionarios.Owner = this;
+                ResetCadastro(idFuncionario);
                 cadastroFuncionarios.ShowDialog();
             }
+        }
+
+        private void ResetCadastro()
+        {
+            cadastroFuncionarios.LimparCampos();
+        }
+
+        private void ResetCadastro(int id)
+        {
+            cadastroFuncionarios.SetID(id);
+            cadastroFuncionarios.Carrega();
         }
 
         private void cbBuscaInativos_CheckedChanged(object sender, EventArgs e)

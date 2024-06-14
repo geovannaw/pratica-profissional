@@ -65,3 +65,5 @@ C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaC
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaFormasPagamento.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroCondicaoPagamento.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroFormaPagamento.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroServicos.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaServicos.resources
