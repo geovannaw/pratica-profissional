@@ -109,6 +109,7 @@
             // txtCondPag
             // 
             this.txtCondPag.Location = new System.Drawing.Point(16, 98);
+            this.txtCondPag.MaxLength = 50;
             this.txtCondPag.Name = "txtCondPag";
             this.txtCondPag.Size = new System.Drawing.Size(296, 20);
             this.txtCondPag.TabIndex = 1;
@@ -134,6 +135,7 @@
             // txtParcela
             // 
             this.txtParcela.Location = new System.Drawing.Point(16, 155);
+            this.txtParcela.MaxLength = 10;
             this.txtParcela.Name = "txtParcela";
             this.txtParcela.Size = new System.Drawing.Size(67, 20);
             this.txtParcela.TabIndex = 5;
@@ -152,6 +154,7 @@
             // txtDias
             // 
             this.txtDias.Location = new System.Drawing.Point(98, 155);
+            this.txtDias.MaxLength = 10;
             this.txtDias.Name = "txtDias";
             this.txtDias.Size = new System.Drawing.Size(67, 20);
             this.txtDias.TabIndex = 6;
@@ -170,6 +173,7 @@
             // txtPorcentagem
             // 
             this.txtPorcentagem.Location = new System.Drawing.Point(181, 155);
+            this.txtPorcentagem.MaxLength = 10;
             this.txtPorcentagem.Name = "txtPorcentagem";
             this.txtPorcentagem.Size = new System.Drawing.Size(47, 20);
             this.txtPorcentagem.TabIndex = 7;
@@ -216,6 +220,7 @@
             // txtDesconto
             // 
             this.txtDesconto.Location = new System.Drawing.Point(501, 98);
+            this.txtDesconto.MaxLength = 10;
             this.txtDesconto.Name = "txtDesconto";
             this.txtDesconto.Size = new System.Drawing.Size(70, 20);
             this.txtDesconto.TabIndex = 4;
@@ -234,6 +239,7 @@
             // txtMulta
             // 
             this.txtMulta.Location = new System.Drawing.Point(416, 98);
+            this.txtMulta.MaxLength = 10;
             this.txtMulta.Name = "txtMulta";
             this.txtMulta.Size = new System.Drawing.Size(70, 20);
             this.txtMulta.TabIndex = 3;
@@ -252,6 +258,7 @@
             // txtJuros
             // 
             this.txtJuros.Location = new System.Drawing.Point(331, 98);
+            this.txtJuros.MaxLength = 10;
             this.txtJuros.Name = "txtJuros";
             this.txtJuros.Size = new System.Drawing.Size(70, 20);
             this.txtJuros.TabIndex = 2;

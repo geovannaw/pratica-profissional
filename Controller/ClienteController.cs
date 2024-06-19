@@ -1,10 +1,12 @@
-﻿using Sistema_Vendas.DAO;
+﻿using MySqlX.XDevAPI;
+using Sistema_Vendas.DAO;
 using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Sistema_Vendas.Controller
 {
@@ -33,6 +35,11 @@ namespace Sistema_Vendas.Controller
         public override T GetById(int idObj)
         {
             return clienteDAO.GetById(idObj);
+        }
+
+        public string GetCondPagamentoByClienteId(int idCliente)
+        {
+            return clienteDAO.GetCondPagamentoByClienteId(idCliente);
         }
 
         public List<string> GetCEPByIdCidade(int idCidade)

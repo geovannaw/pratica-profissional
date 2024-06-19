@@ -64,7 +64,7 @@
             // 
             this.Condição.HeaderText = "Condição de Pagamento";
             this.Condição.Name = "Condição";
-            this.Condição.Width = 355;
+            this.Condição.Width = 455;
             // 
             // ConsultaCondicaoPagamento
             // 

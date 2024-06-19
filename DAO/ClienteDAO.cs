@@ -1,10 +1,12 @@
 ﻿using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Sistema_Vendas.DAO
 {
@@ -20,7 +22,7 @@ namespace Sistema_Vendas.DAO
                 string query = "UPDATE cliente SET tipo_pessoa = @tipo_pessoa, cliente_razao_social = @cliente_razao_social, apelido_nome_fantasia = @apelido_nome_fantasia, " +
                                "endereco = @endereco, bairro = @bairro, numero = @numero, cep = @cep, complemento = @complemento, sexo = @sexo, email = @email, " +
                                "telefone = @telefone, celular = @celular, nome_contato = @nome_contato, data_nasc = @data_nasc, cpf_cnpj = @cpf_cnpj, rg_ie = @rg_ie, ativo = @ativo, " +
-                               "dataUltAlt = @dataUltAlt, idCidade = @idCidade WHERE idCliente = @id";
+                               "dataUltAlt = @dataUltAlt, idCidade = @idCidade, idCondPagamento = @idCondPagamento WHERE idCliente = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -43,8 +45,8 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@rg_ie", cliente.rg_ie);
                 command.Parameters.AddWithValue("@ativo", cliente.Ativo);
                 command.Parameters.AddWithValue("@dataUltAlt", cliente.dataUltAlt);
-                command.Parameters.AddWithValue("@idCidade", cliente.idCidade); 
-
+                command.Parameters.AddWithValue("@idCidade", cliente.idCidade);
+                command.Parameters.AddWithValue("@idCondPagamento", cliente.idCondPagamento);
                 try
                 {
                     connection.Open();
@@ -136,6 +138,7 @@ namespace Sistema_Vendas.DAO
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
                         obj.dataUltAlt = DateTime.Parse(reader["dataUltAlt"].ToString());
                         obj.idCidade = Convert.ToInt32(reader["idCidade"]);
+                        obj.idCondPagamento = Convert.ToInt32(reader["idCondPagamento"]);
                         return obj;
                     }
                     else
@@ -144,6 +147,32 @@ namespace Sistema_Vendas.DAO
                     }
                 }
             }
+        }
+
+        public string GetCondPagamentoByClienteId(int idCliente)
+        {
+            string condPagamento = string.Empty; 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT condicaoPagamento.condicaoPagamento FROM cliente INNER JOIN condicaoPagamento ON cliente.idCondPagamento = condicaoPagamento.idCondPagamento WHERE cliente.idCliente = @idCliente";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.Add("@idCliente", SqlDbType.Int).Value = idCliente;
+
+                try
+                {
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        condPagamento = result.ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocorreu um erro ao obter Condição de Pagamento: " + ex.Message);
+                }
+            }
+            return condPagamento;
         }
 
         public List<string> GetCEPByIdCidade(int idCidade)
@@ -195,8 +224,8 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO cliente (tipo_pessoa, cliente_razao_social, apelido_nome_fantasia, endereco, bairro, numero, cep, complemento, sexo, email, telefone, celular, nome_contato, data_nasc, cpf_cnpj, rg_ie, ativo, dataCadastro, dataUltAlt, idCidade) " +
-                               "VALUES (@tipo_pessoa, @cliente_razao_social, @apelido_nome_fantasia, @endereco, @bairro, @numero, @cep, @complemento, @sexo, @email, @telefone, @celular, @nome_contato, @data_nasc, @cpf_cnpj, @rg_ie, @ativo, @dataCadastro, @dataUltAlt, @idCidade)";
+                string query = "INSERT INTO cliente (tipo_pessoa, cliente_razao_social, apelido_nome_fantasia, endereco, bairro, numero, cep, complemento, sexo, email, telefone, celular, nome_contato, data_nasc, cpf_cnpj, rg_ie, ativo, dataCadastro, dataUltAlt, idCidade, idCondPagamento) " +
+                               "VALUES (@tipo_pessoa, @cliente_razao_social, @apelido_nome_fantasia, @endereco, @bairro, @numero, @cep, @complemento, @sexo, @email, @telefone, @celular, @nome_contato, @data_nasc, @cpf_cnpj, @rg_ie, @ativo, @dataCadastro, @dataUltAlt, @idCidade, @idCondPagamento)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -220,6 +249,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataCadastro", cliente.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", cliente.dataUltAlt);
                 command.Parameters.AddWithValue("@idCidade", cliente.idCidade);
+                command.Parameters.AddWithValue("@idCondPagamento", cliente.idCondPagamento);
 
                 try
                 {

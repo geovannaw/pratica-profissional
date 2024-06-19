@@ -22,7 +22,7 @@ namespace Sistema_Vendas.DAO
                 string query = "UPDATE fornecedor SET tipo_pessoa = @tipo_pessoa, fornecedor_razao_social = @fornecedor_razao_social, apelido_nome_fantasia = @apelido_nome_fantasia, " +
                                "endereco = @endereco, bairro = @bairro, numero = @numero, cep = @cep, complemento = @complemento, sexo = @sexo, email = @email, " +
                                "telefone = @telefone, celular = @celular, nome_contato = @nome_contato, data_nasc = @data_nasc, cpf_cnpj = @cpf_cnpj, rg_ie = @rg_ie, ativo = @ativo, " +
-                               "dataUltAlt = @dataUltAlt, idCidade = @idCidade WHERE idFornecedor = @id";
+                               "dataUltAlt = @dataUltAlt, idCidade = @idCidade, idCondPagamento = @idCondPagamento WHERE idFornecedor = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -46,6 +46,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@ativo", fornecedor.Ativo);
                 command.Parameters.AddWithValue("@dataUltAlt", fornecedor.dataUltAlt);
                 command.Parameters.AddWithValue("@idCidade", fornecedor.idCidade);
+                command.Parameters.AddWithValue("@idCondPagamento", fornecedor.idCondPagamento);
 
                 try
                 {
@@ -137,6 +138,7 @@ namespace Sistema_Vendas.DAO
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
                         obj.dataUltAlt = DateTime.Parse(reader["dataUltAlt"].ToString());
                         obj.idCidade = Convert.ToInt32(reader["idCidade"]);
+                        obj.idCondPagamento = Convert.ToInt32(reader["idCondPagamento"]);
                         return obj;
                     }
                     else
@@ -145,6 +147,32 @@ namespace Sistema_Vendas.DAO
                     }
                 }
             }
+        }
+
+        public string GetCondPagamentoByFornecedorId(int idFornecedor)
+        {
+            string condPagamento = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT condicaoPagamento.condicaoPagamento FROM fornecedor INNER JOIN condicaoPagamento ON fornecedor.idCondPagamento = condicaoPagamento.idCondPagamento WHERE fornecedor.idFornecedor = @idFornecedor";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@idFornecedor", idFornecedor);
+
+                try
+                {
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        condPagamento = result.ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocorreu um erro ao obter Condição de Pagamento: " + ex.Message);
+                }
+            }
+            return condPagamento;
         }
 
         public List<string> GetCEPByIdCidade(int idCidade)
@@ -196,8 +224,8 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO fornecedor (tipo_pessoa, fornecedor_razao_social, apelido_nome_fantasia, endereco, bairro, numero, cep, complemento, sexo, email, telefone, celular, nome_contato, data_nasc, cpf_cnpj, rg_ie, ativo, dataCadastro, dataUltAlt, idCidade) " +
-                               "VALUES (@tipo_pessoa, @fornecedor_razao_social, @apelido_nome_fantasia, @endereco, @bairro, @numero, @cep, @complemento, @sexo, @email, @telefone, @celular, @nome_contato, @data_nasc, @cpf_cnpj, @rg_ie, @ativo, @dataCadastro, @dataUltAlt, @idCidade)";
+                string query = "INSERT INTO fornecedor (tipo_pessoa, fornecedor_razao_social, apelido_nome_fantasia, endereco, bairro, numero, cep, complemento, sexo, email, telefone, celular, nome_contato, data_nasc, cpf_cnpj, rg_ie, ativo, dataCadastro, dataUltAlt, idCidade, idCondPagamento) " +
+                               "VALUES (@tipo_pessoa, @fornecedor_razao_social, @apelido_nome_fantasia, @endereco, @bairro, @numero, @cep, @complemento, @sexo, @email, @telefone, @celular, @nome_contato, @data_nasc, @cpf_cnpj, @rg_ie, @ativo, @dataCadastro, @dataUltAlt, @idCidade, @idCondPagamento)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -221,6 +249,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataCadastro", fornecedor.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", fornecedor.dataUltAlt);
                 command.Parameters.AddWithValue("@idCidade", fornecedor.idCidade);
+                command.Parameters.AddWithValue("@idCondPagamento", fornecedor.idCondPagamento);
 
                 try
                 {

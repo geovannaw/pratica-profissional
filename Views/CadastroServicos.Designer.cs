@@ -37,7 +37,16 @@
             // 
             // txtCodigo
             // 
+            this.txtCodigo.TabIndex = 1;
             this.txtCodigo.Text = "0";
+            // 
+            // btnSalvar
+            // 
+            this.btnSalvar.TabIndex = 4;
+            // 
+            // btnSair
+            // 
+            this.btnSair.TabIndex = 5;
             // 
             // txtDataCadastro
             // 
@@ -46,6 +55,18 @@
             // txtDataUltAlt
             // 
             this.txtDataUltAlt.Text = "12062024";
+            // 
+            // rbInativo
+            // 
+            this.rbInativo.TabIndex = 8;
+            // 
+            // rbAtivo
+            // 
+            this.rbAtivo.TabIndex = 7;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.TabIndex = 6;
             // 
             // lblServico
             // 
@@ -59,17 +80,19 @@
             // txtServico
             // 
             this.txtServico.Location = new System.Drawing.Point(16, 94);
+            this.txtServico.MaxLength = 50;
             this.txtServico.Name = "txtServico";
             this.txtServico.Size = new System.Drawing.Size(364, 20);
-            this.txtServico.TabIndex = 13;
+            this.txtServico.TabIndex = 2;
             this.txtServico.Leave += new System.EventHandler(this.txtServico_Leave);
             // 
             // txtPreco
             // 
             this.txtPreco.Location = new System.Drawing.Point(16, 151);
+            this.txtPreco.MaxLength = 10;
             this.txtPreco.Name = "txtPreco";
             this.txtPreco.Size = new System.Drawing.Size(100, 20);
-            this.txtPreco.TabIndex = 15;
+            this.txtPreco.TabIndex = 3;
             this.txtPreco.Leave += new System.EventHandler(this.txtPreco_Leave);
             // 
             // lblPreco

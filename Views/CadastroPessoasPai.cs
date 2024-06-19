@@ -48,9 +48,10 @@ namespace Sistema_Vendas.Views
             txtCPF_CNPJ.Clear();
             txtIE_RG.Clear();
             txtDataNasc.Clear();
-            //FALTA A PARTE DE PAGAMENTO
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
+            txtCodCondPag.Clear();
+            txtCondPag.Clear();
             rbFisica.Checked = true;
             rbAtivo.Checked = true;
         }
@@ -139,6 +140,12 @@ namespace Sistema_Vendas.Views
             {
                 MessageBox.Show("Campo Código Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodCidade.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtCodCondPag.Text))
+            {
+                MessageBox.Show("Campo Código Condição de Pagamento é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodCondPag.Focus();
                 return false;
             }
 

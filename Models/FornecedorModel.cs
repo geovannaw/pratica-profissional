@@ -29,5 +29,6 @@ namespace Sistema_Vendas.Models
         public DateTime dataUltAlt { get; set; }
         public bool Ativo { get; set; }
         public int idCidade { get; set; }
+        public int idCondPagamento { get; set; }
     }
 }

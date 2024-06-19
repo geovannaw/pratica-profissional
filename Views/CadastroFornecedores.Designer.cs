@@ -73,6 +73,14 @@
             // 
             this.txtContato.TabIndex = 10;
             // 
+            // txtCodCondPag
+            // 
+            this.txtCodCondPag.Leave += new System.EventHandler(this.txtCodCondPag_Leave);
+            // 
+            // btnConsultaCondPag
+            // 
+            this.btnConsultaCondPag.Click += new System.EventHandler(this.btnConsultaCondPag_Click);
+            // 
             // CadastroFornecedores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

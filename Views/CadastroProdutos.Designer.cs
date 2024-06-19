@@ -258,6 +258,7 @@
             // txtPrecoVenda
             // 
             this.txtPrecoVenda.Location = new System.Drawing.Point(260, 272);
+            this.txtPrecoVenda.MaxLength = 10;
             this.txtPrecoVenda.Name = "txtPrecoVenda";
             this.txtPrecoVenda.Size = new System.Drawing.Size(100, 20);
             this.txtPrecoVenda.TabIndex = 9;

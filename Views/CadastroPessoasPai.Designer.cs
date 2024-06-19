@@ -84,7 +84,7 @@
             this.lblContato = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblCondPag = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtCondPag = new System.Windows.Forms.TextBox();
             this.txtCodCondPag = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnConsultaCondPag = new System.Windows.Forms.Button();
@@ -402,7 +402,7 @@
             this.groupBox3.Location = new System.Drawing.Point(614, 19);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(157, 49);
-            this.groupBox3.TabIndex = 24;
+            this.groupBox3.TabIndex = 30;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Status";
             // 
@@ -412,7 +412,7 @@
             this.rbInativo.Location = new System.Drawing.Point(82, 19);
             this.rbInativo.Name = "rbInativo";
             this.rbInativo.Size = new System.Drawing.Size(57, 17);
-            this.rbInativo.TabIndex = 26;
+            this.rbInativo.TabIndex = 32;
             this.rbInativo.TabStop = true;
             this.rbInativo.Text = "Inativo";
             this.rbInativo.UseVisualStyleBackColor = true;
@@ -425,7 +425,7 @@
             this.rbAtivo.Location = new System.Drawing.Point(18, 19);
             this.rbAtivo.Name = "rbAtivo";
             this.rbAtivo.Size = new System.Drawing.Size(49, 17);
-            this.rbAtivo.TabIndex = 25;
+            this.rbAtivo.TabIndex = 31;
             this.rbAtivo.TabStop = true;
             this.rbAtivo.Text = "Ativo";
             this.rbAtivo.UseVisualStyleBackColor = true;
@@ -474,7 +474,7 @@
             this.btnSair.Location = new System.Drawing.Point(696, 447);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(75, 23);
-            this.btnSair.TabIndex = 28;
+            this.btnSair.TabIndex = 29;
             this.btnSair.Text = "Sai&r";
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
@@ -484,7 +484,7 @@
             this.btnSalvar.Location = new System.Drawing.Point(615, 447);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 23);
-            this.btnSalvar.TabIndex = 27;
+            this.btnSalvar.TabIndex = 28;
             this.btnSalvar.Text = "&Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -626,45 +626,45 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.lblCondPag);
-            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Controls.Add(this.txtCondPag);
             this.groupBox4.Controls.Add(this.txtCodCondPag);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.btnConsultaCondPag);
             this.groupBox4.Location = new System.Drawing.Point(351, 346);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(420, 75);
-            this.groupBox4.TabIndex = 58;
+            this.groupBox4.TabIndex = 24;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Pagamento";
             // 
             // lblCondPag
             // 
             this.lblCondPag.AutoSize = true;
-            this.lblCondPag.Location = new System.Drawing.Point(27, 23);
+            this.lblCondPag.Location = new System.Drawing.Point(17, 23);
             this.lblCondPag.Name = "lblCondPag";
-            this.lblCondPag.Size = new System.Drawing.Size(40, 13);
+            this.lblCondPag.Size = new System.Drawing.Size(44, 13);
             this.lblCondPag.TabIndex = 63;
-            this.lblCondPag.Text = "Código";
+            this.lblCondPag.Text = "Código*";
             // 
-            // textBox2
+            // txtCondPag
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(124, 39);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(270, 20);
-            this.textBox2.TabIndex = 60;
+            this.txtCondPag.Enabled = false;
+            this.txtCondPag.Location = new System.Drawing.Point(133, 39);
+            this.txtCondPag.Name = "txtCondPag";
+            this.txtCondPag.Size = new System.Drawing.Size(266, 20);
+            this.txtCondPag.TabIndex = 27;
             // 
             // txtCodCondPag
             // 
-            this.txtCodCondPag.Location = new System.Drawing.Point(30, 39);
+            this.txtCodCondPag.Location = new System.Drawing.Point(20, 39);
             this.txtCodCondPag.Name = "txtCodCondPag";
-            this.txtCodCondPag.Size = new System.Drawing.Size(37, 20);
-            this.txtCodCondPag.TabIndex = 58;
+            this.txtCodCondPag.Size = new System.Drawing.Size(62, 20);
+            this.txtCodCondPag.TabIndex = 25;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(121, 23);
+            this.label3.Location = new System.Drawing.Point(130, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(124, 13);
             this.label3.TabIndex = 61;
@@ -673,10 +673,10 @@
             // btnConsultaCondPag
             // 
             this.btnConsultaCondPag.Image = global::Sistema_Vendas.Properties.Resources.imagem_lupa;
-            this.btnConsultaCondPag.Location = new System.Drawing.Point(77, 37);
+            this.btnConsultaCondPag.Location = new System.Drawing.Point(88, 37);
             this.btnConsultaCondPag.Name = "btnConsultaCondPag";
             this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 24);
-            this.btnConsultaCondPag.TabIndex = 59;
+            this.btnConsultaCondPag.TabIndex = 26;
             this.btnConsultaCondPag.UseVisualStyleBackColor = true;
             // 
             // CadastroPessoasPai
@@ -790,7 +790,7 @@
         protected System.Windows.Forms.Label lblContato;
         private System.Windows.Forms.GroupBox groupBox4;
         protected System.Windows.Forms.Label lblCondPag;
-        protected System.Windows.Forms.TextBox textBox2;
+        protected System.Windows.Forms.TextBox txtCondPag;
         protected System.Windows.Forms.TextBox txtCodCondPag;
         protected System.Windows.Forms.Label label3;
         protected System.Windows.Forms.Button btnConsultaCondPag;

@@ -16,11 +16,15 @@ namespace Sistema_Vendas.Views
     {
         private FornecedorController<FornecedorModel> fornecedorController;
         private ConsultaCidades consultaCidades;
+        private ConsultaCondicaoPagamento consultaCondicaoPagamento;
+        private CondicaoPagamentoController<CondicaoPagamentoModel> condicaoPagamentoController;
         public CadastroFornecedores()
         {
             InitializeComponent();
             fornecedorController = new FornecedorController<FornecedorModel>();
             consultaCidades = new ConsultaCidades();
+            consultaCondicaoPagamento = new ConsultaCondicaoPagamento();
+            condicaoPagamentoController = new CondicaoPagamentoController<CondicaoPagamentoModel>();
             lblCliente_razao_social.Text = "Fornecedor *";
         }
         public CadastroFornecedores(int idFornecedor) : this()
@@ -61,7 +65,8 @@ namespace Sistema_Vendas.Views
                     string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
                     string nome_contato = txtContato.Text;
                     string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
-                    int idCidade = int.Parse(txtCodCidade.Text);
+                    int idCidade = Convert.ToInt32(txtCodCidade.Text);
+                    int idCondPagamento = Convert.ToInt32(txtCodCondPag.Text);
 
                     AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
 
@@ -99,7 +104,8 @@ namespace Sistema_Vendas.Views
                         Ativo = isAtivo,
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt,
-                        idCidade = idCidade
+                        idCidade = idCidade,
+                        idCondPagamento = idCondPagamento
                     };
 
                     if (idAlterar == -1)
@@ -150,6 +156,14 @@ namespace Sistema_Vendas.Views
                     txtDataUltAlt.Text = fornecedor.dataUltAlt.ToString();
                     rbAtivo.Checked = fornecedor.Ativo;
                     rbInativo.Checked = !fornecedor.Ativo;
+                    txtCodCondPag.Text = fornecedor.idCondPagamento.ToString();
+
+                    string condPagamento = fornecedorController.GetCondPagamentoByFornecedorId(fornecedor.idFornecedor);
+
+                    if (!string.IsNullOrEmpty(condPagamento))
+                    {
+                        txtCondPag.Text = condPagamento;
+                    }
 
                     AtualizarCampoData(fornecedor.data_nasc, txtDataNasc);
 
@@ -264,6 +278,48 @@ namespace Sistema_Vendas.Views
                         txtCodCidade.Focus();
                         MessageBox.Show("Código Cidade não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                }
+            }
+        }
+
+        private void txtCodCondPag_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaNumeros(txtCodCondPag.Text))
+            {
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodCondPag.Focus();
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(txtCodCondPag.Text))
+                {
+                    CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Text));
+                    if (condPagamento != null)
+                    {
+                        txtCondPag.Text = condPagamento.condicaoPagamento;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Condição de Pagamento não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCodCondPag.Focus();
+                    }
+                }
+            }
+        }
+
+        private void btnConsultaCondPag_Click(object sender, EventArgs e)
+        {
+            consultaCondicaoPagamento.btnSair.Text = "Selecionar";
+            if (consultaCondicaoPagamento.ShowDialog() == DialogResult.OK)
+            {
+                var condPagamento = consultaCondicaoPagamento.Tag as Tuple<int, string>;
+                if (condPagamento != null)
+                {
+                    int idCondPag = condPagamento.Item1;
+                    string condicaoPagamento = condPagamento.Item2;
+
+                    txtCodCondPag.Text = idCondPag.ToString();
+                    txtCondPag.Text = condicaoPagamento;
                 }
             }
         }

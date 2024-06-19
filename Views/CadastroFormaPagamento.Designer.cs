@@ -35,15 +35,18 @@
             // 
             // txtCodigo
             // 
+            this.txtCodigo.TabIndex = 1;
             this.txtCodigo.Text = "0";
             // 
             // btnSalvar
             // 
             this.btnSalvar.Location = new System.Drawing.Point(224, 204);
+            this.btnSalvar.TabIndex = 3;
             // 
             // btnSair
             // 
             this.btnSair.Location = new System.Drawing.Point(305, 204);
+            this.btnSair.TabIndex = 4;
             // 
             // txtDataCadastro
             // 
@@ -63,13 +66,25 @@
             // 
             this.lblDataUltAlt.Location = new System.Drawing.Point(103, 191);
             // 
+            // rbInativo
+            // 
+            this.rbInativo.TabIndex = 7;
+            // 
+            // rbAtivo
+            // 
+            this.rbAtivo.TabIndex = 6;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.TabIndex = 5;
+            // 
             // txtFormaPagamento
             // 
             this.txtFormaPagamento.Location = new System.Drawing.Point(16, 122);
             this.txtFormaPagamento.MaxLength = 50;
             this.txtFormaPagamento.Name = "txtFormaPagamento";
             this.txtFormaPagamento.Size = new System.Drawing.Size(364, 20);
-            this.txtFormaPagamento.TabIndex = 12;
+            this.txtFormaPagamento.TabIndex = 2;
             this.txtFormaPagamento.Leave += new System.EventHandler(this.txtFormaPagamento_Leave);
             // 
             // lblFormaPagamento

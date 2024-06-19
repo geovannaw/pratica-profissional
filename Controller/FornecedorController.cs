@@ -35,6 +35,11 @@ namespace Sistema_Vendas.Controller
             return fornecedorDAO.GetById(idObj);
         }
 
+        public string GetCondPagamentoByFornecedorId(int idFornecedor)
+        {
+            return fornecedorDAO.GetCondPagamentoByFornecedorId(idFornecedor);
+        }
+
         public List<string> GetCEPByIdCidade(int idCidade)
         {
             return fornecedorDAO.GetCEPByIdCidade(idCidade);

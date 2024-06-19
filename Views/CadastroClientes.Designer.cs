@@ -33,6 +33,14 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
+            // txtDataUltAlt
+            // 
+            this.txtDataUltAlt.Text = "17062024";
+            // 
+            // txtDataCadastro
+            // 
+            this.txtDataCadastro.Text = "17062024";
+            // 
             // txtEmail
             // 
             this.txtEmail.TabIndex = 7;
@@ -69,6 +77,14 @@
             // txtContato
             // 
             this.txtContato.TabIndex = 10;
+            // 
+            // txtCodCondPag
+            // 
+            this.txtCodCondPag.Leave += new System.EventHandler(this.txtCodCondPag_Leave);
+            // 
+            // btnConsultaCondPag
+            // 
+            this.btnConsultaCondPag.Click += new System.EventHandler(this.btnConsultaCondPag_Click);
             // 
             // CadastroClientes
             // 
