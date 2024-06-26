@@ -112,6 +112,7 @@ namespace Sistema_Vendas.Views
         private void ResetCadastro(int id)
         {
             cadastroCondicaoPagamento.SetID(id);
+            cadastroCondicaoPagamento.limpaCamposParcelas();
             cadastroCondicaoPagamento.Carrega();
         }
 

@@ -55,6 +55,16 @@ namespace Sistema_Vendas
             }
         }
 
+        public bool VerificarDataMenorOuIgualHoje(DateTime data, string campoNome)
+        {
+            if (data > DateTime.Today)
+            {
+                MessageBox.Show($"A data de {campoNome} não pode ser maior que a data de hoje.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
+
         public static bool VerificaLetras(string texto)
         {
             // se o campo estiver vazio, considera-se válido

@@ -42,31 +42,31 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(224, 235);
+            this.btnSalvar.Location = new System.Drawing.Point(295, 247);
             this.btnSalvar.TabIndex = 4;
             // 
             // btnSair
             // 
-            this.btnSair.Location = new System.Drawing.Point(305, 235);
+            this.btnSair.Location = new System.Drawing.Point(376, 247);
             this.btnSair.TabIndex = 5;
             // 
             // txtDataCadastro
             // 
-            this.txtDataCadastro.Location = new System.Drawing.Point(18, 238);
+            this.txtDataCadastro.Location = new System.Drawing.Point(12, 249);
             this.txtDataCadastro.Text = "12062024";
             // 
             // txtDataUltAlt
             // 
-            this.txtDataUltAlt.Location = new System.Drawing.Point(106, 238);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(100, 249);
             this.txtDataUltAlt.Text = "12062024";
             // 
             // lblDataCadastro
             // 
-            this.lblDataCadastro.Location = new System.Drawing.Point(15, 222);
+            this.lblDataCadastro.Location = new System.Drawing.Point(9, 233);
             // 
             // lblDataUltAlt
             // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(103, 222);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(97, 233);
             // 
             // rbInativo
             // 
@@ -93,9 +93,9 @@
             // 
             this.txtServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtServico.Location = new System.Drawing.Point(16, 104);
-            this.txtServico.MaxLength = 50;
+            this.txtServico.MaxLength = 100;
             this.txtServico.Name = "txtServico";
-            this.txtServico.Size = new System.Drawing.Size(364, 20);
+            this.txtServico.Size = new System.Drawing.Size(435, 20);
             this.txtServico.TabIndex = 2;
             // 
             // lblPreco
@@ -119,7 +119,7 @@
             // CadastroServicos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(399, 278);
+            this.ClientSize = new System.Drawing.Size(463, 282);
             this.Controls.Add(this.txtPreco);
             this.Controls.Add(this.lblPreco);
             this.Controls.Add(this.txtServico);

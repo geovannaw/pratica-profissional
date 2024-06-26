@@ -179,7 +179,7 @@ namespace Sistema_Vendas.Views
             {
                 // Converte o valor bool em uma string "Físico" ou "Jurídico"
                 bool tipoPessoa = (bool)e.Value;
-                e.Value = tipoPessoa ? "Físico" : "Jurídico";
+                e.Value = tipoPessoa ? "FÍSICO" : "JURÍDICO";
                 e.FormattingApplied = true;
             }
         }

@@ -61,6 +61,21 @@ namespace Sistema_Vendas.Views
                     int idCondPagamento = Convert.ToInt32(txtCodCondPag.Text);
 
                     AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
+                    if (rbFisica.Checked)
+                    {
+                        if (!VerificarDataMenorOuIgualHoje(data_nasc, "nascimento"))
+                        {
+                            txtDataNasc.Focus();
+                            return;
+                        }
+                    } else
+                    {
+                        if (!VerificarDataMenorOuIgualHoje(data_nasc, "fundação"))
+                        {
+                            txtDataNasc.Focus();
+                            return;
+                        }
+                    }
 
                     DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
@@ -265,12 +280,12 @@ namespace Sistema_Vendas.Views
                     }
                     else
                     {
+                        MessageBox.Show("Código Cidade não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCodCidade.Focus();
                         txtCodCidade.Clear();
                         txtCidade.Clear();
                         txtUF.Clear();
                         txtPais.Clear();
-                        txtCodCidade.Focus();
-                        MessageBox.Show("Código Cidade não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -296,6 +311,8 @@ namespace Sistema_Vendas.Views
                     {
                         MessageBox.Show("Condição de Pagamento não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCodCondPag.Focus();
+                        txtCodCondPag.Clear();
+                        txtCondPag.Clear();
                     }
                 }
             }

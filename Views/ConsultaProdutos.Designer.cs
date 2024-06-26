@@ -33,6 +33,7 @@
             this.Produto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Unidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Preco_venda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,6 +43,8 @@
             // 
             // dataGridViewProdutos
             // 
+            this.dataGridViewProdutos.AllowUserToResizeColumns = false;
+            this.dataGridViewProdutos.AllowUserToResizeRows = false;
             this.dataGridViewProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProdutos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
@@ -89,6 +92,7 @@
             this.Name = "ConsultaProdutos";
             this.Text = "Consulta de Produtos";
             this.Load += new System.EventHandler(this.ConsultaProdutos_Load);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
@@ -97,6 +101,8 @@
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.dataGridViewProdutos, 0);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

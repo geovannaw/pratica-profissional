@@ -1,6 +1,7 @@
 ﻿using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -20,13 +21,14 @@ namespace Sistema_Vendas.DAO
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlTransaction transaction = conn.BeginTransaction(); //inicia transação
+                SqlTransaction transaction = conn.BeginTransaction(); //inicia a transação
 
                 try
                 {
+                    //comando p/ atualizar a condição de pagamento
                     string queryCondicaoPagamento = @"UPDATE condicaoPagamento 
-                                                       SET condicaoPagamento = @condicaoPagamento, desconto = @desconto, juros = @juros, multa = @multa, ativo = @ativo, dataUltAlt = @dataUltAlt 
-                                                       WHERE idCondPagamento = @idCondPagamento";
+                                               SET condicaoPagamento = @condicaoPagamento, desconto = @desconto, juros = @juros, multa = @multa, ativo = @ativo, dataUltAlt = @dataUltAlt 
+                                               WHERE idCondPagamento = @idCondPagamento";
                     SqlCommand cmdCondicaoPagamento = new SqlCommand(queryCondicaoPagamento, conn, transaction);
                     cmdCondicaoPagamento.Parameters.AddWithValue("@condicaoPagamento", obj.condicaoPagamento);
                     cmdCondicaoPagamento.Parameters.AddWithValue("@desconto", obj.desconto);
@@ -36,38 +38,90 @@ namespace Sistema_Vendas.DAO
                     cmdCondicaoPagamento.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
                     cmdCondicaoPagamento.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
 
-                    cmdCondicaoPagamento.ExecuteNonQuery(); //att condição de pag
+                    cmdCondicaoPagamento.ExecuteNonQuery(); //atualiza condição de pagamento
 
-                    //deleta as parcelas
-                    string deleteParcelas = "DELETE FROM parcela WHERE idCondPagamento = @idCondPagamento";
-                    SqlCommand cmdDeleteParcelas = new SqlCommand(deleteParcelas, conn, transaction);
-                    cmdDeleteParcelas.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
-                    cmdDeleteParcelas.ExecuteNonQuery();
-                    //add dnv as parcelas
+                    //obtem as parcelas que existem no banco referente ao id da cond. pagamento atual
+                    string querySelectParcelas = "SELECT * FROM parcela WHERE idCondPagamento = @idCondPagamento";
+                    SqlCommand cmdSelectParcelas = new SqlCommand(querySelectParcelas, conn, transaction);
+                    cmdSelectParcelas.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmdSelectParcelas);
+                    DataTable parcelasExistentes = new DataTable();
+                    adapter.Fill(parcelasExistentes); //preenche um datatable com as parcelas
+
+                    //percorre as parcelas
                     foreach (var parcela in obj.Parcelas)
                     {
-                        string queryParcela = @"INSERT INTO parcela 
-                                                (numeroParcela, dias, porcentagem, idCondPagamento, idFormaPagamento) 
-                                                VALUES (@numeroParcela, @dias, @porcentagem, @idCondPagamento, @idFormaPagamento)";
-                        SqlCommand cmdParcela = new SqlCommand(queryParcela, conn, transaction);
-                        cmdParcela.Parameters.AddWithValue("@numeroParcela", parcela.numeroParcela);
-                        cmdParcela.Parameters.AddWithValue("@dias", parcela.dias);
-                        cmdParcela.Parameters.AddWithValue("@porcentagem", parcela.porcentagem);
-                        cmdParcela.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
-                        cmdParcela.Parameters.AddWithValue("@idFormaPagamento", parcela.idFormaPagamento);
+                        bool existe = false; //verificar se parcela existe ou nao
 
-                        cmdParcela.ExecuteNonQuery();
+                        foreach (DataRow row in parcelasExistentes.Rows) //percorre as parcelas no banco
+                        {
+                            if ((int)row["numeroParcela"] == parcela.numeroParcela) //vê se aquele nro de parcela já existe
+                            {
+                                //atualiza a parcela existente
+                                string queryUpdateParcela = @"UPDATE parcela 
+                                                      SET dias = @dias, porcentagem = @porcentagem, idFormaPagamento = @idFormaPagamento 
+                                                      WHERE idCondPagamento = @idCondPagamento AND numeroParcela = @numeroParcela";
+                                SqlCommand cmdUpdateParcela = new SqlCommand(queryUpdateParcela, conn, transaction);
+                                cmdUpdateParcela.Parameters.AddWithValue("@dias", parcela.dias);
+                                cmdUpdateParcela.Parameters.AddWithValue("@porcentagem", parcela.porcentagem);
+                                cmdUpdateParcela.Parameters.AddWithValue("@idFormaPagamento", parcela.idFormaPagamento);
+                                cmdUpdateParcela.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
+                                cmdUpdateParcela.Parameters.AddWithValue("@numeroParcela", parcela.numeroParcela);
+
+                                cmdUpdateParcela.ExecuteNonQuery();
+                                existe = true; //marca que a parcela existe
+                                break;
+                            }
+                        }
+                        if (!existe) //se não existir a parcela
+                        {
+                            //insere nova parcela
+                            string queryInsertParcela = @"INSERT INTO parcela 
+                                                  (numeroParcela, dias, porcentagem, idCondPagamento, idFormaPagamento) 
+                                                  VALUES (@numeroParcela, @dias, @porcentagem, @idCondPagamento, @idFormaPagamento)";
+                            SqlCommand cmdInsertParcela = new SqlCommand(queryInsertParcela, conn, transaction);
+                            cmdInsertParcela.Parameters.AddWithValue("@numeroParcela", parcela.numeroParcela);
+                            cmdInsertParcela.Parameters.AddWithValue("@dias", parcela.dias);
+                            cmdInsertParcela.Parameters.AddWithValue("@porcentagem", parcela.porcentagem);
+                            cmdInsertParcela.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
+                            cmdInsertParcela.Parameters.AddWithValue("@idFormaPagamento", parcela.idFormaPagamento);
+
+                            cmdInsertParcela.ExecuteNonQuery();
+                        }
+                    }
+                    foreach (DataRow row in parcelasExistentes.Rows) //percorre dnv as parcelas
+                    {
+                        bool existe = false; 
+                        foreach (var parcela in obj.Parcelas) //vê se a parcela ainda existe
+                        {
+                            if ((int)row["numeroParcela"] == parcela.numeroParcela)
+                            {
+                                existe = true;
+                                break;
+                            }
+                        }
+                        if (!existe) //se nao existe mais
+                        {   //apaga a parcela q nao foi encontrada
+                            string queryDeleteParcela = "DELETE FROM parcela WHERE idCondPagamento = @idCondPagamento AND numeroParcela = @numeroParcela";
+                            SqlCommand cmdDeleteParcela = new SqlCommand(queryDeleteParcela, conn, transaction);
+                            cmdDeleteParcela.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
+                            cmdDeleteParcela.Parameters.AddWithValue("@numeroParcela", (int)row["numeroParcela"]);
+
+                            cmdDeleteParcela.ExecuteNonQuery();
+                        }
                     }
 
-                    transaction.Commit();
+                    transaction.Commit(); //confirma a transação
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
+                    transaction.Rollback(); //se der erro, volta
                     throw new Exception("Erro ao alterar condição de pagamento: " + ex.Message);
                 }
             }
         }
+
 
         public override void Delete(int id)
         {

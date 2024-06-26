@@ -32,6 +32,7 @@
             this.Código = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DDD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCidades)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,6 +46,7 @@
             // 
             // dataGridViewCidades
             // 
+            this.dataGridViewCidades.AllowUserToResizeRows = false;
             this.dataGridViewCidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
@@ -85,6 +87,7 @@
             this.Name = "ConsultaCidades";
             this.Text = "Consulta de Cidades";
             this.Load += new System.EventHandler(this.ConsultaCidades_Load);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
@@ -93,6 +96,8 @@
             this.Controls.SetChildIndex(this.btnIncluir, 0);
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.dataGridViewCidades, 0);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCidades)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

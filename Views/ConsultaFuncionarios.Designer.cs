@@ -43,6 +43,8 @@
             // 
             // dataGridViewFuncionarios
             // 
+            this.dataGridViewFuncionarios.AllowUserToResizeColumns = false;
+            this.dataGridViewFuncionarios.AllowUserToResizeRows = false;
             this.dataGridViewFuncionarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFuncionarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
@@ -62,19 +64,21 @@
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
             this.Código.ReadOnly = true;
+            this.Código.Width = 72;
             // 
             // Funcionário
             // 
             this.Funcionário.HeaderText = "Funcionário";
             this.Funcionário.Name = "Funcionário";
             this.Funcionário.ReadOnly = true;
-            this.Funcionário.Width = 255;
+            this.Funcionário.Width = 240;
             // 
             // Cargo
             // 
             this.Cargo.HeaderText = "Cargo";
             this.Cargo.Name = "Cargo";
             this.Cargo.ReadOnly = true;
+            this.Cargo.Width = 145;
             // 
             // Celular
             // 

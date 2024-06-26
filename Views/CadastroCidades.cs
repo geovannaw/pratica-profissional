@@ -203,6 +203,8 @@ namespace Sistema_Vendas.Views
                     {
                         MessageBox.Show("Estado não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCodEstado.Focus();
+                        txtCodEstado.Clear();
+                        txtEstado.Clear();
                     }
                 }
             }  

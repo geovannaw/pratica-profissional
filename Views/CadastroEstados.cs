@@ -213,6 +213,8 @@ namespace Sistema_Vendas.Views
                     {
                         MessageBox.Show("País não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCodPais.Focus();
+                        txtCodPais.Clear();
+                        txtPais.Clear();
                     }
                 }
             }

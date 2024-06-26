@@ -33,6 +33,7 @@
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Celular = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,6 +43,7 @@
             // 
             // dataGridViewClientes
             // 
+            this.dataGridViewClientes.AllowUserToResizeRows = false;
             this.dataGridViewClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
@@ -90,6 +92,7 @@
             this.Name = "ConsultaClientes";
             this.Text = "Consulta de Clientes";
             this.Load += new System.EventHandler(this.ConsultaClientes_Load);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
@@ -98,6 +101,8 @@
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.dataGridViewClientes, 0);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

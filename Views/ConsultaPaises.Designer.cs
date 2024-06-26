@@ -33,6 +33,7 @@
             this.País = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sigla = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DDI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPaises)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,6 +60,8 @@
             // 
             // dataGridViewPaises
             // 
+            this.dataGridViewPaises.AllowUserToResizeColumns = false;
+            this.dataGridViewPaises.AllowUserToResizeRows = false;
             this.dataGridViewPaises.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPaises.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
@@ -105,6 +108,7 @@
             this.Name = "ConsultaPaises";
             this.Text = "Consulta de Países";
             this.Load += new System.EventHandler(this.ConsultaPaises_Load);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
@@ -113,6 +117,8 @@
             this.Controls.SetChildIndex(this.btnIncluir, 0);
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.dataGridViewPaises, 0);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPaises)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

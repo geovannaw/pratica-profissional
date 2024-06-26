@@ -32,6 +32,7 @@
             this.Código = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UF = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEstados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,6 +46,8 @@
             // 
             // dataGridViewEstados
             // 
+            this.dataGridViewEstados.AllowUserToResizeColumns = false;
+            this.dataGridViewEstados.AllowUserToResizeRows = false;
             this.dataGridViewEstados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEstados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
@@ -85,6 +88,7 @@
             this.Name = "ConsultaEstados";
             this.Text = "Consulta de Estados";
             this.Load += new System.EventHandler(this.ConsultaEstados_Load);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
@@ -93,6 +97,8 @@
             this.Controls.SetChildIndex(this.btnIncluir, 0);
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.dataGridViewEstados, 0);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEstados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

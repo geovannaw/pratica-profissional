@@ -35,6 +35,8 @@
             // 
             // dataGridViewOS
             // 
+            this.dataGridViewOS.AllowUserToResizeColumns = false;
+            this.dataGridViewOS.AllowUserToResizeRows = false;
             this.dataGridViewOS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOS.Location = new System.Drawing.Point(18, 59);
             this.dataGridViewOS.Name = "dataGridViewOS";

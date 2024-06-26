@@ -49,7 +49,7 @@ namespace Sistema_Vendas.Views
             dataGridViewParcelas.Rows.Clear();
         }
 
-        private void limpaCamposParcelas()
+        public void limpaCamposParcelas()
         {
             txtParcela.Clear();
             txtDias.Clear();
@@ -179,7 +179,17 @@ namespace Sistema_Vendas.Views
             }
             dataGridViewParcelas.Sort(dataGridViewParcelas.Columns["numeroParcela"], ListSortDirection.Ascending); dataGridViewParcelas.Sort(dataGridViewParcelas.Columns["numeroParcela"], ListSortDirection.Ascending);
         }
-
+        private bool verificaNumeroParcela(int numeroParcela)
+        {
+            foreach (DataGridViewRow row in dataGridViewParcelas.Rows)
+            {
+                if (Convert.ToInt32(row.Cells["numeroParcela"].Value) == numeroParcela)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void btnAddParcela_Click(object sender, EventArgs e)
         {
             if (!CampoObrigatorio(txtParcela.Text))
@@ -207,6 +217,13 @@ namespace Sistema_Vendas.Views
                 try
                 {
                     int numeroParcela = Convert.ToInt32(txtParcela.Text);
+                    if (verificaNumeroParcela(numeroParcela))
+                    {
+                        MessageBox.Show("Número de parcela já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtParcela.Focus();
+                        return;
+                    }
+
                     int dias = Convert.ToInt32(txtDias.Text);
                     decimal porcentagem = Convert.ToDecimal(txtPorcentagem.Text);
                     int idFormaPag = Convert.ToInt32(txtCodFormaPag.Text);
@@ -224,7 +241,6 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
-
         private void atualizaPorcentagemTotal()
         {
             decimal porcentagemTotal = 0;
@@ -235,7 +251,6 @@ namespace Sistema_Vendas.Views
             }
             txtPorcentagemTotal.Text = porcentagemTotal.ToString("F2"); //att o campo com 2 casas decimais
         }
-
         private void btnConsultaFormaPag_Click(object sender, EventArgs e)
         {
             consultaFormasPagamento.btnSair.Text = "Selecionar";
@@ -253,7 +268,6 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
-
         private void txtCodFormaPag_Leave(object sender, EventArgs e)
         {
             if (!VerificaNumeros(txtCodFormaPag.Text))
@@ -274,11 +288,12 @@ namespace Sistema_Vendas.Views
                     {
                         MessageBox.Show("Forma de Pagamento não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCodFormaPag.Focus();
+                        txtCodFormaPag.Clear();
+                        txtFormaPag.Clear();
                     }
                 }
             }
         }
-
         private void txtPorcentagem_Leave(object sender, EventArgs e)
         {
             if (!VerificaValores(txtPorcentagem.Text))
@@ -287,12 +302,10 @@ namespace Sistema_Vendas.Views
                 txtPorcentagem.Focus();
             }
         }
-
         private void CadastroCondicaoPagamento_FormClosed(object sender, FormClosedEventArgs e)
         {
             ((ConsultaCondicaoPagamento)this.Owner).AtualizarConsultaCondPag(false);
         }
-
         private void btnExcluirParcela_Click(object sender, EventArgs e)
         {
             try
@@ -315,7 +328,6 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Erro ao excluir parcela: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void txtJuros_Leave(object sender, EventArgs e)
         {
             if (!VerificaValores(txtJuros.Text))
@@ -324,7 +336,6 @@ namespace Sistema_Vendas.Views
                 txtJuros.Focus();
             }
         }
-
         private void txtMulta_Leave(object sender, EventArgs e)
         {
             if (!VerificaValores(txtMulta.Text))
@@ -333,7 +344,6 @@ namespace Sistema_Vendas.Views
                 txtMulta.Focus();
             }
         }
-
         private void txtDesconto_Leave(object sender, EventArgs e)
         {
             if (!VerificaValores(txtDesconto.Text))
@@ -342,7 +352,6 @@ namespace Sistema_Vendas.Views
                 txtDesconto.Focus();
             }
         }
-
         private void txtParcela_Leave(object sender, EventArgs e)
         {
             if (!VerificaNumeros(txtParcela.Text))
@@ -351,7 +360,6 @@ namespace Sistema_Vendas.Views
                 txtParcela.Focus();
             }
         }
-
         private void txtDias_Leave(object sender, EventArgs e)
         {
             if (!VerificaNumeros(txtDias.Text))
@@ -360,7 +368,6 @@ namespace Sistema_Vendas.Views
                 txtDias.Focus();
             }
         }
-
         private void CadastroCondicaoPagamento_Load(object sender, EventArgs e)
         {
             if (idAlterar == -1)

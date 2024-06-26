@@ -281,6 +281,9 @@ namespace Sistema_Vendas.Views
                     {
                         MessageBox.Show("Modelo não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCodModelo.Focus();
+                        txtCodModelo.Clear();
+                        txtModelo.Clear();
+                        txtMarca.Clear();
                     }
                 }
             }
@@ -306,6 +309,8 @@ namespace Sistema_Vendas.Views
                     {
                         MessageBox.Show("Fornecedor não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCodFornecedor.Focus();
+                        txtCodFornecedor.Clear();
+                        txtFornecedor.Clear();
                     }
                 }
             }

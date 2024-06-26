@@ -42,6 +42,8 @@
             // 
             // dataGridViewServicos
             // 
+            this.dataGridViewServicos.AllowUserToResizeColumns = false;
+            this.dataGridViewServicos.AllowUserToResizeRows = false;
             this.dataGridViewServicos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewServicos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
