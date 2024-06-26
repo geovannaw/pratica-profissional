@@ -57,12 +57,12 @@ namespace Sistema_Vendas
 
         public static bool VerificaLetras(string texto)
         {
-            //se o campo estiver vazio, considera-se válido
+            // se o campo estiver vazio, considera-se válido
             if (string.IsNullOrWhiteSpace(texto))
                 return true;
 
-            //verificar se a string contém somente letras, espaços, acentos e ç
-            Regex regex = new Regex(@"^[a-zA-ZÀ-ü\sçÇ]+$");
+            // verificar se a string contém somente letras, espaços, acentos, ç e ponto final
+            Regex regex = new Regex(@"^[a-zA-ZÀ-ü\sçÇ.]+$");
 
             return regex.IsMatch(texto);
         }
@@ -88,6 +88,48 @@ namespace Sistema_Vendas
             Regex regex = new Regex("^[0-9]+$");
 
             return regex.IsMatch(texto);
+        }
+
+        public static bool VerificaValores(string texto)
+        {
+            // se o campo estiver vazio, considera-se válido
+            if (string.IsNullOrWhiteSpace(texto))
+                return true;
+
+            // verificar se a string contém um valor numérico inteiro ou com vírgula e até duas casas decimais
+            Regex regex = new Regex(@"^\d+,\d{0,2}$|^\d+$");
+
+            return regex.IsMatch(texto);
+        }
+
+        public static bool VerificaPrecos(string texto)
+        {
+            // se o campo estiver vazio, considera-se válido
+            if (string.IsNullOrWhiteSpace(texto))
+                return true;
+
+            // remover pontos e espaços (separadores de milhares)
+            texto = texto.Replace(".", "").Replace(" ", "");
+
+            // verificar se a string contém um valor numérico inteiro ou com vírgula e até duas casas decimais
+            Regex regex = new Regex(@"^\d+(\,\d{0,2})?$");
+
+            return regex.IsMatch(texto);
+        }
+
+        public static string FormataPreco(string texto)
+        {
+            // remover pontos e espaços (separadores de milhares)
+            texto = texto.Replace(".", "").Replace(" ", "");
+
+            if (decimal.TryParse(texto, out decimal value))
+            {
+                return value.ToString("N2");
+            }
+            else
+            {
+                throw new FormatException("Valor inválido.");
+            }
         }
 
         public static bool CampoObrigatorio(string texto)

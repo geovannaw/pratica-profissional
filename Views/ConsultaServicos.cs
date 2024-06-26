@@ -68,15 +68,20 @@ namespace Sistema_Vendas.Views
                 {
                     List<ServicoModel> resultadosPesquisa = new List<ServicoModel>();
                     bool buscaInativos = cbBuscaInativos.Checked;
+
                     if (rbNome.Checked)
                     {
-                        resultadosPesquisa = servicoController.GetAll(buscaInativos).Where(p => p.servico.ToLower().Contains(pesquisa.ToLower())).ToList();
+                        resultadosPesquisa = servicoController.GetAll(buscaInativos)
+                                                           .Where(p => p.servico.Contains(pesquisa))
+                                                           .ToList();
                     }
                     else if (rbCodigo.Checked)
                     {
                         if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            resultadosPesquisa = servicoController.GetAll(buscaInativos).Where(p => p.idServico == codigoPesquisa).ToList();
+                            resultadosPesquisa = servicoController.GetAll(buscaInativos)
+                                                               .Where(p => p.idServico == codigoPesquisa)
+                                                               .ToList();
                         }
                         else
                         {
@@ -90,7 +95,7 @@ namespace Sistema_Vendas.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao pesquisar serviços: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao pesquisar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

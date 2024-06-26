@@ -51,6 +51,7 @@
             this.Condição});
             this.dataGridViewCondPag.Location = new System.Drawing.Point(18, 57);
             this.dataGridViewCondPag.Name = "dataGridViewCondPag";
+            this.dataGridViewCondPag.ReadOnly = true;
             this.dataGridViewCondPag.Size = new System.Drawing.Size(600, 340);
             this.dataGridViewCondPag.TabIndex = 8;
             this.dataGridViewCondPag.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCondPag_CellDoubleClick);
@@ -59,11 +60,13 @@
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // Condição
             // 
             this.Condição.HeaderText = "Condição de Pagamento";
             this.Condição.Name = "Condição";
+            this.Condição.ReadOnly = true;
             this.Condição.Width = 455;
             // 
             // ConsultaCondicaoPagamento

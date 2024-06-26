@@ -43,6 +43,7 @@
             // 
             // txtPesquisar
             // 
+            this.txtPesquisar.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPesquisar.Location = new System.Drawing.Point(18, 18);
             this.txtPesquisar.Name = "txtPesquisar";
             this.txtPesquisar.Size = new System.Drawing.Size(185, 20);

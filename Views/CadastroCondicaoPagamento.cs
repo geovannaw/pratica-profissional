@@ -281,7 +281,7 @@ namespace Sistema_Vendas.Views
 
         private void txtPorcentagem_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtPorcentagem.Text))
+            if (!VerificaValores(txtPorcentagem.Text))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPorcentagem.Focus();
@@ -318,7 +318,7 @@ namespace Sistema_Vendas.Views
 
         private void txtJuros_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtJuros.Text))
+            if (!VerificaValores(txtJuros.Text))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtJuros.Focus();
@@ -327,7 +327,7 @@ namespace Sistema_Vendas.Views
 
         private void txtMulta_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtMulta.Text))
+            if (!VerificaValores(txtMulta.Text))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtMulta.Focus();
@@ -336,7 +336,7 @@ namespace Sistema_Vendas.Views
 
         private void txtDesconto_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtDesconto.Text))
+            if (!VerificaValores(txtDesconto.Text))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtDesconto.Focus();

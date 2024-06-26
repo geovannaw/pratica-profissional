@@ -58,7 +58,7 @@ namespace Sistema_Vendas.Views
                     string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
                     string rg = new string(txtRG.Text.Where(char.IsDigit).ToArray());
                     string cargo = txtCargo.Text;
-                    decimal salario = Convert.ToDecimal(txtSalario.Text);
+                    decimal salario = decimal.Parse(FormataPreco(txtSalario.Text));
                     string pis = new string(txtPis.Text.Where(char.IsDigit).ToArray());
                     int idCidade = int.Parse(txtCodCidade.Text);
                     string sexo = txtSexo.SelectedItem.ToString();
@@ -122,6 +122,7 @@ namespace Sistema_Vendas.Views
             txtCodigo.Clear();
             txtFuncionario.Clear();
             txtApelido.Clear();
+            txtSexo.SelectedIndex = -1;
             txtTelefone.Clear();
             txtCelular.Clear();
             txtEmail.Clear();
@@ -174,7 +175,7 @@ namespace Sistema_Vendas.Views
                     txtCPF.Text = funcionario.cpf;
                     txtRG.Text = funcionario.rg;
                     txtCargo.Text = funcionario.cargo;
-                    txtSalario.Text = funcionario.salario.ToString();
+                    txtSalario.Text = funcionario.salario.ToString("N2");
                     txtPis.Text = funcionario.pis;
                     txtDataCadastro.Text = funcionario.dataCadastro.ToString();
                     txtDataUltAlt.Text = funcionario.dataUltAlt.ToString();
@@ -283,8 +284,8 @@ namespace Sistema_Vendas.Views
         protected bool VerificaCamposObrigatorios()
         {
             string cpf = new string(txtCPF.Text.Where(char.IsDigit).ToArray());
-            string pais = txtPais.Text.ToLower();
-            if (pais == "brasil")
+            string pais = txtPais.Text;
+            if (pais == "BRASIL")
             {
                 if (!CampoObrigatorio(cpf))
                 {
@@ -394,19 +395,11 @@ namespace Sistema_Vendas.Views
         private void txtCPF_Leave(object sender, EventArgs e)
         {
             string cpf = new string(txtCPF.Text.Where(char.IsDigit).ToArray());
-            string pais = txtPais.Text.ToLower();
-            if (pais == "brasil")
+            if (!ValidaCPF(cpf))
             {
-                if (!CampoObrigatorio(cpf))
-                {
-                    MessageBox.Show("CPF obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("CPF inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCPF.Focus();
             }
-                if (!ValidaCPF(cpf))
-                {
-                    MessageBox.Show("CPF inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCPF.Focus();
-                }
             
         }
 
@@ -496,6 +489,28 @@ namespace Sistema_Vendas.Views
             {
                 MessageBox.Show("PIS inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPis.Focus();
+            }
+        }
+
+        private void txtSalario_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                txtSalario.Text = FormataPreco(txtSalario.Text);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtSalario.Focus();
+            }
+        }
+
+        private void txtSalario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permitir apenas números, pontos, vírgulas e teclas de controle (como backspace)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
             }
         }
     }

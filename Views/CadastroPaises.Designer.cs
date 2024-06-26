@@ -95,6 +95,7 @@
             // 
             // txtPais
             // 
+            this.txtPais.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPais.Location = new System.Drawing.Point(16, 104);
             this.txtPais.MaxLength = 100;
             this.txtPais.Name = "txtPais";
@@ -104,6 +105,7 @@
             // 
             // txtSigla
             // 
+            this.txtSigla.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSigla.Location = new System.Drawing.Point(16, 176);
             this.txtSigla.MaxLength = 5;
             this.txtSigla.Name = "txtSigla";
@@ -113,6 +115,7 @@
             // 
             // txtDDI
             // 
+            this.txtDDI.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDDI.Location = new System.Drawing.Point(146, 176);
             this.txtDDI.MaxLength = 5;
             this.txtDDI.Name = "txtDDI";

@@ -129,6 +129,7 @@
             // 
             // txtCelular
             // 
+            this.txtCelular.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCelular.Location = new System.Drawing.Point(120, 150);
             this.txtCelular.MaxLength = 50;
             this.txtCelular.Name = "txtCelular";
@@ -138,6 +139,7 @@
             // 
             // txtTelefone
             // 
+            this.txtTelefone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTelefone.Location = new System.Drawing.Point(16, 150);
             this.txtTelefone.MaxLength = 50;
             this.txtTelefone.Name = "txtTelefone";
@@ -161,7 +163,7 @@
             this.txtSexo.Items.AddRange(new object[] {
             "Feminino",
             "Masculino",
-            "Outros"});
+            "Não Definido"});
             this.txtSexo.Location = new System.Drawing.Point(656, 94);
             this.txtSexo.Name = "txtSexo";
             this.txtSexo.Size = new System.Drawing.Size(98, 21);
@@ -169,6 +171,7 @@
             // 
             // txtEmail
             // 
+            this.txtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtEmail.Location = new System.Drawing.Point(233, 150);
             this.txtEmail.MaxLength = 100;
             this.txtEmail.Name = "txtEmail";
@@ -205,6 +208,7 @@
             // 
             // txtFuncionario
             // 
+            this.txtFuncionario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtFuncionario.Location = new System.Drawing.Point(16, 95);
             this.txtFuncionario.MaxLength = 70;
             this.txtFuncionario.Name = "txtFuncionario";
@@ -214,6 +218,7 @@
             // 
             // txtApelido
             // 
+            this.txtApelido.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtApelido.Location = new System.Drawing.Point(340, 95);
             this.txtApelido.MaxLength = 50;
             this.txtApelido.Name = "txtApelido";
@@ -295,6 +300,7 @@
             // 
             // txtPais
             // 
+            this.txtPais.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPais.Enabled = false;
             this.txtPais.Location = new System.Drawing.Point(591, 94);
             this.txtPais.Name = "txtPais";
@@ -312,6 +318,7 @@
             // 
             // txtUF
             // 
+            this.txtUF.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUF.Enabled = false;
             this.txtUF.Location = new System.Drawing.Point(518, 94);
             this.txtUF.Name = "txtUF";
@@ -339,6 +346,7 @@
             // 
             // txtCidade
             // 
+            this.txtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCidade.Enabled = false;
             this.txtCidade.Location = new System.Drawing.Point(324, 94);
             this.txtCidade.Name = "txtCidade";
@@ -356,6 +364,7 @@
             // 
             // txtBairro
             // 
+            this.txtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBairro.Location = new System.Drawing.Point(12, 94);
             this.txtBairro.MaxLength = 100;
             this.txtBairro.Name = "txtBairro";
@@ -383,6 +392,7 @@
             // 
             // txtNumero
             // 
+            this.txtNumero.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNumero.Location = new System.Drawing.Point(381, 41);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(67, 20);
@@ -391,6 +401,7 @@
             // 
             // txtComplemento
             // 
+            this.txtComplemento.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtComplemento.Location = new System.Drawing.Point(466, 41);
             this.txtComplemento.MaxLength = 100;
             this.txtComplemento.Name = "txtComplemento";
@@ -408,6 +419,7 @@
             // 
             // txtEndereco
             // 
+            this.txtEndereco.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtEndereco.Location = new System.Drawing.Point(87, 41);
             this.txtEndereco.MaxLength = 150;
             this.txtEndereco.Name = "txtEndereco";
@@ -573,6 +585,7 @@
             // 
             // txtPis
             // 
+            this.txtPis.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPis.Location = new System.Drawing.Point(430, 39);
             this.txtPis.MaxLength = 14;
             this.txtPis.Name = "txtPis";
@@ -582,13 +595,17 @@
             // 
             // txtSalario
             // 
+            this.txtSalario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSalario.Location = new System.Drawing.Point(308, 39);
             this.txtSalario.Name = "txtSalario";
             this.txtSalario.Size = new System.Drawing.Size(100, 20);
             this.txtSalario.TabIndex = 86;
+            this.txtSalario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSalario_KeyPress);
+            this.txtSalario.Leave += new System.EventHandler(this.txtSalario_Leave);
             // 
             // txtCargo
             // 
+            this.txtCargo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCargo.Location = new System.Drawing.Point(28, 39);
             this.txtCargo.MaxLength = 50;
             this.txtCargo.Name = "txtCargo";

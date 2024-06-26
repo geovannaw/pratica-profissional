@@ -49,6 +49,7 @@
             this.Preço});
             this.dataGridViewServicos.Location = new System.Drawing.Point(18, 58);
             this.dataGridViewServicos.Name = "dataGridViewServicos";
+            this.dataGridViewServicos.ReadOnly = true;
             this.dataGridViewServicos.Size = new System.Drawing.Size(600, 339);
             this.dataGridViewServicos.TabIndex = 9;
             this.dataGridViewServicos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewServicos_CellDoubleClick);
@@ -57,17 +58,20 @@
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // Serviço
             // 
             this.Serviço.HeaderText = "Serviço";
             this.Serviço.Name = "Serviço";
+            this.Serviço.ReadOnly = true;
             this.Serviço.Width = 355;
             // 
             // Preço
             // 
             this.Preço.HeaderText = "Preço";
             this.Preço.Name = "Preço";
+            this.Preço.ReadOnly = true;
             // 
             // ConsultaServicos
             // 

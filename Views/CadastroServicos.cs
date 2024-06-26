@@ -34,7 +34,7 @@ namespace Sistema_Vendas.Views
                 {
                     txtCodigo.Text = servico.idServico.ToString();
                     txtServico.Text = servico.servico;
-                    txtPreco.Text = servico.preco.ToString();
+                    txtPreco.Text = servico.preco.ToString("N2");
                     txtDataCadastro.Text = servico.dataCadastro.ToString();
                     txtDataUltAlt.Text = servico.dataUltAlt.ToString();
                     rbAtivo.Checked = servico.Ativo;
@@ -73,7 +73,7 @@ namespace Sistema_Vendas.Views
                     try
                     {
                         string servico = txtServico.Text;
-                        decimal preco = Convert.ToDecimal(txtPreco.Text);
+                        decimal preco = decimal.Parse(FormataPreco(txtPreco.Text));
                         DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
                         DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
 
@@ -105,6 +105,7 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+
         public override void LimparCampos()
         {
             idAlterar = -1;
@@ -126,21 +127,25 @@ namespace Sistema_Vendas.Views
             ((ConsultaServicos)this.Owner).AtualizarConsultaServicos(false);
         }
 
-        private void txtServico_Leave(object sender, EventArgs e)
+        private void txtPreco_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtServico.Text))
+            try
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtServico.Focus();
+                txtPreco.Text = FormataPreco(txtPreco.Text);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPreco.Focus();
             }
         }
 
-        private void txtPreco_Leave(object sender, EventArgs e)
+        private void txtPreco_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaNumeros(txtPreco.Text))
+            //permitir apenas números, pontos, vírgulas e teclas de controle (como backspace)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPreco.Focus();
+                e.Handled = true;
             }
         }
     }

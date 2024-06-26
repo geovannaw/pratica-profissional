@@ -68,15 +68,20 @@ namespace Sistema_Vendas.Models
                 {
                     List<EstadoModel> resultadosPesquisa = new List<EstadoModel>();
                     bool buscaInativos = cbBuscaInativos.Checked;
+
                     if (rbNome.Checked)
                     {
-                        resultadosPesquisa = estadoController.GetAll(buscaInativos).Where(p => p.Estado.ToLower().Contains(pesquisa.ToLower())).ToList();
+                        resultadosPesquisa = estadoController.GetAll(buscaInativos)
+                                                           .Where(p => p.Estado.Contains(pesquisa))
+                                                           .ToList();
                     }
                     else if (rbCodigo.Checked)
                     {
                         if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            resultadosPesquisa = estadoController.GetAll(buscaInativos).Where(p => p.idEstado == codigoPesquisa).ToList();
+                            resultadosPesquisa = estadoController.GetAll(buscaInativos)
+                                                               .Where(p => p.idEstado == codigoPesquisa)
+                                                               .ToList();
                         }
                         else
                         {
@@ -90,7 +95,7 @@ namespace Sistema_Vendas.Models
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao pesquisar estados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao pesquisar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

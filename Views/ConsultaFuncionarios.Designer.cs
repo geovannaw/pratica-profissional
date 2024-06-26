@@ -33,6 +33,7 @@
             this.Funcionário = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Celular = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFuncionarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,32 +51,36 @@
             this.Celular});
             this.dataGridViewFuncionarios.Location = new System.Drawing.Point(18, 55);
             this.dataGridViewFuncionarios.Name = "dataGridViewFuncionarios";
+            this.dataGridViewFuncionarios.ReadOnly = true;
             this.dataGridViewFuncionarios.Size = new System.Drawing.Size(600, 346);
             this.dataGridViewFuncionarios.TabIndex = 8;
             this.dataGridViewFuncionarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFuncionarios_CellDoubleClick);
             this.dataGridViewFuncionarios.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewFuncionarios_CellFormatting);
-//            this.dataGridViewFuncionarios.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewFuncionarios_RowPrePaint);
             // 
             // Código
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // Funcionário
             // 
             this.Funcionário.HeaderText = "Funcionário";
             this.Funcionário.Name = "Funcionário";
+            this.Funcionário.ReadOnly = true;
             this.Funcionário.Width = 255;
             // 
             // Cargo
             // 
             this.Cargo.HeaderText = "Cargo";
             this.Cargo.Name = "Cargo";
+            this.Cargo.ReadOnly = true;
             // 
             // Celular
             // 
             this.Celular.HeaderText = "Celular";
             this.Celular.Name = "Celular";
+            this.Celular.ReadOnly = true;
             // 
             // ConsultaFuncionarios
             // 
@@ -85,6 +90,7 @@
             this.Name = "ConsultaFuncionarios";
             this.Text = "Consulta de Funcionários";
             this.Load += new System.EventHandler(this.ConsultaFuncionarios_Load);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
@@ -93,6 +99,8 @@
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.dataGridViewFuncionarios, 0);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFuncionarios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

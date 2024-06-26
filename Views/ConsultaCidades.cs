@@ -79,15 +79,20 @@ namespace Sistema_Vendas.Views
                 {
                     List<CidadeModel> resultadosPesquisa = new List<CidadeModel>();
                     bool buscaInativos = cbBuscaInativos.Checked;
+
                     if (rbNome.Checked)
                     {
-                        resultadosPesquisa = cidadeController.GetAll(buscaInativos).Where(p => p.Cidade.ToLower().Contains(pesquisa.ToLower())).ToList();
+                        resultadosPesquisa = cidadeController.GetAll(buscaInativos)
+                                                           .Where(p => p.Cidade.Contains(pesquisa))
+                                                           .ToList();
                     }
                     else if (rbCodigo.Checked)
                     {
                         if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            resultadosPesquisa = cidadeController.GetAll(buscaInativos).Where(p => p.idCidade == codigoPesquisa).ToList();
+                            resultadosPesquisa = cidadeController.GetAll(buscaInativos)
+                                                               .Where(p => p.idCidade == codigoPesquisa)
+                                                               .ToList();
                         }
                         else
                         {
@@ -101,7 +106,7 @@ namespace Sistema_Vendas.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao pesquisar cidades: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao pesquisar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

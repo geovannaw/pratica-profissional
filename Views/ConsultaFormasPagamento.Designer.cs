@@ -51,6 +51,7 @@
             this.formaPagamento});
             this.dataGridViewFormaPag.Location = new System.Drawing.Point(18, 58);
             this.dataGridViewFormaPag.Name = "dataGridViewFormaPag";
+            this.dataGridViewFormaPag.ReadOnly = true;
             this.dataGridViewFormaPag.Size = new System.Drawing.Size(600, 339);
             this.dataGridViewFormaPag.TabIndex = 8;
             this.dataGridViewFormaPag.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFormaPag_CellDoubleClick);
@@ -59,11 +60,13 @@
             // 
             this.Código.HeaderText = "Código";
             this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
             // 
             // formaPagamento
             // 
             this.formaPagamento.HeaderText = "Forma de Pagamento";
             this.formaPagamento.Name = "formaPagamento";
+            this.formaPagamento.ReadOnly = true;
             this.formaPagamento.Width = 455;
             // 
             // ConsultaFormasPagamento

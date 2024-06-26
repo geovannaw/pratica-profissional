@@ -100,6 +100,7 @@
             // 
             // txtEstado
             // 
+            this.txtEstado.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtEstado.Enabled = false;
             this.txtEstado.Location = new System.Drawing.Point(128, 168);
             this.txtEstado.Name = "txtEstado";
@@ -108,6 +109,7 @@
             // 
             // txtDDD
             // 
+            this.txtDDD.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDDD.Location = new System.Drawing.Point(278, 96);
             this.txtDDD.MaxLength = 5;
             this.txtDDD.Name = "txtDDD";
@@ -117,6 +119,7 @@
             // 
             // txtCidade
             // 
+            this.txtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCidade.Location = new System.Drawing.Point(16, 96);
             this.txtCidade.MaxLength = 100;
             this.txtCidade.Name = "txtCidade";

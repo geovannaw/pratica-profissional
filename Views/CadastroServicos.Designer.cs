@@ -30,8 +30,8 @@
         {
             this.lblServico = new System.Windows.Forms.Label();
             this.txtServico = new System.Windows.Forms.TextBox();
-            this.txtPreco = new System.Windows.Forms.TextBox();
             this.lblPreco = new System.Windows.Forms.Label();
+            this.txtPreco = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,19 +42,31 @@
             // 
             // btnSalvar
             // 
+            this.btnSalvar.Location = new System.Drawing.Point(224, 235);
             this.btnSalvar.TabIndex = 4;
             // 
             // btnSair
             // 
+            this.btnSair.Location = new System.Drawing.Point(305, 235);
             this.btnSair.TabIndex = 5;
             // 
             // txtDataCadastro
             // 
+            this.txtDataCadastro.Location = new System.Drawing.Point(18, 238);
             this.txtDataCadastro.Text = "12062024";
             // 
             // txtDataUltAlt
             // 
+            this.txtDataUltAlt.Location = new System.Drawing.Point(106, 238);
             this.txtDataUltAlt.Text = "12062024";
+            // 
+            // lblDataCadastro
+            // 
+            this.lblDataCadastro.Location = new System.Drawing.Point(15, 222);
+            // 
+            // lblDataUltAlt
+            // 
+            this.lblDataUltAlt.Location = new System.Drawing.Point(103, 222);
             // 
             // rbInativo
             // 
@@ -71,43 +83,43 @@
             // lblServico
             // 
             this.lblServico.AutoSize = true;
-            this.lblServico.Location = new System.Drawing.Point(13, 78);
+            this.lblServico.Location = new System.Drawing.Point(13, 88);
             this.lblServico.Name = "lblServico";
-            this.lblServico.Size = new System.Drawing.Size(43, 13);
+            this.lblServico.Size = new System.Drawing.Size(50, 13);
             this.lblServico.TabIndex = 12;
-            this.lblServico.Text = "Serviço";
+            this.lblServico.Text = "Serviço *";
             // 
             // txtServico
             // 
-            this.txtServico.Location = new System.Drawing.Point(16, 94);
+            this.txtServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtServico.Location = new System.Drawing.Point(16, 104);
             this.txtServico.MaxLength = 50;
             this.txtServico.Name = "txtServico";
             this.txtServico.Size = new System.Drawing.Size(364, 20);
             this.txtServico.TabIndex = 2;
-            this.txtServico.Leave += new System.EventHandler(this.txtServico_Leave);
-            // 
-            // txtPreco
-            // 
-            this.txtPreco.Location = new System.Drawing.Point(16, 151);
-            this.txtPreco.MaxLength = 10;
-            this.txtPreco.Name = "txtPreco";
-            this.txtPreco.Size = new System.Drawing.Size(100, 20);
-            this.txtPreco.TabIndex = 3;
-            this.txtPreco.Leave += new System.EventHandler(this.txtPreco_Leave);
             // 
             // lblPreco
             // 
             this.lblPreco.AutoSize = true;
-            this.lblPreco.Location = new System.Drawing.Point(13, 135);
+            this.lblPreco.Location = new System.Drawing.Point(13, 145);
             this.lblPreco.Name = "lblPreco";
-            this.lblPreco.Size = new System.Drawing.Size(35, 13);
+            this.lblPreco.Size = new System.Drawing.Size(42, 13);
             this.lblPreco.TabIndex = 14;
-            this.lblPreco.Text = "Preço";
+            this.lblPreco.Text = "Preço *";
+            // 
+            // txtPreco
+            // 
+            this.txtPreco.Location = new System.Drawing.Point(16, 161);
+            this.txtPreco.Name = "txtPreco";
+            this.txtPreco.Size = new System.Drawing.Size(100, 20);
+            this.txtPreco.TabIndex = 3;
+            this.txtPreco.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPreco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPreco_KeyPress);
             // 
             // CadastroServicos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(399, 454);
+            this.ClientSize = new System.Drawing.Size(399, 278);
             this.Controls.Add(this.txtPreco);
             this.Controls.Add(this.lblPreco);
             this.Controls.Add(this.txtServico);
@@ -138,7 +150,7 @@
 
         private System.Windows.Forms.Label lblServico;
         private System.Windows.Forms.TextBox txtServico;
-        private System.Windows.Forms.TextBox txtPreco;
         private System.Windows.Forms.Label lblPreco;
+        private System.Windows.Forms.TextBox txtPreco;
     }
 }

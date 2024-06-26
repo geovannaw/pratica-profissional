@@ -16,7 +16,6 @@ namespace Sistema_Vendas
     public partial class MenuPrincipal : Form
     {
         private Timer timerAtualizacao;
-        private DadosEmpresaController<DadosEmpresaModel> dadosEmpresaController;
         public MenuPrincipal()
         {
             timerAtualizacao = new Timer();
@@ -43,12 +42,6 @@ namespace Sistema_Vendas
         {
             ConsultaPaises consultaPaises = new ConsultaPaises();
             consultaPaises.ShowDialog();
-        }
-
-        private void dadosDaEmpresaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DadosEmpresa dadosEmpresa = new DadosEmpresa();
-            dadosEmpresa.ShowDialog();
         }
 
         private void estadosToolStripMenuItem_Click(object sender, EventArgs e)

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Sistema_Vendas.DAO
 {
@@ -77,24 +78,37 @@ namespace Sistema_Vendas.DAO
 
                 try
                 {
-                    //deleta condicao de pagamento
-                    string deleteCondicaoPagamento = "DELETE FROM condicaoPagamento WHERE idCondPagamento = @idCondPagamento";
-                    SqlCommand cmdDeleteCondicaoPagamento = new SqlCommand(deleteCondicaoPagamento, conn, transaction);
-                    cmdDeleteCondicaoPagamento.Parameters.AddWithValue("@idCondPagamento", id);
-                    cmdDeleteCondicaoPagamento.ExecuteNonQuery();
-
                     //deleta as parcelas com o id da condicao de pagamento
                     string deleteParcelas = "DELETE FROM parcela WHERE idCondPagamento = @idCondPagamento";
                     SqlCommand cmdDeleteParcelas = new SqlCommand(deleteParcelas, conn, transaction);
                     cmdDeleteParcelas.Parameters.AddWithValue("@idCondPagamento", id);
                     cmdDeleteParcelas.ExecuteNonQuery();
 
+                    //deleta condicao de pagamento
+                    string deleteCondicaoPagamento = "DELETE FROM condicaoPagamento WHERE idCondPagamento = @idCondPagamento";
+                    SqlCommand cmdDeleteCondicaoPagamento = new SqlCommand(deleteCondicaoPagamento, conn, transaction);
+                    cmdDeleteCondicaoPagamento.Parameters.AddWithValue("@idCondPagamento", id);
+                    cmdDeleteCondicaoPagamento.ExecuteNonQuery();
+
                     transaction.Commit();
+                }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();
+
+                    if (ex.Number == 547)
+                    {
+                        MessageBox.Show("Não é possível excluir a Condição de Pagamento, pois ela está sendo utilizada em um cadastro.", "Erro ao deletar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao deletar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw new Exception("Erro ao deletar condição de pagamento: " + ex.Message);
+                    MessageBox.Show("Erro ao deletar a condição de pagamento: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

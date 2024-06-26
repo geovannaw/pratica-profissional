@@ -8,7 +8,6 @@ C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema-Vendas.csproj.Generate
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema-Vendas.csproj.CoreCompileInputs.cache
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema-Vendas.exe
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema-Vendas.pdb
-C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.DadosEmpresa.resources
 C:\prática profissional\Sistema-Vendas\bin\Debug\System.ComponentModel.Annotations.dll
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema-Vendas.csproj.CopyComplete
 C:\prática profissional\Sistema-Vendas\bin\Debug\BouncyCastle.Cryptography.dll

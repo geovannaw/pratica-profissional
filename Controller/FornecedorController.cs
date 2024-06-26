@@ -64,7 +64,7 @@ namespace Sistema_Vendas.Controller
             return false;
         }
 
-        public bool BuscaNome(string fornecedor_razao_social, int idAtual)
+        public bool BuscaNome(string fornecedor_razao_social, int idAtual) //para mensagem informativa avisando que o nome ja está cadastrado, porém permite continuar
         {
             List<FornecedorModel> fornecedores = fornecedorDAO.GetAll(false).Cast<FornecedorModel>().ToList();
 

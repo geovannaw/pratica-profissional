@@ -97,7 +97,7 @@
             // lblIE_RG
             // 
             this.lblIE_RG.AutoSize = true;
-            this.lblIE_RG.Location = new System.Drawing.Point(150, 360);
+            this.lblIE_RG.Location = new System.Drawing.Point(150, 366);
             this.lblIE_RG.Name = "lblIE_RG";
             this.lblIE_RG.Size = new System.Drawing.Size(23, 13);
             this.lblIE_RG.TabIndex = 40;
@@ -105,6 +105,7 @@
             // 
             // txtEmail
             // 
+            this.txtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtEmail.Location = new System.Drawing.Point(27, 150);
             this.txtEmail.MaxLength = 100;
             this.txtEmail.Name = "txtEmail";
@@ -115,7 +116,7 @@
             // lblCPF_CNPJ
             // 
             this.lblCPF_CNPJ.AutoSize = true;
-            this.lblCPF_CNPJ.Location = new System.Drawing.Point(24, 360);
+            this.lblCPF_CNPJ.Location = new System.Drawing.Point(24, 366);
             this.lblCPF_CNPJ.Name = "lblCPF_CNPJ";
             this.lblCPF_CNPJ.Size = new System.Drawing.Size(34, 13);
             this.lblCPF_CNPJ.TabIndex = 37;
@@ -169,6 +170,7 @@
             // 
             // txtCodCidade
             // 
+            this.txtCodCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCodCidade.Location = new System.Drawing.Point(205, 94);
             this.txtCodCidade.Name = "txtCodCidade";
             this.txtCodCidade.Size = new System.Drawing.Size(62, 20);
@@ -186,6 +188,7 @@
             // 
             // txtPais
             // 
+            this.txtPais.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPais.Enabled = false;
             this.txtPais.Location = new System.Drawing.Point(591, 94);
             this.txtPais.Name = "txtPais";
@@ -203,6 +206,7 @@
             // 
             // txtUF
             // 
+            this.txtUF.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUF.Enabled = false;
             this.txtUF.Location = new System.Drawing.Point(518, 94);
             this.txtUF.Name = "txtUF";
@@ -229,6 +233,7 @@
             // 
             // txtCidade
             // 
+            this.txtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCidade.Enabled = false;
             this.txtCidade.Location = new System.Drawing.Point(324, 94);
             this.txtCidade.Name = "txtCidade";
@@ -246,6 +251,7 @@
             // 
             // txtBairro
             // 
+            this.txtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBairro.Location = new System.Drawing.Point(12, 94);
             this.txtBairro.MaxLength = 100;
             this.txtBairro.Name = "txtBairro";
@@ -273,6 +279,7 @@
             // 
             // txtNumero
             // 
+            this.txtNumero.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNumero.Location = new System.Drawing.Point(381, 41);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(67, 20);
@@ -281,6 +288,7 @@
             // 
             // txtComplemento
             // 
+            this.txtComplemento.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtComplemento.Location = new System.Drawing.Point(466, 41);
             this.txtComplemento.MaxLength = 100;
             this.txtComplemento.Name = "txtComplemento";
@@ -298,6 +306,7 @@
             // 
             // txtEndereco
             // 
+            this.txtEndereco.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtEndereco.Location = new System.Drawing.Point(87, 41);
             this.txtEndereco.MaxLength = 150;
             this.txtEndereco.Name = "txtEndereco";
@@ -342,6 +351,7 @@
             // 
             // txtCliente_razao_social
             // 
+            this.txtCliente_razao_social.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCliente_razao_social.Location = new System.Drawing.Point(27, 95);
             this.txtCliente_razao_social.MaxLength = 70;
             this.txtCliente_razao_social.Name = "txtCliente_razao_social";
@@ -351,6 +361,7 @@
             // 
             // txtApelido_nome_fantasia
             // 
+            this.txtApelido_nome_fantasia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtApelido_nome_fantasia.Location = new System.Drawing.Point(351, 95);
             this.txtApelido_nome_fantasia.MaxLength = 70;
             this.txtApelido_nome_fantasia.Name = "txtApelido_nome_fantasia";
@@ -492,7 +503,7 @@
             // lblDataNasc
             // 
             this.lblDataNasc.AutoSize = true;
-            this.lblDataNasc.Location = new System.Drawing.Point(261, 360);
+            this.lblDataNasc.Location = new System.Drawing.Point(261, 366);
             this.lblDataNasc.Name = "lblDataNasc";
             this.lblDataNasc.Size = new System.Drawing.Size(61, 13);
             this.lblDataNasc.TabIndex = 53;
@@ -500,7 +511,7 @@
             // 
             // txtDataNasc
             // 
-            this.txtDataNasc.Location = new System.Drawing.Point(264, 376);
+            this.txtDataNasc.Location = new System.Drawing.Point(264, 382);
             this.txtDataNasc.Mask = "00/00/0000";
             this.txtDataNasc.Name = "txtDataNasc";
             this.txtDataNasc.Size = new System.Drawing.Size(67, 20);
@@ -514,7 +525,7 @@
             this.txtSexo.Items.AddRange(new object[] {
             "Feminino",
             "Masculino",
-            "Outros"});
+            "Não Definido"});
             this.txtSexo.Location = new System.Drawing.Point(667, 94);
             this.txtSexo.Name = "txtSexo";
             this.txtSexo.Size = new System.Drawing.Size(98, 21);
@@ -532,7 +543,7 @@
             // 
             // txtCPF_CNPJ
             // 
-            this.txtCPF_CNPJ.Location = new System.Drawing.Point(27, 376);
+            this.txtCPF_CNPJ.Location = new System.Drawing.Point(27, 382);
             this.txtCPF_CNPJ.Mask = "000.000.000-00";
             this.txtCPF_CNPJ.Name = "txtCPF_CNPJ";
             this.txtCPF_CNPJ.Size = new System.Drawing.Size(107, 20);
@@ -542,7 +553,8 @@
             // 
             // txtIE_RG
             // 
-            this.txtIE_RG.Location = new System.Drawing.Point(153, 376);
+            this.txtIE_RG.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtIE_RG.Location = new System.Drawing.Point(153, 382);
             this.txtIE_RG.MaxLength = 14;
             this.txtIE_RG.Name = "txtIE_RG";
             this.txtIE_RG.Size = new System.Drawing.Size(93, 20);
@@ -551,6 +563,7 @@
             // 
             // txtTelefone
             // 
+            this.txtTelefone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTelefone.Location = new System.Drawing.Point(246, 150);
             this.txtTelefone.MaxLength = 50;
             this.txtTelefone.Name = "txtTelefone";
@@ -560,6 +573,7 @@
             // 
             // txtCelular
             // 
+            this.txtCelular.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCelular.Location = new System.Drawing.Point(350, 150);
             this.txtCelular.MaxLength = 50;
             this.txtCelular.Name = "txtCelular";
@@ -605,6 +619,7 @@
             // 
             // txtContato
             // 
+            this.txtContato.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtContato.Location = new System.Drawing.Point(458, 150);
             this.txtContato.MaxLength = 70;
             this.txtContato.Name = "txtContato";
@@ -630,7 +645,7 @@
             this.groupBox4.Controls.Add(this.txtCodCondPag);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.btnConsultaCondPag);
-            this.groupBox4.Location = new System.Drawing.Point(351, 346);
+            this.groupBox4.Location = new System.Drawing.Point(351, 344);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(420, 75);
             this.groupBox4.TabIndex = 24;
@@ -648,6 +663,7 @@
             // 
             // txtCondPag
             // 
+            this.txtCondPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCondPag.Enabled = false;
             this.txtCondPag.Location = new System.Drawing.Point(133, 39);
             this.txtCondPag.Name = "txtCondPag";
@@ -656,6 +672,7 @@
             // 
             // txtCodCondPag
             // 
+            this.txtCodCondPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCodCondPag.Location = new System.Drawing.Point(20, 39);
             this.txtCodCondPag.Name = "txtCodCondPag";
             this.txtCodCondPag.Size = new System.Drawing.Size(62, 20);

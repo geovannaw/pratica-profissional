@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Sistema_Vendas.Views
 {
@@ -32,9 +33,11 @@ namespace Sistema_Vendas.Views
             txtCodigo.Clear();
             txtCliente_razao_social.Clear();
             txtApelido_nome_fantasia.Clear();
+            txtSexo.SelectedIndex = -1;
             txtEmail.Clear();
             txtTelefone.Clear();
             txtCelular.Clear();
+            txtContato.Clear();
             txtContato.Clear();
             txtCEP.Clear();
             txtEndereco.Clear();
@@ -54,6 +57,8 @@ namespace Sistema_Vendas.Views
             txtCondPag.Clear();
             rbFisica.Checked = true;
             rbAtivo.Checked = true;
+            rbFisica.Enabled = true;
+            rbJuridica.Enabled = true;
         }
 
         public void SetID(int id)
@@ -64,8 +69,8 @@ namespace Sistema_Vendas.Views
         protected bool VerificaCamposObrigatorios()
         {
             string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
-            string pais = txtPais.Text.ToLower();
-            if (pais == "brasil")
+            string pais = txtPais.Text;
+            if (pais == "BRASIL")
             {
                 if (!CampoObrigatorio(cpf_cnpj))
                 {
@@ -174,6 +179,7 @@ namespace Sistema_Vendas.Views
             lblContato.Visible = false;
             txtContato.Visible = false;
             lblDataNasc.Text = "Data Nasc.";
+            txtCPF_CNPJ.Clear();
         }
 
         private void rbAtivo_CheckedChanged(object sender, EventArgs e)
@@ -199,20 +205,21 @@ namespace Sistema_Vendas.Views
             lblContato.Visible = true;
             txtContato.Visible = true;
             lblDataNasc.Text = "Data Fund.";
+            txtCPF_CNPJ.Clear();
         }
 
         private void txtCPF_CNPJ_Leave(object sender, EventArgs e)
         {
             string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
-            string pais = txtPais.Text.ToLower();
-            if (pais == "brasil") 
-            {
-                if (!CampoObrigatorio(cpf_cnpj))
-                {
-                    MessageBox.Show("CPF / CNPJ obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCPF_CNPJ.Focus();
-                }               
-            }
+            //string pais = txtPais.Text.ToLower();
+            //if (pais == "brasil") 
+            //{
+            //    if (!CampoObrigatorio(cpf_cnpj))
+            //    {
+            //        MessageBox.Show("CPF / CNPJ obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        txtCPF_CNPJ.Focus();
+            //    }               
+            //}
             if (!rbFisica.Checked)
             {
                 if (!ValidaCNPJ(cpf_cnpj))
@@ -235,7 +242,7 @@ namespace Sistema_Vendas.Views
         {
             if (!VerificaLetras(txtCliente_razao_social.Text))
             {
-                MessageBox.Show("Cliente / Razão Social inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCliente_razao_social.Focus();
             }
         }

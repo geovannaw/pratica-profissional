@@ -68,15 +68,20 @@ namespace Sistema_Vendas.Views
                 {
                     List<FormaPagamentoModel> resultadosPesquisa = new List<FormaPagamentoModel>();
                     bool buscaInativos = cbBuscaInativos.Checked;
+
                     if (rbNome.Checked)
                     {
-                        resultadosPesquisa = formaPagamentoController.GetAll(buscaInativos).Where(p => p.formaPagamento.ToLower().Contains(pesquisa.ToLower())).ToList();
+                        resultadosPesquisa = formaPagamentoController.GetAll(buscaInativos)
+                                                           .Where(p => p.formaPagamento.Contains(pesquisa))
+                                                           .ToList();
                     }
                     else if (rbCodigo.Checked)
                     {
                         if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            resultadosPesquisa = formaPagamentoController.GetAll(buscaInativos).Where(p => p.idFormaPagamento == codigoPesquisa).ToList();
+                            resultadosPesquisa = formaPagamentoController.GetAll(buscaInativos)
+                                                               .Where(p => p.idFormaPagamento == codigoPesquisa)
+                                                               .ToList();
                         }
                         else
                         {
@@ -90,7 +95,7 @@ namespace Sistema_Vendas.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao pesquisar formas de pagamento: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao pesquisar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

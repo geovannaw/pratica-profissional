@@ -106,7 +106,6 @@
     <Compile Include="Controller\ClienteController.cs" />
     <Compile Include="Controller\CondicaoPagamentoController.cs" />
     <Compile Include="Controller\ControllerPai.cs" />
-    <Compile Include="Controller\DadosEmpresaController.cs" />
     <Compile Include="Controller\EstadoController.cs" />
     <Compile Include="Controller\FormaPagamentoController.cs" />
     <Compile Include="Controller\FornecedorController.cs" />
@@ -118,7 +117,6 @@
     <Compile Include="DAO\CidadeDAO.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\CondicaoPagamentoDAO.cs" />
-    <Compile Include="DAO\DadosEmpresaDAO.cs" />
     <Compile Include="DAO\FormaPagamentoDAO.cs" />
     <Compile Include="DAO\FornecedorDAO.cs" />
     <Compile Include="DAO\FuncionarioDAO.cs" />
@@ -128,7 +126,6 @@
     <Compile Include="Models\CidadeModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\CondicaoPagamentoModel.cs" />
-    <Compile Include="Models\DadosEmpresaModel.cs" />
     <Compile Include="Models\FormaPagamentoModel.cs" />
     <Compile Include="Models\FornecedorModel.cs" />
     <Compile Include="Models\FuncionarioModel.cs" />
@@ -302,12 +299,6 @@
     <Compile Include="Views\ConsultaServicos.Designer.cs">
       <DependentUpon>ConsultaServicos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DadosEmpresa.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\DadosEmpresa.Designer.cs">
-      <DependentUpon>DadosEmpresa.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -400,9 +391,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaServicos.resx">
       <DependentUpon>ConsultaServicos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\DadosEmpresa.resx">
-      <DependentUpon>DadosEmpresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>

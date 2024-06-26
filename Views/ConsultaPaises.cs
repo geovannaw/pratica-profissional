@@ -75,7 +75,7 @@ namespace Sistema_Vendas.Views
                     {
                         // Pesquisa por Nome
                         resultadosPesquisa = paisController.GetAll(buscaInativos)
-                                                           .Where(p => p.Pais.ToLower().Contains(pesquisa.ToLower()))
+                                                           .Where(p => p.Pais.Contains(pesquisa))
                                                            .ToList();
                     }
                     else if (rbCodigo.Checked)
@@ -127,7 +127,6 @@ namespace Sistema_Vendas.Views
             {
                 MessageBox.Show("Ocorreu um erro ao carregar os países: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void ResetCadastro()

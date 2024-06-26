@@ -80,6 +80,7 @@
             // 
             // txtFormaPagamento
             // 
+            this.txtFormaPagamento.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtFormaPagamento.Location = new System.Drawing.Point(16, 122);
             this.txtFormaPagamento.MaxLength = 50;
             this.txtFormaPagamento.Name = "txtFormaPagamento";

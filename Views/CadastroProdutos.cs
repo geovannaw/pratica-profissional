@@ -52,9 +52,9 @@ namespace Sistema_Vendas.Views
                     string unidade = txtUN.Text;
                     int saldo = int.Parse(txtSaldo.Text);
 
-                    decimal custo_medio = Convert.ToDecimal(txtCustoMedio.Text);
-                    decimal preco_venda = Convert.ToDecimal(txtPrecoVenda.Text);
-                    decimal preco_ult_compra = Convert.ToDecimal(txtPrecoUltCompra.Text);
+                    decimal custo_medio = decimal.Parse(txtCustoMedio.Text);
+                    decimal preco_venda = decimal.Parse(FormataPreco(txtPrecoVenda.Text));
+                    decimal preco_ult_compra = decimal.Parse(txtPrecoUltCompra.Text);
 
                     string observacao = txtObservacao.Text;
                     int idFornecedor = int.Parse(txtCodFornecedor.Text);
@@ -132,7 +132,7 @@ namespace Sistema_Vendas.Views
         {
             if (!CampoObrigatorio(txtProduto.Text))
             {
-                MessageBox.Show("Campo Descrição é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Produto é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtProduto.Focus();
                 return false;
             }
@@ -175,7 +175,7 @@ namespace Sistema_Vendas.Views
                     txtSaldo.Text = produto.Saldo.ToString();
                     txtUN.Text = produto.Unidade.ToString();
                     txtCustoMedio.Text = produto.Custo_medio.ToString();
-                    txtPrecoVenda.Text = produto.Preco_venda.ToString();
+                    txtPrecoVenda.Text = produto.Preco_venda.ToString("N2");
                     txtPrecoUltCompra.Text = produto.Preco_ult_compra.ToString();
                     txtObservacao.Text = produto.Observacao;
                     txtDataCadastro.Text = produto.dataCadastro.ToString();
@@ -191,6 +191,7 @@ namespace Sistema_Vendas.Views
                     if (modelo != null)
                     {
                         txtModelo.Text = modelo.Modelo;
+                        txtMarca.Text = modelo.Marca;
                     }
 
                     FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Text));
@@ -224,15 +225,17 @@ namespace Sistema_Vendas.Views
 
             if (consultaModelos.ShowDialog() == DialogResult.OK)
             {
-                var modelosDetalhes = consultaModelos.Tag as Tuple<int, string>;
+                var modelosDetalhes = consultaModelos.Tag as Tuple<int, string, string>;
 
                 if (modelosDetalhes != null)
                 {
                     int modeloID = modelosDetalhes.Item1;
                     string modeloNome = modelosDetalhes.Item2;
+                    string modeloMarca = modelosDetalhes.Item3;
 
                     txtCodModelo.Text = modeloID.ToString();
                     txtModelo.Text = modeloNome;
+                    txtMarca.Text = modeloMarca;
                 }
             }
         }
@@ -317,39 +320,25 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void txtSaldo_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaNumeros(txtSaldo.Text))
-            {
-                MessageBox.Show("Saldo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtSaldo.Focus();
-            }
-        }
-
-        private void txtCustoMedio_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaNumeros(txtCustoMedio.Text))
-            {
-                MessageBox.Show("Custo Médio inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCustoMedio.Focus();
-            }
-        }
-
         private void txtPrecoVenda_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtPrecoVenda.Text))
+            try
             {
-                MessageBox.Show("Preço Venda inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPrecoVenda.Text = FormataPreco(txtPrecoVenda.Text);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPrecoVenda.Focus();
             }
         }
 
-        private void txtPrecoUltCompra_Leave(object sender, EventArgs e)
+        private void txtPrecoVenda_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaNumeros(txtPrecoUltCompra.Text))
+            //permitir apenas números, pontos, vírgulas e teclas de controle (como backspace)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
-                MessageBox.Show("Preço Última Compra inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPrecoUltCompra.Focus();
+                e.Handled = true;
             }
         }
     }

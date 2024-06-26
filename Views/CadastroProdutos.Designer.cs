@@ -106,6 +106,7 @@
             // 
             // txtProduto
             // 
+            this.txtProduto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtProduto.Location = new System.Drawing.Point(16, 95);
             this.txtProduto.MaxLength = 200;
             this.txtProduto.Name = "txtProduto";
@@ -114,6 +115,7 @@
             // 
             // txtUN
             // 
+            this.txtUN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUN.Location = new System.Drawing.Point(526, 95);
             this.txtUN.MaxLength = 5;
             this.txtUN.Name = "txtUN";
@@ -123,6 +125,7 @@
             // 
             // txtModelo
             // 
+            this.txtModelo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtModelo.Enabled = false;
             this.txtModelo.Location = new System.Drawing.Point(147, 155);
             this.txtModelo.Name = "txtModelo";
@@ -131,6 +134,7 @@
             // 
             // txtMarca
             // 
+            this.txtMarca.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMarca.Enabled = false;
             this.txtMarca.Location = new System.Drawing.Point(334, 155);
             this.txtMarca.Name = "txtMarca";
@@ -213,6 +217,7 @@
             // 
             // txtFornecedor
             // 
+            this.txtFornecedor.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtFornecedor.Enabled = false;
             this.txtFornecedor.Location = new System.Drawing.Point(147, 216);
             this.txtFornecedor.Name = "txtFornecedor";
@@ -253,7 +258,7 @@
             this.txtCustoMedio.TabIndex = 8;
             this.txtCustoMedio.Text = "0";
             this.txtCustoMedio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtCustoMedio.Leave += new System.EventHandler(this.txtCustoMedio_Leave);
+//            this.txtCustoMedio.Leave += new System.EventHandler(this.txtCustoMedio_Leave);
             // 
             // txtPrecoVenda
             // 
@@ -263,6 +268,7 @@
             this.txtPrecoVenda.Size = new System.Drawing.Size(100, 20);
             this.txtPrecoVenda.TabIndex = 9;
             this.txtPrecoVenda.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPrecoVenda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecoVenda_KeyPress);
             this.txtPrecoVenda.Leave += new System.EventHandler(this.txtPrecoVenda_Leave);
             // 
             // lblSaldo
@@ -301,7 +307,7 @@
             this.txtPrecoUltCompra.TabIndex = 10;
             this.txtPrecoUltCompra.Text = "0";
             this.txtPrecoUltCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtPrecoUltCompra.Leave += new System.EventHandler(this.txtPrecoUltCompra_Leave);
+//            this.txtPrecoUltCompra.Leave += new System.EventHandler(this.txtPrecoUltCompra_Leave);
             // 
             // lblPrecoUltCompra
             // 
@@ -334,6 +340,7 @@
             // 
             // txtObservacao
             // 
+            this.txtObservacao.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtObservacao.Location = new System.Drawing.Point(16, 332);
             this.txtObservacao.MaxLength = 200;
             this.txtObservacao.Name = "txtObservacao";

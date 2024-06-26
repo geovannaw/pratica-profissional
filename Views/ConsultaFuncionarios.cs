@@ -67,15 +67,20 @@ namespace Sistema_Vendas.Views
                 {
                     List<FuncionarioModel> resultadosPesquisa = new List<FuncionarioModel>();
                     bool buscaInativos = cbBuscaInativos.Checked;
+
                     if (rbNome.Checked)
                     {
-                        resultadosPesquisa = funcionarioController.GetAll(buscaInativos).Where(p => p.funcionario.ToLower().Contains(pesquisa.ToLower())).ToList();
+                        resultadosPesquisa = funcionarioController.GetAll(buscaInativos)
+                                                           .Where(p => p.funcionario.Contains(pesquisa))
+                                                           .ToList();
                     }
                     else if (rbCodigo.Checked)
                     {
                         if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            resultadosPesquisa = funcionarioController.GetAll(buscaInativos).Where(p => p.idFuncionario == codigoPesquisa).ToList();
+                            resultadosPesquisa = funcionarioController.GetAll(buscaInativos)
+                                                               .Where(p => p.idFuncionario == codigoPesquisa)
+                                                               .ToList();
                         }
                         else
                         {
@@ -89,7 +94,7 @@ namespace Sistema_Vendas.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao pesquisar funcionários: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao pesquisar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

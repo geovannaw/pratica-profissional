@@ -26,14 +26,6 @@ namespace Sistema_Vendas.Views
             consultaCondicaoPagamento = new ConsultaCondicaoPagamento();
             condicaoPagamentoController = new CondicaoPagamentoController<CondicaoPagamentoModel>();
         }
-        public CadastroClientes(int idCliente) : this()
-        {
-            idAlterar = idCliente;
-            rbFisica.Enabled = false;
-            rbJuridica.Enabled = false;
-            Carrega();
-        }
-
         public override void Salvar() 
         {
             if (!VerificaCamposObrigatorios())
@@ -128,6 +120,8 @@ namespace Sistema_Vendas.Views
         }
         public override void Carrega()
         {
+            rbFisica.Enabled = false;
+            rbJuridica.Enabled = false;
             if (idAlterar != -1)
             {
                 ClienteModel cliente = clienteController.GetById(idAlterar);

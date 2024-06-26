@@ -68,15 +68,20 @@ namespace Sistema_Vendas.Views
                 {
                     List<ModeloModel> resultadosPesquisa = new List<ModeloModel>();
                     bool buscaInativos = cbBuscaInativos.Checked;
+
                     if (rbNome.Checked)
                     {
-                        resultadosPesquisa = modeloController.GetAll(buscaInativos).Where(p => p.Modelo.ToLower().Contains(pesquisa.ToLower())).ToList();
+                        resultadosPesquisa = modeloController.GetAll(buscaInativos)
+                                                           .Where(p => p.Modelo.Contains(pesquisa))
+                                                           .ToList();
                     }
                     else if (rbCodigo.Checked)
                     {
                         if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            resultadosPesquisa = modeloController.GetAll(buscaInativos).Where(p => p.idModelo == codigoPesquisa).ToList();
+                            resultadosPesquisa = modeloController.GetAll(buscaInativos)
+                                                               .Where(p => p.idModelo == codigoPesquisa)
+                                                               .ToList();
                         }
                         else
                         {
@@ -90,7 +95,7 @@ namespace Sistema_Vendas.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao pesquisar modelos: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao pesquisar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -158,8 +163,9 @@ namespace Sistema_Vendas.Views
                 {
                     int modeloID = Convert.ToInt32(dataGridViewModelos.SelectedRows[0].Cells["Código"].Value);
                     string modeloNome = dataGridViewModelos.SelectedRows[0].Cells["Modelo"].Value.ToString();
+                    string modeloMarca = dataGridViewModelos.SelectedRows[0].Cells["Marca"].Value.ToString();
 
-                    this.Tag = new Tuple<int, string>(modeloID, modeloNome);
+                    this.Tag = new Tuple<int, string, string>(modeloID, modeloNome, modeloMarca);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }

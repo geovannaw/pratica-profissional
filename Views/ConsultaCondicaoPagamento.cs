@@ -68,15 +68,20 @@ namespace Sistema_Vendas.Views
                 {
                     List<CondicaoPagamentoModel> resultadosPesquisa = new List<CondicaoPagamentoModel>();
                     bool buscaInativos = cbBuscaInativos.Checked;
+
                     if (rbNome.Checked)
                     {
-                        resultadosPesquisa = condicaoPagamentoController.GetAll(buscaInativos).Where(p => p.condicaoPagamento.ToLower().Contains(pesquisa.ToLower())).ToList();
+                        resultadosPesquisa = condicaoPagamentoController.GetAll(buscaInativos)
+                                                           .Where(p => p.condicaoPagamento.Contains(pesquisa))
+                                                           .ToList();
                     }
                     else if (rbCodigo.Checked)
                     {
                         if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            resultadosPesquisa = condicaoPagamentoController.GetAll(buscaInativos).Where(p => p.idCondPagamento == codigoPesquisa).ToList();
+                            resultadosPesquisa = condicaoPagamentoController.GetAll(buscaInativos)
+                                                               .Where(p => p.idCondPagamento == codigoPesquisa)
+                                                               .ToList();
                         }
                         else
                         {
@@ -90,7 +95,7 @@ namespace Sistema_Vendas.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao pesquisar condições de pagamento: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao pesquisar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

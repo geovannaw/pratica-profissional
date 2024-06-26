@@ -74,6 +74,7 @@
             // 
             // txtModelo
             // 
+            this.txtModelo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtModelo.Location = new System.Drawing.Point(16, 99);
             this.txtModelo.MaxLength = 100;
             this.txtModelo.Name = "txtModelo";
@@ -83,6 +84,7 @@
             // 
             // txtMarca
             // 
+            this.txtMarca.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMarca.Location = new System.Drawing.Point(285, 99);
             this.txtMarca.MaxLength = 100;
             this.txtMarca.Name = "txtMarca";
@@ -110,6 +112,7 @@
             // 
             // txtObservacao
             // 
+            this.txtObservacao.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtObservacao.Location = new System.Drawing.Point(16, 164);
             this.txtObservacao.MaxLength = 100;
             this.txtObservacao.Name = "txtObservacao";

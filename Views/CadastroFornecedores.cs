@@ -27,14 +27,6 @@ namespace Sistema_Vendas.Views
             condicaoPagamentoController = new CondicaoPagamentoController<CondicaoPagamentoModel>();
             lblCliente_razao_social.Text = "Fornecedor *";
         }
-        public CadastroFornecedores(int idFornecedor) : this()
-        {
-            idAlterar = idFornecedor;
-            rbFisica.Enabled = false;
-            rbJuridica.Enabled = false;
-            Carrega();
-        }
-
         public override void Salvar()
         {
             if (!VerificaCamposObrigatorios())
@@ -129,6 +121,8 @@ namespace Sistema_Vendas.Views
 
         public override void Carrega()
         {
+            rbFisica.Enabled = false;
+            rbJuridica.Enabled = false;
             if (idAlterar != -1)
             {
                 FornecedorModel fornecedor = fornecedorController.GetById(idAlterar);

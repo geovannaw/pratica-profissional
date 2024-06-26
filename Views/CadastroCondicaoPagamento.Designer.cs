@@ -108,6 +108,7 @@
             // 
             // txtCondPag
             // 
+            this.txtCondPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCondPag.Location = new System.Drawing.Point(16, 98);
             this.txtCondPag.MaxLength = 50;
             this.txtCondPag.Name = "txtCondPag";
@@ -294,6 +295,7 @@
             // 
             // txtFormaPag
             // 
+            this.txtFormaPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtFormaPag.Enabled = false;
             this.txtFormaPag.Location = new System.Drawing.Point(422, 155);
             this.txtFormaPag.Name = "txtFormaPag";

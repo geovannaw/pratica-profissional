@@ -68,15 +68,20 @@ namespace Sistema_Vendas.Views
                 {
                     List<FornecedorModel> resultadosPesquisa = new List<FornecedorModel>();
                     bool buscaInativos = cbBuscaInativos.Checked;
+
                     if (rbNome.Checked)
                     {
-                        resultadosPesquisa = fornecedorController.GetAll(buscaInativos).Where(p => p.fornecedor_razao_social.ToLower().Contains(pesquisa.ToLower())).ToList();
+                        resultadosPesquisa = fornecedorController.GetAll(buscaInativos)
+                                                           .Where(p => p.fornecedor_razao_social.Contains(pesquisa))
+                                                           .ToList();
                     }
                     else if (rbCodigo.Checked)
                     {
                         if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
-                            resultadosPesquisa = fornecedorController.GetAll(buscaInativos).Where(p => p.idFornecedor == codigoPesquisa).ToList();
+                            resultadosPesquisa = fornecedorController.GetAll(buscaInativos)
+                                                               .Where(p => p.idFornecedor == codigoPesquisa)
+                                                               .ToList();
                         }
                         else
                         {
@@ -90,7 +95,7 @@ namespace Sistema_Vendas.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao pesquisar fornecedores: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao pesquisar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
