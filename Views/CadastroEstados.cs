@@ -22,13 +22,6 @@ namespace Sistema_Vendas.Views
             consultaPaises = new ConsultaPaises();
             paisController = new PaisController<PaisModel>();
         }
-
-        public CadastroEstados(int idEstado) : this()
-        {
-            idAlterar = idEstado;
-            Carrega();
-        }
-
         public override void Bloqueia()
         {
             txtEstado.Enabled = false;

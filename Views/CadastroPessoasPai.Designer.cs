@@ -67,8 +67,6 @@
             this.lblDataCadastro = new System.Windows.Forms.Label();
             this.txtDataUltAlt = new System.Windows.Forms.MaskedTextBox();
             this.txtDataCadastro = new System.Windows.Forms.MaskedTextBox();
-            this.btnSair = new System.Windows.Forms.Button();
-            this.btnSalvar = new System.Windows.Forms.Button();
             this.lblDataNasc = new System.Windows.Forms.Label();
             this.txtDataNasc = new System.Windows.Forms.MaskedTextBox();
             this.txtSexo = new System.Windows.Forms.ComboBox();
@@ -88,6 +86,8 @@
             this.txtCodCondPag = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnConsultaCondPag = new System.Windows.Forms.Button();
+            this.btnSair = new Sistema_Vendas.GButtons();
+            this.btnSalvar = new Sistema_Vendas.GButtons();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -480,26 +480,6 @@
             this.txtDataCadastro.TabIndex = 45;
             this.txtDataCadastro.ValidatingType = typeof(System.DateTime);
             // 
-            // btnSair
-            // 
-            this.btnSair.Location = new System.Drawing.Point(696, 447);
-            this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(75, 23);
-            this.btnSair.TabIndex = 29;
-            this.btnSair.Text = "Sai&r";
-            this.btnSair.UseVisualStyleBackColor = true;
-            this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
-            // 
-            // btnSalvar
-            // 
-            this.btnSalvar.Location = new System.Drawing.Point(615, 447);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(75, 23);
-            this.btnSalvar.TabIndex = 28;
-            this.btnSalvar.Text = "&Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
-            // 
             // lblDataNasc
             // 
             this.lblDataNasc.AutoSize = true;
@@ -696,11 +676,54 @@
             this.btnConsultaCondPag.TabIndex = 26;
             this.btnConsultaCondPag.UseVisualStyleBackColor = true;
             // 
+            // btnSair
+            // 
+            this.btnSair.BackColor = System.Drawing.Color.White;
+            this.btnSair.BackgroundColor = System.Drawing.Color.White;
+            this.btnSair.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnSair.BorderRadius = 5;
+            this.btnSair.BorderSize = 1;
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSair.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnSair.Location = new System.Drawing.Point(696, 445);
+            this.btnSair.Name = "btnSair";
+            this.btnSair.Size = new System.Drawing.Size(75, 28);
+            this.btnSair.TabIndex = 29;
+            this.btnSair.Text = "Sai&r";
+            this.btnSair.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnSair.UseVisualStyleBackColor = false;
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
+            // 
+            // btnSalvar
+            // 
+            this.btnSalvar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnSalvar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnSalvar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnSalvar.BorderRadius = 5;
+            this.btnSalvar.BorderSize = 1;
+            this.btnSalvar.FlatAppearance.BorderSize = 0;
+            this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalvar.ForeColor = System.Drawing.Color.White;
+            this.btnSalvar.Location = new System.Drawing.Point(610, 445);
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Size = new System.Drawing.Size(75, 28);
+            this.btnSalvar.TabIndex = 28;
+            this.btnSalvar.Text = "&Salvar";
+            this.btnSalvar.TextColor = System.Drawing.Color.White;
+            this.btnSalvar.UseVisualStyleBackColor = false;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
             // CadastroPessoasPai
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 491);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.ClientSize = new System.Drawing.Size(795, 491);
+            this.Controls.Add(this.btnSalvar);
+            this.Controls.Add(this.btnSair);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.lblContato);
             this.Controls.Add(this.txtContato);
@@ -712,8 +735,6 @@
             this.Controls.Add(this.txtSexo);
             this.Controls.Add(this.lblDataNasc);
             this.Controls.Add(this.txtDataNasc);
-            this.Controls.Add(this.btnSair);
-            this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lblDataUltAlt);
             this.Controls.Add(this.lblDataCadastro);
@@ -735,6 +756,7 @@
             this.Controls.Add(this.lblCodigo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "CadastroPessoasPai";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CadastroPessoasPai";
             this.Load += new System.EventHandler(this.CadastroPessoasPai_Load);
             this.groupBox1.ResumeLayout(false);
@@ -757,8 +779,6 @@
         protected System.Windows.Forms.Label lblDataCadastro;
         protected System.Windows.Forms.MaskedTextBox txtDataUltAlt;
         protected System.Windows.Forms.MaskedTextBox txtDataCadastro;
-        protected System.Windows.Forms.Button btnSair;
-        protected System.Windows.Forms.Button btnSalvar;
         protected System.Windows.Forms.TextBox txtCodigo;
         protected System.Windows.Forms.Label lblIE_RG;
         protected System.Windows.Forms.TextBox txtEmail;
@@ -811,5 +831,7 @@
         protected System.Windows.Forms.TextBox txtCodCondPag;
         protected System.Windows.Forms.Label label3;
         protected System.Windows.Forms.Button btnConsultaCondPag;
+        public GButtons btnSair;
+        protected GButtons btnSalvar;
     }
 }

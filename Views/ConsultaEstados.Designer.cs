@@ -36,23 +36,42 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEstados)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnSair
-            // 
-            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
-            // 
             // cbBuscaInativos
             // 
             this.cbBuscaInativos.CheckedChanged += new System.EventHandler(this.cbBuscaInativos_CheckedChanged);
+            // 
+            // btnIncluir
+            // 
+            this.btnIncluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnAlterar
+            // 
+            this.btnAlterar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnSair
+            // 
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
             // 
             // dataGridViewEstados
             // 
             this.dataGridViewEstados.AllowUserToResizeColumns = false;
             this.dataGridViewEstados.AllowUserToResizeRows = false;
+            this.dataGridViewEstados.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewEstados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEstados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
             this.Estado,
             this.UF});
+            this.dataGridViewEstados.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewEstados.Location = new System.Drawing.Point(18, 55);
             this.dataGridViewEstados.Name = "dataGridViewEstados";
             this.dataGridViewEstados.ReadOnly = true;
@@ -88,9 +107,10 @@
             this.Name = "ConsultaEstados";
             this.Text = "Consulta de Estados";
             this.Load += new System.EventHandler(this.ConsultaEstados_Load);
+            this.Controls.SetChildIndex(this.txtPesquisa, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
-            this.Controls.SetChildIndex(this.txtPesquisar, 0);
+     //       this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

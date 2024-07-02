@@ -60,7 +60,7 @@ namespace Sistema_Vendas.Views
 
         public override void Pesquisar()
         {
-            string pesquisa = txtPesquisar.Text.Trim();
+            string pesquisa = txtPesquisa.Texts.Trim();
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
@@ -90,7 +90,7 @@ namespace Sistema_Vendas.Views
                     }
 
                     dataGridViewFuncionarios.DataSource = resultadosPesquisa;
-                    txtPesquisar.Text = string.Empty;
+                    txtPesquisa.Texts = string.Empty;
                 }
                 catch (Exception ex)
                 {

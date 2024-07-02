@@ -41,15 +41,37 @@
             // 
             this.cbBuscaInativos.CheckedChanged += new System.EventHandler(this.cbBuscaInativos_CheckedChanged);
             // 
+            // btnIncluir
+            // 
+            this.btnIncluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnAlterar
+            // 
+            this.btnAlterar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnSair
+            // 
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            // 
             // dataGridViewClientes
             // 
             this.dataGridViewClientes.AllowUserToResizeRows = false;
+            this.dataGridViewClientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
             this.Cliente,
             this.Celular,
             this.Tipo});
+            this.dataGridViewClientes.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewClientes.Location = new System.Drawing.Point(18, 55);
             this.dataGridViewClientes.Name = "dataGridViewClientes";
             this.dataGridViewClientes.ReadOnly = true;
@@ -92,8 +114,9 @@
             this.Name = "ConsultaClientes";
             this.Text = "Consulta de Clientes";
             this.Load += new System.EventHandler(this.ConsultaClientes_Load);
+            this.Controls.SetChildIndex(this.txtPesquisa, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
-            this.Controls.SetChildIndex(this.txtPesquisar, 0);
+         //   this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

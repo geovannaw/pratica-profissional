@@ -149,8 +149,8 @@
         #endregion
 
         private System.Windows.Forms.Label lblServico;
-        private System.Windows.Forms.TextBox txtServico;
         private System.Windows.Forms.Label lblPreco;
         private System.Windows.Forms.TextBox txtPreco;
+        public System.Windows.Forms.TextBox txtServico;
     }
 }

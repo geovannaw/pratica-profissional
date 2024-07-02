@@ -61,6 +61,7 @@ namespace Sistema_Vendas.Views
                     int idCondPagamento = int.Parse(txtCodCondPag.Text);
 
                     AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
+
                     if (rbFisica.Checked)
                     {
                         if (!VerificarDataMenorOuIgualHoje(data_nasc, "nascimento"))
@@ -271,10 +272,10 @@ namespace Sistema_Vendas.Views
 
         private void txtCliente_razao_social_Leave(object sender, EventArgs e)
         {
-            int idAtual = idAlterar != -1 ? idAlterar : -1;
-            if (clienteController.BuscaNome(txtCliente_razao_social.Text, idAtual))
+            if (!VerificaLetras(txtCliente_razao_social.Text))
             {
-                MessageBox.Show("Cliente / Razão Social já existe no cadastro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Cliente inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCliente_razao_social.Focus();
             }
         }
 

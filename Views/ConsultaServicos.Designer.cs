@@ -40,15 +40,37 @@
             // 
             this.cbBuscaInativos.CheckedChanged += new System.EventHandler(this.cbBuscaInativos_CheckedChanged);
             // 
+            // btnIncluir
+            // 
+            this.btnIncluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnAlterar
+            // 
+            this.btnAlterar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnSair
+            // 
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            // 
             // dataGridViewServicos
             // 
             this.dataGridViewServicos.AllowUserToResizeColumns = false;
             this.dataGridViewServicos.AllowUserToResizeRows = false;
+            this.dataGridViewServicos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewServicos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewServicos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
             this.Serviço,
             this.Preço});
+            this.dataGridViewServicos.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewServicos.Location = new System.Drawing.Point(18, 58);
             this.dataGridViewServicos.Name = "dataGridViewServicos";
             this.dataGridViewServicos.ReadOnly = true;
@@ -83,7 +105,8 @@
             this.Name = "ConsultaServicos";
             this.Text = "Consulta de Serviços";
             this.Load += new System.EventHandler(this.ConsultaServicos_Load);
-            this.Controls.SetChildIndex(this.txtPesquisar, 0);
+            this.Controls.SetChildIndex(this.txtPesquisa, 0);
+  //          this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

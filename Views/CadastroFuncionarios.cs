@@ -22,12 +22,6 @@ namespace Sistema_Vendas.Views
             consultaCidades = new ConsultaCidades();
         }
 
-        public CadastroFuncionarios(int idFuncionario) : this()
-        {
-            idAlterar = idFuncionario;
-            Carrega();
-        }
-
         public override void Salvar()
         {
             if (!VerificaCamposObrigatorios())
@@ -400,11 +394,6 @@ namespace Sistema_Vendas.Views
             {
                 MessageBox.Show("Funcionário inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtFuncionario.Focus();
-            }
-            int idAtual = idAlterar != -1 ? idAlterar : -1;
-            if (funcionarioController.BuscaNome(txtFuncionario.Text, idAtual))
-            {
-                MessageBox.Show("Funcionário já existe no cadastro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

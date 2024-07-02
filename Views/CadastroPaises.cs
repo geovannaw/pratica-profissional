@@ -21,14 +21,6 @@ namespace Sistema_Vendas.Views
             InitializeComponent();
             paisController = new PaisController<PaisModel>();
         }
-
-        //construtor para alterar um país
-        public CadastroPaises(int idPais) : this()
-        {
-            idAlterar = idPais;
-            Carrega();
-        }
-
         public override void Carrega()
         {
             //verifica se há um país a ser alterado

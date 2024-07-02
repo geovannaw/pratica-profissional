@@ -315,6 +315,7 @@
             // dataGridViewParcelas
             // 
             this.dataGridViewParcelas.AllowUserToAddRows = false;
+            this.dataGridViewParcelas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewParcelas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewParcelas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.numeroParcela,
@@ -322,6 +323,7 @@
             this.porcentagem,
             this.CódFormaPag,
             this.formaPagamento});
+            this.dataGridViewParcelas.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewParcelas.Location = new System.Drawing.Point(16, 195);
             this.dataGridViewParcelas.Name = "dataGridViewParcelas";
             this.dataGridViewParcelas.ReadOnly = true;

@@ -86,10 +86,24 @@
             // 
             this.btnConsultaCondPag.Click += new System.EventHandler(this.btnConsultaCondPag_Click);
             // 
+            // btnSair
+            // 
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.Location = new System.Drawing.Point(696, 445);
+            this.btnSair.Size = new System.Drawing.Size(75, 28);
+            this.btnSair.TabIndex = 29;
+            // 
+            // btnSalvar
+            // 
+            this.btnSalvar.FlatAppearance.BorderSize = 0;
+            this.btnSalvar.Location = new System.Drawing.Point(610, 445);
+            this.btnSalvar.Size = new System.Drawing.Size(75, 28);
+            this.btnSalvar.TabIndex = 28;
+            // 
             // CadastroClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(800, 489);
+            this.ClientSize = new System.Drawing.Size(796, 489);
             this.Name = "CadastroClientes";
             this.Text = "Cadastro de Clientes";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroClientes_FormClosed);

@@ -18,13 +18,6 @@ namespace Sistema_Vendas.Views
             InitializeComponent();
             formaPagamentoController = new FormaPagamentoController<FormaPagamentoModel>();
         }
-
-        public CadastroFormaPagamento(int idFormaPag) : this()
-        {
-            idAlterar = idFormaPag;
-            Carrega();
-        }
-
         public override void Carrega()
         {
             if (idAlterar != -1)

@@ -1594,7 +1594,17 @@ namespace Sistema_Vendas
 
         }
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Form
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "Form";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.ResumeLayout(false);
 
-
+        }
     }
 }

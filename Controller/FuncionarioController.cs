@@ -58,19 +58,5 @@ namespace Sistema_Vendas.Controller
             }
             return false;
         }
-
-        public bool BuscaNome(string nome, int idAtual)
-        {
-            List<FuncionarioModel> funcinoarios = funcionarioDAO.GetAll(false).Cast<FuncionarioModel>().ToList();
-
-            foreach (FuncionarioModel funcionario in funcinoarios)
-            {
-                if (string.Equals(funcionario.funcionario, nome, StringComparison.OrdinalIgnoreCase) && funcionario.idFuncionario != idAtual)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 }

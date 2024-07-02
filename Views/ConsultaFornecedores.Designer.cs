@@ -37,24 +37,43 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFornecedores)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnSair
-            // 
-            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
-            // 
             // cbBuscaInativos
             // 
             this.cbBuscaInativos.CheckedChanged += new System.EventHandler(this.cbBuscaInativos_CheckedChanged);
+            // 
+            // btnIncluir
+            // 
+            this.btnIncluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnAlterar
+            // 
+            this.btnAlterar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnSair
+            // 
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
             // 
             // dataGridViewFornecedores
             // 
             this.dataGridViewFornecedores.AllowUserToResizeColumns = false;
             this.dataGridViewFornecedores.AllowUserToResizeRows = false;
+            this.dataGridViewFornecedores.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewFornecedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFornecedores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
             this.Fornecedor,
             this.Celular,
             this.Tipo});
+            this.dataGridViewFornecedores.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewFornecedores.Location = new System.Drawing.Point(18, 56);
             this.dataGridViewFornecedores.Name = "dataGridViewFornecedores";
             this.dataGridViewFornecedores.ReadOnly = true;
@@ -91,13 +110,15 @@
             // ConsultaFornecedores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.ClientSize = new System.Drawing.Size(633, 454);
             this.Controls.Add(this.dataGridViewFornecedores);
             this.Name = "ConsultaFornecedores";
             this.Text = "Consulta Fornecedores";
             this.Load += new System.EventHandler(this.ConsultaFornecedores_Load);
+            this.Controls.SetChildIndex(this.txtPesquisa, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
-            this.Controls.SetChildIndex(this.txtPesquisar, 0);
+     //       this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

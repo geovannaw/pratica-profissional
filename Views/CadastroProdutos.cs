@@ -27,11 +27,6 @@ namespace Sistema_Vendas.Views
             modeloController = new ModeloController<ModeloModel>();
             fornecedorController = new FornecedorController<FornecedorModel>();
         }
-        public CadastroProdutos(int idProduto) : this()
-        {
-            idAlterar = idProduto;
-            Carrega();
-        }
 
         public override void Salvar()
         {
@@ -170,7 +165,7 @@ namespace Sistema_Vendas.Views
                 ProdutoModel produto = produtoController.GetById(idAlterar);
                 if (produto != null)
                 {
-                    txtCodigo.Text = produto.idProduto.ToString();
+                    txtCodigo.Texts = produto.idProduto.ToString();
                     txtProduto.Text = produto.Produto;
                     txtSaldo.Text = produto.Saldo.ToString();
                     txtUN.Text = produto.Unidade.ToString();
@@ -214,6 +209,8 @@ namespace Sistema_Vendas.Views
 
         private void CadastroProdutos_Load(object sender, EventArgs e)
         {
+            if (idAlterar == -1)
+                txtCodigo.Texts = "0";
             txtSaldo.Text = "0";
             txtCustoMedio.Text = "0";
             txtPrecoUltCompra.Text = "0";

@@ -18,13 +18,6 @@ namespace Sistema_Vendas.Views
             InitializeComponent();
             servicoController = new ServicoController<ServicoModel>();
         }
-
-        public CadastroServicos(int idServico) : this()
-        {
-            idAlterar = idServico;
-            Carrega();
-        }
-
         public override void Carrega()
         {
             if (idAlterar != -1)

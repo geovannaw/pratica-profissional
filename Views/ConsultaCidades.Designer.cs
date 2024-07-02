@@ -36,22 +36,41 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCidades)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnSair
-            // 
-            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
-            // 
             // cbBuscaInativos
             // 
             this.cbBuscaInativos.CheckedChanged += new System.EventHandler(this.cbBuscaInativos_CheckedChanged);
             // 
+            // btnIncluir
+            // 
+            this.btnIncluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnAlterar
+            // 
+            this.btnAlterar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnSair
+            // 
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
+            // 
             // dataGridViewCidades
             // 
             this.dataGridViewCidades.AllowUserToResizeRows = false;
+            this.dataGridViewCidades.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewCidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
             this.Cidade,
             this.DDD});
+            this.dataGridViewCidades.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewCidades.Location = new System.Drawing.Point(16, 56);
             this.dataGridViewCidades.Name = "dataGridViewCidades";
             this.dataGridViewCidades.ReadOnly = true;
@@ -87,9 +106,10 @@
             this.Name = "ConsultaCidades";
             this.Text = "Consulta de Cidades";
             this.Load += new System.EventHandler(this.ConsultaCidades_Load);
+            this.Controls.SetChildIndex(this.txtPesquisa, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
-            this.Controls.SetChildIndex(this.txtPesquisar, 0);
+   //        this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

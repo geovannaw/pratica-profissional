@@ -157,16 +157,6 @@ namespace Sistema_Vendas.Views
             return true;
         }
 
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            Salvar();
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void rbFisica_CheckedChanged(object sender, EventArgs e)
         {
             isFisico = rbFisica.Checked;
@@ -356,6 +346,16 @@ namespace Sistema_Vendas.Views
                 txtDataCadastro.Text = DateTime.Now.ToString();
                 txtDataUltAlt.Text = DateTime.Now.ToString();
             }
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            Salvar();
         }
     }
 }

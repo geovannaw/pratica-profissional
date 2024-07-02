@@ -32,24 +32,44 @@
             this.Código = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModelos)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnSair
-            // 
-            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
             // 
             // cbBuscaInativos
             // 
             this.cbBuscaInativos.CheckedChanged += new System.EventHandler(this.cbBuscaInativos_CheckedChanged);
             // 
+            // btnIncluir
+            // 
+            this.btnIncluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnAlterar
+            // 
+            this.btnAlterar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnSair
+            // 
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
+            // 
             // dataGridViewModelos
             // 
+            this.dataGridViewModelos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewModelos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewModelos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Código,
             this.Modelo,
             this.Marca});
+            this.dataGridViewModelos.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewModelos.Location = new System.Drawing.Point(18, 55);
             this.dataGridViewModelos.Name = "dataGridViewModelos";
             this.dataGridViewModelos.ReadOnly = true;
@@ -85,7 +105,9 @@
             this.Name = "ConsultaModelos";
             this.Text = "Consulta de Modelos";
             this.Load += new System.EventHandler(this.ConsultaModelos_Load);
-            this.Controls.SetChildIndex(this.txtPesquisar, 0);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
+            this.Controls.SetChildIndex(this.txtPesquisa, 0);
+      //      this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);
@@ -93,6 +115,8 @@
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.dataGridViewModelos, 0);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModelos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

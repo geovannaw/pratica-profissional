@@ -19,13 +19,6 @@ namespace Sistema_Vendas.Views
             modeloController = new ModeloController<ModeloModel>();
             idAlterar = -1;
         }
-
-        public CadastroModelos(int idModelo) : this()
-        {
-            idAlterar = idModelo;
-            Carrega();
-        }
-
         public override void Carrega()
         {
             if (idAlterar != -1)

@@ -258,7 +258,6 @@
             this.txtCustoMedio.TabIndex = 8;
             this.txtCustoMedio.Text = "0";
             this.txtCustoMedio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-//            this.txtCustoMedio.Leave += new System.EventHandler(this.txtCustoMedio_Leave);
             // 
             // txtPrecoVenda
             // 
@@ -307,7 +306,6 @@
             this.txtPrecoUltCompra.TabIndex = 10;
             this.txtPrecoUltCompra.Text = "0";
             this.txtPrecoUltCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-//            this.txtPrecoUltCompra.Leave += new System.EventHandler(this.txtPrecoUltCompra_Leave);
             // 
             // lblPrecoUltCompra
             // 
@@ -369,6 +367,7 @@
             // CadastroProdutos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(608, 454);
             this.Controls.Add(this.txtSaldo);
             this.Controls.Add(this.lblObservacao);

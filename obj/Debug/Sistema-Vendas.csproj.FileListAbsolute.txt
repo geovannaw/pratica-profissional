@@ -68,3 +68,5 @@ C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroS
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaServicos.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroOS.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaOS.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Form.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.GControls.GTextBox.resources

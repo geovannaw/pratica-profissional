@@ -26,16 +26,6 @@ namespace Sistema_Vendas.Views
         public virtual void Carrega() { }
         public virtual void LimparCampos() { }
 
-        protected virtual void btnSalvar_Click(object sender, EventArgs e)
-        {
-            Salvar();
-        }
-
-        protected virtual void btnSair_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void rbAtivo_CheckedChanged(object sender, EventArgs e)
         {
             isAtivo = rbAtivo.Checked;
@@ -50,13 +40,23 @@ namespace Sistema_Vendas.Views
         {
             if (string.IsNullOrEmpty(txtCodigo.Text))
             {
-                txtCodigo.Text = "0";
+                txtCodigo.Texts = "0";
             }
             if (idAlterar == -1)
             {
                 txtDataCadastro.Text = DateTime.Now.ToString();
                 txtDataUltAlt.Text = DateTime.Now.ToString();
             }
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            Salvar();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

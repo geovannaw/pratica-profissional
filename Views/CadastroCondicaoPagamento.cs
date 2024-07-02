@@ -22,13 +22,6 @@ namespace Sistema_Vendas.Views
             consultaFormasPagamento = new ConsultaFormasPagamento();
             formaPagamentoController = new FormaPagamentoController<FormaPagamentoModel>();
         }
-
-        public CadastroCondicaoPagamento(int idCondPag) : this()
-        {
-            idAlterar = idCondPag;
-            Carrega();
-        }
-
         public override void LimparCampos()
         {
             idAlterar = -1;
@@ -296,6 +289,11 @@ namespace Sistema_Vendas.Views
         }
         private void txtPorcentagem_Leave(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(txtPorcentagem.Text) && int.Parse(txtPorcentagem.Text) == 0)
+            {
+                MessageBox.Show("A porcentagem deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPorcentagem.Focus();
+            }
             if (!VerificaValores(txtPorcentagem.Text))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);

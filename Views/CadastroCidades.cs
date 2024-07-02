@@ -22,13 +22,6 @@ namespace Sistema_Vendas.Views
             consultaEstados = new ConsultaEstados();
             estadoController = new EstadoController<EstadoModel>();
         }
-
-        public CadastroCidades(int idCidade) : this()
-        {
-            idAlterar = idCidade;
-            Carrega();
-        }
-
         public override void Carrega()
         {
             if (idAlterar != -1)

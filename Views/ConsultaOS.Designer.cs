@@ -33,10 +33,31 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOS)).BeginInit();
             this.SuspendLayout();
             // 
+            // btnIncluir
+            // 
+            this.btnIncluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnAlterar
+            // 
+            this.btnAlterar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.FlatAppearance.BorderSize = 0;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.FlatAppearance.BorderSize = 0;
+            // 
+            // btnSair
+            // 
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            // 
             // dataGridViewOS
             // 
             this.dataGridViewOS.AllowUserToResizeColumns = false;
             this.dataGridViewOS.AllowUserToResizeRows = false;
+            this.dataGridViewOS.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewOS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOS.Location = new System.Drawing.Point(18, 59);
             this.dataGridViewOS.Name = "dataGridViewOS";
@@ -51,7 +72,8 @@
             this.Controls.Add(this.dataGridViewOS);
             this.Name = "ConsultaOS";
             this.Text = "Consulta Ordem de Serviço";
-            this.Controls.SetChildIndex(this.txtPesquisar, 0);
+            this.Controls.SetChildIndex(this.txtPesquisa, 0);
+      //      this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

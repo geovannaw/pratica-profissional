@@ -123,6 +123,15 @@
     <Compile Include="DAO\ModeloDAO.cs" />
     <Compile Include="DAO\ProdutoDAO.cs" />
     <Compile Include="DAO\ServicoDAO.cs" />
+    <Compile Include="GControls\GButtons.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GControls\GTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GControls\GTextBox.Designer.cs">
+      <DependentUpon>GTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CidadeModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\CondicaoPagamentoModel.cs" />
@@ -311,6 +320,9 @@
     <Compile Include="Models\PaisModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GControls\GTextBox.resx">
+      <DependentUpon>GTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroCidades.resx">
       <DependentUpon>CadastroCidades.cs</DependentUpon>
     </EmbeddedResource>
@@ -391,6 +403,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaServicos.resx">
       <DependentUpon>ConsultaServicos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Form.resx">
+      <DependentUpon>Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>

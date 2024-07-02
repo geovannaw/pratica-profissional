@@ -61,7 +61,7 @@ namespace Sistema_Vendas.Views
 
         public override void Pesquisar()
         {
-            string pesquisa = txtPesquisar.Text.Trim(); // Obtém a pesquisa do txt
+            string pesquisa = txtPesquisa.Texts.Trim(); // Obtém a pesquisa do txt
 
             // Verifica se há um termo de pesquisa
             if (!string.IsNullOrEmpty(pesquisa))
@@ -95,7 +95,7 @@ namespace Sistema_Vendas.Views
                     }
 
                     dataGridViewPaises.DataSource = resultadosPesquisa; // Atualiza o DataSource do DataGridView com os resultados da pesquisa
-                    txtPesquisar.Text = string.Empty; // Limpa o txt pesquisa
+                    txtPesquisa.Texts = string.Empty; // Limpa o txt pesquisa
                 }
                 catch (Exception ex)
                 {
