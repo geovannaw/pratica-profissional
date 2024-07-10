@@ -193,8 +193,11 @@
             this.txtPesquisa.BorderRadius = 5;
             this.txtPesquisa.BorderSize = 1;
             this.txtPesquisa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtPesquisa.DisabledBackColor = System.Drawing.Color.White;
+            this.txtPesquisa.DisabledForeColor = System.Drawing.Color.White;
             this.txtPesquisa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txtPesquisa.Location = new System.Drawing.Point(12, 14);
+            this.txtPesquisa.MaxLength = 32767;
             this.txtPesquisa.Multiline = false;
             this.txtPesquisa.Name = "txtPesquisa";
             this.txtPesquisa.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -203,6 +206,7 @@
             this.txtPesquisa.PlaceholderText = "";
             this.txtPesquisa.Size = new System.Drawing.Size(189, 28);
             this.txtPesquisa.TabIndex = 15;
+            this.txtPesquisa.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtPesquisa.Texts = "";
             this.txtPesquisa.UnderlinedStyle = false;
             this.txtPesquisa.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPesquisa_KeyDown);
@@ -222,6 +226,8 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.cbBuscaInativos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ConsultaPai";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ConsultaPai";

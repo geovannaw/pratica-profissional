@@ -58,16 +58,16 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (!string.IsNullOrEmpty(txtPorcentagemTotal.Text))
+            if (!string.IsNullOrEmpty(txtPorcentagemTotal.Texts))
             {
-                decimal porcentagem = Convert.ToDecimal(txtPorcentagemTotal.Text);
+                decimal porcentagem = Convert.ToDecimal(txtPorcentagemTotal.Texts);
                 if (porcentagem != 100)
                 {
                     MessageBox.Show("A porcentagem total deve ser igual a 100%.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
-            if (!CampoObrigatorio(txtCondPag.Text))
+            if (!CampoObrigatorio(txtCondPag.Texts))
             {
                 MessageBox.Show("Campo Condição de Pagamento é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCondPag.Focus();
@@ -80,12 +80,12 @@ namespace Sistema_Vendas.Views
             {
                 try
                 {
-                    string condPagamento = txtCondPag.Text;
-                    decimal desconto = Convert.ToDecimal(txtDesconto.Text);
-                    decimal juros = Convert.ToDecimal(txtJuros.Text);
-                    decimal multa = Convert.ToDecimal(txtMulta.Text);
-                    DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                    string condPagamento = txtCondPag.Texts;
+                    decimal desconto = Convert.ToDecimal(txtDesconto.Texts);
+                    decimal juros = Convert.ToDecimal(txtJuros.Texts);
+                    decimal multa = Convert.ToDecimal(txtMulta.Texts);
+                    DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                     CondicaoPagamentoModel NovaCondPagamento = new CondicaoPagamentoModel
                     {
@@ -121,13 +121,13 @@ namespace Sistema_Vendas.Views
             var condicaoPagamento = condPagamentoController.GetById(idAlterar);
             if (condicaoPagamento != null)
             {
-                txtCodigo.Text = condicaoPagamento.idCondPagamento.ToString();
-                txtCondPag.Text = condicaoPagamento.condicaoPagamento;
-                txtJuros.Text = condicaoPagamento.juros.ToString();
-                txtMulta.Text = condicaoPagamento.multa.ToString();
-                txtDesconto.Text = condicaoPagamento.desconto.ToString();
-                txtDataCadastro.Text = condicaoPagamento.dataCadastro.ToString();
-                txtDataUltAlt.Text = condicaoPagamento.dataUltAlt.ToString();
+                txtCodigo.Texts = condicaoPagamento.idCondPagamento.ToString();
+                txtCondPag.Texts = condicaoPagamento.condicaoPagamento;
+                txtJuros.Texts = condicaoPagamento.juros.ToString();
+                txtMulta.Texts = condicaoPagamento.multa.ToString();
+                txtDesconto.Texts = condicaoPagamento.desconto.ToString();
+                txtDataCadastro.Texts = condicaoPagamento.dataCadastro.ToString();
+                txtDataUltAlt.Texts = condicaoPagamento.dataUltAlt.ToString();
                 rbAtivo.Checked = condicaoPagamento.Ativo;
 
                 exibirParcelasDGV(condicaoPagamento.Parcelas);
@@ -183,24 +183,105 @@ namespace Sistema_Vendas.Views
             }
             return false;
         }
+        private void atualizaPorcentagemTotal()
+        {
+            decimal porcentagemTotal = 0;
+
+            foreach (DataGridViewRow row in dataGridViewParcelas.Rows) //percorre as linhas do dgv
+            {
+                porcentagemTotal += Convert.ToDecimal(row.Cells["porcentagem"].Value); //add os valores da coluna porcentagem a variavel
+            }
+            txtPorcentagemTotal.Texts = porcentagemTotal.ToString("F2"); //att o campo com 2 casas decimais
+        }
+
+        private void CadastroCondicaoPagamento_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ((ConsultaCondicaoPagamento)this.Owner).AtualizarConsultaCondPag(false);
+        }
+        private void CadastroCondicaoPagamento_Load(object sender, EventArgs e)
+        {
+            if (idAlterar == -1)
+            {
+                txtParcela.Texts = "1";
+                txtJuros.Texts = "0";
+                txtMulta.Texts = "0";
+                txtDesconto.Texts = "0";
+            }                
+        }
+
+        private void btnConsultaFormaPag_Click(object sender, EventArgs e)
+        {
+            consultaFormasPagamento.btnSair.Text = "Selecionar";
+
+            if (consultaFormasPagamento.ShowDialog() == DialogResult.OK)
+            {
+                var infosFormaPag = consultaFormasPagamento.Tag as Tuple<int, string>;
+                if (infosFormaPag != null)
+                {
+                    int idFormaPag = infosFormaPag.Item1;
+                    string formaPag = infosFormaPag.Item2;
+
+                    txtCodFormaPag.Texts = idFormaPag.ToString();
+                    txtFormaPag.Texts = formaPag;
+                }
+            }
+        }
+
+        private void txtCodFormaPag_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtCodFormaPag.Texts))
+            {
+                FormaPagamentoModel formaPag = formaPagamentoController.GetById(int.Parse(txtCodFormaPag.Texts));
+                if (formaPag != null)
+                {
+                    txtFormaPag.Texts = formaPag.formaPagamento;
+                }
+                else
+                {
+                    MessageBox.Show("Forma de Pagamento não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodFormaPag.Focus();
+                    txtCodFormaPag.Clear();
+                    txtFormaPag.Clear();
+                }
+            }
+        }
+
+        private void txtPorcentagem_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtPorcentagem.Texts) && int.Parse(txtPorcentagem.Texts) == 0)
+            {
+                MessageBox.Show("A porcentagem deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPorcentagem.Focus();
+            }
+        }
+
+        private void txtCodFormaPag_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void btnAddParcela_Click(object sender, EventArgs e)
         {
-            if (!CampoObrigatorio(txtParcela.Text))
+            if (!CampoObrigatorio(txtParcela.Texts))
             {
                 MessageBox.Show("Campo Nº Parcela é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtParcela.Focus();
             }
-            else if (!CampoObrigatorio(txtDias.Text))
+            else if (!CampoObrigatorio(txtDias.Texts))
             {
                 MessageBox.Show("Campo Dias é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtDias.Focus();
             }
-            else if (!CampoObrigatorio(txtPorcentagem.Text))
+            else if (!CampoObrigatorio(txtPorcentagem.Texts))
             {
                 MessageBox.Show("Campo % é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPorcentagem.Focus();
             }
-            else if (!CampoObrigatorio(txtCodFormaPag.Text))
+            else if (!CampoObrigatorio(txtCodFormaPag.Texts))
             {
                 MessageBox.Show("Campo Código Forma Pagamento é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodFormaPag.Focus();
@@ -209,7 +290,7 @@ namespace Sistema_Vendas.Views
             {
                 try
                 {
-                    int numeroParcela = Convert.ToInt32(txtParcela.Text);
+                    int numeroParcela = Convert.ToInt32(txtParcela.Texts);
                     if (verificaNumeroParcela(numeroParcela))
                     {
                         MessageBox.Show("Número de parcela já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -217,10 +298,10 @@ namespace Sistema_Vendas.Views
                         return;
                     }
 
-                    int dias = Convert.ToInt32(txtDias.Text);
-                    decimal porcentagem = Convert.ToDecimal(txtPorcentagem.Text);
-                    int idFormaPag = Convert.ToInt32(txtCodFormaPag.Text);
-                    string formaPagamento = txtFormaPag.Text;
+                    int dias = Convert.ToInt32(txtDias.Texts);
+                    decimal porcentagem = Convert.ToDecimal(txtPorcentagem.Texts);
+                    int idFormaPag = Convert.ToInt32(txtCodFormaPag.Texts);
+                    string formaPagamento = txtFormaPag.Texts;
 
                     dataGridViewParcelas.Rows.Add(numeroParcela, dias, porcentagem, idFormaPag, formaPagamento); //add nova linha com os valores 
 
@@ -234,76 +315,7 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
-        private void atualizaPorcentagemTotal()
-        {
-            decimal porcentagemTotal = 0;
 
-            foreach (DataGridViewRow row in dataGridViewParcelas.Rows) //percorre as linhas do dgv
-            {
-                porcentagemTotal += Convert.ToDecimal(row.Cells["porcentagem"].Value); //add os valores da coluna porcentagem a variavel
-            }
-            txtPorcentagemTotal.Text = porcentagemTotal.ToString("F2"); //att o campo com 2 casas decimais
-        }
-        private void btnConsultaFormaPag_Click(object sender, EventArgs e)
-        {
-            consultaFormasPagamento.btnSair.Text = "Selecionar";
-
-            if (consultaFormasPagamento.ShowDialog() == DialogResult.OK)
-            {
-                var infosFormaPag = consultaFormasPagamento.Tag as Tuple<int, string>;
-                if (infosFormaPag != null)
-                {
-                    int idFormaPag = infosFormaPag.Item1;
-                    string formaPag = infosFormaPag.Item2;
-
-                    txtCodFormaPag.Text = idFormaPag.ToString();
-                    txtFormaPag.Text = formaPag;
-                }
-            }
-        }
-        private void txtCodFormaPag_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaNumeros(txtCodFormaPag.Text))
-            {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodFormaPag.Focus();
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(txtCodFormaPag.Text))
-                {
-                    FormaPagamentoModel formaPag = formaPagamentoController.GetById(int.Parse(txtCodFormaPag.Text));
-                    if (formaPag != null)
-                    {
-                        txtFormaPag.Text = formaPag.formaPagamento;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Forma de Pagamento não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCodFormaPag.Focus();
-                        txtCodFormaPag.Clear();
-                        txtFormaPag.Clear();
-                    }
-                }
-            }
-        }
-        private void txtPorcentagem_Leave(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtPorcentagem.Text) && int.Parse(txtPorcentagem.Text) == 0)
-            {
-                MessageBox.Show("A porcentagem deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPorcentagem.Focus();
-            }
-            if (!VerificaValores(txtPorcentagem.Text))
-            {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPorcentagem.Focus();
-            }
-        }
-        private void CadastroCondicaoPagamento_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            ((ConsultaCondicaoPagamento)this.Owner).AtualizarConsultaCondPag(false);
-        }
         private void btnExcluirParcela_Click(object sender, EventArgs e)
         {
             try
@@ -326,55 +338,53 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Erro ao excluir parcela: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void txtJuros_Leave(object sender, EventArgs e)
+
+        private void txtJuros_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaValores(txtJuros.Text))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtJuros.Focus();
+                e.Handled = true;
             }
         }
-        private void txtMulta_Leave(object sender, EventArgs e)
+
+        private void txtMulta_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaValores(txtMulta.Text))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtMulta.Focus();
+                e.Handled = true;
             }
         }
-        private void txtDesconto_Leave(object sender, EventArgs e)
+
+        private void txtDesconto_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaValores(txtDesconto.Text))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDesconto.Focus();
+                e.Handled = true;
             }
         }
-        private void txtParcela_Leave(object sender, EventArgs e)
+
+        private void txtParcela_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaNumeros(txtParcela.Text))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtParcela.Focus();
+                e.Handled = true;
             }
         }
-        private void txtDias_Leave(object sender, EventArgs e)
+
+        private void txtDias_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaNumeros(txtDias.Text))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDias.Focus();
+                e.Handled = true;
             }
         }
-        private void CadastroCondicaoPagamento_Load(object sender, EventArgs e)
+
+        private void txtPorcentagem_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (idAlterar == -1)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
-                txtParcela.Text = "1";
-                txtJuros.Text = "0";
-                txtMulta.Text = "0";
-                txtDesconto.Text = "0";
-            }                
+                e.Handled = true;
+            }
         }
     }
 }

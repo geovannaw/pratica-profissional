@@ -68,8 +68,8 @@ namespace Sistema_Vendas.Views
 
         protected bool VerificaCamposObrigatorios()
         {
-            string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
-            string pais = txtPais.Text;
+            string cpf_cnpj = new string(txtCPF_CNPJ.Texts.Where(char.IsDigit).ToArray());
+            string pais = txtPais.Texts;
             if (pais == "BRASIL")
             {
                 if (!CampoObrigatorio(cpf_cnpj))
@@ -79,7 +79,7 @@ namespace Sistema_Vendas.Views
                     return false;
                 }
             }
-            if (!CampoObrigatorio(txtCliente_razao_social.Text))
+            if (!CampoObrigatorio(txtCliente_razao_social.Texts))
             {
                 MessageBox.Show("Campo obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCliente_razao_social.Focus();
@@ -87,7 +87,7 @@ namespace Sistema_Vendas.Views
             }
             if (rbFisica.Checked)
             {
-                if (!CampoObrigatorio(txtSexo.Text))
+                if (!CampoObrigatorio(txtSexo.Texts))
                 {
                     MessageBox.Show("Campo Sexo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtSexo.Focus();
@@ -96,58 +96,58 @@ namespace Sistema_Vendas.Views
             }
             if (rbJuridica.Checked)
             {
-                if (!CampoObrigatorio(txtContato.Text))
+                if (!CampoObrigatorio(txtContato.Texts))
                 {
                     MessageBox.Show("Campo Nome Contato é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtContato.Focus();
                     return false;
                 }
             }
-            string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
+            string celular = new string(txtCelular.Texts.Where(char.IsDigit).ToArray());
             if (!CampoObrigatorio(celular))
             {
                 MessageBox.Show("Campo Celular é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCelular.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtEmail.Text))
+            if (!CampoObrigatorio(txtEmail.Texts))
             {
                 MessageBox.Show("Campo Email é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEmail.Focus();
                 return false;
             }
-            string cep = new string(txtCEP.Text.Where(char.IsDigit).ToArray());
+            string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
             if (!CampoObrigatorio(cep))
             {
                 MessageBox.Show("Campo CEP é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCEP.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtEndereco.Text))
+            if (!CampoObrigatorio(txtEndereco.Texts))
             {
                 MessageBox.Show("Campo Endereço é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEndereco.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtNumero.Text))
+            if (!CampoObrigatorio(txtNumero.Texts))
             {
                 MessageBox.Show("Campo Número é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtNumero.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtBairro.Text))
+            if (!CampoObrigatorio(txtBairro.Texts))
             {
                 MessageBox.Show("Campo Bairro é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtBairro.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtCodCidade.Text))
+            if (!CampoObrigatorio(txtCodCidade.Texts))
             {
                 MessageBox.Show("Campo Código Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodCidade.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtCodCondPag.Text))
+            if (!CampoObrigatorio(txtCodCondPag.Texts))
             {
                 MessageBox.Show("Campo Código Condição de Pagamento é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodCondPag.Focus();
@@ -200,8 +200,8 @@ namespace Sistema_Vendas.Views
 
         private void txtCPF_CNPJ_Leave(object sender, EventArgs e)
         {
-            string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
-            //string pais = txtPais.Text.ToLower();
+            string cpf_cnpj = new string(txtCPF_CNPJ.Texts.Where(char.IsDigit).ToArray());
+            //string pais = txtPais.Texts.ToLower();
             //if (pais == "brasil") 
             //{
             //    if (!CampoObrigatorio(cpf_cnpj))
@@ -230,7 +230,7 @@ namespace Sistema_Vendas.Views
 
         private void txtCliente_razao_social_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtCliente_razao_social.Text))
+            if (!VerificaLetras(txtCliente_razao_social.Texts))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCliente_razao_social.Focus();
@@ -239,7 +239,7 @@ namespace Sistema_Vendas.Views
 
         private void txtEmail_Leave(object sender, EventArgs e)
         {
-            if (!ValidaEmail(txtEmail.Text))
+            if (!ValidaEmail(txtEmail.Texts))
             {
                 MessageBox.Show("Email inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEmail.Focus();
@@ -252,7 +252,7 @@ namespace Sistema_Vendas.Views
 
         private void txtNumero_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtNumero.Text))
+            if (!VerificaNumeros(txtNumero.Texts))
             {
                 MessageBox.Show("Número inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtNumero.Focus();
@@ -266,7 +266,7 @@ namespace Sistema_Vendas.Views
 
         private void txtSexo_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtSexo.Text))
+            if (!VerificaLetras(txtSexo.Texts))
             {
                 MessageBox.Show("Sexo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtSexo.Focus();
@@ -275,7 +275,7 @@ namespace Sistema_Vendas.Views
 
         private void txtCelular_Leave(object sender, EventArgs e)
         {
-            string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
+            string celular = new string(txtCelular.Texts.Where(char.IsDigit).ToArray());
             if (!VerificaNumeros(celular))
             {
                 MessageBox.Show("Celular inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -285,7 +285,7 @@ namespace Sistema_Vendas.Views
 
         private void txtTelefone_Leave(object sender, EventArgs e)
         {
-            string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
+            string telefone = new string(txtTelefone.Texts.Where(char.IsDigit).ToArray());
             if (!VerificaNumeros(telefone))
             {
                 MessageBox.Show("Telefone inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -295,7 +295,7 @@ namespace Sistema_Vendas.Views
 
         private void txtApelido_nome_fantasia_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtApelido_nome_fantasia.Text))
+            if (!VerificaLetras(txtApelido_nome_fantasia.Texts))
             {
                 MessageBox.Show("Apelido / Nome Fantasia inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtApelido_nome_fantasia.Focus();
@@ -304,15 +304,15 @@ namespace Sistema_Vendas.Views
 
         private void txtIE_RG_Leave(object sender, EventArgs e)
         {
-            string RG_IE = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
+            string RG_IE = new string(txtIE_RG.Texts.Where(char.IsDigit).ToArray());
             if (!VerificaNumeros(RG_IE))
             {
                 MessageBox.Show("RG / IE inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtIE_RG.Focus();
             }
-            if (!string.IsNullOrEmpty(txtIE_RG.Text) && !rbFisica.Checked)
+            if (!string.IsNullOrEmpty(txtIE_RG.Texts) && !rbFisica.Checked)
             {
-                 if (!ValidaIE(txtUF.Text, RG_IE))
+                 if (!ValidaIE(txtUF.Texts, RG_IE))
                   {
                       MessageBox.Show("IE inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                       txtIE_RG.Focus();
@@ -321,14 +321,9 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void txtCodCidade_Leave(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtContato_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtContato.Text))
+            if (!VerificaLetras(txtContato.Texts))
             {
                 MessageBox.Show("Nome do Contato inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtContato.Focus();
@@ -337,14 +332,11 @@ namespace Sistema_Vendas.Views
 
         private void CadastroPessoasPai_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Text = "0";
-            }
             if (idAlterar == -1)
             {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
+                txtDataCadastro.Texts = DateTime.Now.ToString();
+                txtDataUltAlt.Texts = DateTime.Now.ToString();
+                txtCodigo.Texts = "0";
             }
         }
 
@@ -356,6 +348,15 @@ namespace Sistema_Vendas.Views
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             Salvar();
+        }
+
+        private void txtCodCidade_Leave(object sender, EventArgs e)
+        {
+            txtCEP.Clear();
+            txtEndereco.Clear();
+            txtNumero.Clear();
+            txtComplemento.Clear();
+            txtBairro.Clear();
         }
     }
 }

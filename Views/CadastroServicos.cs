@@ -20,16 +20,17 @@ namespace Sistema_Vendas.Views
         }
         public override void Carrega()
         {
+            txtPreco.ForeColor = Color.FromArgb(31, 31, 31);
             if (idAlterar != -1)
             {
                 ServicoModel servico = servicoController.GetById(idAlterar);
                 if (servico != null)
                 {
-                    txtCodigo.Text = servico.idServico.ToString();
-                    txtServico.Text = servico.servico;
-                    txtPreco.Text = servico.preco.ToString("N2");
-                    txtDataCadastro.Text = servico.dataCadastro.ToString();
-                    txtDataUltAlt.Text = servico.dataUltAlt.ToString();
+                    txtCodigo.Texts = servico.idServico.ToString();
+                    txtServico.Texts = servico.servico;
+                    txtPreco.Texts = servico.preco.ToString("N2");
+                    txtDataCadastro.Texts = servico.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = servico.dataUltAlt.ToString();
                     rbAtivo.Checked = servico.Ativo;
                     rbInativo.Checked = !servico.Ativo;
                 }
@@ -42,12 +43,12 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (!CampoObrigatorio(txtServico.Text))
+            if (!CampoObrigatorio(txtServico.Texts))
             {
                 MessageBox.Show("Campo Serviço é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtServico.Focus();
             } 
-            else if (!CampoObrigatorio(txtPreco.Text))
+            else if (!CampoObrigatorio(txtPreco.Texts))
             {
                 MessageBox.Show("Campo Preço é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPreco.Focus();
@@ -56,7 +57,7 @@ namespace Sistema_Vendas.Views
             {
                 int idAtual = idAlterar != -1 ? idAlterar : -1;
 
-                if (servicoController.JaCadastrado(txtServico.Text, idAtual))
+                if (servicoController.JaCadastrado(txtServico.Texts, idAtual))
                 {
                     MessageBox.Show("Serviço já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtServico.Focus();
@@ -65,10 +66,10 @@ namespace Sistema_Vendas.Views
                 {
                     try
                     {
-                        string servico = txtServico.Text;
-                        decimal preco = decimal.Parse(FormataPreco(txtPreco.Text));
-                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                        string servico = txtServico.Texts;
+                        decimal preco = decimal.Parse(FormataPreco(txtPreco.Texts));
+                        DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                         ServicoModel novoServico = new ServicoModel
                         {
@@ -122,14 +123,17 @@ namespace Sistema_Vendas.Views
 
         private void txtPreco_Leave(object sender, EventArgs e)
         {
-            try
+            if (!string.IsNullOrEmpty(txtPreco.Texts))
             {
-                txtPreco.Text = FormataPreco(txtPreco.Text);
-            }
-            catch (FormatException ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPreco.Focus();
+                try
+                {
+                    txtPreco.Texts = FormataPreco(txtPreco.Texts);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPreco.Focus();
+                }
             }
         }
 

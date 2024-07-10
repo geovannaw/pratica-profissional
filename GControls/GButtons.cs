@@ -14,9 +14,9 @@ namespace Sistema_Vendas
     public class GButtons : Button
     {
         //Fields
-        private int borderSize = 0;
-        private int borderRadius = 20;
-        private Color borderColor = Color.PaleVioletRed;
+        private int borderSize = 1;
+        private int borderRadius = 5;
+        private Color borderColor = Color.FromArgb(63, 23, 159);
 
         //Properties
         [Category("G Code Advance")]

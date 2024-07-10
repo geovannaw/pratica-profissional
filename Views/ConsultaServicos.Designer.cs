@@ -60,6 +60,11 @@
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
             // 
+            // txtPesquisa
+            // 
+            this.txtPesquisa.Location = new System.Drawing.Point(18, 14);
+            this.txtPesquisa.Size = new System.Drawing.Size(183, 28);
+            // 
             // dataGridViewServicos
             // 
             this.dataGridViewServicos.AllowUserToResizeColumns = false;
@@ -106,7 +111,6 @@
             this.Text = "Consulta de Serviços";
             this.Load += new System.EventHandler(this.ConsultaServicos_Load);
             this.Controls.SetChildIndex(this.txtPesquisa, 0);
-  //          this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

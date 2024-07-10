@@ -29,12 +29,12 @@ namespace Sistema_Vendas.Views
                 CidadeModel cidade = cidadeController.GetById(idAlterar);
                 if (cidade != null)
                 {
-                    txtCodigo.Text = cidade.idCidade.ToString();
-                    txtCidade.Text = cidade.Cidade;
-                    txtDDD.Text = cidade.DDD.ToString();
-                    txtCodEstado.Text = cidade.idEstado.ToString();
-                    txtDataCadastro.Text = cidade.dataCadastro.ToString();
-                    txtDataUltAlt.Text = cidade.dataUltAlt.ToString();
+                    txtCodigo.Texts = cidade.idCidade.ToString();
+                    txtCidade.Texts = cidade.Cidade;
+                    txtDDD.Texts = cidade.DDD.ToString();
+                    txtCodEstado.Texts = cidade.idEstado.ToString();
+                    txtDataCadastro.Texts = cidade.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = cidade.dataUltAlt.ToString();
                     rbAtivo.Checked = cidade.Ativo;
                     rbInativo.Checked = !cidade.Ativo;
 
@@ -42,7 +42,7 @@ namespace Sistema_Vendas.Views
 
                     if (!string.IsNullOrEmpty(nomeEstado))
                     {
-                        txtEstado.Text = nomeEstado;
+                        txtEstado.Texts = nomeEstado;
                     }
                 }
                 else
@@ -54,17 +54,17 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (!CampoObrigatorio(txtCidade.Text))
+            if (!CampoObrigatorio(txtCidade.Texts))
             {
                 MessageBox.Show("Campo Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCidade.Focus();
             }
-            else if (!CampoObrigatorio(txtDDD.Text))
+            else if (!CampoObrigatorio(txtDDD.Texts))
             {
                 MessageBox.Show("Campo DDD é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtDDD.Focus();
             }
-            else if (!CampoObrigatorio(txtCodEstado.Text))
+            else if (!CampoObrigatorio(txtCodEstado.Texts))
             {
                 MessageBox.Show("Campo Código Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodEstado.Focus();
@@ -72,7 +72,7 @@ namespace Sistema_Vendas.Views
             else
             {
                 int idAtual = idAlterar != -1 ? idAlterar : -1;
-                if (cidadeController.JaCadastrado(txtCidade.Text, int.Parse(txtCodEstado.Text), idAtual))
+                if (cidadeController.JaCadastrado(txtCidade.Texts, int.Parse(txtCodEstado.Texts), idAtual))
                 {
                     MessageBox.Show("Cidade já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCidade.Focus();
@@ -82,12 +82,12 @@ namespace Sistema_Vendas.Views
                 
                     try
                     {
-                        string cidade = txtCidade.Text;
-                        int DDD = int.Parse(txtDDD.Text);
-                        int idEstado = int.Parse(txtCodEstado.Text);
+                        string cidade = txtCidade.Texts;
+                        int DDD = int.Parse(txtDDD.Texts);
+                        int idEstado = int.Parse(txtCodEstado.Texts);
 
-                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                        DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                         CidadeModel novaCidade = new CidadeModel
                         {
@@ -142,26 +142,6 @@ namespace Sistema_Vendas.Views
             ((ConsultaCidades)this.Owner).AtualizarConsultaCidades(false);
         }
 
-        private void btnConsultaEstado_Click(object sender, EventArgs e)
-        {
-            consultaEstados.btnSair.Text = "Selecionar";
-
-            if (consultaEstados.ShowDialog() == DialogResult.OK)
-            {
-                // Receber os detalhes do estado selecionado
-                var estadoDetalhes = consultaEstados.Tag as Tuple<int, string>;
-                
-                if (estadoDetalhes != null)
-                {
-                    int estadoID = estadoDetalhes.Item1;
-                    string estadoNome = estadoDetalhes.Item2;
-
-                    txtCodEstado.Text = estadoID.ToString();
-                    txtEstado.Text = estadoNome;
-                }
-            }
-        }
-
         private void CadastroCidades_Load(object sender, EventArgs e)
         {
         }
@@ -176,48 +156,69 @@ namespace Sistema_Vendas.Views
             isAtivo = !rbInativo.Checked;
         }
 
-        private void txtCodEstado_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaNumeros(txtCodEstado.Text))
-            {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodEstado.Focus();
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(txtCodEstado.Text))
-                {
-                    EstadoModel estado = estadoController.GetById(int.Parse(txtCodEstado.Text));
-                    if (estado != null)
-                    {
-                        txtEstado.Text = estado.Estado;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Estado não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCodEstado.Focus();
-                        txtCodEstado.Clear();
-                        txtEstado.Clear();
-                    }
-                }
-            }  
-        }
-
         private void txtCidade_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtCidade.Text))
+            if (!VerificaLetras(txtCidade.Texts))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCidade.Focus();
             }
         }
 
-        private void txtDDD_Leave(object sender, EventArgs e)
+        private void txtDDD_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaNumeros(txtDDD.Text))
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDDD.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txtCodEstado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtCodEstado_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtCodEstado.Texts))
+            {
+                EstadoModel estado = estadoController.GetById(int.Parse(txtCodEstado.Texts));
+                if (estado != null)
+                {
+                    txtEstado.Texts = estado.Estado;
+                }
+                else
+                {
+                    MessageBox.Show("Estado não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodEstado.Focus();
+                    txtCodEstado.Clear();
+                    txtEstado.Clear();
+                }
+            }
+        }
+
+        private void btnConsultaEstado_Click(object sender, EventArgs e)
+        {
+            consultaEstados.btnSair.Text = "Selecionar";
+
+            if (consultaEstados.ShowDialog() == DialogResult.OK)
+            {
+                // Receber os detalhes do estado selecionado
+                var estadoDetalhes = consultaEstados.Tag as Tuple<int, string>;
+
+                if (estadoDetalhes != null)
+                {
+                    int estadoID = estadoDetalhes.Item1;
+                    string estadoNome = estadoDetalhes.Item2;
+
+                    txtCodEstado.Texts = estadoID.ToString();
+                    txtEstado.Texts = estadoNome;
+                }
             }
         }
     }

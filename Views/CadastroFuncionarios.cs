@@ -29,7 +29,7 @@ namespace Sistema_Vendas.Views
                 return;
             }
             int idAtual = idAlterar != -1 ? idAlterar : -1;
-            string cpf = new string(txtCPF.Text.Where(char.IsDigit).ToArray());
+            string cpf = new string(txtCPF.Texts.Where(char.IsDigit).ToArray());
 
             if (funcionarioController.JaCadastrado(cpf, idAtual))
             {
@@ -40,21 +40,21 @@ namespace Sistema_Vendas.Views
             {
                 try
                 {
-                    string funcionario = txtFuncionario.Text;
-                    string apelido = txtApelido.Text;
-                    string endereco = txtEndereco.Text;
-                    string bairro = txtBairro.Text;
-                    int numero = Convert.ToInt32(txtNumero.Text);
-                    string cep = new string(txtCEP.Text.Where(char.IsDigit).ToArray());
-                    string complemento = txtComplemento.Text;
-                    string email = txtEmail.Text;
-                    string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
-                    string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
-                    string rg = new string(txtRG.Text.Where(char.IsDigit).ToArray());
-                    string cargo = txtCargo.Text;
-                    decimal salario = decimal.Parse(FormataPreco(txtSalario.Text));
-                    string pis = new string(txtPis.Text.Where(char.IsDigit).ToArray());
-                    int idCidade = int.Parse(txtCodCidade.Text);
+                    string funcionario = txtFuncionario.Texts;
+                    string apelido = txtApelido.Texts;
+                    string endereco = txtEndereco.Texts;
+                    string bairro = txtBairro.Texts;
+                    int numero = Convert.ToInt32(txtNumero.Texts);
+                    string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
+                    string complemento = txtComplemento.Texts;
+                    string email = txtEmail.Texts;
+                    string telefone = new string(txtTelefone.Texts.Where(char.IsDigit).ToArray());
+                    string celular = new string(txtCelular.Texts.Where(char.IsDigit).ToArray());
+                    string rg = new string(txtRG.Texts.Where(char.IsDigit).ToArray());
+                    string cargo = txtCargo.Texts;
+                    decimal salario = decimal.Parse(FormataPreco(txtSalario.Texts));
+                    string pis = new string(txtPis.Texts.Where(char.IsDigit).ToArray());
+                    int idCidade = int.Parse(txtCodCidade.Texts);
                     string sexo = txtSexo.SelectedItem.ToString();
 
                     AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
@@ -77,8 +77,8 @@ namespace Sistema_Vendas.Views
                         return;
                     }
 
-                    DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                    DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                     FuncionarioModel novoFuncionario = new FuncionarioModel
                     {
@@ -169,26 +169,32 @@ namespace Sistema_Vendas.Views
                 FuncionarioModel funcionario = funcionarioController.GetById(idAlterar);
                 if (funcionario != null)
                 {
-                    txtCodigo.Text = funcionario.idFuncionario.ToString();
-                    txtFuncionario.Text = funcionario.funcionario;
-                    txtApelido.Text = funcionario.apelido;
-                    txtEndereco.Text = funcionario.endereco;
-                    txtBairro.Text = funcionario.bairro;
-                    txtNumero.Text = funcionario.numero.ToString();
-                    txtCEP.Text = funcionario.cep;
-                    txtComplemento.Text = funcionario.complemento;
-                    txtCodCidade.Text = funcionario.idCidade.ToString();
-                    txtSexo.Text = funcionario.sexo;
-                    txtEmail.Text = funcionario.email;
-                    txtTelefone.Text = funcionario.telefone;
-                    txtCelular.Text = funcionario.celular;
-                    txtCPF.Text = funcionario.cpf;
-                    txtRG.Text = funcionario.rg;
-                    txtCargo.Text = funcionario.cargo;
-                    txtSalario.Text = funcionario.salario.ToString("N2");
-                    txtPis.Text = funcionario.pis;
-                    txtDataCadastro.Text = funcionario.dataCadastro.ToString();
-                    txtDataUltAlt.Text = funcionario.dataUltAlt.ToString();
+                    txtCodigo.Texts = funcionario.idFuncionario.ToString();
+                    txtFuncionario.Texts = funcionario.funcionario;
+                    txtApelido.Texts = funcionario.apelido;
+                    txtEndereco.Texts = funcionario.endereco;
+                    txtBairro.Texts = funcionario.bairro;
+                    txtNumero.Texts = funcionario.numero.ToString();
+                    txtCEP.Texts = funcionario.cep;
+                    txtComplemento.Texts = funcionario.complemento;
+                    txtCodCidade.Texts = funcionario.idCidade.ToString();
+
+                    if (!txtSexo.Items.Contains(funcionario.sexo))
+                    {
+                        txtSexo.Items.Add(funcionario.sexo);
+                    }
+                    txtSexo.Texts = funcionario.sexo;
+
+                    txtEmail.Texts = funcionario.email;
+                    txtTelefone.Texts = funcionario.telefone;
+                    txtCelular.Texts = funcionario.celular;
+                    txtCPF.Texts = funcionario.cpf;
+                    txtRG.Texts = funcionario.rg;
+                    txtCargo.Texts = funcionario.cargo;
+                    txtSalario.Texts = funcionario.salario.ToString("N2");
+                    txtPis.Texts = funcionario.pis;
+                    txtDataCadastro.Texts = funcionario.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = funcionario.dataUltAlt.ToString();
                     rbAtivo.Checked = funcionario.Ativo;
                     rbInativo.Checked = !funcionario.Ativo;
 
@@ -203,9 +209,9 @@ namespace Sistema_Vendas.Views
                         string[] info = cidadeEstadoPais[0].Split(',');
                         if (info.Length >= 3)
                         {
-                            txtCidade.Text = info[0].Trim();
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
+                            txtCidade.Texts = info[0].Trim();
+                            txtUF.Texts = info[1].Trim();
+                            txtPais.Texts = info[2].Trim();
                         }
                     }
                 }
@@ -215,6 +221,121 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+
+
+        private void CadastroFuncionarios_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void CadastroFuncionarios_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ((ConsultaFuncionarios)this.Owner).AtualizarConsultaFuncionarios(false);
+        }
+
+        protected bool VerificaCamposObrigatorios()
+        {
+            string cpf = new string(txtCPF.Texts.Where(char.IsDigit).ToArray());
+            string pais = txtPais.Texts;
+            if (pais == "BRASIL")
+            {
+                if (!CampoObrigatorio(cpf))
+                {
+                    MessageBox.Show("CPF obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCPF.Focus();
+                    return false;
+                }
+            }
+            if (!CampoObrigatorio(txtFuncionario.Texts))
+            {
+                MessageBox.Show("Campo Funcionário é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtFuncionario.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtSexo.Texts))
+            {
+                MessageBox.Show("Campo Sexo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtSexo.Focus();
+                return false;
+            }
+            string celular = new string(txtCelular.Texts.Where(char.IsDigit).ToArray());
+            if (!CampoObrigatorio(celular))
+            {
+                MessageBox.Show("Campo Celular é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCelular.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtEmail.Texts))
+            {
+                MessageBox.Show("Campo Email é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtEmail.Focus();
+                return false;
+            }
+            string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
+            if (!CampoObrigatorio(cep))
+            {
+                MessageBox.Show("Campo CEP é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCEP.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtEndereco.Texts))
+            {
+                MessageBox.Show("Campo Endereço é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtEndereco.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtNumero.Texts))
+            {
+                MessageBox.Show("Campo Número é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNumero.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtBairro.Texts))
+            {
+                MessageBox.Show("Campo Bairro é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtBairro.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtCodCidade.Texts))
+            {
+                MessageBox.Show("Campo Código Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodCidade.Focus();
+                return false;
+            }
+            string dataNasc = new string(txtDataNasc.Texts.Where(char.IsDigit).ToArray());
+            if (!CampoObrigatorio(dataNasc))
+            {
+                MessageBox.Show("Campo Data Nasc. é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDataNasc.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtCargo.Texts))
+            {
+                MessageBox.Show("Campo Cargo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCargo.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtSalario.Texts))
+            {
+                MessageBox.Show("Campo Salário é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtSalario.Focus();
+                return false;
+            }
+            if (!CampoObrigatorio(txtPis.Texts))
+            {
+                MessageBox.Show("Campo PIS é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPis.Focus();
+                return false;
+            }
+            string dataAdmissao = new string(txtDataAdmissao.Texts.Where(char.IsDigit).ToArray());
+            if (!CampoObrigatorio(dataAdmissao))
+            {
+                MessageBox.Show("Campo Data Admissão é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDataAdmissao.Focus();
+                return false;
+            }
+            return true;
+        }
+
         private void btnConsultaCidades_Click(object sender, EventArgs e)
         {
             consultaCidades.btnSair.Text = "Selecionar";
@@ -228,8 +349,8 @@ namespace Sistema_Vendas.Views
                     int cidadeID = cidadeDetalhes.Item1;
                     string cidadeNome = cidadeDetalhes.Item2;
 
-                    txtCodCidade.Text = cidadeID.ToString();
-                    txtCidade.Text = cidadeNome;
+                    txtCodCidade.Texts = cidadeID.ToString();
+                    txtCidade.Texts = cidadeNome;
 
                     List<string> cidadeEstadoPais = funcionarioController.GetCEPByIdCidade(cidadeID);
 
@@ -238,8 +359,8 @@ namespace Sistema_Vendas.Views
                         string[] info = cidadeEstadoPais[0].Split(',');
                         if (info.Length >= 3)
                         {
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
+                            txtUF.Texts = info[1].Trim();
+                            txtPais.Texts = info[2].Trim();
                         }
                     }
                 }
@@ -248,149 +369,49 @@ namespace Sistema_Vendas.Views
 
         private void txtCodCidade_Leave(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtCodCidade.Text))
-            {
-                if (!VerificaNumeros(txtCodCidade.Text))
+            txtCEP.Clear();
+            txtEndereco.Clear();
+            txtNumero.Clear();
+            txtComplemento.Clear();
+            txtBairro.Clear();
+
+            if (!string.IsNullOrEmpty(txtCodCidade.Texts)){
+                List<string> cidadeEstadoPais = funcionarioController.GetCEPByIdCidade(int.Parse(txtCodCidade.Texts));
+
+                if (cidadeEstadoPais.Count > 0)
                 {
-                    MessageBox.Show("Cód. Cidade inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodCidade.Focus();
+                    string[] info = cidadeEstadoPais[0].Split(',');
+                    if (info.Length >= 3)
+                    {
+                        txtCidade.Texts = info[0].Trim();
+                        txtUF.Texts = info[1].Trim();
+                        txtPais.Texts = info[2].Trim();
+                    }
                 }
                 else
                 {
-                    List<string> cidadeEstadoPais = funcionarioController.GetCEPByIdCidade(int.Parse(txtCodCidade.Text));
-
-                    if (cidadeEstadoPais.Count > 0)
-                    {
-                        string[] info = cidadeEstadoPais[0].Split(',');
-                        if (info.Length >= 3)
-                        {
-                            txtCidade.Text = info[0].Trim();
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Código Cidade não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCodCidade.Focus();
-                        txtCodCidade.Clear();
-                        txtCidade.Clear();
-                        txtUF.Clear();
-                        txtPais.Clear();
-                    }
+                    MessageBox.Show("Código Cidade não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodCidade.Focus();
+                    txtCodCidade.Clear();
+                    txtCidade.Clear();
+                    txtUF.Clear();
+                    txtPais.Clear();
                 }
             }
         }
 
-        private void CadastroFuncionarios_Load(object sender, EventArgs e)
+        private void txtCodCidade_KeyPress(object sender, KeyPressEventArgs e)
         {
-        }
-
-        private void CadastroFuncionarios_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            ((ConsultaFuncionarios)this.Owner).AtualizarConsultaFuncionarios(false);
-        }
-
-        protected bool VerificaCamposObrigatorios()
-        {
-            string cpf = new string(txtCPF.Text.Where(char.IsDigit).ToArray());
-            string pais = txtPais.Text;
-            if (pais == "BRASIL")
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                if (!CampoObrigatorio(cpf))
-                {
-                    MessageBox.Show("CPF obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCPF.Focus();
-                    return false;
-                }
+                e.Handled = true;
             }
-            if (!CampoObrigatorio(txtFuncionario.Text))
-            {
-                MessageBox.Show("Campo Funcionário é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtFuncionario.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtSexo.Text))
-            {
-                MessageBox.Show("Campo Sexo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtSexo.Focus();
-                return false;
-            }
-            string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
-            if (!CampoObrigatorio(celular))
-            {
-                MessageBox.Show("Campo Celular é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCelular.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtEmail.Text))
-            {
-                MessageBox.Show("Campo Email é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtEmail.Focus();
-                return false;
-            }
-            string cep = new string(txtCEP.Text.Where(char.IsDigit).ToArray());
-            if (!CampoObrigatorio(cep))
-            {
-                MessageBox.Show("Campo CEP é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCEP.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtEndereco.Text))
-            {
-                MessageBox.Show("Campo Endereço é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtEndereco.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtNumero.Text))
-            {
-                MessageBox.Show("Campo Número é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNumero.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtBairro.Text))
-            {
-                MessageBox.Show("Campo Bairro é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtBairro.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtCodCidade.Text))
-            {
-                MessageBox.Show("Campo Código Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodCidade.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtCargo.Text))
-            {
-                MessageBox.Show("Campo Cargo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCargo.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtSalario.Text))
-            {
-                MessageBox.Show("Campo Salário é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtSalario.Focus();
-                return false;
-            }
-            if (!CampoObrigatorio(txtPis.Text))
-            {
-                MessageBox.Show("Campo PIS é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPis.Focus();
-                return false;
-            }
-            string dataAdmissao = new string(txtDataAdmissao.Text.Where(char.IsDigit).ToArray());
-            if (!CampoObrigatorio(dataAdmissao))
-            {
-                MessageBox.Show("Campo Data Admissão é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDataAdmissao.Focus();
-                return false;
-            }
-            return true;
         }
 
         private void txtFuncionario_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtFuncionario.Text))
+            if (!VerificaLetras(txtFuncionario.Texts))
             {
                 MessageBox.Show("Funcionário inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtFuncionario.Focus();
@@ -399,27 +420,17 @@ namespace Sistema_Vendas.Views
 
         private void txtCPF_Leave(object sender, EventArgs e)
         {
-            string cpf = new string(txtCPF.Text.Where(char.IsDigit).ToArray());
+            string cpf = new string(txtCPF.Texts.Where(char.IsDigit).ToArray());
             if (!ValidaCPF(cpf))
             {
                 MessageBox.Show("CPF inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCPF.Focus();
             }
-            
-        }
-
-        private void txtApelido_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaLetras(txtApelido.Text))
-            {
-                MessageBox.Show("Apelido inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtApelido.Focus();
-            }
         }
 
         private void txtTelefone_Leave(object sender, EventArgs e)
         {
-            string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
+            string telefone = new string(txtTelefone.Texts.Where(char.IsDigit).ToArray());
             if (!VerificaNumeros(telefone))
             {
                 MessageBox.Show("Telefone inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -429,7 +440,7 @@ namespace Sistema_Vendas.Views
 
         private void txtCelular_Leave(object sender, EventArgs e)
         {
-            string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
+            string celular = new string(txtCelular.Texts.Where(char.IsDigit).ToArray());
             if (!VerificaNumeros(celular))
             {
                 MessageBox.Show("Celular inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -439,34 +450,16 @@ namespace Sistema_Vendas.Views
 
         private void txtEmail_Leave(object sender, EventArgs e)
         {
-            if (!ValidaEmail(txtEmail.Text))
+            if (!ValidaEmail(txtEmail.Texts))
             {
                 MessageBox.Show("Email inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEmail.Focus();
             }
         }
 
-        private void txtEndereco_Leave(object sender, EventArgs e)
-        {
-        }
-
-        private void txtNumero_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaNumeros(txtNumero.Text))
-            {
-                MessageBox.Show("Número inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNumero.Focus();
-            }
-        }
-
-        private void txtBairro_Leave(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtRG_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtRG.Text))
+            if (!VerificaNumeros(txtRG.Texts))
             {
                 MessageBox.Show("RG inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtRG.Focus();
@@ -475,7 +468,7 @@ namespace Sistema_Vendas.Views
 
         private void txtCargo_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtCargo.Text))
+            if (!VerificaLetras(txtCargo.Texts))
             {
                 MessageBox.Show("Cargo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCargo.Focus();
@@ -484,12 +477,7 @@ namespace Sistema_Vendas.Views
 
         private void txtPis_Leave(object sender, EventArgs e)
         {
-            string pis = new string(txtPis.Text.Where(char.IsDigit).ToArray());
-            if (!VerificaNumeros(pis))
-            {
-                MessageBox.Show("PIS inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPis.Focus();
-            }
+            string pis = new string(txtPis.Texts.Where(char.IsDigit).ToArray());
             if (!ValidaPis(pis))
             {
                 MessageBox.Show("PIS inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -501,7 +489,7 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                txtSalario.Text = FormataPreco(txtSalario.Text);
+                txtSalario.Texts = FormataPreco(txtSalario.Texts);
             }
             catch (FormatException ex)
             {
@@ -511,6 +499,15 @@ namespace Sistema_Vendas.Views
         }
 
         private void txtSalario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permitir apenas números, pontos, vírgulas e teclas de controle (como backspace)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPis_KeyPress(object sender, KeyPressEventArgs e)
         {
             //permitir apenas números, pontos, vírgulas e teclas de controle (como backspace)
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')

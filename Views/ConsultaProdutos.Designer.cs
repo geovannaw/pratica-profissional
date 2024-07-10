@@ -61,6 +61,11 @@
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
             // 
+            // txtPesquisa
+            // 
+            this.txtPesquisa.Location = new System.Drawing.Point(18, 14);
+            this.txtPesquisa.Size = new System.Drawing.Size(183, 28);
+            // 
             // dataGridViewProdutos
             // 
             this.dataGridViewProdutos.AllowUserToResizeColumns = false;
@@ -116,7 +121,6 @@
             this.Load += new System.EventHandler(this.ConsultaProdutos_Load);
             this.Controls.SetChildIndex(this.txtPesquisa, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
-      //      this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

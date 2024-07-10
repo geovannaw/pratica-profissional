@@ -34,7 +34,7 @@ namespace Sistema_Vendas.Views
                 return;
             }
             int idAtual = idAlterar != -1 ? idAlterar : -1;
-            string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
+            string cpf_cnpj = new string(txtCPF_CNPJ.Texts.Where(char.IsDigit).ToArray());
 
             if (fornecedorController.JaCadastrado(cpf_cnpj, idAtual))
             {
@@ -45,20 +45,20 @@ namespace Sistema_Vendas.Views
             {
                 try
                 {
-                    string cliente_razao_social = txtCliente_razao_social.Text;
-                    string apelido_nome_fantasia = txtApelido_nome_fantasia.Text;
-                    string endereco = txtEndereco.Text;
-                    string bairro = txtBairro.Text;
-                    int numero = Convert.ToInt32(txtNumero.Text);
-                    string cep = new string(txtCEP.Text.Where(char.IsDigit).ToArray());
-                    string complemento = txtComplemento.Text;
-                    string email = txtEmail.Text;
-                    string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
-                    string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
-                    string nome_contato = txtContato.Text;
-                    string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
-                    int idCidade = Convert.ToInt32(txtCodCidade.Text);
-                    int idCondPagamento = Convert.ToInt32(txtCodCondPag.Text);
+                    string cliente_razao_social = txtCliente_razao_social.Texts;
+                    string apelido_nome_fantasia = txtApelido_nome_fantasia.Texts;
+                    string endereco = txtEndereco.Texts;
+                    string bairro = txtBairro.Texts;
+                    int numero = Convert.ToInt32(txtNumero.Texts);
+                    string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
+                    string complemento = txtComplemento.Texts;
+                    string email = txtEmail.Texts;
+                    string telefone = new string(txtTelefone.Texts.Where(char.IsDigit).ToArray());
+                    string celular = new string(txtCelular.Texts.Where(char.IsDigit).ToArray());
+                    string nome_contato = txtContato.Texts;
+                    string rg_ie = new string(txtIE_RG.Texts.Where(char.IsDigit).ToArray());
+                    int idCidade = Convert.ToInt32(txtCodCidade.Texts);
+                    int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
 
                     AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
                     if (rbFisica.Checked)
@@ -77,8 +77,8 @@ namespace Sistema_Vendas.Views
                         }
                     }
 
-                    DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                    DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                     string sexo;
                     if (isFisico)
@@ -143,35 +143,40 @@ namespace Sistema_Vendas.Views
                 FornecedorModel fornecedor = fornecedorController.GetById(idAlterar);
                 if (fornecedor != null)
                 {
-                    txtCodigo.Text = fornecedor.idFornecedor.ToString();
+                    txtCodigo.Texts = fornecedor.idFornecedor.ToString();
                     rbFisica.Checked = fornecedor.tipo_pessoa;
                     rbJuridica.Checked = !fornecedor.tipo_pessoa;
-                    txtCliente_razao_social.Text = fornecedor.fornecedor_razao_social;
-                    txtApelido_nome_fantasia.Text = fornecedor.apelido_nome_fantasia;
-                    txtEndereco.Text = fornecedor.endereco;
-                    txtBairro.Text = fornecedor.bairro;
-                    txtNumero.Text = fornecedor.numero.ToString();
-                    txtCEP.Text = fornecedor.cep;
-                    txtComplemento.Text = fornecedor.complemento;
-                    txtCodCidade.Text = fornecedor.idCidade.ToString();
-                    txtSexo.Text = fornecedor.sexo;
-                    txtEmail.Text = fornecedor.email;
-                    txtTelefone.Text = fornecedor.telefone;
-                    txtCelular.Text = fornecedor.celular;
-                    txtContato.Text = fornecedor.nome_contato;
-                    txtCPF_CNPJ.Text = fornecedor.cpf_cnpj;
-                    txtIE_RG.Text = fornecedor.rg_ie;
-                    txtDataCadastro.Text = fornecedor.dataCadastro.ToString();
-                    txtDataUltAlt.Text = fornecedor.dataUltAlt.ToString();
+                    txtCliente_razao_social.Texts = fornecedor.fornecedor_razao_social;
+                    txtApelido_nome_fantasia.Texts = fornecedor.apelido_nome_fantasia;
+                    txtEndereco.Texts = fornecedor.endereco;
+                    txtBairro.Texts = fornecedor.bairro;
+                    txtNumero.Texts = fornecedor.numero.ToString();
+                    txtCEP.Texts = fornecedor.cep;
+                    txtComplemento.Texts = fornecedor.complemento;
+                    txtCodCidade.Texts = fornecedor.idCidade.ToString();
+                    txtEmail.Texts = fornecedor.email;
+                    txtTelefone.Texts = fornecedor.telefone;
+                    txtCelular.Texts = fornecedor.celular;
+                    txtContato.Texts = fornecedor.nome_contato;
+                    txtCPF_CNPJ.Texts = fornecedor.cpf_cnpj;
+                    txtIE_RG.Texts = fornecedor.rg_ie;
+                    txtDataCadastro.Texts = fornecedor.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = fornecedor.dataUltAlt.ToString();
                     rbAtivo.Checked = fornecedor.Ativo;
                     rbInativo.Checked = !fornecedor.Ativo;
-                    txtCodCondPag.Text = fornecedor.idCondPagamento.ToString();
+                    txtCodCondPag.Texts = fornecedor.idCondPagamento.ToString();
+
+                    if (!txtSexo.Items.Contains(fornecedor.sexo))
+                    {
+                        txtSexo.Items.Add(fornecedor.sexo);
+                    }
+                    txtSexo.Texts = fornecedor.sexo;
 
                     string condPagamento = fornecedorController.GetCondPagamentoByFornecedorId(fornecedor.idFornecedor);
 
                     if (!string.IsNullOrEmpty(condPagamento))
                     {
-                        txtCondPag.Text = condPagamento;
+                        txtCondPag.Texts = condPagamento;
                     }
 
                     AtualizarCampoData(fornecedor.data_nasc, txtDataNasc);
@@ -183,9 +188,9 @@ namespace Sistema_Vendas.Views
                         string[] info = cidadeEstadoPais[0].Split(',');
                         if (info.Length >= 3)
                         {
-                            txtCidade.Text = info[0].Trim();
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
+                            txtCidade.Texts = info[0].Trim();
+                            txtUF.Texts = info[1].Trim();
+                            txtPais.Texts = info[2].Trim();
                         }
                     }
                 }
@@ -212,7 +217,7 @@ namespace Sistema_Vendas.Views
 
         private void txtCliente_razao_social_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtCliente_razao_social.Text))
+            if (!VerificaLetras(txtCliente_razao_social.Texts))
             {
                 MessageBox.Show("Fornecedor inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCliente_razao_social.Focus();
@@ -237,8 +242,8 @@ namespace Sistema_Vendas.Views
                     int cidadeID = cidadeDetalhes.Item1;
                     string cidadeNome = cidadeDetalhes.Item2;
 
-                    txtCodCidade.Text = cidadeID.ToString();
-                    txtCidade.Text = cidadeNome;
+                    txtCodCidade.Texts = cidadeID.ToString();
+                    txtCidade.Texts = cidadeNome;
 
                     List<string> cidadeEstadoPais = fornecedorController.GetCEPByIdCidade(cidadeID);
 
@@ -247,8 +252,8 @@ namespace Sistema_Vendas.Views
                         string[] info = cidadeEstadoPais[0].Split(',');
                         if (info.Length >= 3)
                         {
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
+                            txtUF.Texts = info[1].Trim();
+                            txtPais.Texts = info[2].Trim();
                         }
                     }
                 }
@@ -257,25 +262,25 @@ namespace Sistema_Vendas.Views
 
         private void txtCodCidade_Leave(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtCodCidade.Text))
+            if (!string.IsNullOrEmpty(txtCodCidade.Texts))
             {
-                if (!VerificaNumeros(txtCodCidade.Text))
+                if (!VerificaNumeros(txtCodCidade.Texts))
                 {
                     MessageBox.Show("Cód. Cidade inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCodCidade.Focus();
                 }
                 else
                 {
-                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByIdCidade(int.Parse(txtCodCidade.Text));
+                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByIdCidade(int.Parse(txtCodCidade.Texts));
 
                     if (cidadeEstadoPais.Count > 0)
                     {
                         string[] info = cidadeEstadoPais[0].Split(',');
                         if (info.Length >= 3)
                         {
-                            txtCidade.Text = info[0].Trim();
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
+                            txtCidade.Texts = info[0].Trim();
+                            txtUF.Texts = info[1].Trim();
+                            txtPais.Texts = info[2].Trim();
                         }
                     }
                     else
@@ -293,19 +298,19 @@ namespace Sistema_Vendas.Views
 
         private void txtCodCondPag_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtCodCondPag.Text))
+            if (!VerificaNumeros(txtCodCondPag.Texts))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodCondPag.Focus();
             }
             else
             {
-                if (!string.IsNullOrEmpty(txtCodCondPag.Text))
+                if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
                 {
-                    CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Text));
+                    CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
                     if (condPagamento != null)
                     {
-                        txtCondPag.Text = condPagamento.condicaoPagamento;
+                        txtCondPag.Texts = condPagamento.condicaoPagamento;
                     }
                     else
                     {
@@ -329,8 +334,8 @@ namespace Sistema_Vendas.Views
                     int idCondPag = condPagamento.Item1;
                     string condicaoPagamento = condPagamento.Item2;
 
-                    txtCodCondPag.Text = idCondPag.ToString();
-                    txtCondPag.Text = condicaoPagamento;
+                    txtCodCondPag.Texts = idCondPag.ToString();
+                    txtCondPag.Texts = condicaoPagamento;
                 }
             }
         }

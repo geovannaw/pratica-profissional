@@ -34,7 +34,7 @@ namespace Sistema_Vendas.Views
             }
 
             int idAtual = idAlterar != -1 ? idAlterar : -1;
-            string cpf_cnpj = new string(txtCPF_CNPJ.Text.Where(char.IsDigit).ToArray());
+            string cpf_cnpj = new string(txtCPF_CNPJ.Texts.Where(char.IsDigit).ToArray());
 
             if (clienteController.JaCadastrado(cpf_cnpj, idAtual))
             {
@@ -45,20 +45,20 @@ namespace Sistema_Vendas.Views
             {
                 try
                 {
-                    string cliente_razao_social = txtCliente_razao_social.Text;
-                    string apelido_nome_fantasia = txtApelido_nome_fantasia.Text;
-                    string endereco = txtEndereco.Text;
-                    string bairro = txtBairro.Text;
-                    int numero = Convert.ToInt32(txtNumero.Text);
-                    string cep = new string(txtCEP.Text.Where(char.IsDigit).ToArray());
-                    string complemento = txtComplemento.Text;
-                    string email = txtEmail.Text;
-                    string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
-                    string celular = new string(txtCelular.Text.Where(char.IsDigit).ToArray());
-                    string nome_contato = txtContato.Text;
-                    string rg_ie = new string(txtIE_RG.Text.Where(char.IsDigit).ToArray());
-                    int idCidade = int.Parse(txtCodCidade.Text);
-                    int idCondPagamento = int.Parse(txtCodCondPag.Text);
+                    string cliente_razao_social = txtCliente_razao_social.Texts;
+                    string apelido_nome_fantasia = txtApelido_nome_fantasia.Texts;
+                    string endereco = txtEndereco.Texts;
+                    string bairro = txtBairro.Texts;
+                    int numero = Convert.ToInt32(txtNumero.Texts);
+                    string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
+                    string complemento = txtComplemento.Texts;
+                    string email = txtEmail.Texts;
+                    string telefone = new string(txtTelefone.Texts.Where(char.IsDigit).ToArray());
+                    string celular = new string(txtCelular.Texts.Where(char.IsDigit).ToArray());
+                    string nome_contato = txtContato.Texts;
+                    string rg_ie = new string(txtIE_RG.Texts.Where(char.IsDigit).ToArray());
+                    int idCidade = int.Parse(txtCodCidade.Texts);
+                    int idCondPagamento = int.Parse(txtCodCondPag.Texts);
 
                     AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
 
@@ -79,8 +79,8 @@ namespace Sistema_Vendas.Views
                         }
                     }
 
-                    DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                    DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                     string sexo;
                     if (isFisico)
@@ -144,34 +144,40 @@ namespace Sistema_Vendas.Views
                 ClienteModel cliente = clienteController.GetById(idAlterar);
                 if (cliente != null)
                 {
-                    txtCodigo.Text = cliente.idCliente.ToString();
+                    txtCodigo.Texts = cliente.idCliente.ToString();
                     rbFisica.Checked = cliente.tipo_pessoa;
                     rbJuridica.Checked = !cliente.tipo_pessoa;
-                    txtCliente_razao_social.Text = cliente.cliente_razao_social;
-                    txtApelido_nome_fantasia.Text = cliente.apelido_nome_fantasia;
-                    txtEndereco.Text = cliente.endereco;
-                    txtBairro.Text = cliente.bairro;
-                    txtNumero.Text = cliente.numero.ToString();
-                    txtCEP.Text = cliente.cep;
-                    txtComplemento.Text = cliente.complemento;
-                    txtCodCidade.Text = cliente.idCidade.ToString();
-                    txtSexo.Text = cliente.sexo;
-                    txtEmail.Text = cliente.email;
-                    txtTelefone.Text = cliente.telefone;
-                    txtCelular.Text = cliente.celular;
-                    txtContato.Text = cliente.nome_contato;
-                    txtCPF_CNPJ.Text = cliente.cpf_cnpj;
-                    txtIE_RG.Text = cliente.rg_ie;
-                    txtDataCadastro.Text = cliente.dataCadastro.ToString();
-                    txtDataUltAlt.Text = cliente.dataUltAlt.ToString();
+                    txtCliente_razao_social.Texts = cliente.cliente_razao_social;
+                    txtApelido_nome_fantasia.Texts = cliente.apelido_nome_fantasia;
+                    txtEndereco.Texts = cliente.endereco;
+                    txtBairro.Texts = cliente.bairro;
+                    txtNumero.Texts = cliente.numero.ToString();
+                    txtCEP.Texts = cliente.cep;
+                    txtComplemento.Texts = cliente.complemento;
+                    txtCodCidade.Texts = cliente.idCidade.ToString();
+                    txtEmail.Texts = cliente.email;
+                    txtTelefone.Texts = cliente.telefone;
+                    txtCelular.Texts = cliente.celular;
+                    txtContato.Texts = cliente.nome_contato;
+                    txtCPF_CNPJ.Texts = cliente.cpf_cnpj;
+                    txtIE_RG.Texts = cliente.rg_ie;
+                    txtDataCadastro.Texts = cliente.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = cliente.dataUltAlt.ToString();
                     rbAtivo.Checked = cliente.Ativo;
                     rbInativo.Checked = !cliente.Ativo;
-                    txtCodCondPag.Text = cliente.idCondPagamento.ToString();
+                    txtCodCondPag.Texts = cliente.idCondPagamento.ToString();
+
+                    if (!txtSexo.Items.Contains(cliente.sexo))
+                    {
+                        txtSexo.Items.Add(cliente.sexo);
+                    }
+                    txtSexo.Texts = cliente.sexo;
+
                     string condPagamento = clienteController.GetCondPagamentoByClienteId(cliente.idCliente);
 
                     if (!string.IsNullOrEmpty(condPagamento))
                     {
-                        txtCondPag.Text = condPagamento;
+                        txtCondPag.Texts = condPagamento;
                     }
 
                     AtualizarCampoData(cliente.data_nasc, txtDataNasc);
@@ -183,9 +189,9 @@ namespace Sistema_Vendas.Views
                         string[] info = cidadeEstadoPais[0].Split(',');
                         if (info.Length >= 3)
                         {
-                            txtCidade.Text = info[0].Trim();
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
+                            txtCidade.Texts = info[0].Trim();
+                            txtUF.Texts = info[1].Trim();
+                            txtPais.Texts = info[2].Trim();
                         }
                     }
                 }
@@ -209,8 +215,8 @@ namespace Sistema_Vendas.Views
                     int cidadeID = cidadeDetalhes.Item1;
                     string cidadeNome = cidadeDetalhes.Item2;
 
-                    txtCodCidade.Text = cidadeID.ToString();
-                    txtCidade.Text = cidadeNome;
+                    txtCodCidade.Texts = cidadeID.ToString();
+                    txtCidade.Texts = cidadeNome;
 
                     List<string> cidadeEstadoPais = clienteController.GetCEPByIdCidade(cidadeID);
 
@@ -219,8 +225,8 @@ namespace Sistema_Vendas.Views
                         string[] info = cidadeEstadoPais[0].Split(',');
                         if (info.Length >= 3)
                         {
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
+                            txtUF.Texts = info[1].Trim();
+                            txtPais.Texts = info[2].Trim();
                         }
                     }
                 }
@@ -238,24 +244,24 @@ namespace Sistema_Vendas.Views
 
         private void txtCodCidade_Leave(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtCodCidade.Text))
+            if (!string.IsNullOrEmpty(txtCodCidade.Texts))
             {
-                if (!VerificaNumeros(txtCodCidade.Text))
+                if (!VerificaNumeros(txtCodCidade.Texts))
                 {
                     MessageBox.Show("Cód. Cidade inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCodCidade.Focus();
                 } else
                 {
-                    List<string> cidadeEstadoPais = clienteController.GetCEPByIdCidade(int.Parse(txtCodCidade.Text));
+                    List<string> cidadeEstadoPais = clienteController.GetCEPByIdCidade(int.Parse(txtCodCidade.Texts));
 
                     if (cidadeEstadoPais.Count > 0)
                     {
                         string[] info = cidadeEstadoPais[0].Split(',');
                         if (info.Length >= 3)
                         {
-                            txtCidade.Text = info[0].Trim();
-                            txtUF.Text = info[1].Trim();
-                            txtPais.Text = info[2].Trim();
+                            txtCidade.Texts = info[0].Trim();
+                            txtUF.Texts = info[1].Trim();
+                            txtPais.Texts = info[2].Trim();
                         }
                     } else
                     {
@@ -272,7 +278,7 @@ namespace Sistema_Vendas.Views
 
         private void txtCliente_razao_social_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtCliente_razao_social.Text))
+            if (!VerificaLetras(txtCliente_razao_social.Texts))
             {
                 MessageBox.Show("Cliente inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCliente_razao_social.Focus();
@@ -286,19 +292,19 @@ namespace Sistema_Vendas.Views
 
         private void txtCodCondPag_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtCodCondPag.Text))
+            if (!VerificaNumeros(txtCodCondPag.Texts))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodCondPag.Focus();
             }
             else
             {
-                if (!string.IsNullOrEmpty(txtCodCondPag.Text))
+                if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
                 {
-                    CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Text));
+                    CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
                     if (condPagamento != null)
                     {
-                        txtCondPag.Text = condPagamento.condicaoPagamento;
+                        txtCondPag.Texts = condPagamento.condicaoPagamento;
                     }
                     else
                     {
@@ -322,8 +328,8 @@ namespace Sistema_Vendas.Views
                     int idCondPag = condPagamento.Item1;
                     string condicaoPagamento = condPagamento.Item2;
 
-                    txtCodCondPag.Text = idCondPag.ToString();
-                    txtCondPag.Text = condicaoPagamento;
+                    txtCodCondPag.Texts = idCondPag.ToString();
+                    txtCondPag.Texts = condicaoPagamento;
                 }
             }
         }

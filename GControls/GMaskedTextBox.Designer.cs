@@ -1,6 +1,6 @@
 ﻿namespace Sistema_Vendas.GControls
 {
-    partial class GTextBox
+    partial class GMaskedTextBox
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
-            // textBox1
+            // maskedTextBox1
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(9, 7);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(232, 13);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
-            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
-            this.textBox1.MouseEnter += new System.EventHandler(this.textBox1_MouseEnter);
-            this.textBox1.MouseLeave += new System.EventHandler(this.textBox1_MouseLeave);
+            this.maskedTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.maskedTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.maskedTextBox1.Location = new System.Drawing.Point(9, 7);
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(232, 13);
+            this.maskedTextBox1.TabIndex = 0;
+            this.maskedTextBox1.Click += new System.EventHandler(this.maskedTextBox1_Click);
+            this.maskedTextBox1.TextChanged += new System.EventHandler(this.maskedTextBox1_TextChanged);
+            this.maskedTextBox1.Enter += new System.EventHandler(this.maskedTextBox1_Enter);
+            this.maskedTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.maskedTextBox1_KeyDown);
+            this.maskedTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maskedTextBox1_KeyPress);
+            this.maskedTextBox1.Leave += new System.EventHandler(this.maskedTextBox1_Leave);
+            this.maskedTextBox1.MouseEnter += new System.EventHandler(this.maskedTextBox1_MouseEnter);
+            this.maskedTextBox1.MouseLeave += new System.EventHandler(this.maskedTextBox1_MouseLeave);
             // 
-            // GTextBox
+            // GMaskedTextBox
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.maskedTextBox1);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.Name = "GTextBox";
+            this.Name = "GMaskedTextBox";
             this.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
             this.Size = new System.Drawing.Size(250, 22);
             this.ResumeLayout(false);
@@ -64,6 +64,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
     }
 }

@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.lblCodigo = new System.Windows.Forms.Label();
-            this.txtDataCadastro = new System.Windows.Forms.MaskedTextBox();
-            this.txtDataUltAlt = new System.Windows.Forms.MaskedTextBox();
             this.lblDataCadastro = new System.Windows.Forms.Label();
             this.lblDataUltAlt = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -39,6 +37,8 @@
             this.txtCodigo = new Sistema_Vendas.GControls.GTextBox();
             this.btnSalvar = new Sistema_Vendas.GButtons();
             this.btnSair = new Sistema_Vendas.GButtons();
+            this.txtDataCadastro = new Sistema_Vendas.GControls.GMaskedTextBox();
+            this.txtDataUltAlt = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,30 +51,10 @@
             this.lblCodigo.TabIndex = 0;
             this.lblCodigo.Text = "Código";
             // 
-            // txtDataCadastro
-            // 
-            this.txtDataCadastro.Enabled = false;
-            this.txtDataCadastro.Location = new System.Drawing.Point(16, 416);
-            this.txtDataCadastro.Mask = "00/00/0000";
-            this.txtDataCadastro.Name = "txtDataCadastro";
-            this.txtDataCadastro.Size = new System.Drawing.Size(67, 20);
-            this.txtDataCadastro.TabIndex = 7;
-            this.txtDataCadastro.ValidatingType = typeof(System.DateTime);
-            // 
-            // txtDataUltAlt
-            // 
-            this.txtDataUltAlt.Enabled = false;
-            this.txtDataUltAlt.Location = new System.Drawing.Point(104, 416);
-            this.txtDataUltAlt.Mask = "00/00/0000";
-            this.txtDataUltAlt.Name = "txtDataUltAlt";
-            this.txtDataUltAlt.Size = new System.Drawing.Size(67, 20);
-            this.txtDataUltAlt.TabIndex = 8;
-            this.txtDataUltAlt.ValidatingType = typeof(System.DateTime);
-            // 
             // lblDataCadastro
             // 
             this.lblDataCadastro.AutoSize = true;
-            this.lblDataCadastro.Location = new System.Drawing.Point(13, 400);
+            this.lblDataCadastro.Location = new System.Drawing.Point(9, 392);
             this.lblDataCadastro.Name = "lblDataCadastro";
             this.lblDataCadastro.Size = new System.Drawing.Size(75, 13);
             this.lblDataCadastro.TabIndex = 9;
@@ -83,7 +63,7 @@
             // lblDataUltAlt
             // 
             this.lblDataUltAlt.AutoSize = true;
-            this.lblDataUltAlt.Location = new System.Drawing.Point(101, 400);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(106, 392);
             this.lblDataUltAlt.Name = "lblDataUltAlt";
             this.lblDataUltAlt.Size = new System.Drawing.Size(67, 13);
             this.lblDataUltAlt.TabIndex = 10;
@@ -138,6 +118,7 @@
             this.txtCodigo.Enabled = false;
             this.txtCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txtCodigo.Location = new System.Drawing.Point(16, 40);
+            this.txtCodigo.MaxLength = 32767;
             this.txtCodigo.Multiline = false;
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -161,7 +142,7 @@
             this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalvar.ForeColor = System.Drawing.Color.White;
-            this.btnSalvar.Location = new System.Drawing.Point(219, 408);
+            this.btnSalvar.Location = new System.Drawing.Point(226, 408);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 28);
             this.btnSalvar.TabIndex = 30;
@@ -181,7 +162,7 @@
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSair.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnSair.Location = new System.Drawing.Point(305, 408);
+            this.btnSair.Location = new System.Drawing.Point(312, 408);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(75, 28);
             this.btnSair.TabIndex = 31;
@@ -190,21 +171,76 @@
             this.btnSair.UseVisualStyleBackColor = false;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
             // 
+            // txtDataCadastro
+            // 
+            this.txtDataCadastro.BackColor = System.Drawing.SystemColors.Window;
+            this.txtDataCadastro.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtDataCadastro.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtDataCadastro.BorderRadius = 5;
+            this.txtDataCadastro.BorderSize = 1;
+            this.txtDataCadastro.DisabledBackColor = System.Drawing.Color.White;
+            this.txtDataCadastro.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDataCadastro.Enabled = false;
+            this.txtDataCadastro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtDataCadastro.Location = new System.Drawing.Point(12, 408);
+            this.txtDataCadastro.Mask = "00/00/0000";
+            this.txtDataCadastro.MaxLength = 32767;
+            this.txtDataCadastro.Multiline = false;
+            this.txtDataCadastro.Name = "txtDataCadastro";
+            this.txtDataCadastro.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtDataCadastro.PasswordChar = false;
+            this.txtDataCadastro.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtDataCadastro.PlaceholderText = "";
+            this.txtDataCadastro.Size = new System.Drawing.Size(82, 27);
+            this.txtDataCadastro.TabIndex = 32;
+            this.txtDataCadastro.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDataCadastro.Texts = "  /  /";
+            this.txtDataCadastro.UnderlinedStyle = false;
+            // 
+            // txtDataUltAlt
+            // 
+            this.txtDataUltAlt.BackColor = System.Drawing.SystemColors.Window;
+            this.txtDataUltAlt.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtDataUltAlt.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtDataUltAlt.BorderRadius = 5;
+            this.txtDataUltAlt.BorderSize = 1;
+            this.txtDataUltAlt.DisabledBackColor = System.Drawing.Color.White;
+            this.txtDataUltAlt.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDataUltAlt.Enabled = false;
+            this.txtDataUltAlt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtDataUltAlt.Location = new System.Drawing.Point(109, 408);
+            this.txtDataUltAlt.Mask = "00/00/0000";
+            this.txtDataUltAlt.MaxLength = 32767;
+            this.txtDataUltAlt.Multiline = false;
+            this.txtDataUltAlt.Name = "txtDataUltAlt";
+            this.txtDataUltAlt.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtDataUltAlt.PasswordChar = false;
+            this.txtDataUltAlt.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtDataUltAlt.PlaceholderText = "";
+            this.txtDataUltAlt.Size = new System.Drawing.Size(82, 27);
+            this.txtDataUltAlt.TabIndex = 33;
+            this.txtDataUltAlt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDataUltAlt.Texts = "  /  /";
+            this.txtDataUltAlt.UnderlinedStyle = false;
+            // 
             // CadastroPaiCEP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(399, 454);
+            this.Controls.Add(this.txtDataUltAlt);
+            this.Controls.Add(this.txtDataCadastro);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnSair);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblDataUltAlt);
             this.Controls.Add(this.lblDataCadastro);
-            this.Controls.Add(this.txtDataUltAlt);
-            this.Controls.Add(this.txtDataCadastro);
             this.Controls.Add(this.lblCodigo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CadastroPaiCEP";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CadastroPaiCEP";
@@ -217,10 +253,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblCodigo;
-        protected System.Windows.Forms.MaskedTextBox txtDataCadastro;
-        protected System.Windows.Forms.MaskedTextBox txtDataUltAlt;
         protected System.Windows.Forms.Label lblDataCadastro;
         protected System.Windows.Forms.Label lblDataUltAlt;
         protected System.Windows.Forms.RadioButton rbInativo;
@@ -229,5 +261,8 @@
         protected GControls.GTextBox txtCodigo;
         protected GButtons btnSalvar;
         public GButtons btnSair;
+        protected GControls.GMaskedTextBox txtDataCadastro;
+        protected GControls.GMaskedTextBox txtDataUltAlt;
+        protected System.Windows.Forms.Label lblCodigo;
     }
 }

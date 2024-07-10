@@ -30,12 +30,12 @@ namespace Sistema_Vendas.Views
                 if (pais != null)
                 {
                     //carrega os dados do país nos controles do formulário
-                    txtCodigo.Text = pais.idPais.ToString();
-                    txtPais.Text = pais.Pais;
-                    txtSigla.Text = pais.Sigla;
-                    txtDDI.Text = pais.DDI;
-                    txtDataCadastro.Text = pais.dataCadastro.ToString();
-                    txtDataUltAlt.Text = pais.dataUltAlt.ToString();
+                    txtCodigo.Texts = pais.idPais.ToString();
+                    txtPais.Texts = pais.Pais;
+                    txtSigla.Texts = pais.Sigla;
+                    txtDDI.Texts = pais.DDI;
+                    txtDataCadastro.Texts = pais.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = pais.dataUltAlt.ToString();
                     rbAtivo.Checked = pais.Ativo;
                     rbInativo.Checked = !pais.Ativo;
                 }
@@ -47,17 +47,17 @@ namespace Sistema_Vendas.Views
         }
         public override void Salvar()
         {
-            if (!CampoObrigatorio(txtPais.Text))
+            if (!CampoObrigatorio(txtPais.Texts))
             {
                 MessageBox.Show("Campo País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPais.Focus();
             }
-            else if (!CampoObrigatorio(txtSigla.Text))
+            else if (!CampoObrigatorio(txtSigla.Texts))
             {
                 MessageBox.Show("Campo Sigla é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtSigla.Focus();
             }
-            else if (!CampoObrigatorio(txtDDI.Text))
+            else if (!CampoObrigatorio(txtDDI.Texts))
             {
                 MessageBox.Show("Campo DDI é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtDDI.Focus();
@@ -66,7 +66,7 @@ namespace Sistema_Vendas.Views
             {
                 int idAtual = idAlterar != -1 ? idAlterar : -1;
 
-                if (paisController.JaCadastrado(txtPais.Text, idAtual))
+                if (paisController.JaCadastrado(txtPais.Texts, idAtual))
                 {
                     MessageBox.Show("País já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtPais.Focus();
@@ -75,12 +75,12 @@ namespace Sistema_Vendas.Views
                 {
                     try
                     {
-                        string pais = txtPais.Text;
-                        string sigla = txtSigla.Text;
-                        string ddi = txtDDI.Text;
+                        string pais = txtPais.Texts;
+                        string sigla = txtSigla.Texts;
+                        string ddi = txtDDI.Texts;
 
-                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                        DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                         PaisModel novoPais = new PaisModel
                         {
@@ -139,30 +139,30 @@ namespace Sistema_Vendas.Views
 
         }
 
-        private void txtPais_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaLetras(txtPais.Text))
-            {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPais.Focus();
-            } 
-        }
-
         private void txtSigla_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetrasSemEspaco(txtSigla.Text))
+            if (!VerificaLetrasSemEspaco(txtSigla.Texts))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtSigla.Focus();
             }
         }
 
-        private void txtDDI_Leave(object sender, EventArgs e)
+        private void txtDDI_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaNumeros(txtDDI.Text))
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPais_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaLetras(txtPais.Texts))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDDI.Focus();
+                txtPais.Focus();
             }
         }
     }

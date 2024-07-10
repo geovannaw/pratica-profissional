@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sistema_Vendas.GControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,25 +25,25 @@ namespace Sistema_Vendas
             }
         }
 
-        public void AtualizarCampoComDataPadrao(MaskedTextBox campoTexto, out DateTime data) //atualiza campo data no Salvar();
+        public void AtualizarCampoComDataPadrao(GMaskedTextBox campoTexto, out DateTime data)
         {
-            string entrada = campoTexto.Text;
+            string entrada = campoTexto.Texts;
             DateTime dataPadrao = new DateTime(1800, 1, 1);
 
             if (DateTime.TryParse(entrada, out data))
             {
                 // Se a conversão for bem-sucedida, é utilizada a data convertida
-                campoTexto.Text = data.ToString("dd/MM/yyyy");
+                campoTexto.Texts = data.ToString("dd/MM/yyyy");
             }
             else
             {
                 // Se a conversão falhar, é definida uma data padrão
-                campoTexto.Text = dataPadrao.ToString("dd/MM/yyyy");
+                campoTexto.Texts = dataPadrao.ToString("dd/MM/yyyy");
                 data = dataPadrao;
             }
         }
 
-        public void AtualizarCampoData(DateTime data, MaskedTextBox campoTexto) //atualiza campo data no Carrega();
+        public void AtualizarCampoData(DateTime data, GMaskedTextBox campoTexto)
         {
             DateTime dataPadrao = new DateTime(1800, 1, 1);
             if (data == dataPadrao)
@@ -51,9 +52,10 @@ namespace Sistema_Vendas
             }
             else
             {
-                campoTexto.Text = data.ToString();
+                campoTexto.Texts = data.ToString("dd/MM/yyyy");
             }
         }
+
 
         public bool VerificarDataMenorOuIgualHoje(DateTime data, string campoNome)
         {

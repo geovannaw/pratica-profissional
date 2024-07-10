@@ -26,12 +26,12 @@ namespace Sistema_Vendas.Views
                 ModeloModel modelo = modeloController.GetById(idAlterar);
                 if (modelo != null)
                 {
-                    txtCodigo.Text = modelo.idModelo.ToString();
-                    txtModelo.Text = modelo.Modelo;
-                    txtMarca.Text = modelo.Marca;
-                    txtObservacao.Text = modelo.Observacao;
-                    txtDataCadastro.Text = modelo.dataCadastro.ToString();
-                    txtDataUltAlt.Text = modelo.dataUltAlt.ToString();
+                    txtCodigo.Texts = modelo.idModelo.ToString();
+                    txtModelo.Texts = modelo.Modelo;
+                    txtMarca.Texts = modelo.Marca;
+                    txtObservacao.Texts = modelo.Observacao;
+                    txtDataCadastro.Texts = modelo.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = modelo.dataUltAlt.ToString();
                     rbAtivo.Checked = modelo.Ativo;
                     rbInativo.Checked = !modelo.Ativo;
                 }
@@ -62,18 +62,18 @@ namespace Sistema_Vendas.Views
         public override void Salvar()
         {
             int idAtual = idAlterar != -1 ? idAlterar : -1;
-            if (modeloController.JaCadastrado(txtModelo.Text, txtMarca.Text, idAtual))
+            if (modeloController.JaCadastrado(txtModelo.Texts, txtMarca.Texts, idAtual))
             {
                 MessageBox.Show("Modelo já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtModelo.Focus();
             } else
             {
-                if (!CampoObrigatorio(txtModelo.Text))
+                if (!CampoObrigatorio(txtModelo.Texts))
                 {
                     MessageBox.Show("Campo Modelo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtModelo.Focus();
                 }
-                else if (!CampoObrigatorio(txtMarca.Text))
+                else if (!CampoObrigatorio(txtMarca.Texts))
                 {
                     MessageBox.Show("Campo Marca é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtMarca.Focus();
@@ -82,12 +82,12 @@ namespace Sistema_Vendas.Views
                 {
                     try
                     {
-                        string modelo = txtModelo.Text;
-                        string marca = txtMarca.Text;
-                        string observacao = txtObservacao.Text;
+                        string modelo = txtModelo.Texts;
+                        string marca = txtMarca.Texts;
+                        string observacao = txtObservacao.Texts;
 
-                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                        DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                         ModeloModel novoModelo = new ModeloModel
                         {
@@ -125,19 +125,6 @@ namespace Sistema_Vendas.Views
 
         private void CadastroModelos_Load(object sender, EventArgs e)
         {
-        }
-
-        private void txtModelo_Leave(object sender, EventArgs e)
-        {
-        }
-
-        private void txtMarca_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaLetras(txtMarca.Text))
-            {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtMarca.Focus();
-            }
         }
     }
 }

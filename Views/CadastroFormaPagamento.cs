@@ -25,10 +25,10 @@ namespace Sistema_Vendas.Views
                 FormaPagamentoModel formaPag = formaPagamentoController.GetById(idAlterar);
                 if (formaPag != null)
                 {
-                    txtCodigo.Text = formaPag.idFormaPagamento.ToString();
-                    txtFormaPagamento.Text = formaPag.formaPagamento;
-                    txtDataCadastro.Text = formaPag.dataCadastro.ToString();
-                    txtDataUltAlt.Text = formaPag.dataUltAlt.ToString();
+                    txtCodigo.Texts = formaPag.idFormaPagamento.ToString();
+                    txtFormaPagamento.Texts = formaPag.formaPagamento;
+                    txtDataCadastro.Texts = formaPag.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = formaPag.dataUltAlt.ToString();
                     rbAtivo.Checked = formaPag.Ativo;
                     rbInativo.Checked = !formaPag.Ativo;
                 }
@@ -41,7 +41,7 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (!CampoObrigatorio(txtFormaPagamento.Text))
+            if (!CampoObrigatorio(txtFormaPagamento.Texts))
             {
                 MessageBox.Show("Campo Forma de Pagamento é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtFormaPagamento.Focus();
@@ -50,7 +50,7 @@ namespace Sistema_Vendas.Views
             {
                 int idAtual = idAlterar != -1 ? idAlterar : -1;
 
-                if (formaPagamentoController.JaCadastrado(txtFormaPagamento.Text, idAtual))
+                if (formaPagamentoController.JaCadastrado(txtFormaPagamento.Texts, idAtual))
                 {
                     MessageBox.Show("Forma de Pagamento já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtFormaPagamento.Focus();
@@ -59,9 +59,9 @@ namespace Sistema_Vendas.Views
                 {
                     try
                     {
-                        string formaPagamento = txtFormaPagamento.Text;
-                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                        string formaPagamento = txtFormaPagamento.Texts;
+                        DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                         FormaPagamentoModel novaFormaPag = new FormaPagamentoModel
                         {
@@ -106,18 +106,18 @@ namespace Sistema_Vendas.Views
             idAlterar = id;
         }
 
+        private void CadastroFormaPagamento_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ((ConsultaFormasPagamento)this.Owner).AtualizarConsultaFormasPag(false);
+        }
+
         private void txtFormaPagamento_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtFormaPagamento.Text))
+            if (!VerificaLetras(txtFormaPagamento.Texts))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtFormaPagamento.Focus();
             }
-        }
-
-        private void CadastroFormaPagamento_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            ((ConsultaFormasPagamento)this.Owner).AtualizarConsultaFormasPag(false);
         }
     }
 }

@@ -126,6 +126,15 @@
     <Compile Include="GControls\GButtons.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GControls\GComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GControls\GMaskedTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GControls\GMaskedTextBox.Designer.cs">
+      <DependentUpon>GMaskedTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="GControls\GTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -320,6 +329,9 @@
     <Compile Include="Models\PaisModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GControls\GMaskedTextBox.resx">
+      <DependentUpon>GMaskedTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GControls\GTextBox.resx">
       <DependentUpon>GTextBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -437,6 +449,8 @@
   <ItemGroup>
     <None Include="Imagens\imagem-lupa.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Imagens\lupa.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

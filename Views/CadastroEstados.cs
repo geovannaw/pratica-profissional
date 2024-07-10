@@ -38,12 +38,12 @@ namespace Sistema_Vendas.Views
                 EstadoModel estado = estadoController.GetById(idAlterar);
                 if (estado != null)
                 {
-                    txtCodigo.Text = estado.idEstado.ToString();
-                    txtEstado.Text = estado.Estado;
-                    txtUF.Text = estado.UF;
-                    txtCodPais.Text = estado.idPais.ToString();
-                    txtDataCadastro.Text = estado.dataCadastro.ToString();
-                    txtDataUltAlt.Text = estado.dataUltAlt.ToString();
+                    txtCodigo.Texts = estado.idEstado.ToString();
+                    txtEstado.Texts = estado.Estado;
+                    txtUF.Texts = estado.UF;
+                    txtCodPais.Texts = estado.idPais.ToString();
+                    txtDataCadastro.Texts = estado.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = estado.dataUltAlt.ToString();
                     rbAtivo.Checked = estado.Ativo;
                     rbInativo.Checked = !estado.Ativo;
 
@@ -51,7 +51,7 @@ namespace Sistema_Vendas.Views
 
                     if (!string.IsNullOrEmpty(nomePais))
                     {
-                        txtPais.Text = nomePais;
+                        txtPais.Texts = nomePais;
                     }
                 }
                 else
@@ -81,17 +81,17 @@ namespace Sistema_Vendas.Views
 
         public override void Salvar()
         {
-            if (!CampoObrigatorio(txtEstado.Text))
+            if (!CampoObrigatorio(txtEstado.Texts))
             {
                 MessageBox.Show("Campo Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEstado.Focus();
             }
-            else if (!CampoObrigatorio(txtUF.Text))
+            else if (!CampoObrigatorio(txtUF.Texts))
             {
                 MessageBox.Show("Campo UF é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtUF.Focus();
             }
-            else if (!CampoObrigatorio(txtCodPais.Text))
+            else if (!CampoObrigatorio(txtCodPais.Texts))
             {
                 MessageBox.Show("Campo Código País é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodPais.Focus();
@@ -100,7 +100,7 @@ namespace Sistema_Vendas.Views
             {
                 int idAtual = idAlterar != -1 ? idAlterar : -1;
 
-                if (estadoController.JaCadastrado(txtEstado.Text, idAtual))
+                if (estadoController.JaCadastrado(txtEstado.Texts, idAtual))
                 {
                     MessageBox.Show("Estado já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtEstado.Focus();
@@ -109,12 +109,12 @@ namespace Sistema_Vendas.Views
                 {
                     try
                     {
-                        string estado = txtEstado.Text;
-                        string UF = txtUF.Text;
-                        int idPais = int.Parse(txtCodPais.Text);
+                        string estado = txtEstado.Texts;
+                        string UF = txtUF.Texts;
+                        int idPais = int.Parse(txtCodPais.Texts);
 
-                        DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                        DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                         EstadoModel novoEstado = new EstadoModel
                         {
@@ -151,27 +151,6 @@ namespace Sistema_Vendas.Views
             ((ConsultaEstados)this.Owner).AtualizarConsultaEstados(false);
         }
 
-        private void btnConsultaPais_Click(object sender, EventArgs e)
-        {
-            consultaPaises.btnSair.Text = "Selecionar";
-
-            if (consultaPaises.ShowDialog() == DialogResult.OK)
-            {
-                // Receber os detalhes do país selecionado
-                var paisDetalhes = consultaPaises.Tag as Tuple<int, string>;
-                if (paisDetalhes != null)
-                {
-                    int paisID = paisDetalhes.Item1;
-                    string paisNome = paisDetalhes.Item2;
-
-                    // Atualizar o campo txtPais com o nome do país selecionado
-                    txtCodPais.Text = paisID.ToString();
-                    txtPais.Text = paisNome;
-                }
-            }
-
-        }
-
         private void CadastroEstados_Load(object sender, EventArgs e)
         {
         }
@@ -186,48 +165,69 @@ namespace Sistema_Vendas.Views
             isAtivo = !rbInativo.Checked;
         }
 
-        private void txtCodPais_Leave(object sender, EventArgs e)
+        private void txtUF_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtCodPais.Text))
+            if (!VerificaLetrasSemEspaco(txtUF.Texts))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodPais.Focus();
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(txtCodPais.Text))
-                {
-                    PaisModel pais = paisController.GetById(int.Parse(txtCodPais.Text));
-                    if (pais != null)
-                    {
-                        txtPais.Text = pais.Pais;
-                    }
-                    else
-                    {
-                        MessageBox.Show("País não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCodPais.Focus();
-                        txtCodPais.Clear();
-                        txtPais.Clear();
-                    }
-                }
+                txtUF.Focus();
             }
         }
 
         private void txtEstado_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtEstado.Text))
+            if (!VerificaLetras(txtEstado.Texts))
             {
                 MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEstado.Focus();
             }
         }
 
-        private void txtUF_Leave(object sender, EventArgs e)
+        private void txtCodPais_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetrasSemEspaco(txtUF.Text))
+            if (!string.IsNullOrEmpty(txtCodPais.Texts))
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtUF.Focus();
+                 PaisModel pais = paisController.GetById(int.Parse(txtCodPais.Texts));
+                 if (pais != null)
+                 {
+                     txtPais.Texts = pais.Pais;
+                 }
+                 else
+                 {
+                     MessageBox.Show("País não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     txtCodPais.Focus();
+                     txtCodPais.Clear();
+                     txtPais.Clear();
+                 }
+                }
+        }
+
+        private void txtCodPais_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnConsultaPais_Click(object sender, EventArgs e)
+        {
+            consultaPaises.btnSair.Text = "Selecionar";
+
+            if (consultaPaises.ShowDialog() == DialogResult.OK)
+            {
+                // Receber os detalhes do país selecionado
+                var paisDetalhes = consultaPaises.Tag as Tuple<int, string>;
+                if (paisDetalhes != null)
+                {
+                    int paisID = paisDetalhes.Item1;
+                    string paisNome = paisDetalhes.Item2;
+
+                    // Atualizar o campo txtPais com o nome do país selecionado
+                    txtCodPais.Texts = paisID.ToString();
+                    txtPais.Texts = paisNome;
+                }
             }
         }
     }

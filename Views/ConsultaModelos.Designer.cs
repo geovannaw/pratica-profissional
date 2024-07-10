@@ -36,6 +36,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModelos)).BeginInit();
             this.SuspendLayout();
             // 
+            // txtPesquisa
+            // 
+            this.txtPesquisa.Location = new System.Drawing.Point(18, 14);
+            this.txtPesquisa.Size = new System.Drawing.Size(183, 28);
+            // 
             // cbBuscaInativos
             // 
             this.cbBuscaInativos.CheckedChanged += new System.EventHandler(this.cbBuscaInativos_CheckedChanged);
@@ -107,7 +112,6 @@
             this.Load += new System.EventHandler(this.ConsultaModelos_Load);
             this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.txtPesquisa, 0);
-      //      this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

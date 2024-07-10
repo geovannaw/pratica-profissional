@@ -35,7 +35,7 @@ namespace Sistema_Vendas.Views
                 return;
             }
             int idAtual = idAlterar != -1 ? idAlterar : -1;
-            if (produtoController.JaCadastrado(txtProduto.Text, Convert.ToInt32(txtCodFornecedor.Text), idAtual))
+            if (produtoController.JaCadastrado(txtProduto.Texts, Convert.ToInt32(txtCodFornecedor.Texts), idAtual))
             {
                 MessageBox.Show("Produto já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -43,22 +43,22 @@ namespace Sistema_Vendas.Views
             {
                 try
                 {
-                    string produto = txtProduto.Text;
-                    string unidade = txtUN.Text;
-                    int saldo = int.Parse(txtSaldo.Text);
+                    string produto = txtProduto.Texts;
+                    string unidade = txtUN.Texts;
+                    int saldo = int.Parse(txtSaldo.Texts);
 
-                    decimal custo_medio = decimal.Parse(txtCustoMedio.Text);
-                    decimal preco_venda = decimal.Parse(FormataPreco(txtPrecoVenda.Text));
-                    decimal preco_ult_compra = decimal.Parse(txtPrecoUltCompra.Text);
+                    decimal custo_medio = decimal.Parse(txtCustoMedio.Texts);
+                    decimal preco_venda = decimal.Parse(FormataPreco(txtPrecoVenda.Texts));
+                    decimal preco_ult_compra = decimal.Parse(txtPrecoUltCompra.Texts);
 
-                    string observacao = txtObservacao.Text;
-                    int idFornecedor = int.Parse(txtCodFornecedor.Text);
-                    int idModelo = int.Parse(txtCodModelo.Text);
+                    string observacao = txtObservacao.Texts;
+                    int idFornecedor = int.Parse(txtCodFornecedor.Texts);
+                    int idModelo = int.Parse(txtCodModelo.Texts);
 
                     AtualizarCampoComDataPadrao(txtDataUltCompra, out DateTime data_ult_compra);
 
-                    DateTime.TryParse(txtDataCadastro.Text, out DateTime dataCadastro);
-                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Text, out DateTime result) ? result : DateTime.MinValue;
+                    DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
                     
                     ProdutoModel novoProduto = new ProdutoModel
                     {
@@ -125,31 +125,31 @@ namespace Sistema_Vendas.Views
 
         protected bool VerificaCamposObrigatorios()
         {
-            if (!CampoObrigatorio(txtProduto.Text))
+            if (!CampoObrigatorio(txtProduto.Texts))
             {
                 MessageBox.Show("Campo Produto é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtProduto.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtUN.Text))
+            if (!CampoObrigatorio(txtUN.Texts))
             {
                 MessageBox.Show("Campo UN é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtUN.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtCodModelo.Text))
+            if (!CampoObrigatorio(txtCodModelo.Texts))
             {
                 MessageBox.Show("Campo Cód. Modelo é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodModelo.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtCodFornecedor.Text))
+            if (!CampoObrigatorio(txtCodFornecedor.Texts))
             {
                 MessageBox.Show("Campo Cód. Fornecedor é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodFornecedor.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtPrecoVenda.Text))
+            if (!CampoObrigatorio(txtPrecoVenda.Texts))
             {
                 MessageBox.Show("Campo Preço Venda é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPrecoVenda.Focus();
@@ -160,39 +160,40 @@ namespace Sistema_Vendas.Views
 
         public override void Carrega()
         {
+            txtPrecoVenda.ForeColor = Color.FromArgb(31, 31, 31);
             if (idAlterar != -1)
             {
                 ProdutoModel produto = produtoController.GetById(idAlterar);
                 if (produto != null)
                 {
                     txtCodigo.Texts = produto.idProduto.ToString();
-                    txtProduto.Text = produto.Produto;
-                    txtSaldo.Text = produto.Saldo.ToString();
-                    txtUN.Text = produto.Unidade.ToString();
-                    txtCustoMedio.Text = produto.Custo_medio.ToString();
-                    txtPrecoVenda.Text = produto.Preco_venda.ToString("N2");
-                    txtPrecoUltCompra.Text = produto.Preco_ult_compra.ToString();
-                    txtObservacao.Text = produto.Observacao;
-                    txtDataCadastro.Text = produto.dataCadastro.ToString();
-                    txtDataUltAlt.Text = produto.dataUltAlt.ToString();
+                    txtProduto.Texts = produto.Produto;
+                    txtSaldo.Texts = produto.Saldo.ToString();
+                    txtUN.Texts = produto.Unidade.ToString();
+                    txtCustoMedio.Texts = produto.Custo_medio.ToString();
+                    txtPrecoVenda.Texts = produto.Preco_venda.ToString("N2");
+                    txtPrecoUltCompra.Texts = produto.Preco_ult_compra.ToString();
+                    txtObservacao.Texts = produto.Observacao;
+                    txtDataCadastro.Texts = produto.dataCadastro.ToString();
+                    txtDataUltAlt.Texts = produto.dataUltAlt.ToString();
                     rbAtivo.Checked = produto.Ativo;
                     rbInativo.Checked = !produto.Ativo;
-                    txtCodFornecedor.Text = produto.idFornecedor.ToString();
-                    txtCodModelo.Text = produto.idModelo.ToString();
+                    txtCodFornecedor.Texts = produto.idFornecedor.ToString();
+                    txtCodModelo.Texts = produto.idModelo.ToString();
 
                     AtualizarCampoData(produto.Data_ult_compra, txtDataUltCompra);
 
-                    ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Text));
+                    ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Texts));
                     if (modelo != null)
                     {
-                        txtModelo.Text = modelo.Modelo;
-                        txtMarca.Text = modelo.Marca;
+                        txtModelo.Texts = modelo.Modelo;
+                        txtMarca.Texts = modelo.Marca;
                     }
 
-                    FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Text));
+                    FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
                     if (fornecedor != null)
                     {
-                        txtFornecedor.Text = fornecedor.fornecedor_razao_social;
+                        txtFornecedor.Texts = fornecedor.fornecedor_razao_social;
                     }
                 }
                 else
@@ -209,11 +210,45 @@ namespace Sistema_Vendas.Views
 
         private void CadastroProdutos_Load(object sender, EventArgs e)
         {
-            if (idAlterar == -1)
-                txtCodigo.Texts = "0";
-            txtSaldo.Text = "0";
-            txtCustoMedio.Text = "0";
-            txtPrecoUltCompra.Text = "0";
+        }
+
+        private void txtUN_Leave(object sender, EventArgs e)
+        {
+            if (!VerificaLetras(txtUN.Texts))
+            {
+                MessageBox.Show("UN inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUN.Focus();
+            }
+        }
+
+        private void txtCodModelo_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtCodModelo.Texts))
+            {
+                ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Texts));
+                if (modelo != null)
+                {
+                    txtModelo.Texts = modelo.Modelo;
+                    txtMarca.Texts = modelo.Marca;
+                }
+                else
+                {
+                    MessageBox.Show("Modelo não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodModelo.Focus();
+                    txtCodModelo.Clear();
+                    txtModelo.Clear();
+                    txtMarca.Clear();
+                }
+            }
+        }
+
+        private void txtCodModelo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
         private void btnConsultaModelos_Click(object sender, EventArgs e)
@@ -230,9 +265,9 @@ namespace Sistema_Vendas.Views
                     string modeloNome = modelosDetalhes.Item2;
                     string modeloMarca = modelosDetalhes.Item3;
 
-                    txtCodModelo.Text = modeloID.ToString();
-                    txtModelo.Text = modeloNome;
-                    txtMarca.Text = modeloMarca;
+                    txtCodModelo.Texts = modeloID.ToString();
+                    txtModelo.Texts = modeloNome;
+                    txtMarca.Texts = modeloMarca;
                 }
             }
         }
@@ -250,88 +285,53 @@ namespace Sistema_Vendas.Views
                     int fornecedorID = fornecedoresDetalhes.Item1;
                     string fornecedorNome = fornecedoresDetalhes.Item2;
 
-                    txtCodFornecedor.Text = fornecedorID.ToString();
-                    txtFornecedor.Text = fornecedorNome;
+                    txtCodFornecedor.Texts = fornecedorID.ToString();
+                    txtFornecedor.Texts = fornecedorNome;
                 }
             }
-
         }
 
-        private void txtCodModelo_Leave(object sender, EventArgs e)
+        private void txtCodFornecedor_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaNumeros(txtCodModelo.Text))
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodModelo.Focus();
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(txtCodModelo.Text))
-                {
-                    ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Text));
-                    if (modelo != null)
-                    {
-                        txtModelo.Text = modelo.Modelo;
-                        txtMarca.Text = modelo.Marca;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Modelo não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCodModelo.Focus();
-                        txtCodModelo.Clear();
-                        txtModelo.Clear();
-                        txtMarca.Clear();
-                    }
-                }
+                e.Handled = true;
             }
         }
 
         private void txtCodFornecedor_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtCodFornecedor.Text))
+            if (!string.IsNullOrEmpty(txtCodFornecedor.Texts))
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodFornecedor.Focus();
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(txtCodFornecedor.Text))
+                FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
+                if (fornecedor != null)
                 {
-                    FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Text));
-                    if (fornecedor != null)
-                    {
-                        txtFornecedor.Text = fornecedor.fornecedor_razao_social;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Fornecedor não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCodFornecedor.Focus();
-                        txtCodFornecedor.Clear();
-                        txtFornecedor.Clear();
-                    }
+                    txtFornecedor.Texts = fornecedor.fornecedor_razao_social;
                 }
-            }
-        }
-
-        private void txtUN_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaLetras(txtUN.Text))
-            {
-                MessageBox.Show("UN inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtUN.Focus();
+                else
+                {
+                    MessageBox.Show("Fornecedor não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodFornecedor.Focus();
+                    txtCodFornecedor.Clear();
+                    txtFornecedor.Clear();
+                }
             }
         }
 
         private void txtPrecoVenda_Leave(object sender, EventArgs e)
         {
-            try
+            if (!string.IsNullOrEmpty(txtPrecoVenda.Texts))
             {
-                txtPrecoVenda.Text = FormataPreco(txtPrecoVenda.Text);
-            }
-            catch (FormatException ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPrecoVenda.Focus();
+                try
+                {
+                    txtPrecoVenda.Texts = FormataPreco(txtPrecoVenda.Texts);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPrecoVenda.Focus();
+                }
             }
         }
 

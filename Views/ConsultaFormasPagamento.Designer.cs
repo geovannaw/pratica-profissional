@@ -60,6 +60,11 @@
             this.btnSair.FlatAppearance.BorderSize = 0;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click_1);
             // 
+            // txtPesquisa
+            // 
+            this.txtPesquisa.Location = new System.Drawing.Point(18, 14);
+            this.txtPesquisa.Size = new System.Drawing.Size(183, 28);
+            // 
             // dataGridViewFormaPag
             // 
             this.dataGridViewFormaPag.AllowUserToResizeColumns = false;
@@ -100,7 +105,6 @@
             this.Load += new System.EventHandler(this.ConsultaFormasPagamento_Load);
             this.Controls.SetChildIndex(this.txtPesquisa, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
-   //         this.Controls.SetChildIndex(this.txtPesquisar, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);

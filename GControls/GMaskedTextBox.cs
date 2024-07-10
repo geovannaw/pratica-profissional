@@ -8,19 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Sistema_Vendas.GControls
 {
     [DefaultEvent("_TextChanged")]
-    public partial class GTextBox : UserControl
+    public partial class GMaskedTextBox : UserControl
     {
         //Default Event
         public event EventHandler _TextChanged;
-        public GTextBox()
+
+        public GMaskedTextBox()
         {
             InitializeComponent();
-            textBox1.ReadOnly = false;
+            maskedTextBox1.ReadOnly = false;
         }
 
         //Fields
@@ -37,22 +37,23 @@ namespace Sistema_Vendas.GControls
         private bool isPasswordChar = false;
         private CharacterCasing characterCasing = CharacterCasing.Upper;
 
-        private Color disabledBackColor = Color.White; 
+        private Color disabledBackColor = Color.White;
         private Color disabledForeColor = Color.White;
         private Color disabledBorderColor = Color.Gainsboro;
 
         private HorizontalAlignment textAlign = HorizontalAlignment.Left;
+        private string mask = "";
 
         #region -> Private methods
         private void SetPlaceholder()
         {
-            if (string.IsNullOrWhiteSpace(textBox1.Text) && placeholderText != "")
+            if (string.IsNullOrWhiteSpace(maskedTextBox1.Text) && placeholderText != "")
             {
                 isPlaceholder = true;
-                textBox1.Text = placeholderText;
-                textBox1.ForeColor = placeholderColor;
+                maskedTextBox1.Text = placeholderText;
+                maskedTextBox1.ForeColor = placeholderColor;
                 if (isPasswordChar)
-                    textBox1.UseSystemPasswordChar = false;
+                    maskedTextBox1.UseSystemPasswordChar = false;
             }
         }
         private void RemovePlaceholder()
@@ -60,10 +61,10 @@ namespace Sistema_Vendas.GControls
             if (isPlaceholder && placeholderText != "")
             {
                 isPlaceholder = false;
-                textBox1.Text = "";
-                textBox1.ForeColor = this.ForeColor;
+                maskedTextBox1.Text = "";
+                maskedTextBox1.ForeColor = this.ForeColor;
                 if (isPasswordChar)
-                    textBox1.UseSystemPasswordChar = true;
+                    maskedTextBox1.UseSystemPasswordChar = true;
             }
         }
         private GraphicsPath GetFigurePath(Rectangle rect, int radius)
@@ -79,31 +80,31 @@ namespace Sistema_Vendas.GControls
             path.CloseFigure();
             return path;
         }
-        private void SetTextBoxRoundedRegion()
+        private void SetMaskedTextBoxRoundedRegion()
         {
             GraphicsPath pathTxt;
             if (Multiline)
             {
-                pathTxt = GetFigurePath(textBox1.ClientRectangle, borderRadius - borderSize);
-                textBox1.Region = new Region(pathTxt);
+                pathTxt = GetFigurePath(maskedTextBox1.ClientRectangle, borderRadius - borderSize);
+                maskedTextBox1.Region = new Region(pathTxt);
             }
             else
             {
-                pathTxt = GetFigurePath(textBox1.ClientRectangle, borderSize * 2);
-                textBox1.Region = new Region(pathTxt);
+                pathTxt = GetFigurePath(maskedTextBox1.ClientRectangle, borderSize * 2);
+                maskedTextBox1.Region = new Region(pathTxt);
             }
             pathTxt.Dispose();
         }
         private void UpdateControlHeight()
         {
-            if (textBox1.Multiline == false)
+            if (maskedTextBox1.Multiline == false)
             {
                 int txtHeight = TextRenderer.MeasureText("Text", this.Font).Height + 1;
-                textBox1.Multiline = true;
-                textBox1.MinimumSize = new Size(0, txtHeight);
-                textBox1.Multiline = false;
+                maskedTextBox1.Multiline = true;
+                maskedTextBox1.MinimumSize = new Size(0, txtHeight);
+                maskedTextBox1.Multiline = false;
 
-                this.Height = textBox1.Height + this.Padding.Top + this.Padding.Bottom;
+                this.Height = maskedTextBox1.Height + this.Padding.Top + this.Padding.Bottom;
             }
         }
         #endregion
@@ -160,15 +161,15 @@ namespace Sistema_Vendas.GControls
             {
                 isPasswordChar = value;
                 if (!isPlaceholder)
-                    textBox1.UseSystemPasswordChar = value;
+                    maskedTextBox1.UseSystemPasswordChar = value;
             }
         }
 
         [Category("G Code Advance")]
         public bool Multiline
         {
-            get { return textBox1.Multiline; }
-            set { textBox1.Multiline = value; }
+            get { return maskedTextBox1.Multiline; }
+            set { maskedTextBox1.Multiline = value; }
         }
 
         [Category("G Code Advance")]
@@ -178,7 +179,7 @@ namespace Sistema_Vendas.GControls
             set
             {
                 base.BackColor = value;
-                textBox1.BackColor = value;
+                maskedTextBox1.BackColor = value;
             }
         }
 
@@ -189,7 +190,7 @@ namespace Sistema_Vendas.GControls
             set
             {
                 base.ForeColor = value;
-                textBox1.ForeColor = value;
+                maskedTextBox1.ForeColor = value;
             }
         }
 
@@ -200,7 +201,7 @@ namespace Sistema_Vendas.GControls
             set
             {
                 base.Font = value;
-                textBox1.Font = value;
+                maskedTextBox1.Font = value;
                 if (this.DesignMode)
                     UpdateControlHeight();
             }
@@ -212,11 +213,11 @@ namespace Sistema_Vendas.GControls
             get
             {
                 if (isPlaceholder) return "";
-                else return textBox1.Text;
+                else return maskedTextBox1.Text;
             }
             set
             {
-                textBox1.Text = value;
+                maskedTextBox1.Text = value;
                 SetPlaceholder();
             }
         }
@@ -243,7 +244,7 @@ namespace Sistema_Vendas.GControls
             {
                 placeholderColor = value;
                 if (isPlaceholder)
-                    textBox1.ForeColor = value;
+                    maskedTextBox1.ForeColor = value;
             }
         }
 
@@ -254,19 +255,8 @@ namespace Sistema_Vendas.GControls
             set
             {
                 placeholderText = value;
-                textBox1.Text = "";
+                maskedTextBox1.Text = "";
                 SetPlaceholder();
-            }
-        }
-
-        [Category("G Code Advance")]
-        public CharacterCasing CharacterCasing
-        {
-            get { return characterCasing; }
-            set
-            {
-                characterCasing = value;
-                textBox1.CharacterCasing = value;
             }
         }
 
@@ -277,9 +267,9 @@ namespace Sistema_Vendas.GControls
             set
             {
                 disabledBackColor = value;
-                if (!textBox1.Enabled)
+                if (!maskedTextBox1.Enabled)
                 {
-                    textBox1.BackColor = value;
+                    maskedTextBox1.BackColor = value;
                 }
             }
         }
@@ -291,9 +281,9 @@ namespace Sistema_Vendas.GControls
             set
             {
                 disabledForeColor = value;
-                if (!textBox1.Enabled)
+                if (!maskedTextBox1.Enabled)
                 {
-                    textBox1.ForeColor = value;
+                    maskedTextBox1.ForeColor = value;
                 }
             }
         }
@@ -301,19 +291,19 @@ namespace Sistema_Vendas.GControls
         [Category("G Code Advance")]
         public bool Enabled
         {
-            get { return textBox1.Enabled; }
+            get { return maskedTextBox1.Enabled; }
             set
             {
-                textBox1.Enabled = value;
+                maskedTextBox1.Enabled = value;
                 if (!value)
                 {
-                    textBox1.BackColor = disabledBackColor;
-                    textBox1.ForeColor = disabledForeColor;
+                    maskedTextBox1.BackColor = disabledBackColor;
+                    maskedTextBox1.ForeColor = disabledForeColor;
                 }
                 else
                 {
-                    textBox1.BackColor = this.BackColor;
-                    textBox1.ForeColor = this.ForeColor;
+                    maskedTextBox1.BackColor = this.BackColor;
+                    maskedTextBox1.ForeColor = this.ForeColor;
                 }
             }
         }
@@ -325,15 +315,26 @@ namespace Sistema_Vendas.GControls
             set
             {
                 textAlign = value;
-                textBox1.TextAlign = value;
+                maskedTextBox1.TextAlign = value;
+            }
+        }
+
+        [Category("G Code Advance")]
+        public string Mask
+        {
+            get { return mask; }
+            set
+            {
+                mask = value;
+                maskedTextBox1.Mask = value;
             }
         }
 
         [Category("G Code Advance")]
         public int MaxLength
         {
-            get { return textBox1.MaxLength; }
-            set { textBox1.MaxLength = value; }
+            get { return maskedTextBox1.MaxLength; }
+            set { maskedTextBox1.MaxLength = value; }
         }
 
         [Category("G Code Advance")]
@@ -365,7 +366,7 @@ namespace Sistema_Vendas.GControls
             base.OnPaint(e);
             Graphics graph = e.Graphics;
 
-            if (borderRadius > 1)//Rounded TextBox
+            if (borderRadius > 1) //Rounded MaskedTextBox
             {
                 //-Fields
                 var rectBorderSmooth = this.ClientRectangle;
@@ -375,13 +376,13 @@ namespace Sistema_Vendas.GControls
                 using (GraphicsPath pathBorderSmooth = GetFigurePath(rectBorderSmooth, borderRadius))
                 using (GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize))
                 using (Pen penBorderSmooth = new Pen(this.Parent.BackColor, smoothSize))
-                using (Pen penBorder = new Pen(textBox1.Enabled ? borderColor : disabledBorderColor, borderSize)) // Altera a cor da borda dependendo do estado de habilitação
+                using (Pen penBorder = new Pen(maskedTextBox1.Enabled ? borderColor : disabledBorderColor, borderSize)) 
                 {
                     //-Drawing
-                    this.Region = new Region(pathBorderSmooth);//Set the rounded region of UserControl
-                    if (borderRadius > 15) SetTextBoxRoundedRegion();//Set the rounded region of TextBox component
+                    this.Region = new Region(pathBorderSmooth); //Set the rounded region of UserControl
+                    if (borderRadius > 15) SetMaskedTextBoxRoundedRegion(); //Set the rounded region of MaskedTextBox component
                     graph.SmoothingMode = SmoothingMode.AntiAlias;
-                    penBorder.Alignment = PenAlignment.Center;
+                    penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
                     if (isFocused) penBorder.Color = borderFocusColor;
 
                     if (underlinedStyle) //Line Style
@@ -401,13 +402,13 @@ namespace Sistema_Vendas.GControls
                     }
                 }
             }
-            else //Square/Normal TextBox
+            else //Square/Normal MaskedTextBox
             {
                 //Draw border
-                using (Pen penBorder = new Pen(textBox1.Enabled ? borderColor : disabledBorderColor, borderSize)) // Altera a cor da borda dependendo do estado de habilitação
+                using (Pen penBorder = new Pen(maskedTextBox1.Enabled ? borderColor : disabledBorderColor, borderSize)) 
                 {
                     this.Region = new Region(this.ClientRectangle);
-                    penBorder.Alignment = PenAlignment.Inset;
+                    penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
                     if (isFocused) penBorder.Color = borderFocusColor;
 
                     if (underlinedStyle) //Line Style
@@ -417,57 +418,59 @@ namespace Sistema_Vendas.GControls
                 }
             }
         }
+
         #endregion
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+
+        public void Clear()
+        {
+            maskedTextBox1.Text = "";
+            SetPlaceholder();
+        }
+
+        private void maskedTextBox1_TextChanged(object sender, EventArgs e)
         {
             if (_TextChanged != null)
                 _TextChanged.Invoke(sender, e);
         }
 
-        private void textBox1_Enter(object sender, EventArgs e)
+        private void maskedTextBox1_Enter(object sender, EventArgs e)
         {
             isFocused = true;
             this.Invalidate();
             RemovePlaceholder();
         }
 
-        private void textBox1_Leave(object sender, EventArgs e)
+        private void maskedTextBox1_Leave(object sender, EventArgs e)
         {
             isFocused = false;
             this.Invalidate();
             SetPlaceholder();
         }
 
-        private void textBox1_Click(object sender, EventArgs e)
+        private void maskedTextBox1_Click(object sender, EventArgs e)
         {
             this.OnClick(e);
         }
 
-        private void textBox1_MouseEnter(object sender, EventArgs e)
+        private void maskedTextBox1_MouseEnter(object sender, EventArgs e)
         {
             this.OnMouseEnter(e);
         }
 
-        private void textBox1_MouseLeave(object sender, EventArgs e)
+        private void maskedTextBox1_MouseLeave(object sender, EventArgs e)
         {
             this.OnMouseLeave(e);
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private void maskedTextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.OnKeyPress(e);
         }
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        private void maskedTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
             this.OnKeyDown(e);
-        }
-
-        public void Clear()
-        {
-            textBox1.Text = "";
-            SetPlaceholder();
         }
     }
 }

@@ -38,14 +38,11 @@ namespace Sistema_Vendas.Views
 
         private void CadastroPaiCEP_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                txtCodigo.Texts = "0";
-            }
             if (idAlterar == -1)
             {
-                txtDataCadastro.Text = DateTime.Now.ToString();
-                txtDataUltAlt.Text = DateTime.Now.ToString();
+                txtDataCadastro.Texts = DateTime.Now.ToString();
+                txtDataUltAlt.Texts = DateTime.Now.ToString();
+                txtCodigo.Texts = "0";
             }
         }
 
