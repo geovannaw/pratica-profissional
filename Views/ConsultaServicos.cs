@@ -26,6 +26,7 @@ namespace Sistema_Vendas.Views
         public override void Incluir()
         {
             ResetCadastro();
+            cadastroServicos.txtServico.Focus();
             cadastroServicos.ShowDialog();
         }
         public override void Alterar()
@@ -34,6 +35,7 @@ namespace Sistema_Vendas.Views
             {
                 int idServico = (int)dataGridViewServicos.SelectedRows[0].Cells["Código"].Value;
                 ResetCadastro(idServico);
+                cadastroServicos.txtServico.Focus();
                 cadastroServicos.ShowDialog();
             }
             else
@@ -159,6 +161,32 @@ namespace Sistema_Vendas.Views
                 int idServico = (int)dataGridViewServicos.Rows[e.RowIndex].Cells["Código"].Value;
                 ResetCadastro(idServico);
                 cadastroServicos.ShowDialog();
+            }
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            if (btnSair.Text == "Selecionar")
+            {
+                btnSair.Focus();
+                if (dataGridViewServicos.SelectedRows.Count > 0)
+                {
+                    int idServico = Convert.ToInt32(dataGridViewServicos.SelectedRows[0].Cells["Código"].Value);
+                    string servico = dataGridViewServicos.SelectedRows[0].Cells["Serviço"].Value.ToString();
+                    decimal preco = Convert.ToInt32(dataGridViewServicos.SelectedRows[0].Cells["Preço"].Value);
+
+                    this.Tag = new Tuple<int, string, decimal>(idServico, servico, preco);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, selecione um serviço.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                Close();
             }
         }
     }

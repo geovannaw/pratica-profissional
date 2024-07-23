@@ -125,6 +125,11 @@ namespace Sistema_Vendas.Views
 
         private void CadastroModelos_Load(object sender, EventArgs e)
         {
+            if(idAlterar == -1)
+            {
+                int novoCodigo = modeloController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
+            }
         }
     }
 }

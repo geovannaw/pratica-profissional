@@ -12,7 +12,10 @@ namespace Sistema_Vendas.Controller
         {
             condicaoPagamentoDAO = new CondicaoPagamentoDAO();
         }
-
+        public int GetUltimoCodigo()
+        {
+            return condicaoPagamentoDAO.GetUltimoCodigo();
+        }
         public override void Alterar(T obj)
         {
             condicaoPagamentoDAO.Alterar(obj as CondicaoPagamentoModel);

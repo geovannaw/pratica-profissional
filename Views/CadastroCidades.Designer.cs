@@ -290,10 +290,10 @@
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.Label lblDDD;
         private System.Windows.Forms.Label lblCidade;
-        private GControls.GTextBox txtCidade;
         private GControls.GTextBox txtDDD;
         private GControls.GTextBox txtCodEstado;
         private GControls.GTextBox txtEstado;
         private GButtons btnConsultaEstado;
+        public GControls.GTextBox txtCidade;
     }
 }

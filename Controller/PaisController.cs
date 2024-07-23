@@ -1,4 +1,5 @@
-﻿using Sistema_Vendas.Models;
+﻿using Sistema_Vendas.DAO;
+using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,10 @@ namespace Sistema_Vendas.Controller
         {
             paisDAO = new PaisDAO<T>();
         }
-
+        public int GetUltimoCodigo()
+        {
+            return paisDAO.GetUltimoCodigo();
+        }
         public override void Alterar(T obj)
         {
             paisDAO.Alterar(obj);

@@ -230,8 +230,8 @@
         private System.Windows.Forms.Label lblModelo;
         private System.Windows.Forms.Label lblMarca;
         private System.Windows.Forms.Label lblObservacao;
-        private GControls.GTextBox txtModelo;
         private GControls.GTextBox txtMarca;
         private GControls.GTextBox txtObservacao;
+        public GControls.GTextBox txtModelo;
     }
 }

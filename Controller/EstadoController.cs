@@ -1,4 +1,5 @@
-﻿using Sistema_Vendas.Models;
+﻿using Sistema_Vendas.DAO;
+using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,10 @@ namespace Sistema_Vendas.Controller
         public EstadoController() : base() 
         { 
             estadoDAO = new EstadoDAO<T>();
+        }
+        public int GetUltimoCodigo()
+        {
+            return estadoDAO.GetUltimoCodigo();
         }
         public override void Alterar(T obj)
         {

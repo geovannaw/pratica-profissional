@@ -125,6 +125,7 @@
             this.Name = "CadastroFormaPagamento";
             this.Text = "Cadastro Forma de Pagamento";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroFormaPagamento_FormClosed);
+            this.Load += new System.EventHandler(this.CadastroFormaPagamento_Load);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.txtCodigo, 0);
             this.Controls.SetChildIndex(this.btnSalvar, 0);
@@ -145,6 +146,6 @@
 
         #endregion
         private System.Windows.Forms.Label lblFormaPagamento;
-        private GControls.GTextBox txtFormaPagamento;
+        public GControls.GTextBox txtFormaPagamento;
     }
 }

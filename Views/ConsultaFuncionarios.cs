@@ -25,6 +25,7 @@ namespace Sistema_Vendas.Views
         public override void Incluir()
         {
             ResetCadastro();
+            cadastroFuncionarios.txtFuncionario.Focus();
             cadastroFuncionarios.ShowDialog();
 
         }
@@ -34,6 +35,7 @@ namespace Sistema_Vendas.Views
             {
                 int idFuncionario = (int)dataGridViewFuncionarios.SelectedRows[0].Cells["Código"].Value;
                 ResetCadastro(idFuncionario);
+                cadastroFuncionarios.txtFuncionario.Focus();
                 cadastroFuncionarios.ShowDialog();
             }
             else
@@ -172,6 +174,31 @@ namespace Sistema_Vendas.Views
                     e.Value = string.Format("({0}) {1}-{2}", celular.Substring(0, 2), celular.Substring(2, 5), celular.Substring(7));
                     e.FormattingApplied = true;
                 }
+            }
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            if (btnSair.Text == "Selecionar")
+            {
+                btnSair.Focus();
+                if (dataGridViewFuncionarios.SelectedRows.Count > 0)
+                {
+                    int idFunc = Convert.ToInt32(dataGridViewFuncionarios.SelectedRows[0].Cells["Código"].Value);
+                    string funcionario = dataGridViewFuncionarios.SelectedRows[0].Cells["Funcionário"].Value.ToString();
+
+                    this.Tag = new Tuple<int, string>(idFunc, funcionario);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, selecione um funcionário.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                Close();
             }
         }
     }

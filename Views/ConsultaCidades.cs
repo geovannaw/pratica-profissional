@@ -26,6 +26,7 @@ namespace Sistema_Vendas.Views
         public override void Incluir()
         {
             ResetCadastro();
+            cadastroCidades.txtCidade.Focus();
             cadastroCidades.ShowDialog();
         }
         public override void Alterar()
@@ -34,6 +35,7 @@ namespace Sistema_Vendas.Views
             {
                 int idCidade = (int)dataGridViewCidades.SelectedRows[0].Cells["Código"].Value;
                 ResetCadastro(idCidade);
+                cadastroCidades.txtCidade.Focus();
                 cadastroCidades.ShowDialog();
             }
             else

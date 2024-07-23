@@ -153,6 +153,11 @@ namespace Sistema_Vendas.Views
 
         private void CadastroEstados_Load(object sender, EventArgs e)
         {
+            if (idAlterar == -1)
+            {
+                int novoCodigo = estadoController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
+            }
         }
 
         private void rbAtivo_CheckedChanged(object sender, EventArgs e)

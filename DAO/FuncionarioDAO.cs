@@ -12,7 +12,23 @@ namespace Sistema_Vendas.DAO
     public class FuncionarioDAO<T> : DAO<T>
     {
         public FuncionarioDAO() : base() { }
+        public int GetUltimoCodigo()
+        {
+            int ultimoCodigo = 0;
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT IDENT_CURRENT('funcionario')";
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                {
+                    ultimoCodigo = Convert.ToInt32(result);
+                }
+            }
+            return ultimoCodigo;
+        }
         public override void Alterar(T obj)
         {
             dynamic funcionario = obj;
@@ -139,7 +155,7 @@ namespace Sistema_Vendas.DAO
                         obj.apelido = reader["apelido"].ToString();
                         obj.endereco = reader["endereco"].ToString();
                         obj.bairro = reader["bairro"].ToString();
-                        obj.numero = Convert.ToInt32(reader["numero"]);
+                        obj.numero = reader["numero"].ToString();
                         obj.cep = reader["cep"].ToString();
                         obj.complemento = reader["complemento"].ToString();
                         obj.sexo = reader["sexo"].ToString();

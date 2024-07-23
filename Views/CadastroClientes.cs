@@ -49,7 +49,7 @@ namespace Sistema_Vendas.Views
                     string apelido_nome_fantasia = txtApelido_nome_fantasia.Texts;
                     string endereco = txtEndereco.Texts;
                     string bairro = txtBairro.Texts;
-                    int numero = Convert.ToInt32(txtNumero.Texts);
+                    string numero = txtNumero.Texts;
                     string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
                     string complemento = txtComplemento.Texts;
                     string email = txtEmail.Texts;
@@ -151,7 +151,7 @@ namespace Sistema_Vendas.Views
                     txtApelido_nome_fantasia.Texts = cliente.apelido_nome_fantasia;
                     txtEndereco.Texts = cliente.endereco;
                     txtBairro.Texts = cliente.bairro;
-                    txtNumero.Texts = cliente.numero.ToString();
+                    txtNumero.Texts = cliente.numero;
                     txtCEP.Texts = cliente.cep;
                     txtComplemento.Texts = cliente.complemento;
                     txtCodCidade.Texts = cliente.idCidade.ToString();
@@ -240,18 +240,17 @@ namespace Sistema_Vendas.Views
 
         private void CadastroClientes_Load(object sender, EventArgs e)
         {
+            if (idAlterar == -1)
+            {
+                int novoCodigo = clienteController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
+            }
         }
 
         private void txtCodCidade_Leave(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtCodCidade.Texts))
             {
-                if (!VerificaNumeros(txtCodCidade.Texts))
-                {
-                    MessageBox.Show("Cód. Cidade inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodCidade.Focus();
-                } else
-                {
                     List<string> cidadeEstadoPais = clienteController.GetCEPByIdCidade(int.Parse(txtCodCidade.Texts));
 
                     if (cidadeEstadoPais.Count > 0)
@@ -272,7 +271,6 @@ namespace Sistema_Vendas.Views
                         txtUF.Clear();
                         txtPais.Clear();
                     }
-                }
             }            
         }
 
@@ -292,13 +290,6 @@ namespace Sistema_Vendas.Views
 
         private void txtCodCondPag_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtCodCondPag.Texts))
-            {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodCondPag.Focus();
-            }
-            else
-            {
                 if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
                 {
                     CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
@@ -314,7 +305,6 @@ namespace Sistema_Vendas.Views
                         txtCondPag.Clear();
                     }
                 }
-            }
         }
 
         private void btnConsultaCondPag_Click(object sender, EventArgs e)

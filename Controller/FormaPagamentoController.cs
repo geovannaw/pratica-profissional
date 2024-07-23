@@ -15,7 +15,10 @@ namespace Sistema_Vendas.Controller
         {
             formaPagamentoDAO = new FormaPagamentoDAO<T>();
         }
-
+        public int GetUltimoCodigo()
+        {
+            return formaPagamentoDAO.GetUltimoCodigo();
+        }
         public override void Alterar(T obj)
         {
             formaPagamentoDAO.Alterar(obj);

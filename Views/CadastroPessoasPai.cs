@@ -117,11 +117,14 @@ namespace Sistema_Vendas.Views
                 return false;
             }
             string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
-            if (!CampoObrigatorio(cep))
+            if (pais == "BRASIL")
             {
-                MessageBox.Show("Campo CEP é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCEP.Focus();
-                return false;
+                if (!CampoObrigatorio(cep))
+                {
+                    MessageBox.Show("Campo CEP é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCEP.Focus();
+                    return false;
+                }
             }
             if (!CampoObrigatorio(txtEndereco.Texts))
             {
@@ -198,6 +201,30 @@ namespace Sistema_Vendas.Views
             txtCPF_CNPJ.Clear();
         }
 
+        private void CadastroPessoasPai_Load(object sender, EventArgs e)
+        {
+            if (idAlterar == -1)
+            {
+                txtDataCadastro.Texts = DateTime.Now.ToString();
+                txtDataUltAlt.Texts = DateTime.Now.ToString();
+            }
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            Salvar();
+        }
+
+        private void txtCodCidade_Leave(object sender, EventArgs e)
+        {
+
+        }
+
         private void txtCPF_CNPJ_Leave(object sender, EventArgs e)
         {
             string cpf_cnpj = new string(txtCPF_CNPJ.Texts.Where(char.IsDigit).ToArray());
@@ -228,12 +255,27 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void txtCliente_razao_social_Leave(object sender, EventArgs e)
+        private void txtContato_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtCliente_razao_social.Texts))
+            if (!VerificaLetras(txtContato.Texts))
             {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCliente_razao_social.Focus();
+                MessageBox.Show("Nome do Contato inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtContato.Focus();
+            }
+        }
+
+        private void txtIE_RG_Leave(object sender, EventArgs e)
+        {
+            string RG_IE = new string(txtIE_RG.Texts.Where(char.IsDigit).ToArray());
+
+            if (!string.IsNullOrEmpty(txtIE_RG.Texts) && !rbFisica.Checked)
+            {
+                if (!ValidaIE(txtUF.Texts, RG_IE))
+                {
+                    MessageBox.Show("IE inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtIE_RG.Focus();
+                }
+
             }
         }
 
@@ -246,117 +288,58 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void txtEndereco_Leave(object sender, EventArgs e)
+        private void txtCliente_razao_social_Leave(object sender, EventArgs e)
         {
-        }
-
-        private void txtNumero_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaNumeros(txtNumero.Texts))
+            if (!VerificaLetras(txtCliente_razao_social.Texts))
             {
-                MessageBox.Show("Número inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNumero.Focus();
+                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCliente_razao_social.Focus();
             }
         }
 
-        private void txtBairro_Leave(object sender, EventArgs e)
+        private void txtCodCidade_KeyPress(object sender, KeyPressEventArgs e)
         {
-
-        }
-
-        private void txtSexo_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaLetras(txtSexo.Texts))
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("Sexo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtSexo.Focus();
+                e.Handled = true;
             }
         }
 
-        private void txtCelular_Leave(object sender, EventArgs e)
+        private void txtCodCondPag_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string celular = new string(txtCelular.Texts.Where(char.IsDigit).ToArray());
-            if (!VerificaNumeros(celular))
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("Celular inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCelular.Focus();
+                e.Handled = true;
             }
         }
 
-        private void txtTelefone_Leave(object sender, EventArgs e)
+        private void txtIE_RG_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string telefone = new string(txtTelefone.Texts.Where(char.IsDigit).ToArray());
-            if (!VerificaNumeros(telefone))
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("Telefone inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtTelefone.Focus();
+                e.Handled = true;
             }
         }
 
-        private void txtApelido_nome_fantasia_Leave(object sender, EventArgs e)
+        private void txtTelefone_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!VerificaLetras(txtApelido_nome_fantasia.Texts))
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("Apelido / Nome Fantasia inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtApelido_nome_fantasia.Focus();
+                e.Handled = true;
             }
         }
 
-        private void txtIE_RG_Leave(object sender, EventArgs e)
+        private void txtCelular_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string RG_IE = new string(txtIE_RG.Texts.Where(char.IsDigit).ToArray());
-            if (!VerificaNumeros(RG_IE))
+            //permitir apenas números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("RG / IE inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtIE_RG.Focus();
+                e.Handled = true;
             }
-            if (!string.IsNullOrEmpty(txtIE_RG.Texts) && !rbFisica.Checked)
-            {
-                 if (!ValidaIE(txtUF.Texts, RG_IE))
-                  {
-                      MessageBox.Show("IE inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                      txtIE_RG.Focus();
-                  }
-                
-            }
-        }
-
-        private void txtContato_Leave(object sender, EventArgs e)
-        {
-            if (!VerificaLetras(txtContato.Texts))
-            {
-                MessageBox.Show("Nome do Contato inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtContato.Focus();
-            }
-        }
-
-        private void CadastroPessoasPai_Load(object sender, EventArgs e)
-        {
-            if (idAlterar == -1)
-            {
-                txtDataCadastro.Texts = DateTime.Now.ToString();
-                txtDataUltAlt.Texts = DateTime.Now.ToString();
-                txtCodigo.Texts = "0";
-            }
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            Salvar();
-        }
-
-        private void txtCodCidade_Leave(object sender, EventArgs e)
-        {
-            txtCEP.Clear();
-            txtEndereco.Clear();
-            txtNumero.Clear();
-            txtComplemento.Clear();
-            txtBairro.Clear();
         }
     }
 }

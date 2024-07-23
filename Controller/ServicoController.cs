@@ -16,6 +16,10 @@ namespace Sistema_Vendas.Controller
         {
             servicoDAO = new ServicoDAO<T>();
         }
+        public int GetUltimoCodigo()
+        {
+            return servicoDAO.GetUltimoCodigo();
+        }
         public override void Alterar(T obj)
         {
             servicoDAO.Alterar(obj);

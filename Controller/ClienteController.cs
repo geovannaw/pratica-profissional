@@ -17,6 +17,10 @@ namespace Sistema_Vendas.Controller
         {
             clienteDAO = new ClienteDAO<T>();
         }
+        public int GetUltimoCodigo()
+        {
+            return clienteDAO.GetUltimoCodigo();
+        }
         public override void Alterar(T obj)
         {
             clienteDAO.Alterar(obj);
@@ -54,6 +58,8 @@ namespace Sistema_Vendas.Controller
 
         public bool JaCadastrado(string cpf_cnpj, int idAtual)
         {
+            if (string.IsNullOrEmpty(cpf_cnpj)) 
+                return false;
             List<ClienteModel> clientes = clienteDAO.GetAll(false).Cast<ClienteModel>().ToList();
 
             foreach (ClienteModel cliente in clientes)

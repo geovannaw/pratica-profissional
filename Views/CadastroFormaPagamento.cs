@@ -119,5 +119,14 @@ namespace Sistema_Vendas.Views
                 txtFormaPagamento.Focus();
             }
         }
+
+        private void CadastroFormaPagamento_Load(object sender, EventArgs e)
+        {
+            if (idAlterar == -1)
+            {
+                int novoCodigo = formaPagamentoController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
+            }
+        }
     }
 }

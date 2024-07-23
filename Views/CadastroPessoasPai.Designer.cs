@@ -98,7 +98,7 @@
             // lblIE_RG
             // 
             this.lblIE_RG.AutoSize = true;
-            this.lblIE_RG.Location = new System.Drawing.Point(144, 382);
+            this.lblIE_RG.Location = new System.Drawing.Point(175, 383);
             this.lblIE_RG.Name = "lblIE_RG";
             this.lblIE_RG.Size = new System.Drawing.Size(23, 13);
             this.lblIE_RG.TabIndex = 40;
@@ -224,7 +224,7 @@
             // lblDataNasc
             // 
             this.lblDataNasc.AutoSize = true;
-            this.lblDataNasc.Location = new System.Drawing.Point(252, 381);
+            this.lblDataNasc.Location = new System.Drawing.Point(285, 382);
             this.lblDataNasc.Name = "lblDataNasc";
             this.lblDataNasc.Size = new System.Drawing.Size(61, 13);
             this.lblDataNasc.TabIndex = 53;
@@ -292,9 +292,9 @@
             this.groupBox4.Controls.Add(this.txtCodCondPag);
             this.groupBox4.Controls.Add(this.lblCondPag);
             this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Location = new System.Drawing.Point(361, 360);
+            this.groupBox4.Location = new System.Drawing.Point(399, 360);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(408, 82);
+            this.groupBox4.Size = new System.Drawing.Size(370, 82);
             this.groupBox4.TabIndex = 24;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Pagamento";
@@ -310,7 +310,7 @@
             this.btnConsultaCondPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConsultaCondPag.ForeColor = System.Drawing.Color.White;
             this.btnConsultaCondPag.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaCondPag.Image")));
-            this.btnConsultaCondPag.Location = new System.Drawing.Point(91, 38);
+            this.btnConsultaCondPag.Location = new System.Drawing.Point(89, 37);
             this.btnConsultaCondPag.Name = "btnConsultaCondPag";
             this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 28);
             this.btnConsultaCondPag.TabIndex = 116;
@@ -330,7 +330,7 @@
             this.txtCondPag.DisabledForeColor = System.Drawing.Color.White;
             this.txtCondPag.Enabled = false;
             this.txtCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCondPag.Location = new System.Drawing.Point(133, 38);
+            this.txtCondPag.Location = new System.Drawing.Point(131, 37);
             this.txtCondPag.MaxLength = 14;
             this.txtCondPag.Multiline = false;
             this.txtCondPag.Name = "txtCondPag";
@@ -338,7 +338,7 @@
             this.txtCondPag.PasswordChar = false;
             this.txtCondPag.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCondPag.PlaceholderText = "";
-            this.txtCondPag.Size = new System.Drawing.Size(257, 28);
+            this.txtCondPag.Size = new System.Drawing.Size(221, 28);
             this.txtCondPag.TabIndex = 116;
             this.txtCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCondPag.Texts = "";
@@ -356,7 +356,7 @@
             this.txtCodCondPag.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodCondPag.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodCondPag.Location = new System.Drawing.Point(20, 38);
+            this.txtCodCondPag.Location = new System.Drawing.Point(18, 37);
             this.txtCodCondPag.MaxLength = 14;
             this.txtCodCondPag.Multiline = false;
             this.txtCodCondPag.Name = "txtCodCondPag";
@@ -369,11 +369,12 @@
             this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCodCondPag.Texts = "";
             this.txtCodCondPag.UnderlinedStyle = false;
+            this.txtCodCondPag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCondPag_KeyPress);
             // 
             // lblCondPag
             // 
             this.lblCondPag.AutoSize = true;
-            this.lblCondPag.Location = new System.Drawing.Point(17, 22);
+            this.lblCondPag.Location = new System.Drawing.Point(15, 21);
             this.lblCondPag.Name = "lblCondPag";
             this.lblCondPag.Size = new System.Drawing.Size(44, 13);
             this.lblCondPag.TabIndex = 63;
@@ -382,7 +383,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(130, 22);
+            this.label3.Location = new System.Drawing.Point(128, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(124, 13);
             this.label3.TabIndex = 61;
@@ -465,8 +466,8 @@
             this.txtDataNasc.DisabledBackColor = System.Drawing.Color.White;
             this.txtDataNasc.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataNasc.DisabledForeColor = System.Drawing.Color.White;
-            this.txtDataNasc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtDataNasc.Location = new System.Drawing.Point(255, 398);
+            this.txtDataNasc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtDataNasc.Location = new System.Drawing.Point(288, 399);
             this.txtDataNasc.Mask = "00/00/0000";
             this.txtDataNasc.MaxLength = 32767;
             this.txtDataNasc.Multiline = false;
@@ -586,6 +587,7 @@
             this.txtCliente_razao_social.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCliente_razao_social.Texts = "";
             this.txtCliente_razao_social.UnderlinedStyle = false;
+            this.txtCliente_razao_social.Leave += new System.EventHandler(this.txtCliente_razao_social_Leave);
             // 
             // txtEmail
             // 
@@ -612,6 +614,7 @@
             this.txtEmail.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtEmail.Texts = "";
             this.txtEmail.UnderlinedStyle = false;
+            this.txtEmail.Leave += new System.EventHandler(this.txtEmail_Leave);
             // 
             // txtCelular
             // 
@@ -638,6 +641,7 @@
             this.txtCelular.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCelular.Texts = "";
             this.txtCelular.UnderlinedStyle = false;
+            this.txtCelular.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCelular_KeyPress);
             // 
             // txtTelefone
             // 
@@ -664,6 +668,7 @@
             this.txtTelefone.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtTelefone.Texts = "";
             this.txtTelefone.UnderlinedStyle = false;
+            this.txtTelefone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefone_KeyPress);
             // 
             // txtContato
             // 
@@ -690,6 +695,8 @@
             this.txtContato.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtContato.Texts = "";
             this.txtContato.UnderlinedStyle = false;
+            this.txtContato.Visible = false;
+            this.txtContato.Leave += new System.EventHandler(this.txtContato_Leave);
             // 
             // groupBox1
             // 
@@ -843,6 +850,7 @@
             this.txtCodCidade.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCodCidade.Texts = "";
             this.txtCodCidade.UnderlinedStyle = false;
+            this.txtCodCidade.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCidade_KeyPress);
             this.txtCodCidade.Leave += new System.EventHandler(this.txtCodCidade_Leave);
             // 
             // txtBairro
@@ -1066,7 +1074,7 @@
             this.txtCPF_CNPJ.DisabledBackColor = System.Drawing.Color.White;
             this.txtCPF_CNPJ.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCPF_CNPJ.DisabledForeColor = System.Drawing.Color.White;
-            this.txtCPF_CNPJ.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtCPF_CNPJ.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtCPF_CNPJ.Location = new System.Drawing.Point(25, 398);
             this.txtCPF_CNPJ.Mask = "000.000.000-00";
             this.txtCPF_CNPJ.MaxLength = 32767;
@@ -1076,11 +1084,12 @@
             this.txtCPF_CNPJ.PasswordChar = false;
             this.txtCPF_CNPJ.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCPF_CNPJ.PlaceholderText = "";
-            this.txtCPF_CNPJ.Size = new System.Drawing.Size(107, 27);
+            this.txtCPF_CNPJ.Size = new System.Drawing.Size(137, 27);
             this.txtCPF_CNPJ.TabIndex = 119;
             this.txtCPF_CNPJ.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCPF_CNPJ.Texts = "   ,   ,   -";
             this.txtCPF_CNPJ.UnderlinedStyle = false;
+            this.txtCPF_CNPJ.Leave += new System.EventHandler(this.txtCPF_CNPJ_Leave);
             // 
             // txtIE_RG
             // 
@@ -1094,7 +1103,7 @@
             this.txtIE_RG.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtIE_RG.DisabledForeColor = System.Drawing.Color.White;
             this.txtIE_RG.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtIE_RG.Location = new System.Drawing.Point(147, 397);
+            this.txtIE_RG.Location = new System.Drawing.Point(178, 398);
             this.txtIE_RG.MaxLength = 14;
             this.txtIE_RG.Multiline = false;
             this.txtIE_RG.Name = "txtIE_RG";
@@ -1107,6 +1116,8 @@
             this.txtIE_RG.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtIE_RG.Texts = "";
             this.txtIE_RG.UnderlinedStyle = false;
+            this.txtIE_RG.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIE_RG_KeyPress);
+            this.txtIE_RG.Leave += new System.EventHandler(this.txtIE_RG_Leave);
             // 
             // txtSexo
             // 
@@ -1230,7 +1241,6 @@
         protected System.Windows.Forms.GroupBox groupBox3;
         protected System.Windows.Forms.GroupBox groupBox4;
         protected GControls.GTextBox txtApelido_nome_fantasia;
-        protected GControls.GTextBox txtCliente_razao_social;
         protected GControls.GTextBox txtEmail;
         protected GControls.GTextBox txtCelular;
         protected GControls.GTextBox txtTelefone;
@@ -1251,5 +1261,6 @@
         protected GControls.GTextBox txtCEP;
         protected System.Windows.Forms.Label lblEndereco;
         protected GControls.GComboBox txtSexo;
+        public GControls.GTextBox txtCliente_razao_social;
     }
 }

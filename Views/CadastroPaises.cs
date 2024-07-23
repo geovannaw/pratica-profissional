@@ -136,7 +136,11 @@ namespace Sistema_Vendas.Views
 
         private void CadastroPaises_Load(object sender, EventArgs e)
         {
-
+            if (idAlterar == -1)
+            {
+                int novoCodigo = paisController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
+            }
         }
 
         private void txtSigla_Leave(object sender, EventArgs e)

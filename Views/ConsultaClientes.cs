@@ -26,6 +26,7 @@ namespace Sistema_Vendas.Views
         public override void Incluir()
         {
             ResetCadastro();
+            cadastroClientes.txtCliente_razao_social.Focus();
             cadastroClientes.ShowDialog();
         }
         public override void Alterar()
@@ -34,6 +35,7 @@ namespace Sistema_Vendas.Views
             {
                 int idCliente = (int)dataGridViewClientes.SelectedRows[0].Cells["Código"].Value;
                 ResetCadastro(idCliente);
+                cadastroClientes.txtCliente_razao_social.Focus();
                 cadastroClientes.ShowDialog();
             }
             else
@@ -181,6 +183,32 @@ namespace Sistema_Vendas.Views
                 bool tipoPessoa = (bool)e.Value;
                 e.Value = tipoPessoa ? "FÍSICO" : "JURÍDICO";
                 e.FormattingApplied = true;
+            }
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            if (btnSair.Text == "Selecionar")
+            {
+                btnSair.Focus();
+                if (dataGridViewClientes.SelectedRows.Count > 0)
+                {
+                    int idCliente = Convert.ToInt32(dataGridViewClientes.SelectedRows[0].Cells["Código"].Value);
+                    string cliente = dataGridViewClientes.SelectedRows[0].Cells["Cliente"].Value.ToString();
+                    string celular = dataGridViewClientes.SelectedRows[0].Cells["Celular"].Value.ToString();
+
+                    this.Tag = new Tuple<int, string, string>(idCliente, cliente, celular);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, selecione um cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                Close();
             }
         }
     }

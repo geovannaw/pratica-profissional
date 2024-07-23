@@ -222,8 +222,8 @@
         protected System.Windows.Forms.Label lblPais;
         protected System.Windows.Forms.Label lblSigla;
         protected System.Windows.Forms.Label lblDDI;
-        private GControls.GTextBox txtPais;
         private GControls.GTextBox txtSigla;
         private GControls.GTextBox txtDDI;
+        public GControls.GTextBox txtPais;
     }
 }

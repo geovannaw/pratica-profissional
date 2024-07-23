@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -11,7 +12,23 @@ namespace Sistema_Vendas.Models
         public PaisDAO() : base()
         {
         }
+        public int GetUltimoCodigo()
+        {
+            int proximoCodigo = 0;
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT IDENT_CURRENT('pais')";
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                {
+                    proximoCodigo = Convert.ToInt32(result);
+                }
+            }
+            return proximoCodigo;
+        }
         public override List<T> GetAll(bool incluiInativos)
         {
             List<T> paises = new List<T>();

@@ -690,7 +690,7 @@
             this.txtDataDemissao.DisabledBackColor = System.Drawing.Color.White;
             this.txtDataDemissao.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataDemissao.DisabledForeColor = System.Drawing.Color.White;
-            this.txtDataDemissao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtDataDemissao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtDataDemissao.Location = new System.Drawing.Point(638, 39);
             this.txtDataDemissao.Mask = "00/00/0000";
             this.txtDataDemissao.MaxLength = 32767;
@@ -716,7 +716,7 @@
             this.txtDataAdmissao.DisabledBackColor = System.Drawing.Color.White;
             this.txtDataAdmissao.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataAdmissao.DisabledForeColor = System.Drawing.Color.White;
-            this.txtDataAdmissao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtDataAdmissao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtDataAdmissao.Location = new System.Drawing.Point(531, 39);
             this.txtDataAdmissao.Mask = "00/00/0000";
             this.txtDataAdmissao.MaxLength = 32767;
@@ -787,7 +787,7 @@
             this.txtDataNasc.DisabledBackColor = System.Drawing.Color.White;
             this.txtDataNasc.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataNasc.DisabledForeColor = System.Drawing.Color.White;
-            this.txtDataNasc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtDataNasc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtDataNasc.Location = new System.Drawing.Point(253, 373);
             this.txtDataNasc.Mask = "00/00/0000";
             this.txtDataNasc.MaxLength = 32767;
@@ -974,7 +974,7 @@
             this.txtCPF.DisabledBackColor = System.Drawing.Color.White;
             this.txtCPF.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCPF.DisabledForeColor = System.Drawing.Color.White;
-            this.txtCPF.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtCPF.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtCPF.Location = new System.Drawing.Point(16, 373);
             this.txtCPF.Mask = "000.000.000-00";
             this.txtCPF.MaxLength = 32767;
@@ -1112,7 +1112,6 @@
         protected GControls.GMaskedTextBox txtDataNasc;
         protected GControls.GMaskedTextBox txtDataDemissao;
         protected GControls.GMaskedTextBox txtDataAdmissao;
-        private GControls.GTextBox txtFuncionario;
         private GControls.GTextBox txtApelido;
         private GControls.GTextBox txtTelefone;
         private GControls.GTextBox txtCelular;
@@ -1133,5 +1132,6 @@
         private GControls.GTextBox txtPis;
         private GButtons btnConsultaCidades;
         private GControls.GComboBox txtSexo;
+        public GControls.GTextBox txtFuncionario;
     }
 }

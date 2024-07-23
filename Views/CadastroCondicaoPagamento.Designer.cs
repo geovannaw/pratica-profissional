@@ -669,7 +669,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn porcentagem;
         private System.Windows.Forms.DataGridViewTextBoxColumn CódFormaPag;
         private System.Windows.Forms.DataGridViewTextBoxColumn formaPagamento;
-        private GControls.GTextBox txtCondPag;
         private GControls.GTextBox txtJuros;
         private GControls.GTextBox txtMulta;
         private GControls.GTextBox txtDesconto;
@@ -682,5 +681,6 @@
         private GButtons btnConsultaFormaPag;
         protected GButtons btnAddParcela;
         public GButtons btnExcluirParcela;
+        public GControls.GTextBox txtCondPag;
     }
 }

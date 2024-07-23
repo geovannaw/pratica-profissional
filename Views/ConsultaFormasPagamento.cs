@@ -26,6 +26,7 @@ namespace Sistema_Vendas.Views
         public override void Incluir()
         {
             ResetCadastro();
+            cadastroFormaPagamento.txtFormaPagamento.Focus();
             cadastroFormaPagamento.ShowDialog();
         }
         public override void Alterar()
@@ -34,6 +35,7 @@ namespace Sistema_Vendas.Views
             {
                 int idFormaPag = (int)dataGridViewFormaPag.SelectedRows[0].Cells["Código"].Value;
                 ResetCadastro(idFormaPag);
+                cadastroFormaPagamento.txtFormaPagamento.Focus();
                 cadastroFormaPagamento.ShowDialog();
             }
             else

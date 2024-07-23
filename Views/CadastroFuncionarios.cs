@@ -44,7 +44,7 @@ namespace Sistema_Vendas.Views
                     string apelido = txtApelido.Texts;
                     string endereco = txtEndereco.Texts;
                     string bairro = txtBairro.Texts;
-                    int numero = Convert.ToInt32(txtNumero.Texts);
+                    string numero = txtNumero.Texts;
                     string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
                     string complemento = txtComplemento.Texts;
                     string email = txtEmail.Texts;
@@ -174,7 +174,7 @@ namespace Sistema_Vendas.Views
                     txtApelido.Texts = funcionario.apelido;
                     txtEndereco.Texts = funcionario.endereco;
                     txtBairro.Texts = funcionario.bairro;
-                    txtNumero.Texts = funcionario.numero.ToString();
+                    txtNumero.Texts = funcionario.numero;
                     txtCEP.Texts = funcionario.cep;
                     txtComplemento.Texts = funcionario.complemento;
                     txtCodCidade.Texts = funcionario.idCidade.ToString();
@@ -225,6 +225,11 @@ namespace Sistema_Vendas.Views
 
         private void CadastroFuncionarios_Load(object sender, EventArgs e)
         {
+            if (idAlterar == -1)
+            {
+                int novoCodigo = funcionarioController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
+            }
         }
 
         private void CadastroFuncionarios_FormClosed(object sender, FormClosedEventArgs e)
@@ -236,14 +241,11 @@ namespace Sistema_Vendas.Views
         {
             string cpf = new string(txtCPF.Texts.Where(char.IsDigit).ToArray());
             string pais = txtPais.Texts;
-            if (pais == "BRASIL")
+            if (!CampoObrigatorio(cpf))
             {
-                if (!CampoObrigatorio(cpf))
-                {
-                    MessageBox.Show("CPF obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCPF.Focus();
-                    return false;
-                }
+                MessageBox.Show("CPF obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCPF.Focus();
+                return false;
             }
             if (!CampoObrigatorio(txtFuncionario.Texts))
             {
@@ -271,11 +273,14 @@ namespace Sistema_Vendas.Views
                 return false;
             }
             string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
-            if (!CampoObrigatorio(cep))
+            if (pais == "BRASIL")
             {
-                MessageBox.Show("Campo CEP é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCEP.Focus();
-                return false;
+                if (!CampoObrigatorio(cep))
+                {
+                    MessageBox.Show("Campo CEP é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCEP.Focus();
+                    return false;
+                }
             }
             if (!CampoObrigatorio(txtEndereco.Texts))
             {
@@ -369,11 +374,6 @@ namespace Sistema_Vendas.Views
 
         private void txtCodCidade_Leave(object sender, EventArgs e)
         {
-            txtCEP.Clear();
-            txtEndereco.Clear();
-            txtNumero.Clear();
-            txtComplemento.Clear();
-            txtBairro.Clear();
 
             if (!string.IsNullOrEmpty(txtCodCidade.Texts)){
                 List<string> cidadeEstadoPais = funcionarioController.GetCEPByIdCidade(int.Parse(txtCodCidade.Texts));
@@ -487,14 +487,28 @@ namespace Sistema_Vendas.Views
 
         private void txtSalario_Leave(object sender, EventArgs e)
         {
-            try
+            if (!string.IsNullOrEmpty(txtSalario.Texts))
             {
-                txtSalario.Texts = FormataPreco(txtSalario.Texts);
-            }
-            catch (FormatException ex)
-            {
-                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtSalario.Focus();
+                try
+                {
+                    txtSalario.Texts = FormataPreco(txtSalario.Texts);
+
+                    // Verifica se o valor é maior que zero
+                    if (decimal.TryParse(txtSalario.Texts, out decimal preco) && preco > 0)
+                    {
+                        // Valor é válido e maior que zero
+                    }
+                    else
+                    {
+                        MessageBox.Show("O Salário deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtSalario.Focus();
+                    }
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtSalario.Focus();
+                }
             }
         }
 

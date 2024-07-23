@@ -26,6 +26,7 @@ namespace Sistema_Vendas.Views
         public override void Incluir()
         {
             ResetCadastro();
+            cadastroFornecedores.txtCliente_razao_social.Focus();
             cadastroFornecedores.ShowDialog();
         }
         public override void Alterar()
@@ -34,6 +35,7 @@ namespace Sistema_Vendas.Views
             {
                 int idFornecedor = (int)dataGridViewFornecedores.SelectedRows[0].Cells["Código"].Value;
                 ResetCadastro(idFornecedor);
+                cadastroFornecedores.txtCliente_razao_social.Focus();
                 cadastroFornecedores.ShowDialog();
             }
             else

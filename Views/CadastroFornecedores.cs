@@ -29,6 +29,12 @@ namespace Sistema_Vendas.Views
         }
         public override void Salvar()
         {
+            if (txtPais.Texts != "BRASIL")
+            {
+                MessageBox.Show("Só é permitido o cadastro de fornecedores brasileiros!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodCidade.Focus();
+                return;
+            }
             if (!VerificaCamposObrigatorios())
             {
                 return;
@@ -49,7 +55,7 @@ namespace Sistema_Vendas.Views
                     string apelido_nome_fantasia = txtApelido_nome_fantasia.Texts;
                     string endereco = txtEndereco.Texts;
                     string bairro = txtBairro.Texts;
-                    int numero = Convert.ToInt32(txtNumero.Texts);
+                    string numero = txtNumero.Texts;
                     string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
                     string complemento = txtComplemento.Texts;
                     string email = txtEmail.Texts;
@@ -150,7 +156,7 @@ namespace Sistema_Vendas.Views
                     txtApelido_nome_fantasia.Texts = fornecedor.apelido_nome_fantasia;
                     txtEndereco.Texts = fornecedor.endereco;
                     txtBairro.Texts = fornecedor.bairro;
-                    txtNumero.Texts = fornecedor.numero.ToString();
+                    txtNumero.Texts = fornecedor.numero;
                     txtCEP.Texts = fornecedor.cep;
                     txtComplemento.Texts = fornecedor.complemento;
                     txtCodCidade.Texts = fornecedor.idCidade.ToString();
@@ -213,6 +219,11 @@ namespace Sistema_Vendas.Views
 
         private void CadastroFornecedores_Load(object sender, EventArgs e)
         {
+            if (idAlterar == -1)
+            {
+                int novoCodigo = fornecedorController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
+            }
         }
 
         private void txtCliente_razao_social_Leave(object sender, EventArgs e)
@@ -264,13 +275,6 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodCidade.Texts))
             {
-                if (!VerificaNumeros(txtCodCidade.Texts))
-                {
-                    MessageBox.Show("Cód. Cidade inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodCidade.Focus();
-                }
-                else
-                {
                     List<string> cidadeEstadoPais = fornecedorController.GetCEPByIdCidade(int.Parse(txtCodCidade.Texts));
 
                     if (cidadeEstadoPais.Count > 0)
@@ -292,19 +296,11 @@ namespace Sistema_Vendas.Views
                         txtUF.Clear();
                         txtPais.Clear();
                     }
-                }
             }
         }
 
         private void txtCodCondPag_Leave(object sender, EventArgs e)
         {
-            if (!VerificaNumeros(txtCodCondPag.Texts))
-            {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodCondPag.Focus();
-            }
-            else
-            {
                 if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
                 {
                     CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
@@ -320,7 +316,6 @@ namespace Sistema_Vendas.Views
                         txtCondPag.Clear();
                     }
                 }
-            }
         }
 
         private void btnConsultaCondPag_Click(object sender, EventArgs e)

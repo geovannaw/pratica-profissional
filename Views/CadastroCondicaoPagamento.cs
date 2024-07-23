@@ -40,6 +40,7 @@ namespace Sistema_Vendas.Views
             txtDataUltAlt.Clear();
             rbAtivo.Checked = true;
             dataGridViewParcelas.Rows.Clear();
+            limpaCamposParcelas();
         }
 
         public void limpaCamposParcelas()
@@ -170,7 +171,7 @@ namespace Sistema_Vendas.Views
                     formaPagamento
                 );
             }
-            dataGridViewParcelas.Sort(dataGridViewParcelas.Columns["numeroParcela"], ListSortDirection.Ascending); dataGridViewParcelas.Sort(dataGridViewParcelas.Columns["numeroParcela"], ListSortDirection.Ascending);
+            dataGridViewParcelas.Sort(dataGridViewParcelas.Columns["numeroParcela"], ListSortDirection.Ascending); 
         }
         private bool verificaNumeroParcela(int numeroParcela)
         {
@@ -202,11 +203,13 @@ namespace Sistema_Vendas.Views
         {
             if (idAlterar == -1)
             {
+                int novoCodigo = condPagamentoController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
                 txtParcela.Texts = "1";
                 txtJuros.Texts = "0";
                 txtMulta.Texts = "0";
                 txtDesconto.Texts = "0";
-            }                
+            }
         }
 
         private void btnConsultaFormaPag_Click(object sender, EventArgs e)

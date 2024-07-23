@@ -15,7 +15,23 @@ namespace Sistema_Vendas.DAO
         public CondicaoPagamentoDAO() : base()
         {
         }
+        public int GetUltimoCodigo()
+        {
+            int ultimoCodigo = 0;
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT IDENT_CURRENT('condicaoPagamento')";
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                {
+                    ultimoCodigo = Convert.ToInt32(result);
+                }
+            }
+            return ultimoCodigo;
+        }
         public override void Alterar(CondicaoPagamentoModel obj)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -121,8 +137,6 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
-
-
         public override void Delete(int id)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))

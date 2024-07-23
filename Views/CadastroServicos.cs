@@ -128,6 +128,17 @@ namespace Sistema_Vendas.Views
                 try
                 {
                     txtPreco.Texts = FormataPreco(txtPreco.Texts);
+
+                    // Verifica se o valor é maior que zero
+                    if (decimal.TryParse(txtPreco.Texts, out decimal preco) && preco > 0)
+                    {
+                        // Valor é válido e maior que zero
+                    }
+                    else
+                    {
+                        MessageBox.Show("O preço deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtPreco.Focus();
+                    }
                 }
                 catch (FormatException ex)
                 {
@@ -143,6 +154,15 @@ namespace Sistema_Vendas.Views
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
                 e.Handled = true;
+            }
+        }
+
+        private void CadastroServicos_Load(object sender, EventArgs e)
+        {
+            if(idAlterar == -1)
+            {
+                int novoCodigo = servicoController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
             }
         }
     }

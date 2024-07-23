@@ -291,10 +291,10 @@
         private System.Windows.Forms.Label lblUF;
         private System.Windows.Forms.Label lblPais;
         private System.Windows.Forms.Label label1;
-        private GControls.GTextBox txtEstado;
         private GControls.GTextBox txtUF;
         private GControls.GTextBox txtCodPais;
         private GControls.GTextBox txtPais;
         private GButtons btnConsultaPais;
+        public GControls.GTextBox txtEstado;
     }
 }

@@ -26,6 +26,7 @@ namespace Sistema_Vendas.Views
         public override void Incluir() 
         {
             ResetCadastro();
+            cadastroPaises.txtPais.Focus();
             cadastroPaises.ShowDialog();
         }
         public override void Alterar()
@@ -34,6 +35,7 @@ namespace Sistema_Vendas.Views
             {
                 int idPais = (int)dataGridViewPaises.SelectedRows[0].Cells["Código"].Value;
                 ResetCadastro(idPais);
+                cadastroPaises.txtPais.Focus();
                 cadastroPaises.ShowDialog();
             }
             else

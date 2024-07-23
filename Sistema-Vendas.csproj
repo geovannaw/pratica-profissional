@@ -111,6 +111,7 @@
     <Compile Include="Controller\FornecedorController.cs" />
     <Compile Include="Controller\FuncionarioController.cs" />
     <Compile Include="Controller\ModeloController.cs" />
+    <Compile Include="Controller\OSController.cs" />
     <Compile Include="Controller\PaisController.cs" />
     <Compile Include="Controller\ProdutoController.cs" />
     <Compile Include="Controller\ServicoController.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="DAO\FornecedorDAO.cs" />
     <Compile Include="DAO\FuncionarioDAO.cs" />
     <Compile Include="DAO\ModeloDAO.cs" />
+    <Compile Include="DAO\OSDAO.cs" />
     <Compile Include="DAO\ProdutoDAO.cs" />
     <Compile Include="DAO\ServicoDAO.cs" />
     <Compile Include="GControls\GButtons.cs">
@@ -148,6 +150,9 @@
     <Compile Include="Models\FornecedorModel.cs" />
     <Compile Include="Models\FuncionarioModel.cs" />
     <Compile Include="Models\ModeloModel.cs" />
+    <Compile Include="Models\OrdemServicoModel.cs" />
+    <Compile Include="Models\OS_ProdutoModel.cs" />
+    <Compile Include="Models\OS_ServicoModel.cs" />
     <Compile Include="Models\ParcelaModel.cs" />
     <Compile Include="Models\ProdutoModel.cs" />
     <Compile Include="Models\ServicoModel.cs" />

@@ -16,6 +16,10 @@ namespace Sistema_Vendas.Controller
         { 
             cidadeDAO = new CidadeDAO<T>();
         }
+        public int GetUltimoCodigo()
+        {
+            return cidadeDAO.GetUltimoCodigo();
+        }
         public override void Alterar(T obj)
         {
             cidadeDAO.Alterar(obj);

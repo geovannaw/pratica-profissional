@@ -97,5 +97,11 @@ namespace Sistema_Vendas
             ConsultaServicos consultaServicos = new ConsultaServicos();
             consultaServicos.ShowDialog();
         }
+
+        private void ordemDeServiçoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaOS consultaOS = new ConsultaOS();
+            consultaOS.ShowDialog();
+        }
     }
 }

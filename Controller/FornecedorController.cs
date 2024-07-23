@@ -15,6 +15,10 @@ namespace Sistema_Vendas.Controller
         {
             fornecedorDAO = new FornecedorDAO<T>();
         }
+        public int GetUltimoCodigo()
+        {
+            return fornecedorDAO.GetUltimoCodigo();
+        }
         public override void Alterar(T obj)
         {
             fornecedorDAO.Alterar(obj);
@@ -52,6 +56,8 @@ namespace Sistema_Vendas.Controller
 
         public bool JaCadastrado(string cpf_cnpj, int idAtual)
         {
+            if (string.IsNullOrEmpty(cpf_cnpj))
+                return false;
             List<FornecedorModel> fornecedores = fornecedorDAO.GetAll(false).Cast<FornecedorModel>().ToList();
 
             foreach (FornecedorModel fornecedor in fornecedores)

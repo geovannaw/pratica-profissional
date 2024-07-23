@@ -1,4 +1,5 @@
-﻿using Sistema_Vendas.Models;
+﻿using MySql.Data.MySqlClient;
+using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,6 +14,23 @@ namespace Sistema_Vendas.DAO
     public class ClienteDAO<T> : DAO<T>
     {
         public ClienteDAO() : base() { }
+        public int GetUltimoCodigo()
+        {
+            int ultimoCodigo = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT IDENT_CURRENT('cliente')";
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                {
+                    ultimoCodigo = Convert.ToInt32(result);
+                }
+            }
+            return ultimoCodigo;
+        }
         public override void Alterar(T obj)
         {
             dynamic cliente = obj;
@@ -138,7 +156,7 @@ namespace Sistema_Vendas.DAO
                         obj.apelido_nome_fantasia = reader["apelido_nome_fantasia"].ToString();
                         obj.endereco = reader["endereco"].ToString();
                         obj.bairro = reader["bairro"].ToString();
-                        obj.numero = Convert.ToInt32(reader["numero"]);
+                        obj.numero = reader["numero"].ToString();
                         obj.cep = reader["cep"].ToString();
                         obj.complemento = reader["complemento"].ToString();
                         obj.sexo = reader["sexo"].ToString();

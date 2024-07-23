@@ -29,14 +29,17 @@
         private void InitializeComponent()
         {
             this.dataGridViewOS = new System.Windows.Forms.DataGridView();
+            this.Código = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataEntrega = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOS)).BeginInit();
             this.SuspendLayout();
             // 
-            // txtPesquisa
+            // cbBuscaInativos
             // 
-            this.txtPesquisa.Location = new System.Drawing.Point(18, 14);
-            this.txtPesquisa.Size = new System.Drawing.Size(183, 28);
+            this.cbBuscaInativos.CheckedChanged += new System.EventHandler(this.cbBuscaInativos_CheckedChanged);
             // 
             // btnIncluir
             // 
@@ -58,17 +61,55 @@
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
             // 
+            // txtPesquisa
+            // 
+            this.txtPesquisa.Location = new System.Drawing.Point(18, 14);
+            this.txtPesquisa.Size = new System.Drawing.Size(183, 28);
+            // 
             // dataGridViewOS
             // 
             this.dataGridViewOS.AllowUserToResizeColumns = false;
             this.dataGridViewOS.AllowUserToResizeRows = false;
             this.dataGridViewOS.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewOS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOS.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Código,
+            this.Status,
+            this.Cliente,
+            this.DataEntrega});
+            this.dataGridViewOS.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewOS.Location = new System.Drawing.Point(18, 59);
             this.dataGridViewOS.Name = "dataGridViewOS";
             this.dataGridViewOS.ReadOnly = true;
             this.dataGridViewOS.Size = new System.Drawing.Size(600, 338);
             this.dataGridViewOS.TabIndex = 9;
+            this.dataGridViewOS.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOS_CellDoubleClick);
+            this.dataGridViewOS.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewOS_CellFormatting);
+            // 
+            // Código
+            // 
+            this.Código.HeaderText = "Código";
+            this.Código.Name = "Código";
+            this.Código.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            // 
+            // Cliente
+            // 
+            this.Cliente.HeaderText = "Cliente";
+            this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
+            this.Cliente.Width = 255;
+            // 
+            // DataEntrega
+            // 
+            this.DataEntrega.HeaderText = "Data Entrega";
+            this.DataEntrega.Name = "DataEntrega";
+            this.DataEntrega.ReadOnly = true;
             // 
             // ConsultaOS
             // 
@@ -77,6 +118,7 @@
             this.Controls.Add(this.dataGridViewOS);
             this.Name = "ConsultaOS";
             this.Text = "Consulta Ordem de Serviço";
+            this.Load += new System.EventHandler(this.ConsultaOS_Load);
             this.Controls.SetChildIndex(this.txtPesquisa, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);
@@ -97,5 +139,9 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewOS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Código;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataEntrega;
     }
 }

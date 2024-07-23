@@ -11,7 +11,23 @@ namespace Sistema_Vendas.Models
         public EstadoDAO() : base()
         {
         }
+        public int GetUltimoCodigo()
+        {
+            int ultimoCodigo = 0;
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT IDENT_CURRENT('estado')";
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                {
+                    ultimoCodigo = Convert.ToInt32(result);
+                }
+            }
+            return ultimoCodigo;
+        }
         public override void Alterar(T obj)
         {
             dynamic estado = obj;

@@ -26,6 +26,7 @@ namespace Sistema_Vendas.Models
         public override void Incluir()
         {
             ResetCadastro();
+            cadastroEstados.txtEstado.Focus();
             cadastroEstados.ShowDialog();
         }
         public override void Alterar()
@@ -34,6 +35,7 @@ namespace Sistema_Vendas.Models
             {
                 int idEstado = (int)dataGridViewEstados.SelectedRows[0].Cells["Código"].Value;
                 ResetCadastro(idEstado);
+                cadastroEstados.txtEstado.Focus();
                 cadastroEstados.ShowDialog();
             }
             else

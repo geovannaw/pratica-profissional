@@ -15,6 +15,10 @@ namespace Sistema_Vendas.Controller
         {
             funcionarioDAO = new FuncionarioDAO<T>();
         }
+        public int GetUltimoCodigo()
+        {
+            return funcionarioDAO.GetUltimoCodigo();
+        }
         public override void Alterar(T obj)
         {
             funcionarioDAO.Alterar(obj);
@@ -47,6 +51,8 @@ namespace Sistema_Vendas.Controller
 
         public bool JaCadastrado(string cpf, int idAtual)
         {
+            if (string.IsNullOrEmpty(cpf))
+                return false;
             List<FuncionarioModel> funcinoarios = funcionarioDAO.GetAll(false).Cast<FuncionarioModel>().ToList();
 
             foreach (FuncionarioModel funcionario in funcinoarios)

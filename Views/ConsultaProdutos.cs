@@ -27,6 +27,7 @@ namespace Sistema_Vendas.Views
         public override void Incluir()
         {
             ResetCadastro();
+            cadastroProdutos.txtProduto.Focus();
             cadastroProdutos.ShowDialog();
         }
 
@@ -168,6 +169,32 @@ namespace Sistema_Vendas.Views
         private void dataGridViewProdutos_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
 
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            if (btnSair.Text == "Selecionar")
+            {
+                btnSair.Focus();
+                if (dataGridViewProdutos.SelectedRows.Count > 0)
+                {
+                    int idProd = Convert.ToInt32(dataGridViewProdutos.SelectedRows[0].Cells["Código"].Value);
+                    string produto = dataGridViewProdutos.SelectedRows[0].Cells["Produto"].Value.ToString();
+                    decimal precoVenda = Convert.ToDecimal(dataGridViewProdutos.SelectedRows[0].Cells["Preco_Venda"].Value);
+
+                    this.Tag = new Tuple<int, string, decimal>(idProd, produto, precoVenda);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, selecione um produto.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                Close();
+            }
         }
     }
 }

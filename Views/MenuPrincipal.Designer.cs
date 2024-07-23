@@ -191,8 +191,9 @@
             // ordemDeServiçoToolStripMenuItem
             // 
             this.ordemDeServiçoToolStripMenuItem.Name = "ordemDeServiçoToolStripMenuItem";
-            this.ordemDeServiçoToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.ordemDeServiçoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ordemDeServiçoToolStripMenuItem.Text = "Ordem de Serviço";
+            this.ordemDeServiçoToolStripMenuItem.Click += new System.EventHandler(this.ordemDeServiçoToolStripMenuItem_Click);
             // 
             // financeiroToolStripMenuItem
             // 

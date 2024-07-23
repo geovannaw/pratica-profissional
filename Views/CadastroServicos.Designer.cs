@@ -151,7 +151,7 @@
             this.txtPreco.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
             this.txtPreco.PasswordChar = false;
             this.txtPreco.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtPreco.PlaceholderText = "0,00";
+            this.txtPreco.PlaceholderText = "";
             this.txtPreco.Size = new System.Drawing.Size(100, 28);
             this.txtPreco.TabIndex = 2;
             this.txtPreco.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -171,6 +171,7 @@
             this.Name = "CadastroServicos";
             this.Text = "Cadastro de Serviços";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroServicos_FormClosed);
+            this.Load += new System.EventHandler(this.CadastroServicos_Load);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.txtCodigo, 0);
             this.Controls.SetChildIndex(this.btnSalvar, 0);
@@ -195,7 +196,7 @@
 
         private System.Windows.Forms.Label lblServico;
         private System.Windows.Forms.Label lblPreco;
-        private GControls.GTextBox txtServico;
         private GControls.GTextBox txtPreco;
+        public GControls.GTextBox txtServico;
     }
 }

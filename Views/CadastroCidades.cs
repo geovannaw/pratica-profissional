@@ -144,6 +144,11 @@ namespace Sistema_Vendas.Views
 
         private void CadastroCidades_Load(object sender, EventArgs e)
         {
+            if (idAlterar == -1)
+            {
+                int novoCodigo = cidadeController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
+            }
         }
 
         private void rbAtivo_CheckedChanged(object sender, EventArgs e)

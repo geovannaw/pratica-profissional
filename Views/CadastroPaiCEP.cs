@@ -42,7 +42,6 @@ namespace Sistema_Vendas.Views
             {
                 txtDataCadastro.Texts = DateTime.Now.ToString();
                 txtDataUltAlt.Texts = DateTime.Now.ToString();
-                txtCodigo.Texts = "0";
             }
         }
 

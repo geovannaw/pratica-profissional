@@ -210,6 +210,14 @@ namespace Sistema_Vendas.Views
 
         private void CadastroProdutos_Load(object sender, EventArgs e)
         {
+            if (idAlterar == -1)
+            {
+                int novoCodigo = produtoController.GetUltimoCodigo() + 1;
+                txtCodigo.Texts = novoCodigo.ToString();
+                txtSaldo.Texts = "0";
+                txtPrecoUltCompra.Texts = "0";
+                txtCustoMedio.Texts = "0";
+            }
         }
 
         private void txtUN_Leave(object sender, EventArgs e)
@@ -326,6 +334,17 @@ namespace Sistema_Vendas.Views
                 try
                 {
                     txtPrecoVenda.Texts = FormataPreco(txtPrecoVenda.Texts);
+
+                    // Verifica se o valor é maior que zero
+                    if (decimal.TryParse(txtPrecoVenda.Texts, out decimal preco) && preco > 0)
+                    {
+                        // Valor é válido e maior que zero
+                    }
+                    else
+                    {
+                        MessageBox.Show("O Salário deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtPrecoVenda.Focus();
+                    }
                 }
                 catch (FormatException ex)
                 {

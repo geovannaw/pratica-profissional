@@ -496,7 +496,7 @@
             this.txtPrecoVenda.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
             this.txtPrecoVenda.PasswordChar = false;
             this.txtPrecoVenda.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtPrecoVenda.PlaceholderText = "0,00";
+            this.txtPrecoVenda.PlaceholderText = "";
             this.txtPrecoVenda.Size = new System.Drawing.Size(100, 28);
             this.txtPrecoVenda.TabIndex = 7;
             this.txtPrecoVenda.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -525,7 +525,7 @@
             this.txtCustoMedio.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
             this.txtCustoMedio.PasswordChar = false;
             this.txtCustoMedio.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtCustoMedio.PlaceholderText = "0,00";
+            this.txtCustoMedio.PlaceholderText = "";
             this.txtCustoMedio.Size = new System.Drawing.Size(100, 28);
             this.txtCustoMedio.TabIndex = 57;
             this.txtCustoMedio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -552,7 +552,7 @@
             this.txtSaldo.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
             this.txtSaldo.PasswordChar = false;
             this.txtSaldo.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtSaldo.PlaceholderText = "0";
+            this.txtSaldo.PlaceholderText = "";
             this.txtSaldo.Size = new System.Drawing.Size(100, 28);
             this.txtSaldo.TabIndex = 58;
             this.txtSaldo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -579,7 +579,7 @@
             this.txtPrecoUltCompra.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
             this.txtPrecoUltCompra.PasswordChar = false;
             this.txtPrecoUltCompra.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtPrecoUltCompra.PlaceholderText = "0,00";
+            this.txtPrecoUltCompra.PlaceholderText = "";
             this.txtPrecoUltCompra.Size = new System.Drawing.Size(100, 28);
             this.txtPrecoUltCompra.TabIndex = 59;
             this.txtPrecoUltCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -708,7 +708,6 @@
         private System.Windows.Forms.Label lblPrecoUltCompra;
         private System.Windows.Forms.Label lblDataUltCompra;
         private System.Windows.Forms.Label lblObservacao;
-        private GControls.GTextBox txtProduto;
         private GControls.GTextBox txtUN;
         private GControls.GTextBox txtCodModelo;
         private GButtons btnConsultaModelos;
@@ -723,5 +722,6 @@
         private GControls.GTextBox txtSaldo;
         private GControls.GTextBox txtPrecoUltCompra;
         protected GControls.GMaskedTextBox txtDataUltCompra;
+        public GControls.GTextBox txtProduto;
     }
 }
