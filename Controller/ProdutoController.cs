@@ -23,7 +23,10 @@ namespace Sistema_Vendas.Controller
         {
             produtoDAO.Alterar(obj);
         }
-
+        public void AtualizarSaldo(int idProduto, int quantidade)
+        {
+            produtoDAO.AtualizarSaldo(idProduto, quantidade);
+        }
         public override void Delete(int idObj)
         {
             produtoDAO.Delete(idObj);

@@ -20,6 +20,7 @@ namespace Sistema_Vendas.Views
         }
         public override void Carrega()
         {
+            base.Carrega();
             txtPreco.ForeColor = Color.FromArgb(31, 31, 31);
             if (idAlterar != -1)
             {
@@ -102,6 +103,7 @@ namespace Sistema_Vendas.Views
 
         public override void LimparCampos()
         {
+            base.LimparCampos();
             idAlterar = -1;
             txtCodigo.Clear();
             txtServico.Clear();

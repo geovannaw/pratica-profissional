@@ -37,7 +37,7 @@
             this.lblApelido_nome_fantasia = new System.Windows.Forms.Label();
             this.lblCliente_razao_social = new System.Windows.Forms.Label();
             this.lblCodigo = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbInativo = new System.Windows.Forms.RadioButton();
             this.rbAtivo = new System.Windows.Forms.RadioButton();
             this.lblDataUltAlt = new System.Windows.Forms.Label();
@@ -66,7 +66,7 @@
             this.txtCelular = new Sistema_Vendas.GControls.GTextBox();
             this.txtTelefone = new Sistema_Vendas.GControls.GTextBox();
             this.txtContato = new Sistema_Vendas.GControls.GTextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnConsultaCidades = new Sistema_Vendas.GButtons();
             this.txtPais = new Sistema_Vendas.GControls.GTextBox();
             this.txtUF = new Sistema_Vendas.GControls.GTextBox();
@@ -89,10 +89,10 @@
             this.txtCPF_CNPJ = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.txtIE_RG = new Sistema_Vendas.GControls.GTextBox();
             this.txtSexo = new Sistema_Vendas.GControls.GComboBox();
-            this.groupBox3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblIE_RG
@@ -167,16 +167,16 @@
             this.lblCodigo.TabIndex = 25;
             this.lblCodigo.Text = "Código";
             // 
-            // groupBox3
+            // groupBox1
             // 
-            this.groupBox3.Controls.Add(this.rbInativo);
-            this.groupBox3.Controls.Add(this.rbAtivo);
-            this.groupBox3.Location = new System.Drawing.Point(612, 16);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(157, 49);
-            this.groupBox3.TabIndex = 30;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Status";
+            this.groupBox1.Controls.Add(this.rbInativo);
+            this.groupBox1.Controls.Add(this.rbAtivo);
+            this.groupBox1.Location = new System.Drawing.Point(612, 16);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(157, 49);
+            this.groupBox1.TabIndex = 30;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Status";
             // 
             // rbInativo
             // 
@@ -698,33 +698,33 @@
             this.txtContato.Visible = false;
             this.txtContato.Leave += new System.EventHandler(this.txtContato_Leave);
             // 
-            // groupBox1
+            // groupBox3
             // 
-            this.groupBox1.Controls.Add(this.btnConsultaCidades);
-            this.groupBox1.Controls.Add(this.txtPais);
-            this.groupBox1.Controls.Add(this.txtUF);
-            this.groupBox1.Controls.Add(this.txtCidade);
-            this.groupBox1.Controls.Add(this.txtCodCidade);
-            this.groupBox1.Controls.Add(this.txtBairro);
-            this.groupBox1.Controls.Add(this.txtComplemento);
-            this.groupBox1.Controls.Add(this.txtNumero);
-            this.groupBox1.Controls.Add(this.txtEndereco);
-            this.groupBox1.Controls.Add(this.txtCEP);
-            this.groupBox1.Controls.Add(this.lblCodCidade);
-            this.groupBox1.Controls.Add(this.lblPais);
-            this.groupBox1.Controls.Add(this.lblUF);
-            this.groupBox1.Controls.Add(this.lblCidade);
-            this.groupBox1.Controls.Add(this.lblBairro);
-            this.groupBox1.Controls.Add(this.lblComplemento);
-            this.groupBox1.Controls.Add(this.lblNumero);
-            this.groupBox1.Controls.Add(this.lblEndereco);
-            this.groupBox1.Controls.Add(this.lblCEP);
-            this.groupBox1.Location = new System.Drawing.Point(25, 193);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(744, 151);
-            this.groupBox1.TabIndex = 108;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Endereço";
+            this.groupBox3.Controls.Add(this.btnConsultaCidades);
+            this.groupBox3.Controls.Add(this.txtPais);
+            this.groupBox3.Controls.Add(this.txtUF);
+            this.groupBox3.Controls.Add(this.txtCidade);
+            this.groupBox3.Controls.Add(this.txtCodCidade);
+            this.groupBox3.Controls.Add(this.txtBairro);
+            this.groupBox3.Controls.Add(this.txtComplemento);
+            this.groupBox3.Controls.Add(this.txtNumero);
+            this.groupBox3.Controls.Add(this.txtEndereco);
+            this.groupBox3.Controls.Add(this.txtCEP);
+            this.groupBox3.Controls.Add(this.lblCodCidade);
+            this.groupBox3.Controls.Add(this.lblPais);
+            this.groupBox3.Controls.Add(this.lblUF);
+            this.groupBox3.Controls.Add(this.lblCidade);
+            this.groupBox3.Controls.Add(this.lblBairro);
+            this.groupBox3.Controls.Add(this.lblComplemento);
+            this.groupBox3.Controls.Add(this.lblNumero);
+            this.groupBox3.Controls.Add(this.lblEndereco);
+            this.groupBox3.Controls.Add(this.lblCEP);
+            this.groupBox3.Location = new System.Drawing.Point(25, 193);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(744, 151);
+            this.groupBox3.TabIndex = 108;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Endereço";
             // 
             // btnConsultaCidades
             // 
@@ -1152,7 +1152,7 @@
             this.Controls.Add(this.txtSexo);
             this.Controls.Add(this.txtCPF_CNPJ);
             this.Controls.Add(this.txtIE_RG);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.txtContato);
             this.Controls.Add(this.txtCelular);
             this.Controls.Add(this.txtTelefone);
@@ -1169,7 +1169,7 @@
             this.Controls.Add(this.lblContato);
             this.Controls.Add(this.lblSexo);
             this.Controls.Add(this.lblDataNasc);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblDataUltAlt);
             this.Controls.Add(this.lblDataCadastro);
             this.Controls.Add(this.groupBox2);
@@ -1188,14 +1188,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CadastroPessoasPai";
             this.Load += new System.EventHandler(this.CadastroPessoasPai_Load);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1228,7 +1228,7 @@
         protected GControls.GMaskedTextBox txtDataNasc;
         protected GControls.GMaskedTextBox txtDataCadastro;
         protected GControls.GMaskedTextBox txtDataUltAlt;
-        protected System.Windows.Forms.GroupBox groupBox1;
+        protected System.Windows.Forms.GroupBox groupBox3;
         protected System.Windows.Forms.Label lblCodCidade;
         protected System.Windows.Forms.Label lblPais;
         protected System.Windows.Forms.Label lblUF;
@@ -1238,7 +1238,7 @@
         protected System.Windows.Forms.Label lblNumero;
         private System.Windows.Forms.Label lblCEP;
         protected GControls.GMaskedTextBox txtCPF_CNPJ;
-        protected System.Windows.Forms.GroupBox groupBox3;
+        protected System.Windows.Forms.GroupBox groupBox1;
         protected System.Windows.Forms.GroupBox groupBox4;
         protected GControls.GTextBox txtApelido_nome_fantasia;
         protected GControls.GTextBox txtEmail;

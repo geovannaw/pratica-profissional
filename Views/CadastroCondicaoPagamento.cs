@@ -24,6 +24,7 @@ namespace Sistema_Vendas.Views
         }
         public override void LimparCampos()
         {
+            base.LimparCampos();
             idAlterar = -1;
             txtCodigo.Clear();
             txtCondPag.Clear();
@@ -119,6 +120,7 @@ namespace Sistema_Vendas.Views
 
         public override void Carrega()
         {
+            base.Carrega();
             var condicaoPagamento = condPagamentoController.GetById(idAlterar);
             if (condicaoPagamento != null)
             {

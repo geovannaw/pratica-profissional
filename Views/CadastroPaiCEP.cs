@@ -23,8 +23,19 @@ namespace Sistema_Vendas.Views
         public virtual void Salvar() { }
         public virtual void Bloqueia() { }
         public virtual void Desbloqueia() { }
-        public virtual void Carrega() { }
-        public virtual void LimparCampos() { }
+        public virtual void Carrega() 
+        {
+            rbAtivo.Enabled = true;
+            rbInativo.Enabled = true;
+            groupBox1.Enabled = true;
+            
+        }
+        public virtual void LimparCampos() 
+        {
+            rbAtivo.Enabled = false;
+            rbInativo.Enabled = false;
+            groupBox1.Enabled = false;
+        }
 
         private void rbAtivo_CheckedChanged(object sender, EventArgs e)
         {

@@ -124,6 +124,7 @@
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
             this.btnSalvar.Location = new System.Drawing.Point(621, 447);
+            this.btnSalvar.TabIndex = 23;
             // 
             // btnSair
             // 
@@ -187,7 +188,7 @@
             this.txtTotal.PlaceholderText = "";
             this.txtTotal.Size = new System.Drawing.Size(124, 28);
             this.txtTotal.TabIndex = 16;
-            this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTotal.Texts = "";
             this.txtTotal.UnderlinedStyle = false;
             // 
@@ -212,8 +213,8 @@
             this.txtPorcentagemDesconto.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtPorcentagemDesconto.PlaceholderText = "";
             this.txtPorcentagemDesconto.Size = new System.Drawing.Size(56, 28);
-            this.txtPorcentagemDesconto.TabIndex = 15;
-            this.txtPorcentagemDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtPorcentagemDesconto.TabIndex = 22;
+            this.txtPorcentagemDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPorcentagemDesconto.Texts = "";
             this.txtPorcentagemDesconto.UnderlinedStyle = false;
             this.txtPorcentagemDesconto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentagemDesconto_KeyPress);
@@ -242,7 +243,7 @@
             this.txtDesconto.PlaceholderText = "";
             this.txtDesconto.Size = new System.Drawing.Size(56, 28);
             this.txtDesconto.TabIndex = 14;
-            this.txtDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDesconto.Texts = "";
             this.txtDesconto.UnderlinedStyle = false;
             // 
@@ -269,7 +270,7 @@
             this.txtSubtotalServicos.PlaceholderText = "";
             this.txtSubtotalServicos.Size = new System.Drawing.Size(124, 28);
             this.txtSubtotalServicos.TabIndex = 13;
-            this.txtSubtotalServicos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSubtotalServicos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtSubtotalServicos.Texts = "";
             this.txtSubtotalServicos.UnderlinedStyle = false;
             // 
@@ -296,7 +297,7 @@
             this.txtSubtotalProdutos.PlaceholderText = "";
             this.txtSubtotalProdutos.Size = new System.Drawing.Size(124, 28);
             this.txtSubtotalProdutos.TabIndex = 12;
-            this.txtSubtotalProdutos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSubtotalProdutos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtSubtotalProdutos.Texts = "";
             this.txtSubtotalProdutos.UnderlinedStyle = false;
             // 
@@ -388,7 +389,7 @@
             this.btnExcluirServico.Location = new System.Drawing.Point(484, 279);
             this.btnExcluirServico.Name = "btnExcluirServico";
             this.btnExcluirServico.Size = new System.Drawing.Size(86, 28);
-            this.btnExcluirServico.TabIndex = 124;
+            this.btnExcluirServico.TabIndex = 21;
             this.btnExcluirServico.Text = "Excluir Serviço";
             this.btnExcluirServico.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
             this.btnExcluirServico.UseVisualStyleBackColor = false;
@@ -424,8 +425,8 @@
             this.txtQtdeServico.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtQtdeServico.PlaceholderText = "";
             this.txtQtdeServico.Size = new System.Drawing.Size(66, 28);
-            this.txtQtdeServico.TabIndex = 92;
-            this.txtQtdeServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtQtdeServico.TabIndex = 19;
+            this.txtQtdeServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtQtdeServico.Texts = "";
             this.txtQtdeServico.UnderlinedStyle = false;
             this.txtQtdeServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeServico_KeyPress);
@@ -444,7 +445,7 @@
             this.btnConsultaServico.Location = new System.Drawing.Point(92, 29);
             this.btnConsultaServico.Name = "btnConsultaServico";
             this.btnConsultaServico.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaServico.TabIndex = 91;
+            this.btnConsultaServico.TabIndex = 18;
             this.btnConsultaServico.TextColor = System.Drawing.Color.White;
             this.btnConsultaServico.UseVisualStyleBackColor = false;
             this.btnConsultaServico.Click += new System.EventHandler(this.btnConsultaServico_Click);
@@ -497,8 +498,8 @@
             this.txtCodServico.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCodServico.PlaceholderText = "";
             this.txtCodServico.Size = new System.Drawing.Size(66, 28);
-            this.txtCodServico.TabIndex = 89;
-            this.txtCodServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtCodServico.TabIndex = 17;
+            this.txtCodServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodServico.Texts = "";
             this.txtCodServico.UnderlinedStyle = false;
             this.txtCodServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodServico_KeyPress);
@@ -584,7 +585,7 @@
             this.btnAddServico.Location = new System.Drawing.Point(495, 29);
             this.btnAddServico.Name = "btnAddServico";
             this.btnAddServico.Size = new System.Drawing.Size(75, 28);
-            this.btnAddServico.TabIndex = 85;
+            this.btnAddServico.TabIndex = 20;
             this.btnAddServico.Text = "&Adicionar";
             this.btnAddServico.TextColor = System.Drawing.Color.White;
             this.btnAddServico.UseVisualStyleBackColor = false;
@@ -624,7 +625,7 @@
             this.btnExcluirProduto.Location = new System.Drawing.Point(484, 279);
             this.btnExcluirProduto.Name = "btnExcluirProduto";
             this.btnExcluirProduto.Size = new System.Drawing.Size(86, 28);
-            this.btnExcluirProduto.TabIndex = 125;
+            this.btnExcluirProduto.TabIndex = 15;
             this.btnExcluirProduto.Text = "Excluir Produto";
             this.btnExcluirProduto.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
             this.btnExcluirProduto.UseVisualStyleBackColor = false;
@@ -660,8 +661,8 @@
             this.txtQtdeProduto.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtQtdeProduto.PlaceholderText = "";
             this.txtQtdeProduto.Size = new System.Drawing.Size(66, 28);
-            this.txtQtdeProduto.TabIndex = 83;
-            this.txtQtdeProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtQtdeProduto.TabIndex = 13;
+            this.txtQtdeProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtQtdeProduto.Texts = "";
             this.txtQtdeProduto.UnderlinedStyle = false;
             this.txtQtdeProduto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeProduto_KeyPress);
@@ -680,7 +681,7 @@
             this.btnConsultaProduto.Location = new System.Drawing.Point(92, 29);
             this.btnConsultaProduto.Name = "btnConsultaProduto";
             this.btnConsultaProduto.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaProduto.TabIndex = 82;
+            this.btnConsultaProduto.TabIndex = 12;
             this.btnConsultaProduto.TextColor = System.Drawing.Color.White;
             this.btnConsultaProduto.UseVisualStyleBackColor = false;
             this.btnConsultaProduto.Click += new System.EventHandler(this.btnConsultaProduto_Click);
@@ -733,8 +734,8 @@
             this.txtCodProduto.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCodProduto.PlaceholderText = "";
             this.txtCodProduto.Size = new System.Drawing.Size(66, 28);
-            this.txtCodProduto.TabIndex = 80;
-            this.txtCodProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtCodProduto.TabIndex = 11;
+            this.txtCodProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodProduto.Texts = "";
             this.txtCodProduto.UnderlinedStyle = false;
             this.txtCodProduto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodProduto_KeyPress);
@@ -821,7 +822,7 @@
             this.btnAddProdutos.Location = new System.Drawing.Point(495, 29);
             this.btnAddProdutos.Name = "btnAddProdutos";
             this.btnAddProdutos.Size = new System.Drawing.Size(75, 28);
-            this.btnAddProdutos.TabIndex = 37;
+            this.btnAddProdutos.TabIndex = 14;
             this.btnAddProdutos.Text = "&Adicionar";
             this.btnAddProdutos.TextColor = System.Drawing.Color.White;
             this.btnAddProdutos.UseVisualStyleBackColor = false;
@@ -854,7 +855,7 @@
             // lblCelular
             // 
             this.lblCelular.AutoSize = true;
-            this.lblCelular.Location = new System.Drawing.Point(417, 32);
+            this.lblCelular.Location = new System.Drawing.Point(417, 40);
             this.lblCelular.Name = "lblCelular";
             this.lblCelular.Size = new System.Drawing.Size(39, 13);
             this.lblCelular.TabIndex = 80;
@@ -873,7 +874,7 @@
             this.txtCelular.DisabledForeColor = System.Drawing.Color.White;
             this.txtCelular.Enabled = false;
             this.txtCelular.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCelular.Location = new System.Drawing.Point(420, 48);
+            this.txtCelular.Location = new System.Drawing.Point(420, 56);
             this.txtCelular.MaxLength = 32767;
             this.txtCelular.Multiline = false;
             this.txtCelular.Name = "txtCelular";
@@ -908,7 +909,7 @@
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
             this.txtObservacao.Size = new System.Drawing.Size(537, 78);
-            this.txtObservacao.TabIndex = 78;
+            this.txtObservacao.TabIndex = 9;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
             this.txtObservacao.UnderlinedStyle = false;
@@ -924,10 +925,10 @@
             this.btnConsultaFuncionario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConsultaFuncionario.ForeColor = System.Drawing.Color.White;
             this.btnConsultaFuncionario.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaFuncionario.Image")));
-            this.btnConsultaFuncionario.Location = new System.Drawing.Point(124, 125);
+            this.btnConsultaFuncionario.Location = new System.Drawing.Point(124, 133);
             this.btnConsultaFuncionario.Name = "btnConsultaFuncionario";
             this.btnConsultaFuncionario.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaFuncionario.TabIndex = 77;
+            this.btnConsultaFuncionario.TabIndex = 8;
             this.btnConsultaFuncionario.TextColor = System.Drawing.Color.White;
             this.btnConsultaFuncionario.UseVisualStyleBackColor = false;
             this.btnConsultaFuncionario.Click += new System.EventHandler(this.btnConsultaFuncionario_Click);
@@ -945,7 +946,7 @@
             this.txtFuncionario.DisabledForeColor = System.Drawing.Color.White;
             this.txtFuncionario.Enabled = false;
             this.txtFuncionario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtFuncionario.Location = new System.Drawing.Point(166, 125);
+            this.txtFuncionario.Location = new System.Drawing.Point(166, 133);
             this.txtFuncionario.MaxLength = 32767;
             this.txtFuncionario.Multiline = false;
             this.txtFuncionario.Name = "txtFuncionario";
@@ -971,7 +972,7 @@
             this.txtCodFuncionario.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodFuncionario.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodFuncionario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodFuncionario.Location = new System.Drawing.Point(27, 125);
+            this.txtCodFuncionario.Location = new System.Drawing.Point(27, 133);
             this.txtCodFuncionario.MaxLength = 32767;
             this.txtCodFuncionario.Multiline = false;
             this.txtCodFuncionario.Name = "txtCodFuncionario";
@@ -980,8 +981,8 @@
             this.txtCodFuncionario.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCodFuncionario.PlaceholderText = "";
             this.txtCodFuncionario.Size = new System.Drawing.Size(91, 28);
-            this.txtCodFuncionario.TabIndex = 75;
-            this.txtCodFuncionario.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtCodFuncionario.TabIndex = 7;
+            this.txtCodFuncionario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodFuncionario.Texts = "";
             this.txtCodFuncionario.UnderlinedStyle = false;
             this.txtCodFuncionario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodFuncionario_KeyPress);
@@ -990,7 +991,7 @@
             // lblCodFuncionario
             // 
             this.lblCodFuncionario.AutoSize = true;
-            this.lblCodFuncionario.Location = new System.Drawing.Point(24, 109);
+            this.lblCodFuncionario.Location = new System.Drawing.Point(24, 117);
             this.lblCodFuncionario.Name = "lblCodFuncionario";
             this.lblCodFuncionario.Size = new System.Drawing.Size(94, 13);
             this.lblCodFuncionario.TabIndex = 74;
@@ -999,7 +1000,7 @@
             // lblFuncionario
             // 
             this.lblFuncionario.AutoSize = true;
-            this.lblFuncionario.Location = new System.Drawing.Point(163, 109);
+            this.lblFuncionario.Location = new System.Drawing.Point(163, 117);
             this.lblFuncionario.Name = "lblFuncionario";
             this.lblFuncionario.Size = new System.Drawing.Size(62, 13);
             this.lblFuncionario.TabIndex = 73;
@@ -1016,10 +1017,10 @@
             this.btnConsultaCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConsultaCliente.ForeColor = System.Drawing.Color.White;
             this.btnConsultaCliente.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaCliente.Image")));
-            this.btnConsultaCliente.Location = new System.Drawing.Point(124, 48);
+            this.btnConsultaCliente.Location = new System.Drawing.Point(124, 56);
             this.btnConsultaCliente.Name = "btnConsultaCliente";
             this.btnConsultaCliente.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaCliente.TabIndex = 72;
+            this.btnConsultaCliente.TabIndex = 6;
             this.btnConsultaCliente.TextColor = System.Drawing.Color.White;
             this.btnConsultaCliente.UseVisualStyleBackColor = false;
             this.btnConsultaCliente.Click += new System.EventHandler(this.btnConsultaCliente_Click);
@@ -1037,7 +1038,7 @@
             this.txtCliente.DisabledForeColor = System.Drawing.Color.White;
             this.txtCliente.Enabled = false;
             this.txtCliente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCliente.Location = new System.Drawing.Point(166, 48);
+            this.txtCliente.Location = new System.Drawing.Point(166, 56);
             this.txtCliente.MaxLength = 32767;
             this.txtCliente.Multiline = false;
             this.txtCliente.Name = "txtCliente";
@@ -1063,7 +1064,7 @@
             this.txtCodCliente.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodCliente.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodCliente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodCliente.Location = new System.Drawing.Point(27, 48);
+            this.txtCodCliente.Location = new System.Drawing.Point(27, 56);
             this.txtCodCliente.MaxLength = 32767;
             this.txtCodCliente.Multiline = false;
             this.txtCodCliente.Name = "txtCodCliente";
@@ -1072,8 +1073,8 @@
             this.txtCodCliente.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCodCliente.PlaceholderText = "";
             this.txtCodCliente.Size = new System.Drawing.Size(91, 28);
-            this.txtCodCliente.TabIndex = 70;
-            this.txtCodCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtCodCliente.TabIndex = 5;
+            this.txtCodCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCliente.Texts = "";
             this.txtCodCliente.UnderlinedStyle = false;
             this.txtCodCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCliente_KeyPress);
@@ -1091,7 +1092,7 @@
             // lblCodCliente
             // 
             this.lblCodCliente.AutoSize = true;
-            this.lblCodCliente.Location = new System.Drawing.Point(24, 32);
+            this.lblCodCliente.Location = new System.Drawing.Point(24, 40);
             this.lblCodCliente.Name = "lblCodCliente";
             this.lblCodCliente.Size = new System.Drawing.Size(71, 13);
             this.lblCodCliente.TabIndex = 62;
@@ -1100,7 +1101,7 @@
             // lblCliente
             // 
             this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(163, 32);
+            this.lblCliente.Location = new System.Drawing.Point(163, 40);
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Size = new System.Drawing.Size(39, 13);
             this.lblCliente.TabIndex = 61;
@@ -1115,7 +1116,7 @@
             this.tabPrincipal.Name = "tabPrincipal";
             this.tabPrincipal.SelectedIndex = 0;
             this.tabPrincipal.Size = new System.Drawing.Size(599, 343);
-            this.tabPrincipal.TabIndex = 12;
+            this.tabPrincipal.TabIndex = 16;
             // 
             // txtDataOS
             // 
@@ -1138,7 +1139,7 @@
             this.txtDataOS.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDataOS.PlaceholderText = "";
             this.txtDataOS.Size = new System.Drawing.Size(92, 27);
-            this.txtDataOS.TabIndex = 35;
+            this.txtDataOS.TabIndex = 1;
             this.txtDataOS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataOS.Texts = "  /  /";
             this.txtDataOS.UnderlinedStyle = false;
@@ -1175,8 +1176,9 @@
             this.cbSituacao.Name = "cbSituacao";
             this.cbSituacao.Padding = new System.Windows.Forms.Padding(2, 2, 1, 1);
             this.cbSituacao.Size = new System.Drawing.Size(171, 28);
-            this.cbSituacao.TabIndex = 121;
+            this.cbSituacao.TabIndex = 3;
             this.cbSituacao.Texts = "";
+            this.cbSituacao.OnSelectedIndexChanged += new System.EventHandler(this.cbSituacao_OnSelectedIndexChanged);
             // 
             // lblDataEntrega
             // 
@@ -1208,7 +1210,7 @@
             this.txtDataEntrega.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDataEntrega.PlaceholderText = "";
             this.txtDataEntrega.Size = new System.Drawing.Size(92, 27);
-            this.txtDataEntrega.TabIndex = 122;
+            this.txtDataEntrega.TabIndex = 2;
             this.txtDataEntrega.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataEntrega.Texts = "  /  /";
             this.txtDataEntrega.UnderlinedStyle = false;

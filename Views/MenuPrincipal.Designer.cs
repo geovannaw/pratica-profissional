@@ -51,6 +51,8 @@
             this.contasAReceberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblDataMenu = new System.Windows.Forms.ToolStripStatusLabel();
+            this.notaDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notaDeVendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -183,7 +185,9 @@
             // movimentaçãoToolStripMenuItem
             // 
             this.movimentaçãoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ordemDeServiçoToolStripMenuItem});
+            this.ordemDeServiçoToolStripMenuItem,
+            this.notaDeVendaToolStripMenuItem,
+            this.notaDeCompraToolStripMenuItem});
             this.movimentaçãoToolStripMenuItem.Name = "movimentaçãoToolStripMenuItem";
             this.movimentaçãoToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
             this.movimentaçãoToolStripMenuItem.Text = "Movimentação";
@@ -230,6 +234,18 @@
             // 
             this.lblDataMenu.Name = "lblDataMenu";
             this.lblDataMenu.Size = new System.Drawing.Size(0, 17);
+            // 
+            // notaDeCompraToolStripMenuItem
+            // 
+            this.notaDeCompraToolStripMenuItem.Name = "notaDeCompraToolStripMenuItem";
+            this.notaDeCompraToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.notaDeCompraToolStripMenuItem.Text = "Nota de Compra";
+            // 
+            // notaDeVendaToolStripMenuItem
+            // 
+            this.notaDeVendaToolStripMenuItem.Name = "notaDeVendaToolStripMenuItem";
+            this.notaDeVendaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.notaDeVendaToolStripMenuItem.Text = "Nota de Venda";
             // 
             // MenuPrincipal
             // 
@@ -278,6 +294,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem serviçosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ordemDeServiçoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem notaDeVendaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem notaDeCompraToolStripMenuItem;
     }
 }
 

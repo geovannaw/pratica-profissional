@@ -16,12 +16,14 @@ namespace Sistema_Vendas.Views
         private OSController<OrdemServicoModel> ordemServicoController;
         private CadastroOS cadastroOS;
         private ClienteController<ClienteModel> clienteController;
+        private ProdutoController<ProdutoModel> produtoController;
         public ConsultaOS()
         {
             InitializeComponent();
             cadastroOS = new CadastroOS();
             ordemServicoController = new OSController<OrdemServicoModel>();
             clienteController = new ClienteController<ClienteModel>();
+            produtoController = new ProdutoController<ProdutoModel>();
             cadastroOS.Owner = this;
         }
 
@@ -49,11 +51,31 @@ namespace Sistema_Vendas.Views
         {
             if (dataGridViewOS.SelectedRows.Count > 0)
             {
-                if (MessageBox.Show("Tem certeza de que deseja excluir esta Ordem de Serviço?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                string status = dataGridViewOS.SelectedRows[0].Cells["Status"].Value.ToString();
+
+                if (status == "CANCELADO" || status == "PENDENTE")
                 {
-                    int idOS = (int)dataGridViewOS.SelectedRows[0].Cells["Código"].Value;
-                    ordemServicoController.Delete(idOS);
-                    dataGridViewOS.DataSource = ordemServicoController.GetAll(cbBuscaInativos.Checked);
+                    if (MessageBox.Show("Tem certeza de que deseja excluir esta Ordem de Serviço?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        int idOS = (int)dataGridViewOS.SelectedRows[0].Cells["Código"].Value;
+
+                        // Recupera a lista de produtos associados à OS
+                        List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
+
+                        // Volta o estoque de cada produto
+                        foreach (var produto in produtos)
+                        {
+                            produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
+                        }
+
+                        // Exclui a OS
+                        ordemServicoController.Delete(idOS);
+                        dataGridViewOS.DataSource = ordemServicoController.GetAll(cbBuscaInativos.Checked);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("A Ordem de Serviço só pode ser excluída se estiver com status CANCELADO ou PENDENTE.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -61,6 +83,7 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Selecione uma Ordem de Serviço para excluir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         public override void Pesquisar()
         {
             string pesquisa = txtPesquisa.Texts.Trim();
@@ -72,7 +95,7 @@ namespace Sistema_Vendas.Views
                     bool buscaInativos = cbBuscaInativos.Checked;
 
                     if (rbNome.Checked)
-                    {
+                    {   
                         resultadosPesquisa = ordemServicoController.GetAll(buscaInativos)
                                                            .Where(p => p.status.Contains(pesquisa))
                                                            .ToList();
@@ -167,6 +190,14 @@ namespace Sistema_Vendas.Views
 
         private void dataGridViewOS_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (dataGridViewOS.Columns[e.ColumnIndex].Name == "Status" && e.RowIndex >= 0)
+            {
+                string status = dataGridViewOS.Rows[e.RowIndex].Cells["Status"].Value.ToString();
+                if (status == "CANCELADO")
+                {
+                    e.CellStyle.ForeColor = Color.Red;
+                }
+            }
             if (e.ColumnIndex == dataGridViewOS.Columns["Cliente"].Index && e.RowIndex >= 0)
             {
                 // recupera o idOrdemServico da linha atual

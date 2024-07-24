@@ -148,7 +148,7 @@ namespace Sistema_Vendas.DAO
 
             return ordemServico;
         }
-        private List<OS_ProdutoModel> GetProdutosByOS(int idOrdemServico)
+        public List<OS_ProdutoModel> GetProdutosByOS(int idOrdemServico)
         {
             List<OS_ProdutoModel> produtos = new List<OS_ProdutoModel>();
 

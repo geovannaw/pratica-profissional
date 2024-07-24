@@ -68,6 +68,27 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+        public void AtualizarSaldo(int idProduto, int quantidade)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Produto SET saldo = saldo + @quantidade WHERE idProduto = @idProduto";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@quantidade", quantidade);
+                command.Parameters.AddWithValue("@idProduto", idProduto);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Erro ao atualizar saldo do produto: " + ex.Message);
+                    throw;
+                }
+            }
+        }
 
         public override void Delete(int id)
         {

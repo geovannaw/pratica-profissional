@@ -23,6 +23,7 @@ namespace Sistema_Vendas.Views
         }
         public override void Carrega()
         {
+            base.Carrega();
             //verifica se há um país a ser alterado
             if (idAlterar != -1)
             {
@@ -113,6 +114,7 @@ namespace Sistema_Vendas.Views
         }
         public override void LimparCampos()
         {
+            base.LimparCampos();
             idAlterar = -1;
             txtCodigo.Clear();
             txtPais.Clear();

@@ -26,7 +26,11 @@ namespace Sistema_Vendas.Views
         public virtual void Salvar() { }
         public virtual void Bloqueia() { }
         public virtual void Desbloqueia() { }
-        public virtual void Carrega() { }
+        public virtual void Carrega() {
+            rbAtivo.Enabled = true;
+            rbInativo.Enabled = true;
+            groupBox1.Enabled = true;
+        }
         public virtual void LimparCampos()
         {
             idAlterar = -1;
@@ -59,6 +63,10 @@ namespace Sistema_Vendas.Views
             rbAtivo.Checked = true;
             rbFisica.Enabled = true;
             rbJuridica.Enabled = true;
+
+            rbAtivo.Enabled = false;
+            rbInativo.Enabled = false;
+            groupBox1.Enabled = false;
         }
 
         public void SetID(int id)

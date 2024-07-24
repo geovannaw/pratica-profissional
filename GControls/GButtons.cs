@@ -141,6 +141,19 @@ namespace Sistema_Vendas
                 }
             }
         }
+
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+            if (!this.Enabled)
+            {
+                this.ForeColor = Color.Gainsboro;
+            }
+            else
+            {
+                this.ForeColor = Color.White;
+            }
+        }
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);

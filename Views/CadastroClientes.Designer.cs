@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,7 +74,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.TabIndex = 11;
+            this.groupBox3.TabIndex = 11;
             // 
             // txtCPF_CNPJ
             // 
@@ -82,7 +82,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.TabIndex = 27;
+            this.groupBox1.TabIndex = 27;
             // 
             // groupBox4
             // 
@@ -174,10 +174,10 @@
             this.Load += new System.EventHandler(this.CadastroClientes_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);

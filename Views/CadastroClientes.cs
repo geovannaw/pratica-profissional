@@ -137,6 +137,7 @@ namespace Sistema_Vendas.Views
         }
         public override void Carrega()
         {
+            base.Carrega();
             rbFisica.Enabled = false;
             rbJuridica.Enabled = false;
             if (idAlterar != -1)

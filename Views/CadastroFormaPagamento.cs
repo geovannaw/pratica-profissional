@@ -20,6 +20,7 @@ namespace Sistema_Vendas.Views
         }
         public override void Carrega()
         {
+            base.Carrega();
             if (idAlterar != -1)
             {
                 FormaPagamentoModel formaPag = formaPagamentoController.GetById(idAlterar);
@@ -93,6 +94,7 @@ namespace Sistema_Vendas.Views
 
         public override void LimparCampos() 
         {
+            base.LimparCampos();
             idAlterar = -1;
             txtCodigo.Clear();
             txtFormaPagamento.Clear();

@@ -1,4 +1,5 @@
-﻿using Sistema_Vendas.Controller;
+﻿using Mysqlx.Crud;
+using Sistema_Vendas.Controller;
 using Sistema_Vendas.DAO;
 using Sistema_Vendas.Models;
 using System;
@@ -29,6 +30,8 @@ namespace Sistema_Vendas.Views
         decimal precoUNServico;
 
         bool isAdquirido = true;
+        private bool carregando = false;
+
         public CadastroOS()
         {
             InitializeComponent();
@@ -41,6 +44,7 @@ namespace Sistema_Vendas.Views
             consultaServicos = new ConsultaServicos();
             produtoController = new ProdutoController<ProdutoModel>();
             servicoController = new ServicoController<ServicoModel>();
+            txtCodCliente.Focus();
         }
 
         public void SetID(int id)
@@ -49,6 +53,7 @@ namespace Sistema_Vendas.Views
         }
         public override void LimparCampos()
         {
+            base.LimparCampos();
             idAlterar = -1;
             txtCodigo.Clear();
             txtCodCliente.Clear();
@@ -68,6 +73,13 @@ namespace Sistema_Vendas.Views
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
             rbAtivo.Checked = true;
+
+            txtCodProduto.Enabled = true;
+            btnConsultaProduto.Enabled = true;
+            txtQtdeProduto.Enabled = true;
+            dataGridViewProdutos.Enabled = true;
+            txtDataOS.Enabled = true;
+
             dataGridViewProdutos.Rows.Clear();
             dataGridViewServicos.Rows.Clear();
             limpaCamposProdutos();
@@ -137,6 +149,10 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("A porcentagem deve ser igual ou menor que 100.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPorcentagemDesconto.Focus();
             }
+            else if (dataGridViewServicos.Rows.Count == 0)
+            {
+                MessageBox.Show("É necessário adicionar pelo menos um serviço.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else
             {
                 try
@@ -168,6 +184,14 @@ namespace Sistema_Vendas.Views
                         Produtos = obtemProdutos(),
                         Servicos = obtemServicos(),
                     };
+
+                    //armazena a lista de produtos originais (apenas ao alterar)
+                    List<ProdutoModel> produtosOriginais = null;
+                    if (idAlterar != -1)
+                    {
+                        produtosOriginais = ordemServicoController.GetProdutosByOS(idAlterar);
+                    }
+
                     if (idAlterar == -1)
                     {
                         ordemServicoController.Salvar(novaOS);
@@ -178,13 +202,23 @@ namespace Sistema_Vendas.Views
                         ordemServicoController.Alterar(novaOS);
                     }
 
-                    //atualizar saldo dos produtos na base de dados
+                    //atualiza saldo dos produtos
                     foreach (var produto in novaOS.Produtos)
                     {
                         ProdutoModel produtoDetalhes = produtoController.GetById(produto.idProduto);
                         if (produtoDetalhes != null)
                         {
-                            produtoDetalhes.Saldo -= produto.quantidadeProduto;
+                            int quantidadeOriginal = 0;
+                            if (produtosOriginais != null)
+                            {
+                                var produtoOriginal = produtosOriginais.FirstOrDefault(p => p.idProduto == produto.idProduto);
+                                if (produtoOriginal != null)
+                                {
+                                    quantidadeOriginal = produtoOriginal.Saldo;
+                                }
+                            }
+
+                            produtoDetalhes.Saldo -= (produto.quantidadeProduto - quantidadeOriginal);
                             produtoController.Alterar(produtoDetalhes);
                         }
                     }
@@ -200,6 +234,9 @@ namespace Sistema_Vendas.Views
 
         public override void Carrega()
         {
+            base.Carrega();
+            carregando = true;
+
             var ordemServico = ordemServicoController.GetById(idAlterar);
             if (ordemServico != null)
             {
@@ -231,12 +268,27 @@ namespace Sistema_Vendas.Views
                     txtFuncionario.Texts = funcionario.funcionario;
                 }
 
+                if(cbSituacao.SelectedItem.ToString() == "CANCELADO")
+                {
+                    txtCodProduto.Enabled = false;
+                    btnConsultaProduto.Enabled = false;
+                    txtQtdeProduto.Enabled = false;
+                    dataGridViewProdutos.Enabled = false;
+                } else
+                {
+                    txtCodProduto.Enabled = true;
+                    btnConsultaProduto.Enabled = true;
+                    txtQtdeProduto.Enabled = true;
+                    dataGridViewProdutos.Enabled = true;
+                }
+                txtDataOS.Enabled = false;
                 exibirProdutosDGV(ordemServico.Produtos);
                 exibirServicosDGV(ordemServico.Servicos);
                 atualizaSubtotalProdutos();
                 atualizaSubtotalServicos();
                 atualizaDesconto();
             }
+            carregando = false;
         }
         private void exibirProdutosDGV(List<OS_ProdutoModel> produtos)
         {
@@ -443,7 +495,24 @@ namespace Sistema_Vendas.Views
                     {
                         if (produtoDetalhes.Saldo >= quantidadeProd)
                         {
-                            dataGridViewProdutos.Rows.Add(codigoProduto, produto, pUNProd, quantidadeProd, precoTotalProd); //add nova linha com os valores 
+                            bool produtoExistente = false;
+
+                            foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
+                            {
+                                if (Convert.ToInt32(row.Cells["idProduto"].Value) == codigoProduto)
+                                {
+                                    int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeProduto"].Value);
+                                    row.Cells["quantidadeProduto"].Value = quantidadeAtual + quantidadeProd;
+                                    row.Cells["precoProduto"].Value = (quantidadeAtual + quantidadeProd) * pUNProd;
+                                    produtoExistente = true;
+                                    break;
+                                }
+                            }
+
+                            if (!produtoExistente)
+                            {
+                                dataGridViewProdutos.Rows.Add(codigoProduto, produto, pUNProd, quantidadeProd, precoTotalProd);
+                            }
 
                             atualizaSubtotalProdutos();
                             atualizaTotal();
@@ -466,7 +535,6 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
-
         public void limpaCamposProdutos()
         {
             txtCodProduto.Clear();
@@ -497,7 +565,24 @@ namespace Sistema_Vendas.Views
                     decimal sTotal = quantidadeServ * pUNServ;
                     decimal precoTotalServ = sTotal;
 
-                    dataGridViewServicos.Rows.Add(codigoServico, servico, pUNServ, quantidadeServ, precoTotalServ); //add nova linha com os valores 
+                    bool servicoExistente = false;
+
+                    foreach (DataGridViewRow row in dataGridViewServicos.Rows)
+                    {
+                        if (Convert.ToInt32(row.Cells["idServiço"].Value) == codigoServico)
+                        {
+                            int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeServico"].Value);
+                            row.Cells["quantidadeServico"].Value = quantidadeAtual + quantidadeServ;
+                            row.Cells["precoServico"].Value = (quantidadeAtual + quantidadeServ) * pUNServ;
+                            servicoExistente = true;
+                            break;
+                        }
+                    }
+
+                    if (!servicoExistente)
+                    {
+                        dataGridViewServicos.Rows.Add(codigoServico, servico, pUNServ, quantidadeServ, precoTotalServ);
+                    }
 
                     atualizaSubtotalServicos();
                     atualizaTotal();
@@ -506,7 +591,7 @@ namespace Sistema_Vendas.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erro ao adicionar produto: " + ex.Message);
+                    MessageBox.Show("Erro ao adicionar serviço: " + ex.Message);
                 }
             }
         }
@@ -810,13 +895,15 @@ namespace Sistema_Vendas.Views
         private void txtDataEntrega_Leave(object sender, EventArgs e)
         {
             DateTime dataEntrega;
+            DateTime dataOS;
             DateTime.TryParse(txtDataEntrega.Texts, out dataEntrega);
+            DateTime.TryParse(txtDataOS.Texts, out dataOS);
 
             string dataE = new string(txtDataEntrega.Texts.Where(char.IsDigit).ToArray());
             if (!string.IsNullOrWhiteSpace(dataE))
             {
                 //verifica se a data de entrega é maior ou igual a hoje
-                if (dataEntrega < DateTime.Today)
+                if (dataEntrega < dataOS)
                 {
                     MessageBox.Show("Data de entrega inválida! A data deve ser maior ou igual a hoje.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtDataEntrega.Focus();
@@ -828,5 +915,40 @@ namespace Sistema_Vendas.Views
             }
  
         }
+
+        private void cbSituacao_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (carregando) return;
+            if (cbSituacao.SelectedIndex == -1) return;
+            if (cbSituacao.SelectedItem.ToString() == "CANCELADO")
+            {
+                if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço? Ao cancelar, os produtos presentes voltarão ao estoque.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    int idOS;
+                    if (int.TryParse(txtCodigo.Texts, out idOS))
+                    {
+                        // Recupera a lista de produtos associados à OS
+                        List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
+
+                        // Volta o estoque de cada produto
+                        foreach (var produto in produtos)
+                        {
+                            produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
+                        }
+
+                        txtCodProduto.Enabled = false;
+                        btnConsultaProduto.Enabled = false;
+                        txtQtdeProduto.Enabled = false;
+                        dataGridViewProdutos.Enabled = false;
+
+                        MessageBox.Show("Ordem de Serviço cancelada e estoque atualizado.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Código da Ordem de Serviço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        } 
     }
 }

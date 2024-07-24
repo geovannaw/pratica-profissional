@@ -21,6 +21,7 @@ namespace Sistema_Vendas.Views
         }
         public override void Carrega()
         {
+            base.Carrega();
             if (idAlterar != -1)
             {
                 ModeloModel modelo = modeloController.GetById(idAlterar);
@@ -44,6 +45,7 @@ namespace Sistema_Vendas.Views
 
         public override void LimparCampos()
         {
+            base.LimparCampos();
             idAlterar = -1;
             txtCodigo.Clear();
             txtModelo.Clear();

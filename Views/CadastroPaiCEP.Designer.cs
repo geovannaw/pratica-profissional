@@ -73,6 +73,7 @@
             // 
             this.groupBox1.Controls.Add(this.rbInativo);
             this.groupBox1.Controls.Add(this.rbAtivo);
+            this.groupBox1.Enabled = false;
             this.groupBox1.Location = new System.Drawing.Point(231, 17);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(149, 49);
@@ -83,6 +84,7 @@
             // rbInativo
             // 
             this.rbInativo.AutoSize = true;
+            this.rbInativo.Enabled = false;
             this.rbInativo.Location = new System.Drawing.Point(80, 20);
             this.rbInativo.Name = "rbInativo";
             this.rbInativo.Size = new System.Drawing.Size(57, 17);
@@ -96,6 +98,7 @@
             // 
             this.rbAtivo.AutoSize = true;
             this.rbAtivo.Checked = true;
+            this.rbAtivo.Enabled = false;
             this.rbAtivo.Location = new System.Drawing.Point(16, 20);
             this.rbAtivo.Name = "rbAtivo";
             this.rbAtivo.Size = new System.Drawing.Size(49, 17);
@@ -114,6 +117,7 @@
             this.txtCodigo.BorderSize = 1;
             this.txtCodigo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCodigo.DisabledBackColor = System.Drawing.Color.White;
+            this.txtCodigo.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodigo.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodigo.Enabled = false;
             this.txtCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -179,6 +183,7 @@
             this.txtDataCadastro.BorderRadius = 5;
             this.txtDataCadastro.BorderSize = 1;
             this.txtDataCadastro.DisabledBackColor = System.Drawing.Color.White;
+            this.txtDataCadastro.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataCadastro.DisabledForeColor = System.Drawing.Color.White;
             this.txtDataCadastro.Enabled = false;
             this.txtDataCadastro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -205,6 +210,7 @@
             this.txtDataUltAlt.BorderRadius = 5;
             this.txtDataUltAlt.BorderSize = 1;
             this.txtDataUltAlt.DisabledBackColor = System.Drawing.Color.White;
+            this.txtDataUltAlt.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataUltAlt.DisabledForeColor = System.Drawing.Color.White;
             this.txtDataUltAlt.Enabled = false;
             this.txtDataUltAlt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));

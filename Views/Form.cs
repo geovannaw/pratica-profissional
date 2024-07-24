@@ -1,4 +1,5 @@
 ﻿using Sistema_Vendas.GControls;
+using Sistema_Vendas.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Sistema_Vendas
         {
             this.KeyPreview = true;
             this.KeyUp += Form_KeyUp;
+            this.KeyDown += Form_KeyDown;
         }
 
         private void Form_KeyUp(object sender, KeyEventArgs e) //tecla ESC
@@ -23,6 +25,12 @@ namespace Sistema_Vendas
             {
                 this.Close();
             }
+        }
+
+        private void abrirConsultaProdutos()
+        {
+            ConsultaProdutos consultaProdutos = new ConsultaProdutos();
+            consultaProdutos.ShowDialog(); 
         }
 
         public void AtualizarCampoComDataPadrao(GMaskedTextBox campoTexto, out DateTime data)
@@ -1605,8 +1613,17 @@ namespace Sistema_Vendas
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.ResumeLayout(false);
 
+        }
+
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F4)
+            {
+                abrirConsultaProdutos();
+            }
         }
     }
 }
