@@ -46,13 +46,13 @@
             this.paísesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movimentaçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ordemDeServiçoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notaDeVendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notaDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.financeiroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contasAReceberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblDataMenu = new System.Windows.Forms.ToolStripStatusLabel();
-            this.notaDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notaDeVendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -199,6 +199,19 @@
             this.ordemDeServiçoToolStripMenuItem.Text = "Ordem de Serviço";
             this.ordemDeServiçoToolStripMenuItem.Click += new System.EventHandler(this.ordemDeServiçoToolStripMenuItem_Click);
             // 
+            // notaDeVendaToolStripMenuItem
+            // 
+            this.notaDeVendaToolStripMenuItem.Name = "notaDeVendaToolStripMenuItem";
+            this.notaDeVendaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.notaDeVendaToolStripMenuItem.Text = "Nota de Venda";
+            // 
+            // notaDeCompraToolStripMenuItem
+            // 
+            this.notaDeCompraToolStripMenuItem.Name = "notaDeCompraToolStripMenuItem";
+            this.notaDeCompraToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.notaDeCompraToolStripMenuItem.Text = "Nota de Compra";
+            this.notaDeCompraToolStripMenuItem.Click += new System.EventHandler(this.notaDeCompraToolStripMenuItem_Click);
+            // 
             // financeiroToolStripMenuItem
             // 
             this.financeiroToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -234,18 +247,6 @@
             // 
             this.lblDataMenu.Name = "lblDataMenu";
             this.lblDataMenu.Size = new System.Drawing.Size(0, 17);
-            // 
-            // notaDeCompraToolStripMenuItem
-            // 
-            this.notaDeCompraToolStripMenuItem.Name = "notaDeCompraToolStripMenuItem";
-            this.notaDeCompraToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.notaDeCompraToolStripMenuItem.Text = "Nota de Compra";
-            // 
-            // notaDeVendaToolStripMenuItem
-            // 
-            this.notaDeVendaToolStripMenuItem.Name = "notaDeVendaToolStripMenuItem";
-            this.notaDeVendaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.notaDeVendaToolStripMenuItem.Text = "Nota de Venda";
             // 
             // MenuPrincipal
             // 

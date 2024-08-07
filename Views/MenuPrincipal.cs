@@ -103,5 +103,11 @@ namespace Sistema_Vendas
             ConsultaOS consultaOS = new ConsultaOS();
             consultaOS.ShowDialog();
         }
+
+        private void notaDeCompraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaNotaCompra consultaNotaCompra = new ConsultaNotaCompra();
+            consultaNotaCompra.ShowDialog();
+        }
     }
 }

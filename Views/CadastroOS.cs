@@ -434,7 +434,7 @@ namespace Sistema_Vendas.Views
 
             if (consultaProdutos.ShowDialog() == DialogResult.OK)
             {
-                var infosProd = consultaProdutos.Tag as Tuple<int, string, decimal>;
+                var infosProd = consultaProdutos.Tag as Tuple<int, string, decimal, string>;
                 if (infosProd != null)
                 {
                     int idProd = infosProd.Item1;

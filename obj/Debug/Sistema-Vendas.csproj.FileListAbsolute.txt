@@ -71,3 +71,5 @@ C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaO
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Form.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.GControls.GTextBox.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.GControls.GMaskedTextBox.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroNotaCompra.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaNotaCompra.resources
