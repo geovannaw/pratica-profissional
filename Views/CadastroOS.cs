@@ -72,6 +72,10 @@ namespace Sistema_Vendas.Views
             txtTotal.Clear();
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
+            txtDataCancelamento.Clear();
+            txtValorPago.Clear();
+            txtValorPendente.Clear();
+            txtDataPrevista.Clear();
             rbAtivo.Checked = true;
 
             txtCodProduto.Enabled = true;
@@ -79,6 +83,13 @@ namespace Sistema_Vendas.Views
             txtQtdeProduto.Enabled = true;
             dataGridViewProdutos.Enabled = true;
             txtDataOS.Enabled = true;
+            cbSituacao.Enabled = true;
+            txtValorPago.Enabled = false;
+
+            btnSalvar.Visible = true;
+
+            txtDataCancelamento.Visible = false;
+            lblDataCancelamento.Visible = false;
 
             dataGridViewProdutos.Rows.Clear();
             dataGridViewServicos.Rows.Clear();
@@ -123,7 +134,7 @@ namespace Sistema_Vendas.Views
         public override void Salvar()
         {
             decimal porcentagem = Convert.ToDecimal(txtPorcentagemDesconto.Texts);
-            string dEntrega = new string(txtDataEntrega.Texts.Where(char.IsDigit).ToArray());
+            string dPrevista = new string(txtDataPrevista.Texts.Where(char.IsDigit).ToArray());
             if (!CampoObrigatorio(txtCodCliente.Texts))
             {
                 MessageBox.Show("Campo Cód. Cliente é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -134,10 +145,10 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Campo Cód. Funcionário é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodFuncionario.Focus();
             }
-            else if (!CampoObrigatorio(dEntrega))
+            else if (!CampoObrigatorio(dPrevista))
             {
-                MessageBox.Show("Campo Data Entrega é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDataEntrega.Focus();
+                MessageBox.Show("Campo Data Prevista é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDataPrevista.Focus();
             }
             else if (!CampoObrigatorio(cbSituacao.Texts))
             {
@@ -159,19 +170,28 @@ namespace Sistema_Vendas.Views
                 {
                     int codCliente = Convert.ToInt32(txtCodCliente.Texts);
                     int codFuncionario = Convert.ToInt32(txtCodFuncionario.Texts);
+                    decimal? valorPago = string.IsNullOrEmpty(txtValorPago.Texts) ? (decimal?)null : Convert.ToDecimal(txtValorPago.Texts);
                     decimal porcentagemDesconto = Convert.ToDecimal(txtPorcentagemDesconto.Texts);
                     string situacao = cbSituacao.Texts.ToString();
                     decimal total = Convert.ToDecimal(txtTotal.Texts);
                     string observacao = txtObservacao.Texts;
                     DateTime.TryParse(txtDataOS.Texts, out DateTime dataOS);
-                    DateTime.TryParse(txtDataEntrega.Texts, out DateTime dataEntrega);
+
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                    DateTime.TryParse(txtDataPrevista.Texts, out DateTime dataPrevista);
+
+                    DateTime? dataEntrega = DateTime.TryParse(txtDataEntrega.Texts, out DateTime tempDataEntrega) ? tempDataEntrega : (DateTime?)null;
+                    DateTime? dataCancelamento = DateTime.TryParse(txtDataCancelamento.Texts, out DateTime tempDataCancelamento) ? tempDataCancelamento : (DateTime?)null;
+
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                     OrdemServicoModel novaOS = new OrdemServicoModel
                     {
                         idCliente = codCliente,
                         idFuncionario = codFuncionario,
+                        dataCancelamento = dataCancelamento,
+                        dataPrevista = dataPrevista,
+                        valorPago = valorPago,
                         porcentagemDesconto = porcentagemDesconto,
                         status = situacao,
                         precoTotal = total,
@@ -243,6 +263,9 @@ namespace Sistema_Vendas.Views
                 txtCodigo.Texts = ordemServico.idOrdemServico.ToString();
                 txtCodCliente.Texts = ordemServico.idCliente.ToString();
                 txtCodFuncionario.Texts = ordemServico.idFuncionario.ToString();
+                txtValorPago.Texts = ordemServico.valorPago.ToString();
+                txtDataPrevista.Texts = ordemServico.dataPrevista.ToString();
+                txtDataCancelamento.Texts = ordemServico.dataCancelamento.ToString();
                 txtDataOS.Texts = ordemServico.data.ToString();
                 txtDataEntrega.Texts = ordemServico.dataEntrega.ToString();
                 txtObservacao.Texts = ordemServico.observacao.ToString();
@@ -274,12 +297,20 @@ namespace Sistema_Vendas.Views
                     btnConsultaProduto.Enabled = false;
                     txtQtdeProduto.Enabled = false;
                     dataGridViewProdutos.Enabled = false;
+                    btnSalvar.Visible = false;
+
+                    lblDataCancelamento.Visible = true;
+                    txtDataCancelamento.Visible = true;
                 } else
                 {
                     txtCodProduto.Enabled = true;
                     btnConsultaProduto.Enabled = true;
                     txtQtdeProduto.Enabled = true;
                     dataGridViewProdutos.Enabled = true;
+                    btnSalvar.Visible = true;
+
+                    lblDataCancelamento.Visible = false;
+                    txtDataCancelamento.Visible = false;
                 }
                 txtDataOS.Enabled = false;
                 exibirProdutosDGV(ordemServico.Produtos);
@@ -287,6 +318,7 @@ namespace Sistema_Vendas.Views
                 atualizaSubtotalProdutos();
                 atualizaSubtotalServicos();
                 atualizaDesconto();
+                calculaValorPendente();
             }
             carregando = false;
         }
@@ -303,7 +335,7 @@ namespace Sistema_Vendas.Views
                     dataGridViewProdutos.Rows.Add(
                         produto.idProduto,
                         produtoDetalhes.Produto,    
-                        produtoDetalhes.Preco_venda, 
+                        produtoDetalhes.precoVenda, 
                         produto.quantidadeProduto,
                         produto.precoProduto
                     );
@@ -375,6 +407,11 @@ namespace Sistema_Vendas.Views
 
             txtTotal.Texts = totalComDesconto.ToString("F2");
             txtDesconto.Texts = valorDesconto.ToString("F2");
+
+            if (txtTotal.Texts.Length > 0)
+            {
+                txtValorPago.Enabled = true;
+            }
         }
 
         private void CadastroOS_Load(object sender, EventArgs e)
@@ -703,7 +740,7 @@ namespace Sistema_Vendas.Views
                 if (produto != null)
                 {
                     txtProduto.Texts = produto.Produto;
-                    precoUNProduto = produto.Preco_venda;
+                    precoUNProduto = produto.precoVenda;
                 }
                 else
                 {
@@ -893,27 +930,7 @@ namespace Sistema_Vendas.Views
         }
 
         private void txtDataEntrega_Leave(object sender, EventArgs e)
-        {
-            DateTime dataEntrega;
-            DateTime dataOS;
-            DateTime.TryParse(txtDataEntrega.Texts, out dataEntrega);
-            DateTime.TryParse(txtDataOS.Texts, out dataOS);
-
-            string dataE = new string(txtDataEntrega.Texts.Where(char.IsDigit).ToArray());
-            if (!string.IsNullOrWhiteSpace(dataE))
-            {
-                //verifica se a data de entrega é maior ou igual a hoje
-                if (dataEntrega < dataOS)
-                {
-                    MessageBox.Show("Data de entrega inválida! A data deve ser maior ou igual a hoje.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtDataEntrega.Focus();
-                }
-            }
-            {
-                // Se estiver vazio ou com a máscara inicial, sai do método sem validação
-                return;
-            }
- 
+        { 
         }
 
         private void cbSituacao_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -922,33 +939,112 @@ namespace Sistema_Vendas.Views
             if (cbSituacao.SelectedIndex == -1) return;
             if (cbSituacao.SelectedItem.ToString() == "CANCELADO")
             {
-                if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço? Ao cancelar, os produtos presentes voltarão ao estoque.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                txtCodProduto.Enabled = false;
+                btnConsultaProduto.Enabled = false;
+                txtQtdeProduto.Enabled = false;
+                dataGridViewProdutos.Enabled = false;
+
+                txtDataCancelamento.Visible = true;
+                lblDataCancelamento.Visible = true;
+                txtDataCancelamento.Texts = DateTime.Now.ToString();
+                //if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço? Ao cancelar, os produtos presentes voltarão ao estoque.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                //{
+                //    int idOS;
+                //    if (int.TryParse(txtCodigo.Texts, out idOS))
+                //    {
+                //        // Recupera a lista de produtos associados à OS
+                //        List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
+
+                //        // Volta o estoque de cada produto
+                //        foreach (var produto in produtos)
+                //        {
+                //            produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
+                //        }
+
+                //        txtCodProduto.Enabled = false;
+                //        btnConsultaProduto.Enabled = false;
+                //        txtQtdeProduto.Enabled = false;
+                //        dataGridViewProdutos.Enabled = false;
+
+                //        txtDataCancelamento.Visible = true;
+                //        lblDataCancelamento.Visible = true;
+                //        txtDataCancelamento.Texts = DateTime.Now.ToString();
+
+                //        MessageBox.Show("Ordem de Serviço cancelada e estoque atualizado.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("Código da Ordem de Serviço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    }
+                //}
+            }
+            if (cbSituacao.SelectedItem.ToString() == "RETIRADO")
+            {
+                if(txtValorPendente.Texts != "0.00")
                 {
-                    int idOS;
-                    if (int.TryParse(txtCodigo.Texts, out idOS))
+                    if (MessageBox.Show("Valor pendente detectado. Confirma a retirada mesmo assim?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        // Recupera a lista de produtos associados à OS
-                        List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
-
-                        // Volta o estoque de cada produto
-                        foreach (var produto in produtos)
-                        {
-                            produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
-                        }
-
-                        txtCodProduto.Enabled = false;
-                        btnConsultaProduto.Enabled = false;
-                        txtQtdeProduto.Enabled = false;
-                        dataGridViewProdutos.Enabled = false;
-
-                        MessageBox.Show("Ordem de Serviço cancelada e estoque atualizado.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Código da Ordem de Serviço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtDataEntrega.Texts = DateTime.Now.ToString();
+                        cbSituacao.Enabled = false;
                     }
                 }
             }
-        } 
+        }
+
+        private void txtValorPago_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtValorPago.Texts))
+            {
+                try
+                {
+                    txtValorPago.Texts = FormataPreco(txtValorPago.Texts);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtValorPago.Focus();
+                }
+            }
+            calculaValorPendente();
+        }
+        private void calculaValorPendente()
+        {
+            if (!string.IsNullOrEmpty(txtValorPago.Texts))
+            {
+                decimal valorTotal = decimal.Parse(txtTotal.Texts);
+                decimal valorPago = decimal.Parse(txtValorPago.Texts);
+                decimal valorRestante = valorTotal - valorPago;
+                txtValorPendente.Texts = valorRestante.ToString("F2");
+            }
+        }
+        private void txtValorPago_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDataPrevista_Leave(object sender, EventArgs e)
+        {
+            DateTime dataPrevista;
+            DateTime dataOS;
+            DateTime.TryParse(txtDataPrevista.Texts, out dataPrevista);
+            DateTime.TryParse(txtDataOS.Texts, out dataOS);
+
+            string dataP = new string(txtDataPrevista.Texts.Where(char.IsDigit).ToArray());
+            if (!string.IsNullOrWhiteSpace(dataP))
+            {
+                //verifica se a data prevista é maior ou igual a hoje
+                if (dataPrevista < dataOS)
+                {
+                    MessageBox.Show("Data Prevista inválida! A data deve ser maior ou igual a hoje.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDataEntrega.Focus();
+                }
+            }
+            {
+                return;
+            }
+        }
     }
 }

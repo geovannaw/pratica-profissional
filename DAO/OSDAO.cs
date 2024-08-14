@@ -37,38 +37,36 @@ namespace Sistema_Vendas.DAO
 
                 try
                 {
-                    // Insere uma nova OS
                     string queryOS = @"INSERT INTO ordemServico 
-                               (data, precoTotal, status, dataEntrega, observacao, idCliente, porcentagemDesconto, idFuncionario, dataCadastro, dataUltAlt, Ativo) 
-                               VALUES (@data, @precoTotal, @status, @dataEntrega, @observacao, @idCliente, @porcentagemDesconto, @idFuncionario, @dataCadastro, @dataUltAlt, @Ativo);
+                               (data, precoTotal, status, dataEntrega, observacao, idCliente, porcentagemDesconto, idFuncionario, dataPrevista, dataCancelamento, valorPago, dataCadastro, dataUltAlt, Ativo) 
+                               VALUES (@data, @precoTotal, @status, @dataEntrega, @observacao, @idCliente, @porcentagemDesconto, @idFuncionario, @dataPrevista, @dataCancelamento, @valorPago, @dataCadastro, @dataUltAlt, @Ativo);
                                SELECT SCOPE_IDENTITY();";
-                    SqlCommand cmdOS = new SqlCommand(queryOS, conn, transaction); // Novo comando para transação e conexão
+                    SqlCommand cmdOS = new SqlCommand(queryOS, conn, transaction);
                     cmdOS.Parameters.AddWithValue("@data", obj.data);
                     cmdOS.Parameters.AddWithValue("@precoTotal", obj.precoTotal);
                     cmdOS.Parameters.AddWithValue("@status", obj.status);
-                    cmdOS.Parameters.AddWithValue("@dataEntrega", obj.dataEntrega);
                     cmdOS.Parameters.AddWithValue("@observacao", obj.observacao);
                     cmdOS.Parameters.AddWithValue("@idCliente", obj.idCliente);
                     cmdOS.Parameters.AddWithValue("@porcentagemDesconto", obj.porcentagemDesconto);
                     cmdOS.Parameters.AddWithValue("@idFuncionario", obj.idFuncionario);
+                    cmdOS.Parameters.AddWithValue("@dataPrevista", obj.dataPrevista);
                     cmdOS.Parameters.AddWithValue("@dataCadastro", obj.dataCadastro);
                     cmdOS.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
                     cmdOS.Parameters.AddWithValue("@Ativo", obj.Ativo);
 
-                    int idOrdemServico = Convert.ToInt32(cmdOS.ExecuteScalar()); // Retorna o último valor da identidade gerada (SCOPE_IDENTITY)
+                    cmdOS.Parameters.AddWithValue("@dataEntrega", obj.dataEntrega.HasValue ? (object)obj.dataEntrega.Value : DBNull.Value);
+                    cmdOS.Parameters.AddWithValue("@dataCancelamento", obj.dataCancelamento.HasValue ? (object)obj.dataCancelamento.Value : DBNull.Value);
+                    cmdOS.Parameters.AddWithValue("@valorPago", obj.valorPago.HasValue ? (object)obj.valorPago.Value : DBNull.Value);
 
-                    // Atualiza o idOrdemServico nos produtos e serviços
+                    int idOrdemServico = Convert.ToInt32(cmdOS.ExecuteScalar());
                     foreach (var produto in obj.Produtos)
                     {
                         produto.idOrdemServico = idOrdemServico;
                     }
-
                     foreach (var servico in obj.Servicos)
                     {
                         servico.idOrdemServico = idOrdemServico;
                     }
-
-                    // Insere os produtos da OS
                     foreach (var produto in obj.Produtos)
                     {
                         string queryProduto = @"INSERT INTO OS_Produto 
@@ -82,8 +80,6 @@ namespace Sistema_Vendas.DAO
 
                         cmdProduto.ExecuteNonQuery();
                     }
-
-                    // Insere os serviços da OS
                     foreach (var servico in obj.Servicos)
                     {
                         string queryServico = @"INSERT INTO OS_Servico 
@@ -128,19 +124,20 @@ namespace Sistema_Vendas.DAO
                         ordemServico.idOrdemServico = Convert.ToInt32(reader["idOrdemServico"]);
                         ordemServico.idCliente = Convert.ToInt32(reader["idCliente"]);
                         ordemServico.idFuncionario = Convert.ToInt32(reader["idFuncionario"]);
+                        ordemServico.dataPrevista = Convert.ToDateTime(reader["dataPrevista"]);
                         ordemServico.precoTotal = Convert.ToDecimal(reader["precoTotal"]);
+                        ordemServico.valorPago = reader["valorPago"] != DBNull.Value ? Convert.ToDecimal(reader["valorPago"]) : (decimal?)null;
                         ordemServico.porcentagemDesconto = Convert.ToDecimal(reader["porcentagemDesconto"]);
                         ordemServico.observacao = reader["observacao"].ToString();
                         ordemServico.status = reader["status"].ToString();
                         ordemServico.data = Convert.ToDateTime(reader["data"]);
-                        ordemServico.dataEntrega = Convert.ToDateTime(reader["dataEntrega"]);
+                        ordemServico.dataEntrega = reader["dataEntrega"] != DBNull.Value ? Convert.ToDateTime(reader["dataEntrega"]) : (DateTime?)null;
+                        ordemServico.dataCancelamento = reader["dataCancelamento"] != DBNull.Value ? Convert.ToDateTime(reader["dataCancelamento"]) : (DateTime?)null;
                         ordemServico.Ativo = Convert.ToBoolean(reader["ativo"]);
                         ordemServico.dataCadastro = Convert.ToDateTime(reader["dataCadastro"]);
                         ordemServico.dataUltAlt = Convert.ToDateTime(reader["dataUltAlt"]);
 
-                        // Carregar Produtos
                         ordemServico.Produtos = GetProdutosByOS(ordemServico.idOrdemServico);
-                        // Carregar Serviços
                         ordemServico.Servicos = GetServicosByOS(ordemServico.idOrdemServico);
                     }
                 }
@@ -226,7 +223,7 @@ namespace Sistema_Vendas.DAO
                         ordemServico.idOrdemServico = Convert.ToInt32(reader["idOrdemServico"]);
                         ordemServico.status = reader["status"].ToString();
                         ordemServico.idCliente = Convert.ToInt32(reader["idCliente"].ToString());
-                        ordemServico.dataEntrega = Convert.ToDateTime(reader["dataEntrega"]);
+                        ordemServico.dataPrevista = Convert.ToDateTime(reader["dataPrevista"]);
 
                         ordemServicos.Add(ordemServico);
                     }
@@ -240,43 +237,48 @@ namespace Sistema_Vendas.DAO
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlTransaction transaction = conn.BeginTransaction(); // Inicia a transação
+                SqlTransaction transaction = conn.BeginTransaction(); //inicio transação
 
                 try
                 {
-                    // Atualiza os dados da Ordem de Serviço
+                    //att dados OS
                     string queryOrdemServico = @"UPDATE ordemServico 
                                          SET data = @data, precoTotal = @precoTotal, status = @status, 
                                              dataEntrega = @dataEntrega, observacao = @observacao, 
                                              idCliente = @idCliente, porcentagemDesconto = @porcentagemDesconto, 
-                                             idFuncionario = @idFuncionario, dataUltAlt = @dataUltAlt, Ativo = @Ativo 
+                                             idFuncionario = @idFuncionario, dataPrevista = @dataPrevista, dataCancelamento = @dataCancelamento,
+                                             valorPago = @valorPago, dataUltAlt = @dataUltAlt, Ativo = @Ativo 
                                          WHERE idOrdemServico = @idOrdemServico";
                     SqlCommand cmdOrdemServico = new SqlCommand(queryOrdemServico, conn, transaction);
                     cmdOrdemServico.Parameters.AddWithValue("@data", obj.data);
                     cmdOrdemServico.Parameters.AddWithValue("@precoTotal", obj.precoTotal);
                     cmdOrdemServico.Parameters.AddWithValue("@status", obj.status);
-                    cmdOrdemServico.Parameters.AddWithValue("@dataEntrega", obj.dataEntrega);
                     cmdOrdemServico.Parameters.AddWithValue("@observacao", obj.observacao);
                     cmdOrdemServico.Parameters.AddWithValue("@idCliente", obj.idCliente);
                     cmdOrdemServico.Parameters.AddWithValue("@porcentagemDesconto", obj.porcentagemDesconto);
                     cmdOrdemServico.Parameters.AddWithValue("@idFuncionario", obj.idFuncionario);
+                    cmdOrdemServico.Parameters.AddWithValue("@dataPrevista", obj.dataPrevista);
                     cmdOrdemServico.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
                     cmdOrdemServico.Parameters.AddWithValue("@Ativo", obj.Ativo);
                     cmdOrdemServico.Parameters.AddWithValue("@idOrdemServico", obj.idOrdemServico);
 
-                    cmdOrdemServico.ExecuteNonQuery(); // Atualiza a Ordem de Serviço
+                    cmdOrdemServico.Parameters.AddWithValue("@dataEntrega", obj.dataEntrega.HasValue ? (object)obj.dataEntrega.Value : DBNull.Value);
+                    cmdOrdemServico.Parameters.AddWithValue("@dataCancelamento", obj.dataCancelamento.HasValue ? (object)obj.dataCancelamento.Value : DBNull.Value);
+                    cmdOrdemServico.Parameters.AddWithValue("@valorPago", obj.valorPago.HasValue ? (object)obj.valorPago.Value : DBNull.Value);
 
-                    // Atualiza os produtos da Ordem de Serviço
+                    cmdOrdemServico.ExecuteNonQuery(); //att OS
+
+                    //att produtos
                     AtualizarProdutos(conn, transaction, obj);
 
-                    // Atualiza os serviços da Ordem de Serviço
+                    //att serviços
                     AtualizarServicos(conn, transaction, obj);
 
-                    transaction.Commit(); // Confirma a transação
+                    transaction.Commit(); //confirma transação
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback(); // Reverte a transação em caso de erro
+                    transaction.Rollback(); //rollback se der erro
                     throw new Exception("Erro ao alterar Ordem de Serviço: " + ex.Message);
                 }
             }
@@ -284,25 +286,22 @@ namespace Sistema_Vendas.DAO
 
         private void AtualizarProdutos(SqlConnection conn, SqlTransaction transaction, OrdemServicoModel obj)
         {
-            // Obtém os produtos existentes no banco de dados para a OS
             string querySelectProdutos = "SELECT * FROM OS_Produto WHERE idOrdemServico = @idOrdemServico";
             SqlCommand cmdSelectProdutos = new SqlCommand(querySelectProdutos, conn, transaction);
             cmdSelectProdutos.Parameters.AddWithValue("@idOrdemServico", obj.idOrdemServico);
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmdSelectProdutos);
             DataTable produtosExistentes = new DataTable();
-            adapter.Fill(produtosExistentes); // Preenche um DataTable com os produtos
+            adapter.Fill(produtosExistentes);
 
-            // Percorre os produtos da OS
             foreach (var produto in obj.Produtos)
             {
-                bool existe = false; // Verifica se o produto existe
+                bool existe = false;
 
-                foreach (DataRow row in produtosExistentes.Rows) // Percorre os produtos no banco
+                foreach (DataRow row in produtosExistentes.Rows)
                 {
-                    if ((int)row["idProduto"] == produto.idProduto) // Verifica se o id do produto já existe
+                    if ((int)row["idProduto"] == produto.idProduto)
                     {
-                        // Atualiza o produto existente
                         string queryUpdateProduto = @"UPDATE OS_Produto 
                                               SET quantidadeProduto = @quantidadeProduto, precoProduto = @precoProduto
                                               WHERE idOrdemServico = @idOrdemServico AND idProduto = @idProduto";
@@ -313,13 +312,12 @@ namespace Sistema_Vendas.DAO
                         cmdUpdateProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
 
                         cmdUpdateProduto.ExecuteNonQuery();
-                        existe = true; // Marca que o produto existe
+                        existe = true;
                         break;
                     }
                 }
-                if (!existe) // Se não existir o produto
+                if (!existe)
                 {
-                    // Insere novo produto
                     string queryInsertProduto = @"INSERT INTO OS_Produto 
                                           (quantidadeProduto, precoProduto, idOrdemServico, idProduto) 
                                           VALUES (@quantidadeProduto, @precoProduto, @idOrdemServico, @idProduto)";
@@ -332,10 +330,10 @@ namespace Sistema_Vendas.DAO
                     cmdInsertProduto.ExecuteNonQuery();
                 }
             }
-            foreach (DataRow row in produtosExistentes.Rows) // Percorre novamente os produtos
+            foreach (DataRow row in produtosExistentes.Rows)
             {
                 bool existe = false;
-                foreach (var produto in obj.Produtos) // Verifica se o produto ainda existe
+                foreach (var produto in obj.Produtos)
                 {
                     if ((int)row["idProduto"] == produto.idProduto)
                     {
@@ -343,9 +341,8 @@ namespace Sistema_Vendas.DAO
                         break;
                     }
                 }
-                if (!existe) // Se não existir mais
+                if (!existe)
                 {
-                    // Apaga o produto que não foi encontrado
                     string queryDeleteProduto = "DELETE FROM OS_Produto WHERE idOrdemServico = @idOrdemServico AND idProduto = @idProduto";
                     SqlCommand cmdDeleteProduto = new SqlCommand(queryDeleteProduto, conn, transaction);
                     cmdDeleteProduto.Parameters.AddWithValue("@idOrdemServico", obj.idOrdemServico);
@@ -358,25 +355,25 @@ namespace Sistema_Vendas.DAO
 
         private void AtualizarServicos(SqlConnection conn, SqlTransaction transaction, OrdemServicoModel obj)
         {
-            // Obtém os serviços existentes no banco de dados para a OS
+            //busca os serviços da OS
             string querySelectServicos = "SELECT * FROM OS_Servico WHERE idOrdemServico = @idOrdemServico";
             SqlCommand cmdSelectServicos = new SqlCommand(querySelectServicos, conn, transaction);
             cmdSelectServicos.Parameters.AddWithValue("@idOrdemServico", obj.idOrdemServico);
 
             SqlDataAdapter adapter = new SqlDataAdapter(cmdSelectServicos);
             DataTable servicosExistentes = new DataTable();
-            adapter.Fill(servicosExistentes); // Preenche um DataTable com os serviços
+            adapter.Fill(servicosExistentes);
 
-            // Percorre os serviços da OS
+            //percorre os serviços
             foreach (var servico in obj.Servicos)
             {
-                bool existe = false; // Verifica se o serviço existe
+                bool existe = false; //ve se serviço existe
 
-                foreach (DataRow row in servicosExistentes.Rows) // Percorre os serviços no banco
+                foreach (DataRow row in servicosExistentes.Rows) //percorre os serviços
                 {
-                    if ((int)row["idServico"] == servico.idServico) // Verifica se o id do serviço já existe
+                    if ((int)row["idServico"] == servico.idServico) //ve se o id do serviço já existe
                     {
-                        // Atualiza o serviço existente
+                        //atualiza
                         string queryUpdateServico = @"UPDATE OS_Servico 
                                               SET quantidadeServico = @quantidadeServico, precoServico = @precoServico 
                                               WHERE idOrdemServico = @idOrdemServico AND idServico = @idServico";
@@ -387,13 +384,13 @@ namespace Sistema_Vendas.DAO
                         cmdUpdateServico.Parameters.AddWithValue("@idServico", servico.idServico);
 
                         cmdUpdateServico.ExecuteNonQuery();
-                        existe = true; // Marca que o serviço existe
+                        existe = true; //narca que existe
                         break;
                     }
                 }
-                if (!existe) // Se não existir o serviço
+                if (!existe) //se não existir
                 {
-                    // Insere novo serviço
+                    //add novo
                     string queryInsertServico = @"INSERT INTO OS_Servico 
                                           (quantidadeServico, precoServico, idOrdemServico, idServico) 
                                           VALUES (@quantidadeServico, @precoServico, @idOrdemServico, @idServico)";
@@ -406,10 +403,10 @@ namespace Sistema_Vendas.DAO
                     cmdInsertServico.ExecuteNonQuery();
                 }
             }
-            foreach (DataRow row in servicosExistentes.Rows) // Percorre novamente os serviços
+            foreach (DataRow row in servicosExistentes.Rows) //percorre os serviços
             {
                 bool existe = false;
-                foreach (var servico in obj.Servicos) // Verifica se o serviço ainda existe
+                foreach (var servico in obj.Servicos) //verifica se o serviço ainda existe
                 {
                     if ((int)row["idServico"] == servico.idServico)
                     {
@@ -417,9 +414,9 @@ namespace Sistema_Vendas.DAO
                         break;
                     }
                 }
-                if (!existe) // Se não existir mais
+                if (!existe) //se não existir mais
                 {
-                    // Apaga o serviço que não foi encontrado
+                    //apaga o que não foi encontrado
                     string queryDeleteServico = "DELETE FROM OS_Servico WHERE idOrdemServico = @idOrdemServico AND idServico = @idServico";
                     SqlCommand cmdDeleteServico = new SqlCommand(queryDeleteServico, conn, transaction);
                     cmdDeleteServico.Parameters.AddWithValue("@idOrdemServico", obj.idOrdemServico);
@@ -486,7 +483,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT produto, preco_venda FROM produto WHERE idProduto = @idProduto";
+                string query = "SELECT produto, precoVenda FROM produto WHERE idProduto = @idProduto";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@idProduto", idProduto);
 
@@ -500,7 +497,7 @@ namespace Sistema_Vendas.DAO
                         {
                             idProduto = idProduto,
                             Produto = reader["produto"].ToString(),
-                            Preco_venda = Convert.ToDecimal(reader["preco_venda"])
+                            precoVenda = Convert.ToDecimal(reader["precoVenda"])
                         };
                     }
                 }

@@ -94,6 +94,14 @@
             this.cbSituacao = new Sistema_Vendas.GControls.GComboBox();
             this.lblDataEntrega = new System.Windows.Forms.Label();
             this.txtDataEntrega = new Sistema_Vendas.GControls.GMaskedTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtValorPendente = new Sistema_Vendas.GControls.GTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtValorPago = new Sistema_Vendas.GControls.GTextBox();
+            this.lblDataCancelamento = new System.Windows.Forms.Label();
+            this.txtDataCancelamento = new Sistema_Vendas.GControls.GMaskedTextBox();
+            this.lblDataPrevista = new System.Windows.Forms.Label();
+            this.txtDataPrevista = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.gpTotal.SuspendLayout();
             this.tabServicos.SuspendLayout();
@@ -106,11 +114,11 @@
             // 
             // lblDataCadastro
             // 
-            this.lblDataCadastro.Location = new System.Drawing.Point(13, 434);
+            this.lblDataCadastro.Location = new System.Drawing.Point(13, 431);
             // 
             // lblDataUltAlt
             // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(101, 434);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(101, 431);
             // 
             // groupBox1
             // 
@@ -133,12 +141,12 @@
             // 
             // txtDataCadastro
             // 
-            this.txtDataCadastro.Location = new System.Drawing.Point(16, 450);
+            this.txtDataCadastro.Location = new System.Drawing.Point(16, 447);
             this.txtDataCadastro.Texts = "15/07/2024";
             // 
             // txtDataUltAlt
             // 
-            this.txtDataUltAlt.Location = new System.Drawing.Point(104, 450);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(104, 447);
             this.txtDataUltAlt.Texts = "15/07/2024";
             // 
             // lblCodigo
@@ -160,7 +168,7 @@
             this.gpTotal.Controls.Add(this.lblSubTotalProdutos);
             this.gpTotal.Location = new System.Drawing.Point(628, 90);
             this.gpTotal.Name = "gpTotal";
-            this.gpTotal.Size = new System.Drawing.Size(149, 326);
+            this.gpTotal.Size = new System.Drawing.Size(149, 334);
             this.gpTotal.TabIndex = 13;
             this.gpTotal.TabStop = false;
             this.gpTotal.Text = "Total Ordem de Serviço";
@@ -370,7 +378,7 @@
             this.tabServicos.Location = new System.Drawing.Point(4, 22);
             this.tabServicos.Name = "tabServicos";
             this.tabServicos.Padding = new System.Windows.Forms.Padding(3);
-            this.tabServicos.Size = new System.Drawing.Size(591, 317);
+            this.tabServicos.Size = new System.Drawing.Size(591, 269);
             this.tabServicos.TabIndex = 2;
             this.tabServicos.Text = "Serviços";
             this.tabServicos.UseVisualStyleBackColor = true;
@@ -539,7 +547,7 @@
             this.dataGridViewServicos.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewServicos.Location = new System.Drawing.Point(20, 69);
             this.dataGridViewServicos.Name = "dataGridViewServicos";
-            this.dataGridViewServicos.Size = new System.Drawing.Size(550, 204);
+            this.dataGridViewServicos.Size = new System.Drawing.Size(550, 184);
             this.dataGridViewServicos.TabIndex = 86;
             this.dataGridViewServicos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewServicos_CellEndEdit);
             // 
@@ -606,7 +614,7 @@
             this.tabProdutos.Location = new System.Drawing.Point(4, 22);
             this.tabProdutos.Name = "tabProdutos";
             this.tabProdutos.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProdutos.Size = new System.Drawing.Size(591, 317);
+            this.tabProdutos.Size = new System.Drawing.Size(591, 269);
             this.tabProdutos.TabIndex = 1;
             this.tabProdutos.Text = "Produtos";
             this.tabProdutos.UseVisualStyleBackColor = true;
@@ -776,7 +784,7 @@
             this.dataGridViewProdutos.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewProdutos.Location = new System.Drawing.Point(20, 68);
             this.dataGridViewProdutos.Name = "dataGridViewProdutos";
-            this.dataGridViewProdutos.Size = new System.Drawing.Size(550, 205);
+            this.dataGridViewProdutos.Size = new System.Drawing.Size(550, 184);
             this.dataGridViewProdutos.TabIndex = 38;
             this.dataGridViewProdutos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProdutos_CellEndEdit);
             // 
@@ -847,7 +855,7 @@
             this.tabDadosPrincipais.Location = new System.Drawing.Point(4, 22);
             this.tabDadosPrincipais.Name = "tabDadosPrincipais";
             this.tabDadosPrincipais.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDadosPrincipais.Size = new System.Drawing.Size(591, 317);
+            this.tabDadosPrincipais.Size = new System.Drawing.Size(591, 269);
             this.tabDadosPrincipais.TabIndex = 0;
             this.tabDadosPrincipais.Text = "Dados Principais";
             this.tabDadosPrincipais.UseVisualStyleBackColor = true;
@@ -855,7 +863,7 @@
             // lblCelular
             // 
             this.lblCelular.AutoSize = true;
-            this.lblCelular.Location = new System.Drawing.Point(417, 40);
+            this.lblCelular.Location = new System.Drawing.Point(417, 27);
             this.lblCelular.Name = "lblCelular";
             this.lblCelular.Size = new System.Drawing.Size(39, 13);
             this.lblCelular.TabIndex = 80;
@@ -874,7 +882,7 @@
             this.txtCelular.DisabledForeColor = System.Drawing.Color.White;
             this.txtCelular.Enabled = false;
             this.txtCelular.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCelular.Location = new System.Drawing.Point(420, 56);
+            this.txtCelular.Location = new System.Drawing.Point(420, 43);
             this.txtCelular.MaxLength = 32767;
             this.txtCelular.Multiline = false;
             this.txtCelular.Name = "txtCelular";
@@ -900,7 +908,7 @@
             this.txtObservacao.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtObservacao.DisabledForeColor = System.Drawing.Color.White;
             this.txtObservacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtObservacao.Location = new System.Drawing.Point(27, 214);
+            this.txtObservacao.Location = new System.Drawing.Point(27, 175);
             this.txtObservacao.MaxLength = 32767;
             this.txtObservacao.Multiline = true;
             this.txtObservacao.Name = "txtObservacao";
@@ -908,7 +916,7 @@
             this.txtObservacao.PasswordChar = false;
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
-            this.txtObservacao.Size = new System.Drawing.Size(537, 78);
+            this.txtObservacao.Size = new System.Drawing.Size(537, 63);
             this.txtObservacao.TabIndex = 9;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
@@ -925,7 +933,7 @@
             this.btnConsultaFuncionario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConsultaFuncionario.ForeColor = System.Drawing.Color.White;
             this.btnConsultaFuncionario.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaFuncionario.Image")));
-            this.btnConsultaFuncionario.Location = new System.Drawing.Point(124, 133);
+            this.btnConsultaFuncionario.Location = new System.Drawing.Point(124, 105);
             this.btnConsultaFuncionario.Name = "btnConsultaFuncionario";
             this.btnConsultaFuncionario.Size = new System.Drawing.Size(36, 28);
             this.btnConsultaFuncionario.TabIndex = 8;
@@ -946,7 +954,7 @@
             this.txtFuncionario.DisabledForeColor = System.Drawing.Color.White;
             this.txtFuncionario.Enabled = false;
             this.txtFuncionario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtFuncionario.Location = new System.Drawing.Point(166, 133);
+            this.txtFuncionario.Location = new System.Drawing.Point(166, 105);
             this.txtFuncionario.MaxLength = 32767;
             this.txtFuncionario.Multiline = false;
             this.txtFuncionario.Name = "txtFuncionario";
@@ -972,7 +980,7 @@
             this.txtCodFuncionario.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodFuncionario.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodFuncionario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodFuncionario.Location = new System.Drawing.Point(27, 133);
+            this.txtCodFuncionario.Location = new System.Drawing.Point(27, 105);
             this.txtCodFuncionario.MaxLength = 32767;
             this.txtCodFuncionario.Multiline = false;
             this.txtCodFuncionario.Name = "txtCodFuncionario";
@@ -991,7 +999,7 @@
             // lblCodFuncionario
             // 
             this.lblCodFuncionario.AutoSize = true;
-            this.lblCodFuncionario.Location = new System.Drawing.Point(24, 117);
+            this.lblCodFuncionario.Location = new System.Drawing.Point(24, 89);
             this.lblCodFuncionario.Name = "lblCodFuncionario";
             this.lblCodFuncionario.Size = new System.Drawing.Size(94, 13);
             this.lblCodFuncionario.TabIndex = 74;
@@ -1000,7 +1008,7 @@
             // lblFuncionario
             // 
             this.lblFuncionario.AutoSize = true;
-            this.lblFuncionario.Location = new System.Drawing.Point(163, 117);
+            this.lblFuncionario.Location = new System.Drawing.Point(163, 89);
             this.lblFuncionario.Name = "lblFuncionario";
             this.lblFuncionario.Size = new System.Drawing.Size(62, 13);
             this.lblFuncionario.TabIndex = 73;
@@ -1017,7 +1025,7 @@
             this.btnConsultaCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConsultaCliente.ForeColor = System.Drawing.Color.White;
             this.btnConsultaCliente.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaCliente.Image")));
-            this.btnConsultaCliente.Location = new System.Drawing.Point(124, 56);
+            this.btnConsultaCliente.Location = new System.Drawing.Point(124, 43);
             this.btnConsultaCliente.Name = "btnConsultaCliente";
             this.btnConsultaCliente.Size = new System.Drawing.Size(36, 28);
             this.btnConsultaCliente.TabIndex = 6;
@@ -1038,7 +1046,7 @@
             this.txtCliente.DisabledForeColor = System.Drawing.Color.White;
             this.txtCliente.Enabled = false;
             this.txtCliente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCliente.Location = new System.Drawing.Point(166, 56);
+            this.txtCliente.Location = new System.Drawing.Point(166, 43);
             this.txtCliente.MaxLength = 32767;
             this.txtCliente.Multiline = false;
             this.txtCliente.Name = "txtCliente";
@@ -1064,7 +1072,7 @@
             this.txtCodCliente.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodCliente.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodCliente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodCliente.Location = new System.Drawing.Point(27, 56);
+            this.txtCodCliente.Location = new System.Drawing.Point(27, 43);
             this.txtCodCliente.MaxLength = 32767;
             this.txtCodCliente.Multiline = false;
             this.txtCodCliente.Name = "txtCodCliente";
@@ -1083,7 +1091,7 @@
             // lblObservacao
             // 
             this.lblObservacao.AutoSize = true;
-            this.lblObservacao.Location = new System.Drawing.Point(24, 198);
+            this.lblObservacao.Location = new System.Drawing.Point(24, 159);
             this.lblObservacao.Name = "lblObservacao";
             this.lblObservacao.Size = new System.Drawing.Size(65, 13);
             this.lblObservacao.TabIndex = 68;
@@ -1092,7 +1100,7 @@
             // lblCodCliente
             // 
             this.lblCodCliente.AutoSize = true;
-            this.lblCodCliente.Location = new System.Drawing.Point(24, 40);
+            this.lblCodCliente.Location = new System.Drawing.Point(24, 27);
             this.lblCodCliente.Name = "lblCodCliente";
             this.lblCodCliente.Size = new System.Drawing.Size(71, 13);
             this.lblCodCliente.TabIndex = 62;
@@ -1101,7 +1109,7 @@
             // lblCliente
             // 
             this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(163, 40);
+            this.lblCliente.Location = new System.Drawing.Point(163, 27);
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Size = new System.Drawing.Size(39, 13);
             this.lblCliente.TabIndex = 61;
@@ -1115,7 +1123,7 @@
             this.tabPrincipal.Location = new System.Drawing.Point(16, 73);
             this.tabPrincipal.Name = "tabPrincipal";
             this.tabPrincipal.SelectedIndex = 0;
-            this.tabPrincipal.Size = new System.Drawing.Size(599, 343);
+            this.tabPrincipal.Size = new System.Drawing.Size(599, 295);
             this.tabPrincipal.TabIndex = 16;
             // 
             // txtDataOS
@@ -1129,7 +1137,7 @@
             this.txtDataOS.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataOS.DisabledForeColor = System.Drawing.Color.White;
             this.txtDataOS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtDataOS.Location = new System.Drawing.Point(224, 28);
+            this.txtDataOS.Location = new System.Drawing.Point(130, 28);
             this.txtDataOS.Mask = "00/00/0000";
             this.txtDataOS.MaxLength = 32767;
             this.txtDataOS.Multiline = false;
@@ -1139,7 +1147,7 @@
             this.txtDataOS.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDataOS.PlaceholderText = "";
             this.txtDataOS.Size = new System.Drawing.Size(92, 27);
-            this.txtDataOS.TabIndex = 1;
+            this.txtDataOS.TabIndex = 130;
             this.txtDataOS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataOS.Texts = "  /  /";
             this.txtDataOS.UnderlinedStyle = false;
@@ -1148,7 +1156,7 @@
             // lblDataOS
             // 
             this.lblDataOS.AutoSize = true;
-            this.lblDataOS.Location = new System.Drawing.Point(221, 12);
+            this.lblDataOS.Location = new System.Drawing.Point(127, 12);
             this.lblDataOS.Name = "lblDataOS";
             this.lblDataOS.Size = new System.Drawing.Size(37, 13);
             this.lblDataOS.TabIndex = 36;
@@ -1168,6 +1176,7 @@
             "PENDENTE",
             "EM ANDAMENTO",
             "PRONTO",
+            "RETIRADO",
             "CANCELADO"});
             this.cbSituacao.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
             this.cbSituacao.ListTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
@@ -1185,9 +1194,9 @@
             this.lblDataEntrega.AutoSize = true;
             this.lblDataEntrega.Location = new System.Drawing.Point(329, 12);
             this.lblDataEntrega.Name = "lblDataEntrega";
-            this.lblDataEntrega.Size = new System.Drawing.Size(77, 13);
+            this.lblDataEntrega.Size = new System.Drawing.Size(70, 13);
             this.lblDataEntrega.TabIndex = 123;
-            this.lblDataEntrega.Text = "Data Entrega *";
+            this.lblDataEntrega.Text = "Data Entrega";
             // 
             // txtDataEntrega
             // 
@@ -1199,6 +1208,7 @@
             this.txtDataEntrega.DisabledBackColor = System.Drawing.Color.White;
             this.txtDataEntrega.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataEntrega.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDataEntrega.Enabled = false;
             this.txtDataEntrega.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtDataEntrega.Location = new System.Drawing.Point(332, 28);
             this.txtDataEntrega.Mask = "00/00/0000";
@@ -1216,10 +1226,168 @@
             this.txtDataEntrega.UnderlinedStyle = false;
             this.txtDataEntrega.Leave += new System.EventHandler(this.txtDataEntrega_Leave);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(393, 380);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Valor Pago";
+            // 
+            // txtValorPendente
+            // 
+            this.txtValorPendente.BackColor = System.Drawing.SystemColors.Window;
+            this.txtValorPendente.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtValorPendente.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtValorPendente.BorderRadius = 5;
+            this.txtValorPendente.BorderSize = 1;
+            this.txtValorPendente.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtValorPendente.DisabledBackColor = System.Drawing.Color.White;
+            this.txtValorPendente.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtValorPendente.DisabledForeColor = System.Drawing.Color.White;
+            this.txtValorPendente.Enabled = false;
+            this.txtValorPendente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtValorPendente.Location = new System.Drawing.Point(518, 396);
+            this.txtValorPendente.MaxLength = 32767;
+            this.txtValorPendente.Multiline = false;
+            this.txtValorPendente.Name = "txtValorPendente";
+            this.txtValorPendente.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtValorPendente.PasswordChar = false;
+            this.txtValorPendente.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtValorPendente.PlaceholderText = "";
+            this.txtValorPendente.Size = new System.Drawing.Size(97, 28);
+            this.txtValorPendente.TabIndex = 125;
+            this.txtValorPendente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtValorPendente.Texts = "";
+            this.txtValorPendente.UnderlinedStyle = false;
+            this.txtValorPendente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorPago_KeyPress);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(515, 380);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(80, 13);
+            this.label3.TabIndex = 124;
+            this.label3.Text = "Valor Pendente";
+            // 
+            // txtValorPago
+            // 
+            this.txtValorPago.BackColor = System.Drawing.SystemColors.Window;
+            this.txtValorPago.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtValorPago.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtValorPago.BorderRadius = 5;
+            this.txtValorPago.BorderSize = 1;
+            this.txtValorPago.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtValorPago.DisabledBackColor = System.Drawing.Color.White;
+            this.txtValorPago.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtValorPago.DisabledForeColor = System.Drawing.Color.White;
+            this.txtValorPago.Enabled = false;
+            this.txtValorPago.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtValorPago.Location = new System.Drawing.Point(396, 396);
+            this.txtValorPago.MaxLength = 32767;
+            this.txtValorPago.Multiline = false;
+            this.txtValorPago.Name = "txtValorPago";
+            this.txtValorPago.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtValorPago.PasswordChar = false;
+            this.txtValorPago.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtValorPago.PlaceholderText = "";
+            this.txtValorPago.Size = new System.Drawing.Size(97, 28);
+            this.txtValorPago.TabIndex = 126;
+            this.txtValorPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtValorPago.Texts = "";
+            this.txtValorPago.UnderlinedStyle = false;
+            this.txtValorPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorPago_KeyPress);
+            this.txtValorPago.Leave += new System.EventHandler(this.txtValorPago_Leave);
+            // 
+            // lblDataCancelamento
+            // 
+            this.lblDataCancelamento.AutoSize = true;
+            this.lblDataCancelamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblDataCancelamento.Location = new System.Drawing.Point(13, 380);
+            this.lblDataCancelamento.Name = "lblDataCancelamento";
+            this.lblDataCancelamento.Size = new System.Drawing.Size(101, 13);
+            this.lblDataCancelamento.TabIndex = 129;
+            this.lblDataCancelamento.Text = "Data Cancelamento";
+            this.lblDataCancelamento.Visible = false;
+            // 
+            // txtDataCancelamento
+            // 
+            this.txtDataCancelamento.BackColor = System.Drawing.SystemColors.Window;
+            this.txtDataCancelamento.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtDataCancelamento.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtDataCancelamento.BorderRadius = 5;
+            this.txtDataCancelamento.BorderSize = 1;
+            this.txtDataCancelamento.DisabledBackColor = System.Drawing.Color.White;
+            this.txtDataCancelamento.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtDataCancelamento.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDataCancelamento.Enabled = false;
+            this.txtDataCancelamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtDataCancelamento.Location = new System.Drawing.Point(16, 396);
+            this.txtDataCancelamento.Mask = "00/00/0000";
+            this.txtDataCancelamento.MaxLength = 32767;
+            this.txtDataCancelamento.Multiline = false;
+            this.txtDataCancelamento.Name = "txtDataCancelamento";
+            this.txtDataCancelamento.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtDataCancelamento.PasswordChar = false;
+            this.txtDataCancelamento.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtDataCancelamento.PlaceholderText = "";
+            this.txtDataCancelamento.Size = new System.Drawing.Size(98, 27);
+            this.txtDataCancelamento.TabIndex = 128;
+            this.txtDataCancelamento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDataCancelamento.Texts = "  /  /";
+            this.txtDataCancelamento.UnderlinedStyle = false;
+            this.txtDataCancelamento.Visible = false;
+            // 
+            // lblDataPrevista
+            // 
+            this.lblDataPrevista.AutoSize = true;
+            this.lblDataPrevista.Location = new System.Drawing.Point(229, 12);
+            this.lblDataPrevista.Name = "lblDataPrevista";
+            this.lblDataPrevista.Size = new System.Drawing.Size(78, 13);
+            this.lblDataPrevista.TabIndex = 131;
+            this.lblDataPrevista.Text = "Data Prevista *";
+            // 
+            // txtDataPrevista
+            // 
+            this.txtDataPrevista.BackColor = System.Drawing.SystemColors.Window;
+            this.txtDataPrevista.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtDataPrevista.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtDataPrevista.BorderRadius = 5;
+            this.txtDataPrevista.BorderSize = 1;
+            this.txtDataPrevista.DisabledBackColor = System.Drawing.Color.White;
+            this.txtDataPrevista.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtDataPrevista.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDataPrevista.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtDataPrevista.Location = new System.Drawing.Point(232, 28);
+            this.txtDataPrevista.Mask = "00/00/0000";
+            this.txtDataPrevista.MaxLength = 32767;
+            this.txtDataPrevista.Multiline = false;
+            this.txtDataPrevista.Name = "txtDataPrevista";
+            this.txtDataPrevista.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtDataPrevista.PasswordChar = false;
+            this.txtDataPrevista.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtDataPrevista.PlaceholderText = "";
+            this.txtDataPrevista.Size = new System.Drawing.Size(92, 27);
+            this.txtDataPrevista.TabIndex = 1;
+            this.txtDataPrevista.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDataPrevista.Texts = "  /  /";
+            this.txtDataPrevista.UnderlinedStyle = false;
+            this.txtDataPrevista.Leave += new System.EventHandler(this.txtDataPrevista_Leave);
+            // 
             // CadastroOS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(800, 491);
+            this.Controls.Add(this.lblDataPrevista);
+            this.Controls.Add(this.txtDataPrevista);
+            this.Controls.Add(this.lblDataCancelamento);
+            this.Controls.Add(this.txtDataCancelamento);
+            this.Controls.Add(this.txtValorPago);
+            this.Controls.Add(this.txtValorPendente);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblDataEntrega);
             this.Controls.Add(this.txtDataEntrega);
             this.Controls.Add(this.cbSituacao);
@@ -1249,6 +1417,14 @@
             this.Controls.SetChildIndex(this.lblDataCadastro, 0);
             this.Controls.SetChildIndex(this.lblDataUltAlt, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
+            this.Controls.SetChildIndex(this.txtValorPendente, 0);
+            this.Controls.SetChildIndex(this.txtValorPago, 0);
+            this.Controls.SetChildIndex(this.txtDataCancelamento, 0);
+            this.Controls.SetChildIndex(this.lblDataCancelamento, 0);
+            this.Controls.SetChildIndex(this.txtDataPrevista, 0);
+            this.Controls.SetChildIndex(this.lblDataPrevista, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gpTotal.ResumeLayout(false);
@@ -1333,5 +1509,13 @@
         public GControls.GTextBox txtCodCliente;
         public GButtons btnExcluirServico;
         public GButtons btnExcluirProduto;
+        private System.Windows.Forms.Label label2;
+        private GControls.GTextBox txtValorPendente;
+        private System.Windows.Forms.Label label3;
+        private GControls.GTextBox txtValorPago;
+        public System.Windows.Forms.Label lblDataCancelamento;
+        public GControls.GMaskedTextBox txtDataCancelamento;
+        private System.Windows.Forms.Label lblDataPrevista;
+        private GControls.GMaskedTextBox txtDataPrevista;
     }
 }

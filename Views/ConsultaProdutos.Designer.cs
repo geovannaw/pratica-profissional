@@ -32,7 +32,7 @@
             this.Código = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Produto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Unidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Preco_venda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).BeginInit();
             this.SuspendLayout();
@@ -77,7 +77,7 @@
             this.Código,
             this.Produto,
             this.Unidade,
-            this.Preco_venda});
+            this.precoVenda});
             this.dataGridViewProdutos.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewProdutos.Location = new System.Drawing.Point(18, 58);
             this.dataGridViewProdutos.Name = "dataGridViewProdutos";
@@ -106,11 +106,11 @@
             this.Unidade.Name = "Unidade";
             this.Unidade.ReadOnly = true;
             // 
-            // Preco_venda
+            // precoVenda
             // 
-            this.Preco_venda.HeaderText = "Preço Venda";
-            this.Preco_venda.Name = "Preco_venda";
-            this.Preco_venda.ReadOnly = true;
+            this.precoVenda.HeaderText = "Preço Venda";
+            this.precoVenda.Name = "precoVenda";
+            this.precoVenda.ReadOnly = true;
             // 
             // ConsultaProdutos
             // 
@@ -143,6 +143,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Código;
         private System.Windows.Forms.DataGridViewTextBoxColumn Produto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unidade;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Preco_venda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precoVenda;
     }
 }

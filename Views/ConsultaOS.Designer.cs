@@ -32,7 +32,7 @@
             this.Código = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataEntrega = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataPrevista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOS)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +76,7 @@
             this.Código,
             this.Status,
             this.Cliente,
-            this.DataEntrega});
+            this.DataPrevista});
             this.dataGridViewOS.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewOS.Location = new System.Drawing.Point(18, 59);
             this.dataGridViewOS.Name = "dataGridViewOS";
@@ -105,11 +105,11 @@
             this.Cliente.ReadOnly = true;
             this.Cliente.Width = 255;
             // 
-            // DataEntrega
+            // DataPrevista
             // 
-            this.DataEntrega.HeaderText = "Data Entrega";
-            this.DataEntrega.Name = "DataEntrega";
-            this.DataEntrega.ReadOnly = true;
+            this.DataPrevista.HeaderText = "Data Prevista";
+            this.DataPrevista.Name = "DataPrevista";
+            this.DataPrevista.ReadOnly = true;
             // 
             // ConsultaOS
             // 
@@ -142,6 +142,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Código;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataEntrega;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataPrevista;
     }
 }

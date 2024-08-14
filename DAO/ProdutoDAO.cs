@@ -36,8 +36,8 @@ namespace Sistema_Vendas.DAO
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "UPDATE produto SET produto = @produto, unidade = @unidade, saldo = @saldo, " +
-                               "custo_medio = @custo_medio, preco_venda = @preco_venda, preco_ult_compra = @preco_ult_compra, " +
-                               "data_ult_compra = @data_ult_compra, observacao = @observacao, ativo = @ativo, " +
+                               "custoMedio = @custoMedio, precoVenda = @precoVenda, precoUltCompra = @precoUltCompra, " +
+                               "dataUltCompra = @dataUltCompra, observacao = @observacao, ativo = @ativo, " +
                                "dataUltAlt = @dataUltAlt, idFornecedor = @idFornecedor, idModelo = @idModelo WHERE idProduto = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -46,10 +46,10 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@produto", produto.Produto);
                 command.Parameters.AddWithValue("@unidade", produto.Unidade);
                 command.Parameters.AddWithValue("@saldo", produto.Saldo);
-                command.Parameters.AddWithValue("@custo_medio", produto.Custo_medio);
-                command.Parameters.AddWithValue("@preco_venda", produto.Preco_venda);
-                command.Parameters.AddWithValue("@preco_ult_compra", produto.Preco_ult_compra);
-                command.Parameters.AddWithValue("@data_ult_compra", produto.Data_ult_compra);
+                command.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
+                command.Parameters.AddWithValue("@precoVenda", produto.precoVenda);
+                command.Parameters.AddWithValue("@precoUltCompra", produto.precoUltCompra);
+                command.Parameters.AddWithValue("@dataUltCompra", produto.dataUltCompra);
                 command.Parameters.AddWithValue("@observacao", produto.Observacao);
                 command.Parameters.AddWithValue("@ativo", produto.Ativo);
                 command.Parameters.AddWithValue("@dataUltAlt", produto.dataUltAlt);
@@ -137,7 +137,7 @@ namespace Sistema_Vendas.DAO
                         obj.idProduto = Convert.ToInt32(reader["idProduto"]);
                         obj.Produto = reader["produto"].ToString();
                         obj.Unidade = reader["unidade"].ToString();
-                        obj.Preco_venda = Convert.ToDecimal(reader["preco_venda"]);
+                        obj.precoVenda = Convert.ToDecimal(reader["precoVenda"]);
                         obj.idFornecedor = Convert.ToInt32(reader["idFornecedor"]);
                         produtos.Add(obj);
                     }
@@ -165,10 +165,10 @@ namespace Sistema_Vendas.DAO
                         obj.Produto = reader["produto"].ToString();
                         obj.Unidade = reader["unidade"].ToString();
                         obj.Saldo = Convert.ToInt32(reader["saldo"]);
-                        obj.Custo_medio = Convert.ToDecimal(reader["custo_medio"]);
-                        obj.Preco_venda = Convert.ToDecimal(reader["preco_venda"]);
-                        obj.Preco_ult_compra = Convert.ToDecimal(reader["preco_ult_compra"]);
-                        obj.Data_ult_compra = DateTime.Parse(reader["data_ult_compra"].ToString());
+                        obj.custoMedio = Convert.ToDecimal(reader["custoMedio"]);
+                        obj.precoVenda = Convert.ToDecimal(reader["precoVenda"]);
+                        obj.precoUltCompra = Convert.ToDecimal(reader["precoUltCompra"]);
+                        obj.dataUltCompra = DateTime.Parse(reader["dataUltCompra"].ToString());
                         obj.Observacao = reader["observacao"].ToString();
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
@@ -191,8 +191,8 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO produto (produto, unidade, saldo, custo_medio, preco_venda, preco_ult_compra, data_ult_compra, observacao, ativo, dataCadastro, dataUltAlt, idFornecedor, idModelo) " +
-                               "VALUES (@produto, @unidade, @saldo, @custo_medio, @preco_venda, @preco_ult_compra, @data_ult_compra, @observacao, @ativo, @dataCadastro, @dataUltAlt, @idFornecedor, @idModelo)";
+                string query = "INSERT INTO produto (produto, unidade, saldo, custoMedio, precoVenda, precoUltCompra, dataUltCompra, observacao, ativo, dataCadastro, dataUltAlt, idFornecedor, idModelo) " +
+                               "VALUES (@produto, @unidade, @saldo, @custoMedio, @precoVenda, @precoUltCompra, @dataUltCompra, @observacao, @ativo, @dataCadastro, @dataUltAlt, @idFornecedor, @idModelo)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -200,10 +200,10 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@produto", produto.Produto);
                 command.Parameters.AddWithValue("@unidade", produto.Unidade);
                 command.Parameters.AddWithValue("@saldo", produto.Saldo);
-                command.Parameters.AddWithValue("@custo_medio", produto.Custo_medio);
-                command.Parameters.AddWithValue("@preco_venda", produto.Preco_venda);
-                command.Parameters.AddWithValue("@preco_ult_compra", produto.Preco_ult_compra);
-                command.Parameters.AddWithValue("@data_ult_compra", produto.Data_ult_compra);
+                command.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
+                command.Parameters.AddWithValue("@precoVenda", produto.precoVenda);
+                command.Parameters.AddWithValue("@precoUltCompra", produto.precoUltCompra);
+                command.Parameters.AddWithValue("@dataUltCompra", produto.dataUltCompra);
                 command.Parameters.AddWithValue("@observacao", produto.Observacao);
                 command.Parameters.AddWithValue("@ativo", produto.Ativo);
                 command.Parameters.AddWithValue("@dataUltAlt", produto.dataUltAlt);

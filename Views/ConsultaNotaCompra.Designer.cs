@@ -30,13 +30,31 @@
         {
             this.btnVisualizar = new Sistema_Vendas.GButtons();
             this.dataGridViewNFCompra = new System.Windows.Forms.DataGridView();
-            this.Código = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.País = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sigla = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DDI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numeroNota = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idFornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataChegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNFCompra)).BeginInit();
             this.SuspendLayout();
+            // 
+            // cbBuscaInativos
+            // 
+            this.cbBuscaInativos.Visible = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Visible = false;
+            // 
+            // rbCodigo
+            // 
+            this.rbCodigo.Visible = false;
+            // 
+            // rbNome
+            // 
+            this.rbNome.Visible = false;
             // 
             // btnIncluir
             // 
@@ -46,13 +64,13 @@
             // btnAlterar
             // 
             this.btnAlterar.FlatAppearance.BorderSize = 0;
-            this.btnAlterar.Location = new System.Drawing.Point(11, 412);
+            this.btnAlterar.Location = new System.Drawing.Point(17, 412);
             this.btnAlterar.Visible = false;
             // 
             // btnExcluir
             // 
             this.btnExcluir.FlatAppearance.BorderSize = 0;
-            this.btnExcluir.Location = new System.Drawing.Point(92, 412);
+            this.btnExcluir.Location = new System.Drawing.Point(98, 412);
             this.btnExcluir.Visible = false;
             // 
             // btnPesquisar
@@ -62,6 +80,11 @@
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
+            // 
+            // txtPesquisa
+            // 
+            this.txtPesquisa.Location = new System.Drawing.Point(17, 14);
+            this.txtPesquisa.Size = new System.Drawing.Size(184, 28);
             // 
             // btnVisualizar
             // 
@@ -85,46 +108,70 @@
             // 
             // dataGridViewNFCompra
             // 
+            this.dataGridViewNFCompra.AllowUserToAddRows = false;
+            this.dataGridViewNFCompra.AllowUserToDeleteRows = false;
             this.dataGridViewNFCompra.AllowUserToResizeColumns = false;
             this.dataGridViewNFCompra.AllowUserToResizeRows = false;
             this.dataGridViewNFCompra.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewNFCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewNFCompra.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Código,
-            this.País,
-            this.Sigla,
-            this.DDI});
+            this.numeroNota,
+            this.modelo,
+            this.serie,
+            this.idFornecedor,
+            this.fornecedor,
+            this.dataChegada});
             this.dataGridViewNFCompra.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewNFCompra.Location = new System.Drawing.Point(17, 58);
             this.dataGridViewNFCompra.Name = "dataGridViewNFCompra";
             this.dataGridViewNFCompra.ReadOnly = true;
             this.dataGridViewNFCompra.Size = new System.Drawing.Size(598, 339);
             this.dataGridViewNFCompra.TabIndex = 17;
+            this.dataGridViewNFCompra.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewNFCompra_CellDoubleClick);
+            this.dataGridViewNFCompra.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewNFCompra_CellFormatting);
+            this.dataGridViewNFCompra.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewNFCompra_RowsRemoved);
             // 
-            // Código
+            // numeroNota
             // 
-            this.Código.HeaderText = "Código";
-            this.Código.Name = "Código";
-            this.Código.ReadOnly = true;
+            this.numeroNota.HeaderText = "Número";
+            this.numeroNota.Name = "numeroNota";
+            this.numeroNota.ReadOnly = true;
+            this.numeroNota.Width = 90;
             // 
-            // País
+            // modelo
             // 
-            this.País.HeaderText = "País";
-            this.País.Name = "País";
-            this.País.ReadOnly = true;
-            this.País.Width = 255;
+            this.modelo.HeaderText = "Modelo";
+            this.modelo.Name = "modelo";
+            this.modelo.ReadOnly = true;
+            this.modelo.Width = 60;
             // 
-            // Sigla
+            // serie
             // 
-            this.Sigla.HeaderText = "Sigla";
-            this.Sigla.Name = "Sigla";
-            this.Sigla.ReadOnly = true;
+            this.serie.HeaderText = "Série";
+            this.serie.Name = "serie";
+            this.serie.ReadOnly = true;
+            this.serie.Width = 60;
             // 
-            // DDI
+            // idFornecedor
             // 
-            this.DDI.HeaderText = "DDI";
-            this.DDI.Name = "DDI";
-            this.DDI.ReadOnly = true;
+            this.idFornecedor.HeaderText = "Cód. Fornecedor";
+            this.idFornecedor.Name = "idFornecedor";
+            this.idFornecedor.ReadOnly = true;
+            this.idFornecedor.Width = 80;
+            // 
+            // fornecedor
+            // 
+            this.fornecedor.HeaderText = "Fornecedor";
+            this.fornecedor.Name = "fornecedor";
+            this.fornecedor.ReadOnly = true;
+            this.fornecedor.Width = 180;
+            // 
+            // dataChegada
+            // 
+            this.dataChegada.HeaderText = "Data Chegada";
+            this.dataChegada.Name = "dataChegada";
+            this.dataChegada.ReadOnly = true;
+            this.dataChegada.Width = 85;
             // 
             // ConsultaNotaCompra
             // 
@@ -134,6 +181,7 @@
             this.Controls.Add(this.btnVisualizar);
             this.Name = "ConsultaNotaCompra";
             this.Text = "Consulta Notas de Compra";
+            this.Load += new System.EventHandler(this.ConsultaNotaCompra_Load);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.btnIncluir, 0);
@@ -156,9 +204,11 @@
 
         protected GButtons btnVisualizar;
         private System.Windows.Forms.DataGridView dataGridViewNFCompra;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Código;
-        private System.Windows.Forms.DataGridViewTextBoxColumn País;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Sigla;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DDI;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numeroNota;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modelo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn serie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idFornecedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fornecedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataChegada;
     }
 }

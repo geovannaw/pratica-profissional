@@ -13,7 +13,10 @@ namespace Sistema_Vendas.Models
         public decimal precoTotal { get; set; }
         public string status { get; set; }
         public string observacao { get; set; }
-        public DateTime dataEntrega { get; set; }
+        public DateTime? dataEntrega { get; set; }
+        public DateTime dataPrevista { get; set; }
+        public DateTime? dataCancelamento { get; set; }
+        public decimal? valorPago { get; set; }
         public decimal porcentagemDesconto { get; set; }
         public int idFuncionario { get; set; }
         public int idCliente { get; set; }

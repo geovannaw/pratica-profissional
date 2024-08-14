@@ -117,16 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="Código.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Produto.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Unidade.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="precoVenda.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnConsultaFornecedor.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEzSURBVDhPlZPP
+        K0RhGIWvmsUs2JhoUrOQiZKdbCiRLLAV20ks7KQkFlhY2FqykfhblL+AtfxYsCRK+Tzn3nNdtzvpeupp
+        pvO+Z+ab+zXRb0IInbiEe7iFE9jh8d+4+IziBT+St+EK+73WHhZU/sJLLeMoVnAab/Ee617Pw6AL9c0X
+        OI6DOOax5r34iGeO8jBYRtHEQ8c5yHfxDauOMgj3USeo47DjHOSzKIYcZRBu4ztWHBVgtoii4SiDcDKZ
+        hSlHBZid4h0Wr1QhXuMN9jj+gWwOP3HDURGGA6gn/YA7OIM69gmqLNax25UiDPvwHPU8UnT/m6gPPcJX
+        XHClPSxUcQQbGP9mXmuostCJ1uLl/0Bp3uWUYyz3P0mhsBpXM1Y8Kg+lg6QbnrDpuDyUdO2tpBxF37zp
+        kwXL/GnNAAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

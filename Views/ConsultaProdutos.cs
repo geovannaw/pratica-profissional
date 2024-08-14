@@ -129,7 +129,7 @@ namespace Sistema_Vendas.Views
                 dataGridViewProdutos.Columns["Código"].DataPropertyName = "idProduto";
                 dataGridViewProdutos.Columns["Produto"].DataPropertyName = "Produto";
                 dataGridViewProdutos.Columns["Unidade"].DataPropertyName = "Unidade";
-                dataGridViewProdutos.Columns["Preco_venda"].DataPropertyName = "Preco_venda";
+                dataGridViewProdutos.Columns["precoVenda"].DataPropertyName = "precoVenda";
 
                 AtualizarConsultaProdutos(cbBuscaInativos.Checked);
             }
@@ -180,7 +180,7 @@ namespace Sistema_Vendas.Views
                 {
                     int idProd = Convert.ToInt32(dataGridViewProdutos.SelectedRows[0].Cells["Código"].Value);
                     string produto = dataGridViewProdutos.SelectedRows[0].Cells["Produto"].Value.ToString();
-                    decimal precoVenda = Convert.ToDecimal(dataGridViewProdutos.SelectedRows[0].Cells["Preco_Venda"].Value);
+                    decimal precoVenda = Convert.ToDecimal(dataGridViewProdutos.SelectedRows[0].Cells["precoVenda"].Value);
                     string unidade = dataGridViewProdutos.SelectedRows[0].Cells["Unidade"].Value.ToString();
 
                     this.Tag = new Tuple<int, string, decimal, string>(idProd, produto, precoVenda, unidade);

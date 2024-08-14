@@ -53,7 +53,7 @@ namespace Sistema_Vendas.Views
             {
                 string status = dataGridViewOS.SelectedRows[0].Cells["Status"].Value.ToString();
 
-                if (status == "CANCELADO" || status == "PENDENTE")
+                if (status == "CANCELADO")
                 {
                     if (MessageBox.Show("Tem certeza de que deseja excluir esta Ordem de Serviço?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
@@ -75,7 +75,7 @@ namespace Sistema_Vendas.Views
                 }
                 else
                 {
-                    MessageBox.Show("A Ordem de Serviço só pode ser excluída se estiver com status CANCELADO ou PENDENTE.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("A Ordem de Serviço só pode ser excluída se estiver com status CANCELADO.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -161,8 +161,8 @@ namespace Sistema_Vendas.Views
                 dataGridViewOS.AutoGenerateColumns = false;
                 dataGridViewOS.Columns["Código"].DataPropertyName = "idOrdemServico";
                 dataGridViewOS.Columns["Status"].DataPropertyName = "status";
-                dataGridViewOS.Columns["DataEntrega"].DataPropertyName = "dataEntrega";
-                dataGridViewOS.Columns["DataEntrega"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dataGridViewOS.Columns["DataPrevista"].DataPropertyName = "dataPrevista";
+                dataGridViewOS.Columns["DataPrevista"].DefaultCellStyle.Format = "dd/MM/yyyy";
 
                 AtualizarConsultaOS(cbBuscaInativos.Checked);
             }

@@ -47,15 +47,15 @@ namespace Sistema_Vendas.Views
                     string unidade = txtUN.Texts;
                     int saldo = int.Parse(txtSaldo.Texts);
 
-                    decimal custo_medio = decimal.Parse(txtCustoMedio.Texts);
-                    decimal preco_venda = decimal.Parse(FormataPreco(txtPrecoVenda.Texts));
-                    decimal preco_ult_compra = decimal.Parse(txtPrecoUltCompra.Texts);
+                    decimal custoMedio = decimal.Parse(txtCustoMedio.Texts);
+                    decimal precoVenda = decimal.Parse(FormataPreco(txtPrecoVenda.Texts));
+                    decimal precoUltCompra = decimal.Parse(txtPrecoUltCompra.Texts);
 
                     string observacao = txtObservacao.Texts;
                     int idFornecedor = int.Parse(txtCodFornecedor.Texts);
                     int idModelo = int.Parse(txtCodModelo.Texts);
 
-                    AtualizarCampoComDataPadrao(txtDataUltCompra, out DateTime data_ult_compra);
+                    AtualizarCampoComDataPadrao(txtDataUltCompra, out DateTime dataUltCompra);
 
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -65,10 +65,10 @@ namespace Sistema_Vendas.Views
                         Produto = produto,
                         Unidade = unidade,
                         Saldo = saldo,
-                        Custo_medio = custo_medio,
-                        Preco_venda = preco_venda,
-                        Preco_ult_compra = preco_ult_compra,
-                        Data_ult_compra = data_ult_compra,
+                        custoMedio = custoMedio,
+                        precoVenda = precoVenda,
+                        precoUltCompra = precoUltCompra,
+                        dataUltCompra = dataUltCompra,
                         Observacao = observacao,
                         Ativo = isAtivo,
                         dataCadastro = dataCadastro,
@@ -172,9 +172,9 @@ namespace Sistema_Vendas.Views
                     txtProduto.Texts = produto.Produto;
                     txtSaldo.Texts = produto.Saldo.ToString();
                     txtUN.Texts = produto.Unidade.ToString();
-                    txtCustoMedio.Texts = produto.Custo_medio.ToString();
-                    txtPrecoVenda.Texts = produto.Preco_venda.ToString("N2");
-                    txtPrecoUltCompra.Texts = produto.Preco_ult_compra.ToString();
+                    txtCustoMedio.Texts = produto.custoMedio.ToString();
+                    txtPrecoVenda.Texts = produto.precoVenda.ToString("N2");
+                    txtPrecoUltCompra.Texts = produto.precoUltCompra.ToString();
                     txtObservacao.Texts = produto.Observacao;
                     txtDataCadastro.Texts = produto.dataCadastro.ToString();
                     txtDataUltAlt.Texts = produto.dataUltAlt.ToString();
@@ -183,7 +183,7 @@ namespace Sistema_Vendas.Views
                     txtCodFornecedor.Texts = produto.idFornecedor.ToString();
                     txtCodModelo.Texts = produto.idModelo.ToString();
 
-                    AtualizarCampoData(produto.Data_ult_compra, txtDataUltCompra);
+                    AtualizarCampoData(produto.dataUltCompra, txtDataUltCompra);
 
                     ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Texts));
                     if (modelo != null)
@@ -344,7 +344,7 @@ namespace Sistema_Vendas.Views
                     }
                     else
                     {
-                        MessageBox.Show("O Salário deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("O preço venda deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtPrecoVenda.Focus();
                     }
                 }

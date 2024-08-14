@@ -111,6 +111,7 @@
     <Compile Include="Controller\FornecedorController.cs" />
     <Compile Include="Controller\FuncionarioController.cs" />
     <Compile Include="Controller\ModeloController.cs" />
+    <Compile Include="Controller\NotaCompraController.cs" />
     <Compile Include="Controller\OSController.cs" />
     <Compile Include="Controller\PaisController.cs" />
     <Compile Include="Controller\ProdutoController.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="DAO\FornecedorDAO.cs" />
     <Compile Include="DAO\FuncionarioDAO.cs" />
     <Compile Include="DAO\ModeloDAO.cs" />
+    <Compile Include="DAO\NotaCompraDAO.cs" />
     <Compile Include="DAO\OSDAO.cs" />
     <Compile Include="DAO\ProdutoDAO.cs" />
     <Compile Include="DAO\ServicoDAO.cs" />
@@ -150,6 +152,8 @@
     <Compile Include="Models\FornecedorModel.cs" />
     <Compile Include="Models\FuncionarioModel.cs" />
     <Compile Include="Models\ModeloModel.cs" />
+    <Compile Include="Models\NotaCompraModel.cs" />
+    <Compile Include="Models\NotaCompra_ProdutoModel.cs" />
     <Compile Include="Models\OrdemServicoModel.cs" />
     <Compile Include="Models\OS_ProdutoModel.cs" />
     <Compile Include="Models\OS_ServicoModel.cs" />
@@ -173,6 +177,12 @@
     </Compile>
     <Compile Include="Views\CadastroCondicaoPagamento.Designer.cs">
       <DependentUpon>CadastroCondicaoPagamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CadastroContasPagar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CadastroContasPagar.Designer.cs">
+      <DependentUpon>CadastroContasPagar.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CadastroEstados.cs">
       <SubType>Form</SubType>
@@ -360,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroCondicaoPagamento.resx">
       <DependentUpon>CadastroCondicaoPagamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CadastroContasPagar.resx">
+      <DependentUpon>CadastroContasPagar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroEstados.resx">
       <DependentUpon>CadastroEstados.cs</DependentUpon>
