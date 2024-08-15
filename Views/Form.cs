@@ -139,9 +139,12 @@ namespace Sistema_Vendas
 
         public static string FormataPreco(string texto)
         {
-            // remover pontos e espaços (separadores de milhares)
             texto = texto.Replace(".", "").Replace(" ", "");
 
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                return string.Empty; 
+            }
             if (decimal.TryParse(texto, out decimal value))
             {
                 return value.ToString("N2");

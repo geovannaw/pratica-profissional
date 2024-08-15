@@ -16,7 +16,8 @@ namespace Sistema_Vendas.Models
         public DateTime? dataEntrega { get; set; }
         public DateTime dataPrevista { get; set; }
         public DateTime? dataCancelamento { get; set; }
-        public decimal? valorPago { get; set; }
+        public decimal? valorRetirada { get; set; }
+        public decimal valorEntrada { get; set; }
         public decimal porcentagemDesconto { get; set; }
         public int idFuncionario { get; set; }
         public int idCliente { get; set; }

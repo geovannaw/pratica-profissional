@@ -97,11 +97,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtValorPendente = new Sistema_Vendas.GControls.GTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtValorPago = new Sistema_Vendas.GControls.GTextBox();
+            this.txtValorRetirada = new Sistema_Vendas.GControls.GTextBox();
             this.lblDataCancelamento = new System.Windows.Forms.Label();
             this.txtDataCancelamento = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.lblDataPrevista = new System.Windows.Forms.Label();
             this.txtDataPrevista = new Sistema_Vendas.GControls.GMaskedTextBox();
+            this.txtValorEntrada = new Sistema_Vendas.GControls.GTextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.gpTotal.SuspendLayout();
             this.tabServicos.SuspendLayout();
@@ -1229,11 +1231,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(393, 380);
+            this.label2.Location = new System.Drawing.Point(402, 380);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.Size = new System.Drawing.Size(74, 13);
             this.label2.TabIndex = 23;
-            this.label2.Text = "Valor Pago";
+            this.label2.Text = "Valor Retirada";
             // 
             // txtValorPendente
             // 
@@ -1261,7 +1263,6 @@
             this.txtValorPendente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorPendente.Texts = "";
             this.txtValorPendente.UnderlinedStyle = false;
-            this.txtValorPendente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorPago_KeyPress);
             // 
             // label3
             // 
@@ -1272,34 +1273,34 @@
             this.label3.TabIndex = 124;
             this.label3.Text = "Valor Pendente";
             // 
-            // txtValorPago
+            // txtValorRetirada
             // 
-            this.txtValorPago.BackColor = System.Drawing.SystemColors.Window;
-            this.txtValorPago.BorderColor = System.Drawing.Color.DarkGray;
-            this.txtValorPago.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.txtValorPago.BorderRadius = 5;
-            this.txtValorPago.BorderSize = 1;
-            this.txtValorPago.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtValorPago.DisabledBackColor = System.Drawing.Color.White;
-            this.txtValorPago.DisabledBorderColor = System.Drawing.Color.Gainsboro;
-            this.txtValorPago.DisabledForeColor = System.Drawing.Color.White;
-            this.txtValorPago.Enabled = false;
-            this.txtValorPago.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtValorPago.Location = new System.Drawing.Point(396, 396);
-            this.txtValorPago.MaxLength = 32767;
-            this.txtValorPago.Multiline = false;
-            this.txtValorPago.Name = "txtValorPago";
-            this.txtValorPago.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
-            this.txtValorPago.PasswordChar = false;
-            this.txtValorPago.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtValorPago.PlaceholderText = "";
-            this.txtValorPago.Size = new System.Drawing.Size(97, 28);
-            this.txtValorPago.TabIndex = 126;
-            this.txtValorPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtValorPago.Texts = "";
-            this.txtValorPago.UnderlinedStyle = false;
-            this.txtValorPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorPago_KeyPress);
-            this.txtValorPago.Leave += new System.EventHandler(this.txtValorPago_Leave);
+            this.txtValorRetirada.BackColor = System.Drawing.SystemColors.Window;
+            this.txtValorRetirada.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtValorRetirada.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtValorRetirada.BorderRadius = 5;
+            this.txtValorRetirada.BorderSize = 1;
+            this.txtValorRetirada.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtValorRetirada.DisabledBackColor = System.Drawing.Color.White;
+            this.txtValorRetirada.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtValorRetirada.DisabledForeColor = System.Drawing.Color.White;
+            this.txtValorRetirada.Enabled = false;
+            this.txtValorRetirada.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtValorRetirada.Location = new System.Drawing.Point(405, 396);
+            this.txtValorRetirada.MaxLength = 32767;
+            this.txtValorRetirada.Multiline = false;
+            this.txtValorRetirada.Name = "txtValorRetirada";
+            this.txtValorRetirada.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtValorRetirada.PasswordChar = false;
+            this.txtValorRetirada.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtValorRetirada.PlaceholderText = "";
+            this.txtValorRetirada.Size = new System.Drawing.Size(97, 28);
+            this.txtValorRetirada.TabIndex = 126;
+            this.txtValorRetirada.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtValorRetirada.Texts = "";
+            this.txtValorRetirada.UnderlinedStyle = false;
+            this.txtValorRetirada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorRetirada_KeyPress);
+            this.txtValorRetirada.Leave += new System.EventHandler(this.txtValorRetirada_Leave);
             // 
             // lblDataCancelamento
             // 
@@ -1376,15 +1377,55 @@
             this.txtDataPrevista.UnderlinedStyle = false;
             this.txtDataPrevista.Leave += new System.EventHandler(this.txtDataPrevista_Leave);
             // 
+            // txtValorEntrada
+            // 
+            this.txtValorEntrada.BackColor = System.Drawing.SystemColors.Window;
+            this.txtValorEntrada.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtValorEntrada.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtValorEntrada.BorderRadius = 5;
+            this.txtValorEntrada.BorderSize = 1;
+            this.txtValorEntrada.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtValorEntrada.DisabledBackColor = System.Drawing.Color.White;
+            this.txtValorEntrada.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtValorEntrada.DisabledForeColor = System.Drawing.Color.White;
+            this.txtValorEntrada.Enabled = false;
+            this.txtValorEntrada.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtValorEntrada.Location = new System.Drawing.Point(291, 395);
+            this.txtValorEntrada.MaxLength = 32767;
+            this.txtValorEntrada.Multiline = false;
+            this.txtValorEntrada.Name = "txtValorEntrada";
+            this.txtValorEntrada.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtValorEntrada.PasswordChar = false;
+            this.txtValorEntrada.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtValorEntrada.PlaceholderText = "";
+            this.txtValorEntrada.Size = new System.Drawing.Size(97, 28);
+            this.txtValorEntrada.TabIndex = 133;
+            this.txtValorEntrada.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtValorEntrada.Texts = "";
+            this.txtValorEntrada.UnderlinedStyle = false;
+            this.txtValorEntrada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorEntrada_KeyPress);
+            this.txtValorEntrada.Leave += new System.EventHandler(this.txtValorEntrada_Leave);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(288, 379);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 13);
+            this.label4.TabIndex = 132;
+            this.label4.Text = "Valor Entrada";
+            // 
             // CadastroOS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(800, 491);
+            this.Controls.Add(this.txtValorEntrada);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblDataPrevista);
             this.Controls.Add(this.txtDataPrevista);
             this.Controls.Add(this.lblDataCancelamento);
             this.Controls.Add(this.txtDataCancelamento);
-            this.Controls.Add(this.txtValorPago);
+            this.Controls.Add(this.txtValorRetirada);
             this.Controls.Add(this.txtValorPendente);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -1420,11 +1461,13 @@
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.txtValorPendente, 0);
-            this.Controls.SetChildIndex(this.txtValorPago, 0);
+            this.Controls.SetChildIndex(this.txtValorRetirada, 0);
             this.Controls.SetChildIndex(this.txtDataCancelamento, 0);
             this.Controls.SetChildIndex(this.lblDataCancelamento, 0);
             this.Controls.SetChildIndex(this.txtDataPrevista, 0);
             this.Controls.SetChildIndex(this.lblDataPrevista, 0);
+            this.Controls.SetChildIndex(this.label4, 0);
+            this.Controls.SetChildIndex(this.txtValorEntrada, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gpTotal.ResumeLayout(false);
@@ -1512,10 +1555,12 @@
         private System.Windows.Forms.Label label2;
         private GControls.GTextBox txtValorPendente;
         private System.Windows.Forms.Label label3;
-        private GControls.GTextBox txtValorPago;
+        private GControls.GTextBox txtValorRetirada;
         public System.Windows.Forms.Label lblDataCancelamento;
         public GControls.GMaskedTextBox txtDataCancelamento;
         private System.Windows.Forms.Label lblDataPrevista;
         private GControls.GMaskedTextBox txtDataPrevista;
+        private GControls.GTextBox txtValorEntrada;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Sistema_Vendas.Controller;
+using Sistema_Vendas.DAO;
 using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,14 @@ namespace Sistema_Vendas.Views
 
         decimal precoUNProduto;
 
-        int NumeroNota = -1;
-        int Modelo = -1;
-        int Serie = -1;
-        int IdFornecedor = -1;
+        decimal frete;
+        decimal seguro;
+        decimal outrasDespesas;
+
+        int NumeroNota;
+        int Modelo;
+        int Serie;
+        int IdFornecedor;
         public CadastroNotaCompra()
         {
             InitializeComponent();
@@ -38,12 +43,16 @@ namespace Sistema_Vendas.Views
             produtoController = new ProdutoController<ProdutoModel>();
             notaCompraController = new NotaCompraController<NotaCompraModel>();
             txtNroNota.Focus();
-            Desbloqueia();
         }
         public override void LimparCampos()
         {
+            NumeroNota = -1;
+            Modelo = -1;
+            Serie = -1;
+            IdFornecedor = -1;
+
             base.LimparCampos();
-            // Limpa todos os campos de texto
+            //limpa todos os campos de texto
             txtNroNota.Clear();
             txtModelo.Clear();
             txtSerie.Clear();
@@ -57,9 +66,9 @@ namespace Sistema_Vendas.Views
             txtUN.Clear();
             txtQtdeProduto.Clear();
             txtPrecoProd.Clear();
-            txtValorFrete.Text = "0";
-            txtValorSeguro.Text = "0";
-            txtOutrasDespesas.Text = "0";
+            txtValorFrete.Texts = "0";
+            txtValorSeguro.Texts = "0";
+            txtOutrasDespesas.Texts = "0";
             txtCodCondPag.Clear();
             txtCondPag.Clear();
             txtTotalProdutos.Clear();
@@ -74,9 +83,54 @@ namespace Sistema_Vendas.Views
             dataGridViewParcelas.Rows.Clear();
 
             rbCIF.Checked = true;
+
+            Desbloqueia();
         }
 
-        private void BloqueiaTudo()
+        public void Desbloqueia()
+        {
+            txtNroNota.Enabled = true;
+            txtModelo.Enabled = true;
+            txtSerie.Enabled = true;
+            txtCodFornecedor.Enabled = true;
+            txtObservacao.Enabled = true;
+
+            txtDataEmissao.Enabled = false;
+            txtDataChegada.Enabled = false;
+            txtCodProduto.Enabled = false;
+            txtProduto.Enabled = false;
+            txtUN.Enabled = false;
+            txtQtdeProduto.Enabled = false;
+            txtPrecoProd.Enabled = false;
+            txtValorFrete.Enabled = false;
+            txtValorSeguro.Enabled = false;
+            txtOutrasDespesas.Enabled = false;
+            txtCodCondPag.Enabled = false;
+            txtCondPag.Enabled = false;
+            txtTotalProdutos.Enabled = false;
+            txtTotalPagar.Enabled = false;
+            txtObservacao.Enabled = false;
+            txtDataCadastro.Enabled = false;
+            txtDataUltAlt.Enabled = false;
+            txtDataCancelamento.Enabled = false;
+
+            btnConsultaFornecedor.Enabled = true;
+            btnSalvar.Visible = true;
+            btnCancelar.Visible = false;
+
+            //desativa o DataGridView
+            dataGridViewProdutos.Enabled = false;
+            dataGridViewParcelas.Enabled = false;
+
+            //desativa os RadioButtons
+            rbCIF.Enabled = false;
+            rbFOB.Enabled = false;
+
+            //desativa o GroupBox
+            groupBox2.Enabled = false;
+        }
+
+        public void BloqueiaTudo()
         {
             //desativa todos os campos de texto
             txtNroNota.Enabled = false;
@@ -107,8 +161,6 @@ namespace Sistema_Vendas.Views
             btnConsultaFornecedor.Enabled = false;
             btnConsultaProduto.Enabled = false;
             btnConsultaCondPag.Enabled = false;
-            btnExcluirProduto.Enabled = false;
-            btnSalvar.Enabled = false;
 
             //desativa o DataGridView
             dataGridViewProdutos.Enabled = false;
@@ -121,25 +173,10 @@ namespace Sistema_Vendas.Views
             //desativa o GroupBox
             groupBox2.Enabled = false;
         }
-        public override void Desbloqueia()
-        {
-            txtNroNota.Enabled = true;
-            txtModelo.Enabled = true;
-            txtSerie.Enabled = true;
-            txtCodFornecedor.Enabled = true;
-            txtObservacao.Enabled = true;
-
-            btnConsultaFornecedor.Enabled = true;
-            btnExcluirProduto.Enabled = true;
-            btnSalvar.Enabled = true;
-            btnCancelar.Enabled = true;
-        }
 
         public override void Carrega()
         {
             base.Carrega();
-
-            BloqueiaTudo();
 
             var notaCompra = notaCompraController.GetNotaById(NumeroNota, Modelo, Serie, IdFornecedor);
             if (notaCompra != null)
@@ -175,8 +212,13 @@ namespace Sistema_Vendas.Views
                     lblCancelada.Visible = true;
                     lblDataCancelamento.Visible = true;
                     txtDataCancelamento.Visible = true;
+                } else
+                {
+                    lblCancelada.Visible = false;
+                    lblDataCancelamento.Visible = false;
+                    txtDataCancelamento.Visible = false;
                 }
-
+                exibirProdutosDGV(notaCompra.Produtos);
                 exibirParcelasDGV(condPagamento.Parcelas);
             }
         }
@@ -225,32 +267,12 @@ namespace Sistema_Vendas.Views
                         observacao = observacao,
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt,
-                        Produtos = obtemProdutos(),
+                        Produtos = obtemProdutos(valorFrete, valorSeguro, outrasDespesas, totalProdutos),
                     };
 
                     if (NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdFornecedor == -1)
                         notaCompraController.Salvar(notaCompra);
-
-                    //ARRUMAR SALDO DOS PRODUTOS APOS A COMPRA
-                    //foreach (var produto in notaCompra.Produtos)
-                    //{
-                    //    ProdutoModel produtoDetalhes = produtoController.GetById(produto.idProduto);
-                    //    if (produtoDetalhes != null)
-                    //    {
-                    //        int quantidadeOriginal = 0;
-                    //        if (idAlterar != -1)
-                    //        {
-                    //            var produtoOriginal = produtosOriginais.FirstOrDefault(p => p.idProduto == produto.idProduto);
-                    //            if (produtoOriginal != null)
-                    //            {
-                    //                quantidadeOriginal = produtoOriginal.Saldo;
-                    //            }
-                    //        }
-
-                    //        produtoDetalhes.Saldo += (produto.quantidadeProduto - quantidadeOriginal);
-                    //        produtoController.Alterar(produtoDetalhes);
-                    //    }
-                    //}
+                        notaCompraController.AtualizarProdutosNotaCompra(notaCompra);
 
                     this.DialogResult = DialogResult.OK;
                 }
@@ -261,22 +283,46 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private List<NotaCompra_ProdutoModel> obtemProdutos()
+        private List<NotaCompra_ProdutoModel> obtemProdutos(decimal valorFrete, decimal valorSeguro, decimal outrasDespesas, decimal totalProdutos)
         {
             List<NotaCompra_ProdutoModel> produtos = new List<NotaCompra_ProdutoModel>();
 
-            foreach (DataGridViewRow row in dataGridViewProdutos.Rows) //percorrendo o dgv de produtos
+            foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
             {
-                NotaCompra_ProdutoModel produto = new NotaCompra_ProdutoModel //armazena os valores das linhas
+                decimal precoUN = Convert.ToDecimal(row.Cells["PrecoUN"].Value);
+                decimal quantidadeProduto = Convert.ToDecimal(row.Cells["quantidadeProduto"].Value);
+                decimal precoTotalProd = precoUN * quantidadeProduto;
+
+                // Calcular o Rateio e arredondar para 4 casas decimais
+                decimal rateio = Math.Round(precoTotalProd / totalProdutos, 4);
+
+                // Calcular o Custo do Produto e arredondar para 4 casas decimais
+                decimal custoProd = Math.Round((valorFrete + valorSeguro + outrasDespesas) * rateio, 4);
+
+                // Calcular o Custo Médio do Produto e arredondar para 4 casas decimais
+                decimal custoMedio = Math.Round((precoTotalProd + custoProd) / quantidadeProduto, 4);
+
+                // Se custo médio for igual ao preço unitário, considerar apenas o preço unitário
+                if (custoProd == 0)
+                {
+                    custoMedio = Math.Round(precoUN, 4);
+                }
+
+                NotaCompra_ProdutoModel produto = new NotaCompra_ProdutoModel
                 {
                     quantidadeProduto = Convert.ToInt32(row.Cells["quantidadeProduto"].Value),
-                    precoProduto = Convert.ToDecimal(row.Cells["PrecoUN"].Value),
+                    precoProduto = Math.Round(precoUN, 4),
                     idProduto = Convert.ToInt32(row.Cells["idProduto"].Value),
+                    rateio = rateio,
+                    custoMedio = custoMedio,
                 };
+
                 produtos.Add(produto);
             }
+
             return produtos;
         }
+
 
         private void btnConsultaFornecedor_Click(object sender, EventArgs e)
         {
@@ -423,6 +469,34 @@ namespace Sistema_Vendas.Views
             VerificaCamposPreenchidosCondPagamento();
         }
 
+        private void exibirProdutosDGV(List<NotaCompra_ProdutoModel> produtos)
+        {
+            dataGridViewProdutos.Rows.Clear();
+
+            foreach (var produto in produtos)
+            {
+                ProdutoModel produtoDetalhes = notaCompraController.GetProdutoPorId(produto.idProduto);
+
+                if (produtoDetalhes != null)
+                {
+                    dataGridViewProdutos.Rows.Add(
+                        produto.idProduto,
+                        produtoDetalhes.Produto,
+                        produtoDetalhes.Unidade,
+                        produto.quantidadeProduto,
+                        produto.precoProduto,
+                        (produto.quantidadeProduto * produto.precoProduto)
+                    );
+                }
+            }
+
+            if (dataGridViewProdutos.Columns.Contains("idProduto"))
+            {
+                dataGridViewProdutos.Sort(dataGridViewProdutos.Columns["idProduto"], ListSortDirection.Ascending);
+            }
+        }
+
+
         private void exibirParcelasDGV(List<ParcelaModel> parcelas)
         {
             dataGridViewParcelas.Rows.Clear();
@@ -485,29 +559,34 @@ namespace Sistema_Vendas.Views
             txtCodProduto.Enabled = camposPreenchidos;
             txtQtdeProduto.Enabled = camposPreenchidos;
             txtPrecoProd.Enabled = camposPreenchidos;
+            btnConsultaProduto.Enabled = camposPreenchidos;
+          //  btnExcluirProduto.Enabled= camposPreenchidos;
             dataGridViewProdutos.Enabled = camposPreenchidos;
         }
         private void VerificaProdutos()
         {
-            bool habilitar = dataGridViewProdutos.Rows.Count > 0;
+            if (NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdFornecedor == -1)
+            {
+                bool habilitar = dataGridViewProdutos.Rows.Count > 0;
 
-            //desabilita os campos com infos da nota
-            txtNroNota.Enabled = !habilitar;
-            txtModelo.Enabled = !habilitar;
-            txtSerie.Enabled = !habilitar;
-            txtDataEmissao.Enabled = !habilitar;
-            txtDataChegada.Enabled = !habilitar;
-            txtCodFornecedor.Enabled = !habilitar;
+                //desabilita os campos com infos da nota
+                txtNroNota.Enabled = !habilitar;
+                txtModelo.Enabled = !habilitar;
+                txtSerie.Enabled = !habilitar;
+                txtDataEmissao.Enabled = !habilitar;
+                txtDataChegada.Enabled = !habilitar;
+                txtCodFornecedor.Enabled = !habilitar;
 
-            groupBox2.Enabled = habilitar;
-            rbCIF.Enabled = habilitar;
-            rbFOB.Enabled = habilitar;
-            txtValorSeguro.Enabled = habilitar;
-            txtOutrasDespesas.Enabled = habilitar;
+                groupBox2.Enabled = habilitar;
+                rbCIF.Enabled = habilitar;
+                rbFOB.Enabled = habilitar;
+                txtValorSeguro.Enabled = habilitar;
+                txtOutrasDespesas.Enabled = habilitar;
 
-            txtCodCondPag.Enabled = habilitar;
-            btnConsultaCondPag.Enabled = habilitar;
-            dataGridViewParcelas.Enabled = habilitar;
+                txtCodCondPag.Enabled = habilitar;
+                btnConsultaCondPag.Enabled = habilitar;
+                dataGridViewParcelas.Enabled = habilitar;
+            }
         }
         private void VerificaCamposPreenchidosFrete()
         {
@@ -519,7 +598,6 @@ namespace Sistema_Vendas.Views
             txtQtdeProduto.Enabled = !camposPreenchidos;
             txtPrecoProd.Enabled = !camposPreenchidos;
             dataGridViewProdutos.Enabled = !camposPreenchidos;
-            
         }
         private void VerificaCamposPreenchidosCondPagamento()
         {
@@ -659,9 +737,9 @@ namespace Sistema_Vendas.Views
         private void atualizaTotalPagar()
         {
             decimal totalProdutos = string.IsNullOrWhiteSpace(txtTotalProdutos.Texts) ? 0 : Convert.ToDecimal(txtTotalProdutos.Texts);
-            decimal frete = string.IsNullOrWhiteSpace(txtValorFrete.Texts) ? 0 : Convert.ToDecimal(txtValorFrete.Texts);
-            decimal seguro = string.IsNullOrWhiteSpace(txtValorSeguro.Texts) ? 0 : Convert.ToDecimal(txtValorSeguro.Texts);
-            decimal outrasDespesas = string.IsNullOrWhiteSpace(txtOutrasDespesas.Texts) ? 0 : Convert.ToDecimal(txtOutrasDespesas.Texts);
+            frete = string.IsNullOrWhiteSpace(txtValorFrete.Texts) ? 0 : Convert.ToDecimal(txtValorFrete.Texts);
+            seguro = string.IsNullOrWhiteSpace(txtValorSeguro.Texts) ? 0 : Convert.ToDecimal(txtValorSeguro.Texts);
+            outrasDespesas = string.IsNullOrWhiteSpace(txtOutrasDespesas.Texts) ? 0 : Convert.ToDecimal(txtOutrasDespesas.Texts);
 
             decimal total = totalProdutos + frete + seguro + outrasDespesas;
 
@@ -670,18 +748,21 @@ namespace Sistema_Vendas.Views
 
         private void txtValorFrete_Leave(object sender, EventArgs e)
         {
+            txtValorFrete.Texts = FormataPreco(txtValorFrete.Texts);
             VerificaCamposPreenchidosFrete();
             atualizaTotalPagar();
         }
 
         private void txtValorSeguro_Leave(object sender, EventArgs e)
         {
+            txtValorSeguro.Texts = FormataPreco(txtValorSeguro.Texts);
             VerificaCamposPreenchidosFrete();
             atualizaTotalPagar();
         }
 
         private void txtOutrasDespesas_Leave(object sender, EventArgs e)
         {
+            txtOutrasDespesas.Texts = FormataPreco(txtOutrasDespesas.Texts);
             VerificaCamposPreenchidosFrete();
             atualizaTotalPagar();
         }
@@ -729,11 +810,29 @@ namespace Sistema_Vendas.Views
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            //tem ctz que deseja cancelar a nota?
-            //se sim:
-            //cancela a nota
-            //grava a data de cancelamento
-            //tira do estoque os produtos que entraram em estoque por ela
+            DialogResult result = MessageBox.Show("Tem certeza que deseja cancelar esta nota?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            string dataCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
+            if (result == DialogResult.Yes)
+            {
+                if (string.IsNullOrEmpty(dataCancelamento))
+                {
+                    NotaCompraDAO notaCompraDAO = new NotaCompraDAO();
+                    bool sucesso = notaCompraDAO.CancelarNotaCompra(NumeroNota, Modelo, Serie, IdFornecedor);
+
+                    if (sucesso)
+                    {
+                        MessageBox.Show("Nota cancelada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao cancelar a nota.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } else
+                {
+                    MessageBox.Show("Esta nota já foi cancelada anteriormente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void CadastroNotaCompra_FormClosed(object sender, FormClosedEventArgs e)
@@ -780,6 +879,11 @@ namespace Sistema_Vendas.Views
                     txtDataChegada.Focus();
                 }
             }
+        }
+
+        private void txtPrecoProd_Leave(object sender, EventArgs e)
+        {
+            txtPrecoProd.Texts = FormataPreco(txtPrecoProd.Texts);
         }
     }
 }

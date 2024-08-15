@@ -50,6 +50,19 @@ namespace Sistema_Vendas.Controller
         {
             notaCompraDAO.Salvar(obj as NotaCompraModel);
         }
+        public ProdutoModel GetProdutoPorId(int idProduto)
+        {
+            return notaCompraDAO.GetProdutoPorId(idProduto);
+        }
+
+        public void AtualizarProdutosNotaCompra(NotaCompraModel obj)
+        {
+            notaCompraDAO.AtualizarProdutosNotaCompra((NotaCompraModel)obj);
+        }
+        public bool CancelarNotaCompra(int numeroNota, int modelo, int serie, int idFornecedor)
+        {
+            return notaCompraDAO.CancelarNotaCompra(numeroNota, modelo, serie, idFornecedor);
+        }
 
         public bool ExisteNota(int numeroNota, string modelo, string serie, int idFornecedor)
         {

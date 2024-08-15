@@ -196,8 +196,8 @@ namespace Sistema_Vendas.DAO
                     foreach (var produto in obj.Produtos)
                     {
                         string queryProduto = @"INSERT INTO notaCompra_Produto 
-                                        (numeroNota, modelo, serie, idFornecedor, quantidadeProduto, precoProduto, idProduto) 
-                                        VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @quantidadeProduto, @precoProduto, @idProduto)";
+                                        (numeroNota, modelo, serie, idFornecedor, quantidadeProduto, precoProduto, custoMedio, rateio, idProduto) 
+                                        VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @quantidadeProduto, @precoProduto, @custoMedio, @rateio, @idProduto)";
                         SqlCommand cmdProduto = new SqlCommand(queryProduto, conn, transaction);
 
                         cmdProduto.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
@@ -206,6 +206,8 @@ namespace Sistema_Vendas.DAO
                         cmdProduto.Parameters.AddWithValue("@idFornecedor", obj.idFornecedor);
                         cmdProduto.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);
                         cmdProduto.Parameters.AddWithValue("@precoProduto", produto.precoProduto);
+                        cmdProduto.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
+                        cmdProduto.Parameters.AddWithValue("@rateio", produto.rateio.HasValue ? (object)produto.rateio.Value : DBNull.Value);
                         cmdProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
 
                         cmdProduto.ExecuteNonQuery();
@@ -218,6 +220,153 @@ namespace Sistema_Vendas.DAO
                     transaction.Rollback();
                     throw new Exception("Erro no banco ao salvar Nota de Compra: " + ex.Message);
                 }
+            }
+        }
+        public ProdutoModel GetProdutoPorId(int idProduto)
+        {
+            ProdutoModel produto = null;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT produto, unidade FROM produto WHERE idProduto = @idProduto";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@idProduto", idProduto);
+
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        produto = new ProdutoModel
+                        {
+                            idProduto = idProduto,
+                            Produto = reader["produto"].ToString(),
+                            Unidade = reader["unidade"].ToString()
+                        };
+                    }
+                }
+            }
+            return produto;
+        }
+        public void AtualizarProdutosNotaCompra(NotaCompraModel obj)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    foreach (var produto in obj.Produtos)
+                    {
+                        string queryUpdateProduto = @"UPDATE produto SET 
+                                    saldo = saldo + @quantidadeProduto,
+                                    custoMedio = @custoMedio,
+                                    dataUltCompra = @dataUltCompra,
+                                    precoUltCompra = @precoUltCompra
+                                    WHERE idProduto = @idProduto";
+                        SqlCommand cmdUpdateProduto = new SqlCommand(queryUpdateProduto, conn, transaction);
+
+                        cmdUpdateProduto.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);
+                        cmdUpdateProduto.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
+                        cmdUpdateProduto.Parameters.AddWithValue("@dataUltCompra", obj.dataEmissao);
+                        cmdUpdateProduto.Parameters.AddWithValue("@precoUltCompra", produto.precoProduto);
+                        cmdUpdateProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
+
+                        cmdUpdateProduto.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+        public bool CancelarNotaCompra(int numeroNota, int modelo, int serie, int idFornecedor)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlTransaction transaction = conn.BeginTransaction();
+
+                    try
+                    {
+                        // Adiciona a data de cancelamento pelo update
+                        string queryCancelarNota = @"
+                UPDATE notaCompra
+                SET dataCancelamento = @dataCancelamento
+                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
+
+                        using (SqlCommand cmd = new SqlCommand(queryCancelarNota, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@dataCancelamento", DateTime.Now);
+                            cmd.Parameters.AddWithValue("@numeroNota", numeroNota);
+                            cmd.Parameters.AddWithValue("@modelo", modelo);
+                            cmd.Parameters.AddWithValue("@serie", serie);
+                            cmd.Parameters.AddWithValue("@idFornecedor", idFornecedor);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // Puxa os produtos da nota
+                        string queryProdutosNota = @"
+                SELECT idProduto, quantidadeProduto
+                FROM notaCompra_Produto
+                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
+
+                        List<(int idProduto, int quantidadeProduto)> produtos = new List<(int, int)>();
+
+                        using (SqlCommand cmd = new SqlCommand(queryProdutosNota, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@numeroNota", numeroNota);
+                            cmd.Parameters.AddWithValue("@modelo", modelo);
+                            cmd.Parameters.AddWithValue("@serie", serie);
+                            cmd.Parameters.AddWithValue("@idFornecedor", idFornecedor);
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    int idProduto = reader.GetInt32(reader.GetOrdinal("idProduto"));
+                                    int quantidadeProduto = reader.GetInt32(reader.GetOrdinal("quantidadeProduto"));
+                                    produtos.Add((idProduto, quantidadeProduto));
+                                }
+                            }
+                        }
+
+                        // Atualiza o estoque
+                        foreach (var produto in produtos)
+                        {
+                            string queryAtualizarEstoque = @"
+                    UPDATE produto
+                    SET saldo = saldo - @quantidadeProduto
+                    WHERE idProduto = @idProduto";
+
+                            using (SqlCommand cmd = new SqlCommand(queryAtualizarEstoque, conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);
+                                cmd.Parameters.AddWithValue("@idProduto", produto.idProduto);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception("Erro ao cancelar a nota de compra: " + ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro na conexão com o banco de dados: " + ex.Message);
             }
         }
     }

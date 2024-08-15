@@ -40,9 +40,7 @@ namespace Sistema_Vendas.Views
         private void ResetCadastro(int numero, int modelo, int serie, int idFornecedor)
         {
             cadastroNotaCompra.SetID(numero, modelo, serie, idFornecedor);
-            cadastroNotaCompra.txtDataCancelamento.Visible = false;
-            cadastroNotaCompra.lblDataCancelamento.Visible=false;
-            cadastroNotaCompra.lblCancelada.Visible=false;
+            cadastroNotaCompra.BloqueiaTudo();
             cadastroNotaCompra.Carrega();
         }
         public void Visualizar()

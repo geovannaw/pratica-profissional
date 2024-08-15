@@ -29,7 +29,6 @@ namespace Sistema_Vendas.Views
         decimal precoUNProduto;
         decimal precoUNServico;
 
-        bool isAdquirido = true;
         private bool carregando = false;
 
         public CadastroOS()
@@ -64,7 +63,7 @@ namespace Sistema_Vendas.Views
             txtObservacao.Clear();
             txtDataOS.Clear();
             txtDataEntrega.Clear();
-            cbSituacao.SelectedIndex = -1;
+            cbSituacao.SelectedIndex = 0;
             txtSubtotalProdutos.Clear();
             txtSubtotalServicos.Clear();
             txtDesconto.Clear();
@@ -73,7 +72,8 @@ namespace Sistema_Vendas.Views
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
             txtDataCancelamento.Clear();
-            txtValorPago.Clear();
+            txtValorEntrada.Clear();
+            txtValorRetirada.Clear();
             txtValorPendente.Clear();
             txtDataPrevista.Clear();
             rbAtivo.Checked = true;
@@ -84,7 +84,9 @@ namespace Sistema_Vendas.Views
             dataGridViewProdutos.Enabled = true;
             txtDataOS.Enabled = true;
             cbSituacao.Enabled = true;
-            txtValorPago.Enabled = false;
+            txtValorRetirada.Enabled = false;
+            txtValorEntrada.Enabled = true;
+            cbSituacao.Enabled = true;
 
             btnSalvar.Visible = true;
 
@@ -145,6 +147,11 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Campo Cód. Funcionário é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodFuncionario.Focus();
             }
+            else if (!CampoObrigatorio(txtValorEntrada.Texts))
+            {
+                MessageBox.Show("Campo Valor Entrada é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtValorEntrada.Focus();
+            }
             else if (!CampoObrigatorio(dPrevista))
             {
                 MessageBox.Show("Campo Data Prevista é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -170,10 +177,11 @@ namespace Sistema_Vendas.Views
                 {
                     int codCliente = Convert.ToInt32(txtCodCliente.Texts);
                     int codFuncionario = Convert.ToInt32(txtCodFuncionario.Texts);
-                    decimal? valorPago = string.IsNullOrEmpty(txtValorPago.Texts) ? (decimal?)null : Convert.ToDecimal(txtValorPago.Texts);
+                    decimal? valorRetirada = string.IsNullOrEmpty(txtValorRetirada.Texts) ? (decimal?)null : Convert.ToDecimal(txtValorRetirada.Texts);
                     decimal porcentagemDesconto = Convert.ToDecimal(txtPorcentagemDesconto.Texts);
                     string situacao = cbSituacao.Texts.ToString();
                     decimal total = Convert.ToDecimal(txtTotal.Texts);
+                    decimal valorEntrada = Convert.ToDecimal(txtValorEntrada.Texts);
                     string observacao = txtObservacao.Texts;
                     DateTime.TryParse(txtDataOS.Texts, out DateTime dataOS);
 
@@ -191,10 +199,11 @@ namespace Sistema_Vendas.Views
                         idFuncionario = codFuncionario,
                         dataCancelamento = dataCancelamento,
                         dataPrevista = dataPrevista,
-                        valorPago = valorPago,
+                        valorRetirada = valorRetirada,
                         porcentagemDesconto = porcentagemDesconto,
                         status = situacao,
                         precoTotal = total,
+                        valorEntrada = valorEntrada,
                         dataEntrega = dataEntrega,
                         data = dataOS,
                         observacao = observacao,
@@ -263,7 +272,8 @@ namespace Sistema_Vendas.Views
                 txtCodigo.Texts = ordemServico.idOrdemServico.ToString();
                 txtCodCliente.Texts = ordemServico.idCliente.ToString();
                 txtCodFuncionario.Texts = ordemServico.idFuncionario.ToString();
-                txtValorPago.Texts = ordemServico.valorPago.ToString();
+                txtValorRetirada.Texts = ordemServico.valorRetirada.ToString();
+                txtValorEntrada.Texts = ordemServico.valorEntrada.ToString();
                 txtDataPrevista.Texts = ordemServico.dataPrevista.ToString();
                 txtDataCancelamento.Texts = ordemServico.dataCancelamento.ToString();
                 txtDataOS.Texts = ordemServico.data.ToString();
@@ -312,6 +322,8 @@ namespace Sistema_Vendas.Views
                     lblDataCancelamento.Visible = false;
                     txtDataCancelamento.Visible = false;
                 }
+                txtValorEntrada.Enabled = false;
+                txtValorRetirada.Enabled = true;
                 txtDataOS.Enabled = false;
                 exibirProdutosDGV(ordemServico.Produtos);
                 exibirServicosDGV(ordemServico.Servicos);
@@ -410,7 +422,7 @@ namespace Sistema_Vendas.Views
 
             if (txtTotal.Texts.Length > 0)
             {
-                txtValorPago.Enabled = true;
+                txtValorRetirada.Enabled = true;
             }
         }
 
@@ -947,83 +959,40 @@ namespace Sistema_Vendas.Views
                 txtDataCancelamento.Visible = true;
                 lblDataCancelamento.Visible = true;
                 txtDataCancelamento.Texts = DateTime.Now.ToString();
-                //if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço? Ao cancelar, os produtos presentes voltarão ao estoque.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                //{
-                //    int idOS;
-                //    if (int.TryParse(txtCodigo.Texts, out idOS))
-                //    {
-                //        // Recupera a lista de produtos associados à OS
-                //        List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
-
-                //        // Volta o estoque de cada produto
-                //        foreach (var produto in produtos)
-                //        {
-                //            produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
-                //        }
-
-                //        txtCodProduto.Enabled = false;
-                //        btnConsultaProduto.Enabled = false;
-                //        txtQtdeProduto.Enabled = false;
-                //        dataGridViewProdutos.Enabled = false;
-
-                //        txtDataCancelamento.Visible = true;
-                //        lblDataCancelamento.Visible = true;
-                //        txtDataCancelamento.Texts = DateTime.Now.ToString();
-
-                //        MessageBox.Show("Ordem de Serviço cancelada e estoque atualizado.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    }
-                //    else
-                //    {
-                //        MessageBox.Show("Código da Ordem de Serviço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    }
-                //}
+                
             }
             if (cbSituacao.SelectedItem.ToString() == "RETIRADO")
             {
-                if(txtValorPendente.Texts != "0.00")
+                if(txtValorPendente.Texts != "0,00")
                 {
                     if (MessageBox.Show("Valor pendente detectado. Confirma a retirada mesmo assim?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         txtDataEntrega.Texts = DateTime.Now.ToString();
                         cbSituacao.Enabled = false;
+                    } else
+                    {
+                        cbSituacao.SelectedIndex = -1;
                     }
+                } else
+                {
+                    txtDataEntrega.Texts = DateTime.Now.ToString();
+                    cbSituacao.Enabled = false;
                 }
             }
         }
 
-        private void txtValorPago_Leave(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtValorPago.Texts))
-            {
-                try
-                {
-                    txtValorPago.Texts = FormataPreco(txtValorPago.Texts);
-                }
-                catch (FormatException ex)
-                {
-                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtValorPago.Focus();
-                }
-            }
-            calculaValorPendente();
-        }
         private void calculaValorPendente()
         {
-            if (!string.IsNullOrEmpty(txtValorPago.Texts))
+            if (!string.IsNullOrEmpty(txtTotal.Texts))
             {
                 decimal valorTotal = decimal.Parse(txtTotal.Texts);
-                decimal valorPago = decimal.Parse(txtValorPago.Texts);
-                decimal valorRestante = valorTotal - valorPago;
+                decimal valorEntrada = string.IsNullOrEmpty(txtValorEntrada.Texts) ? 0 : decimal.Parse(txtValorEntrada.Texts);
+                decimal valorRetirada = string.IsNullOrEmpty(txtValorRetirada.Texts) ? 0 : decimal.Parse(txtValorRetirada.Texts);
+                decimal valorRestante = valorTotal - valorEntrada - valorRetirada;
                 txtValorPendente.Texts = valorRestante.ToString("F2");
             }
         }
-        private void txtValorPago_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
-            {
-                e.Handled = true;
-            }
-        }
+
 
         private void txtDataPrevista_Leave(object sender, EventArgs e)
         {
@@ -1045,6 +1014,56 @@ namespace Sistema_Vendas.Views
             {
                 return;
             }
+        }
+
+        private void txtValorRetirada_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtValorRetirada.Texts))
+            {
+                try
+                {
+                    txtValorRetirada.Texts = FormataPreco(txtValorRetirada.Texts);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtValorRetirada.Focus();
+                }
+            }
+            calculaValorPendente();
+        }
+
+        private void txtValorRetirada_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtValorEntrada_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtValorEntrada_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtValorEntrada.Texts))
+            {
+                try
+                {
+                    txtValorEntrada.Texts = FormataPreco(txtValorEntrada.Texts);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtValorEntrada.Focus();
+                }
+            }
+            calculaValorPendente();
         }
     }
 }

@@ -613,6 +613,7 @@
             this.txtPrecoProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecoProd.Texts = "";
             this.txtPrecoProd.UnderlinedStyle = false;
+            this.txtPrecoProd.Leave += new System.EventHandler(this.txtPrecoProd_Leave);
             // 
             // dataGridViewProdutos
             // 
@@ -1416,15 +1417,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FormaPagamento;
         private System.Windows.Forms.DataGridViewTextBoxColumn VencimentoParcela;
         private System.Windows.Forms.DataGridViewTextBoxColumn ValorParcela;
+        protected GButtons btnAddCondPag;
+        public System.Windows.Forms.Label lblDataCancelamento;
+        public GControls.GMaskedTextBox txtDataCancelamento;
+        public System.Windows.Forms.Label lblCancelada;
         private System.Windows.Forms.DataGridViewTextBoxColumn idProduto;
         private System.Windows.Forms.DataGridViewTextBoxColumn produto;
         private System.Windows.Forms.DataGridViewTextBoxColumn UNProd;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeProduto;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecoUN;
         private System.Windows.Forms.DataGridViewTextBoxColumn precoTotal;
-        protected GButtons btnAddCondPag;
-        public System.Windows.Forms.Label lblDataCancelamento;
-        public GControls.GMaskedTextBox txtDataCancelamento;
-        public System.Windows.Forms.Label lblCancelada;
     }
 }
