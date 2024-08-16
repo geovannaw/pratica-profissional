@@ -24,6 +24,8 @@ namespace Sistema_Vendas.Views
 
         decimal precoUNProduto;
 
+        bool isCIF = true;
+
         decimal frete;
         decimal seguro;
         decimal outrasDespesas;
@@ -256,6 +258,7 @@ namespace Sistema_Vendas.Views
                         modelo = modelo,
                         serie = serie,
                         idFornecedor = idFornecedor,
+                        tipoFrete = isCIF,
                         valorFrete = valorFrete,
                         valorSeguro = valorSeguro,
                         outrasDespesas = outrasDespesas,
@@ -798,12 +801,14 @@ namespace Sistema_Vendas.Views
 
         private void rbCIF_CheckedChanged(object sender, EventArgs e)
         {
+            isCIF = rbCIF.Checked;
             txtValorFrete.Enabled = false;
             txtValorFrete.Texts = "0";
         }
 
         private void rbFOB_CheckedChanged(object sender, EventArgs e)
         {
+            isCIF = !rbFOB.Checked;
             txtValorFrete.Enabled = true;
             txtValorFrete.Texts = "0";
         }

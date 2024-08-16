@@ -14,5 +14,10 @@ namespace Sistema_Vendas.Views
         {
             InitializeComponent();
         }
+
+        private void CadastroContasPagar_Load(object sender, EventArgs e)
+        {
+            //terminae
+        }
     }
 }

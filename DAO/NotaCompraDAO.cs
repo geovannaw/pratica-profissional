@@ -41,6 +41,7 @@ namespace Sistema_Vendas.DAO
                         notaCompra.serie = Convert.ToInt32(reader["serie"]);
                         notaCompra.idFornecedor = Convert.ToInt32(reader["idFornecedor"]);
                         notaCompra.dataChegada = Convert.ToDateTime(reader["dataChegada"]);
+                        notaCompra.dataCancelamento = reader["dataCancelamento"] != DBNull.Value ? Convert.ToDateTime(reader["dataCancelamento"]) : (DateTime?)null;
 
                         notasCompra.Add(notaCompra);
                     }

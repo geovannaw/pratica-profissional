@@ -47,42 +47,38 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Selecione uma Ordem de Serviço para alterar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        public override void Excluir()
-        {
-            if (dataGridViewOS.SelectedRows.Count > 0)
-            {
-                string status = dataGridViewOS.SelectedRows[0].Cells["Status"].Value.ToString();
+        //public override void Excluir()
+        //{
+        //    if (dataGridViewOS.SelectedRows.Count > 0)
+        //    {
+        //        string status = dataGridViewOS.SelectedRows[0].Cells["Status"].Value.ToString();
 
-                if (status == "CANCELADO")
-                {
-                    if (MessageBox.Show("Tem certeza de que deseja excluir esta Ordem de Serviço?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        int idOS = (int)dataGridViewOS.SelectedRows[0].Cells["Código"].Value;
+        //        if (status == "CANCELADO")
+        //        {
+        //            if (MessageBox.Show("Tem certeza de que deseja excluir esta Ordem de Serviço?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+        //            {
+        //                int idOS = (int)dataGridViewOS.SelectedRows[0].Cells["Código"].Value;
 
-                        // Recupera a lista de produtos associados à OS
-                        List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
+        //                List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
 
-                        // Volta o estoque de cada produto
-                        foreach (var produto in produtos)
-                        {
-                            produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
-                        }
-
-                        // Exclui a OS
-                        ordemServicoController.Delete(idOS);
-                        dataGridViewOS.DataSource = ordemServicoController.GetAll(cbBuscaInativos.Checked);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("A Ordem de Serviço só pode ser excluída se estiver com status CANCELADO.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Selecione uma Ordem de Serviço para excluir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
+        //                foreach (var produto in produtos)
+        //                {
+        //                    produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
+        //                }
+        //                ordemServicoController.Delete(idOS);
+        //                dataGridViewOS.DataSource = ordemServicoController.GetAll(cbBuscaInativos.Checked);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("A Ordem de Serviço só pode ser excluída se estiver com status CANCELADO.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Selecione uma Ordem de Serviço para excluir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //    }
+        //}
 
         public override void Pesquisar()
         {

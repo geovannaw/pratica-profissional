@@ -90,6 +90,8 @@ namespace Sistema_Vendas.Views
                 dataGridViewNFCompra.Columns["idFornecedor"].DataPropertyName = "idFornecedor";
                 dataGridViewNFCompra.Columns["dataChegada"].DataPropertyName = "dataChegada";
                 dataGridViewNFCompra.Columns["dataChegada"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dataGridViewNFCompra.Columns["DataCancelamento"].DataPropertyName = "dataCancelamento";
+                dataGridViewNFCompra.Columns["DataCancelamento"].DefaultCellStyle.Format = "dd/MM/yyyy";
 
                 AtualizarConsultaNotaCompra(cbBuscaInativos.Checked);
             }
@@ -165,6 +167,18 @@ namespace Sistema_Vendas.Views
                 }
 
                 e.FormattingApplied = true;
+            }
+            if (dataGridViewNFCompra.Columns[e.ColumnIndex].Name == "DataCancelamento" && e.RowIndex >= 0)
+            {
+                var dataCancelamento = dataGridViewNFCompra.Rows[e.RowIndex].Cells["DataCancelamento"].Value;
+                if (dataCancelamento != DBNull.Value && dataCancelamento != null)
+                {
+                    dataGridViewNFCompra.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Red;
+                }
+                else
+                {
+                    dataGridViewNFCompra.Rows[e.RowIndex].DefaultCellStyle.ForeColor = dataGridViewNFCompra.DefaultCellStyle.ForeColor;
+                }
             }
         }
 

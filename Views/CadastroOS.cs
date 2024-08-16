@@ -76,27 +76,63 @@ namespace Sistema_Vendas.Views
             txtValorRetirada.Clear();
             txtValorPendente.Clear();
             txtDataPrevista.Clear();
-            rbAtivo.Checked = true;
-
-            txtCodProduto.Enabled = true;
-            btnConsultaProduto.Enabled = true;
-            txtQtdeProduto.Enabled = true;
-            dataGridViewProdutos.Enabled = true;
-            txtDataOS.Enabled = true;
-            cbSituacao.Enabled = true;
+            
             txtValorRetirada.Enabled = false;
-            txtValorEntrada.Enabled = true;
-            cbSituacao.Enabled = true;
-
-            btnSalvar.Visible = true;
-
             txtDataCancelamento.Visible = false;
             lblDataCancelamento.Visible = false;
 
+            Desbloqueia();
+
             dataGridViewProdutos.Rows.Clear();
             dataGridViewServicos.Rows.Clear();
+
             limpaCamposProdutos();
             limpaCamposServicos();
+        }
+
+        public override void Desbloqueia()
+        {
+            base.Desbloqueia();
+            txtValorEntrada.Enabled = true;
+            cbSituacao.Enabled = true;
+            txtCodCliente.Enabled = true;
+            txtCodFuncionario.Enabled = true;
+            txtCodProduto.Enabled = true;
+            txtCodServico.Enabled = true;
+            txtQtdeProduto.Enabled = true;
+            txtQtdeServico.Enabled = true;
+            txtDataPrevista.Enabled = true;
+            txtCodProduto.Enabled = true;
+            txtQtdeProduto.Enabled = true;
+            txtDataOS.Enabled = true;
+            cbSituacao.Enabled = true;
+            rbAtivo.Checked = true;
+
+            btnConsultaCliente.Enabled = true;
+            btnConsultaFuncionario.Enabled = true;
+            btnConsultaProduto.Enabled = true;
+            btnConsultaServico.Enabled = true;
+
+            dataGridViewProdutos.Enabled = true;
+        }
+
+        public override void Bloqueia()
+        {
+            base.Bloqueia();
+            txtDataOS.Enabled = false;
+            txtCodCliente.Enabled = false;
+            txtCodFuncionario.Enabled = false;
+            txtCodProduto.Enabled=false;
+            txtCodServico.Enabled=false;
+            txtQtdeProduto.Enabled= false;
+            txtQtdeServico.Enabled= false;
+            txtDataPrevista.Enabled = false;
+
+            btnConsultaCliente.Enabled=false;
+            btnConsultaFuncionario.Enabled=false;
+            btnConsultaProduto.Enabled=false;
+            btnConsultaServico.Enabled=false;
+
         }
 
         private List<OS_ProdutoModel> obtemProdutos()
@@ -324,7 +360,7 @@ namespace Sistema_Vendas.Views
                 }
                 txtValorEntrada.Enabled = false;
                 txtValorRetirada.Enabled = true;
-                txtDataOS.Enabled = false;
+                Bloqueia();
                 exibirProdutosDGV(ordemServico.Produtos);
                 exibirServicosDGV(ordemServico.Servicos);
                 atualizaSubtotalProdutos();

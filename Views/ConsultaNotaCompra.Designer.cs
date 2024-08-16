@@ -36,12 +36,14 @@
             this.idFornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataChegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataCancelamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNFCompra)).BeginInit();
             this.SuspendLayout();
             // 
             // cbBuscaInativos
             // 
+            this.cbBuscaInativos.Location = new System.Drawing.Point(556, 19);
             this.cbBuscaInativos.Visible = false;
             // 
             // groupBox2
@@ -59,7 +61,7 @@
             // btnIncluir
             // 
             this.btnIncluir.FlatAppearance.BorderSize = 0;
-            this.btnIncluir.Location = new System.Drawing.Point(381, 412);
+            this.btnIncluir.Location = new System.Drawing.Point(421, 412);
             // 
             // btnAlterar
             // 
@@ -80,6 +82,7 @@
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.Location = new System.Drawing.Point(583, 412);
             // 
             // txtPesquisa
             // 
@@ -97,7 +100,7 @@
             this.btnVisualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVisualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVisualizar.ForeColor = System.Drawing.Color.White;
-            this.btnVisualizar.Location = new System.Drawing.Point(462, 412);
+            this.btnVisualizar.Location = new System.Drawing.Point(502, 412);
             this.btnVisualizar.Name = "btnVisualizar";
             this.btnVisualizar.Size = new System.Drawing.Size(75, 28);
             this.btnVisualizar.TabIndex = 16;
@@ -120,12 +123,13 @@
             this.serie,
             this.idFornecedor,
             this.fornecedor,
-            this.dataChegada});
+            this.dataChegada,
+            this.DataCancelamento});
             this.dataGridViewNFCompra.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewNFCompra.Location = new System.Drawing.Point(17, 58);
             this.dataGridViewNFCompra.Name = "dataGridViewNFCompra";
             this.dataGridViewNFCompra.ReadOnly = true;
-            this.dataGridViewNFCompra.Size = new System.Drawing.Size(598, 339);
+            this.dataGridViewNFCompra.Size = new System.Drawing.Size(641, 339);
             this.dataGridViewNFCompra.TabIndex = 17;
             this.dataGridViewNFCompra.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewNFCompra_CellDoubleClick);
             this.dataGridViewNFCompra.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewNFCompra_CellFormatting);
@@ -136,7 +140,7 @@
             this.numeroNota.HeaderText = "Número";
             this.numeroNota.Name = "numeroNota";
             this.numeroNota.ReadOnly = true;
-            this.numeroNota.Width = 90;
+            this.numeroNota.Width = 80;
             // 
             // modelo
             // 
@@ -154,17 +158,17 @@
             // 
             // idFornecedor
             // 
-            this.idFornecedor.HeaderText = "Cód. Fornecedor";
+            this.idFornecedor.HeaderText = "Código Fornecedor";
             this.idFornecedor.Name = "idFornecedor";
             this.idFornecedor.ReadOnly = true;
-            this.idFornecedor.Width = 80;
+            this.idFornecedor.Width = 70;
             // 
             // fornecedor
             // 
             this.fornecedor.HeaderText = "Fornecedor";
             this.fornecedor.Name = "fornecedor";
             this.fornecedor.ReadOnly = true;
-            this.fornecedor.Width = 180;
+            this.fornecedor.Width = 160;
             // 
             // dataChegada
             // 
@@ -173,10 +177,17 @@
             this.dataChegada.ReadOnly = true;
             this.dataChegada.Width = 85;
             // 
+            // DataCancelamento
+            // 
+            this.DataCancelamento.HeaderText = "Data Cancelamento";
+            this.DataCancelamento.Name = "DataCancelamento";
+            this.DataCancelamento.ReadOnly = true;
+            this.DataCancelamento.Width = 83;
+            // 
             // ConsultaNotaCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(633, 454);
+            this.ClientSize = new System.Drawing.Size(674, 454);
             this.Controls.Add(this.dataGridViewNFCompra);
             this.Controls.Add(this.btnVisualizar);
             this.Name = "ConsultaNotaCompra";
@@ -210,5 +221,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn idFornecedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn fornecedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataChegada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataCancelamento;
     }
 }
