@@ -109,5 +109,11 @@ namespace Sistema_Vendas
             ConsultaNotaCompra consultaNotaCompra = new ConsultaNotaCompra();
             consultaNotaCompra.ShowDialog();
         }
+
+        private void contasAPagarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaContasPagar consultaContasPagar = new ConsultaContasPagar();
+            consultaContasPagar.ShowDialog();
+        }
     }
 }

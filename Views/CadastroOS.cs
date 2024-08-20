@@ -107,6 +107,7 @@ namespace Sistema_Vendas.Views
             txtDataOS.Enabled = true;
             cbSituacao.Enabled = true;
             rbAtivo.Checked = true;
+            txtDesconto.Enabled = true;
 
             btnConsultaCliente.Enabled = true;
             btnConsultaFuncionario.Enabled = true;
@@ -127,6 +128,7 @@ namespace Sistema_Vendas.Views
             txtQtdeProduto.Enabled= false;
             txtQtdeServico.Enabled= false;
             txtDataPrevista.Enabled = false;
+            txtValorEntrada.Enabled = false;
 
             btnConsultaCliente.Enabled=false;
             btnConsultaFuncionario.Enabled=false;
@@ -339,14 +341,13 @@ namespace Sistema_Vendas.Views
 
                 if(cbSituacao.SelectedItem.ToString() == "CANCELADO")
                 {
-                    txtCodProduto.Enabled = false;
-                    btnConsultaProduto.Enabled = false;
-                    txtQtdeProduto.Enabled = false;
-                    dataGridViewProdutos.Enabled = false;
-                    btnSalvar.Visible = false;
+                    Bloqueia();
+                    txtValorRetirada.Enabled = false;
+                    cbSituacao.Enabled = false;
 
                     lblDataCancelamento.Visible = true;
                     txtDataCancelamento.Visible = true;
+                    txtDesconto.Enabled = false;
                 } else
                 {
                     txtCodProduto.Enabled = true;
@@ -354,12 +355,14 @@ namespace Sistema_Vendas.Views
                     txtQtdeProduto.Enabled = true;
                     dataGridViewProdutos.Enabled = true;
                     btnSalvar.Visible = true;
+                    cbSituacao.Enabled = true;
 
                     lblDataCancelamento.Visible = false;
                     txtDataCancelamento.Visible = false;
+
+                    txtValorEntrada.Enabled = false;
+                    txtValorRetirada.Enabled = true;
                 }
-                txtValorEntrada.Enabled = false;
-                txtValorRetirada.Enabled = true;
                 Bloqueia();
                 exibirProdutosDGV(ordemServico.Produtos);
                 exibirServicosDGV(ordemServico.Servicos);
@@ -455,11 +458,6 @@ namespace Sistema_Vendas.Views
 
             txtTotal.Texts = totalComDesconto.ToString("F2");
             txtDesconto.Texts = valorDesconto.ToString("F2");
-
-            if (txtTotal.Texts.Length > 0)
-            {
-                txtValorRetirada.Enabled = true;
-            }
         }
 
         private void CadastroOS_Load(object sender, EventArgs e)

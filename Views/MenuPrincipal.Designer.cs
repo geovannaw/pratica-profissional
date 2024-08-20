@@ -195,20 +195,20 @@
             // ordemDeServiçoToolStripMenuItem
             // 
             this.ordemDeServiçoToolStripMenuItem.Name = "ordemDeServiçoToolStripMenuItem";
-            this.ordemDeServiçoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ordemDeServiçoToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.ordemDeServiçoToolStripMenuItem.Text = "Ordem de Serviço";
             this.ordemDeServiçoToolStripMenuItem.Click += new System.EventHandler(this.ordemDeServiçoToolStripMenuItem_Click);
             // 
             // notaDeVendaToolStripMenuItem
             // 
             this.notaDeVendaToolStripMenuItem.Name = "notaDeVendaToolStripMenuItem";
-            this.notaDeVendaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.notaDeVendaToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.notaDeVendaToolStripMenuItem.Text = "Nota de Venda";
             // 
             // notaDeCompraToolStripMenuItem
             // 
             this.notaDeCompraToolStripMenuItem.Name = "notaDeCompraToolStripMenuItem";
-            this.notaDeCompraToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.notaDeCompraToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.notaDeCompraToolStripMenuItem.Text = "Nota de Compra";
             this.notaDeCompraToolStripMenuItem.Click += new System.EventHandler(this.notaDeCompraToolStripMenuItem_Click);
             // 
@@ -224,13 +224,14 @@
             // contasAPagarToolStripMenuItem
             // 
             this.contasAPagarToolStripMenuItem.Name = "contasAPagarToolStripMenuItem";
-            this.contasAPagarToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.contasAPagarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.contasAPagarToolStripMenuItem.Text = "Contas a Pagar";
+            this.contasAPagarToolStripMenuItem.Click += new System.EventHandler(this.contasAPagarToolStripMenuItem_Click);
             // 
             // contasAReceberToolStripMenuItem
             // 
             this.contasAReceberToolStripMenuItem.Name = "contasAReceberToolStripMenuItem";
-            this.contasAReceberToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.contasAReceberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.contasAReceberToolStripMenuItem.Text = "Contas a Receber";
             // 
             // statusStrip1

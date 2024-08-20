@@ -79,10 +79,11 @@
             this.lblCondPag = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridViewParcelas = new System.Windows.Forms.DataGridView();
-            this.Parcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numeroParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idFormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VencimentoParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ValorParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblObservacao = new System.Windows.Forms.Label();
             this.txtObservacao = new Sistema_Vendas.GControls.GTextBox();
             this.btnCancelar = new Sistema_Vendas.GButtons();
@@ -102,11 +103,11 @@
             // 
             // lblDataCadastro
             // 
-            this.lblDataCadastro.Location = new System.Drawing.Point(13, 775);
+            this.lblDataCadastro.Location = new System.Drawing.Point(13, 800);
             // 
             // lblDataUltAlt
             // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(110, 775);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(110, 800);
             // 
             // rbInativo
             // 
@@ -133,23 +134,23 @@
             // btnSalvar
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
-            this.btnSalvar.Location = new System.Drawing.Point(601, 790);
+            this.btnSalvar.Location = new System.Drawing.Point(601, 815);
             this.btnSalvar.TabIndex = 22;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.Location = new System.Drawing.Point(687, 790);
+            this.btnSair.Location = new System.Drawing.Point(687, 815);
             this.btnSair.TabIndex = 23;
             // 
             // txtDataCadastro
             // 
-            this.txtDataCadastro.Location = new System.Drawing.Point(16, 791);
+            this.txtDataCadastro.Location = new System.Drawing.Point(16, 816);
             this.txtDataCadastro.Texts = "01/08/2024";
             // 
             // txtDataUltAlt
             // 
-            this.txtDataUltAlt.Location = new System.Drawing.Point(113, 791);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(113, 816);
             this.txtDataUltAlt.Texts = "01/08/2024";
             // 
             // lblCodigo
@@ -635,7 +636,7 @@
             this.dataGridViewProdutos.Location = new System.Drawing.Point(16, 230);
             this.dataGridViewProdutos.Name = "dataGridViewProdutos";
             this.dataGridViewProdutos.ReadOnly = true;
-            this.dataGridViewProdutos.Size = new System.Drawing.Size(746, 163);
+            this.dataGridViewProdutos.Size = new System.Drawing.Size(746, 141);
             this.dataGridViewProdutos.TabIndex = 97;
             this.dataGridViewProdutos.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewProdutos_RowsAdded);
             this.dataGridViewProdutos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewProdutos_RowsRemoved);
@@ -684,7 +685,7 @@
             this.groupBox2.Controls.Add(this.rbFOB);
             this.groupBox2.Controls.Add(this.rbCIF);
             this.groupBox2.Enabled = false;
-            this.groupBox2.Location = new System.Drawing.Point(16, 454);
+            this.groupBox2.Location = new System.Drawing.Point(16, 432);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(149, 49);
             this.groupBox2.TabIndex = 13;
@@ -721,7 +722,7 @@
             // lblValorSeguro
             // 
             this.lblValorSeguro.AutoSize = true;
-            this.lblValorSeguro.Location = new System.Drawing.Point(296, 459);
+            this.lblValorSeguro.Location = new System.Drawing.Point(296, 437);
             this.lblValorSeguro.Name = "lblValorSeguro";
             this.lblValorSeguro.Size = new System.Drawing.Size(68, 13);
             this.lblValorSeguro.TabIndex = 102;
@@ -740,7 +741,7 @@
             this.txtValorSeguro.DisabledForeColor = System.Drawing.Color.White;
             this.txtValorSeguro.Enabled = false;
             this.txtValorSeguro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtValorSeguro.Location = new System.Drawing.Point(299, 474);
+            this.txtValorSeguro.Location = new System.Drawing.Point(299, 452);
             this.txtValorSeguro.MaxLength = 32767;
             this.txtValorSeguro.Multiline = false;
             this.txtValorSeguro.Name = "txtValorSeguro";
@@ -758,7 +759,7 @@
             // lblValorFrete
             // 
             this.lblValorFrete.AutoSize = true;
-            this.lblValorFrete.Location = new System.Drawing.Point(187, 458);
+            this.lblValorFrete.Location = new System.Drawing.Point(187, 436);
             this.lblValorFrete.Name = "lblValorFrete";
             this.lblValorFrete.Size = new System.Drawing.Size(58, 13);
             this.lblValorFrete.TabIndex = 100;
@@ -777,7 +778,7 @@
             this.txtValorFrete.DisabledForeColor = System.Drawing.Color.White;
             this.txtValorFrete.Enabled = false;
             this.txtValorFrete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtValorFrete.Location = new System.Drawing.Point(190, 474);
+            this.txtValorFrete.Location = new System.Drawing.Point(190, 452);
             this.txtValorFrete.MaxLength = 32767;
             this.txtValorFrete.Multiline = false;
             this.txtValorFrete.Name = "txtValorFrete";
@@ -795,7 +796,7 @@
             // lblOutrasDespesas
             // 
             this.lblOutrasDespesas.AutoSize = true;
-            this.lblOutrasDespesas.Location = new System.Drawing.Point(409, 458);
+            this.lblOutrasDespesas.Location = new System.Drawing.Point(409, 436);
             this.lblOutrasDespesas.Name = "lblOutrasDespesas";
             this.lblOutrasDespesas.Size = new System.Drawing.Size(88, 13);
             this.lblOutrasDespesas.TabIndex = 104;
@@ -814,7 +815,7 @@
             this.txtOutrasDespesas.DisabledForeColor = System.Drawing.Color.White;
             this.txtOutrasDespesas.Enabled = false;
             this.txtOutrasDespesas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtOutrasDespesas.Location = new System.Drawing.Point(412, 474);
+            this.txtOutrasDespesas.Location = new System.Drawing.Point(412, 452);
             this.txtOutrasDespesas.MaxLength = 32767;
             this.txtOutrasDespesas.Multiline = false;
             this.txtOutrasDespesas.Name = "txtOutrasDespesas";
@@ -832,11 +833,11 @@
             // lblTotalPagar
             // 
             this.lblTotalPagar.AutoSize = true;
-            this.lblTotalPagar.Location = new System.Drawing.Point(674, 406);
+            this.lblTotalPagar.Location = new System.Drawing.Point(674, 384);
             this.lblTotalPagar.Name = "lblTotalPagar";
             this.lblTotalPagar.Size = new System.Drawing.Size(74, 13);
             this.lblTotalPagar.TabIndex = 108;
-            this.lblTotalPagar.Text = "Total à Pagar ";
+            this.lblTotalPagar.Text = "Total a Pagar ";
             // 
             // txtTotalPagar
             // 
@@ -851,7 +852,7 @@
             this.txtTotalPagar.DisabledForeColor = System.Drawing.Color.White;
             this.txtTotalPagar.Enabled = false;
             this.txtTotalPagar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtTotalPagar.Location = new System.Drawing.Point(677, 422);
+            this.txtTotalPagar.Location = new System.Drawing.Point(677, 400);
             this.txtTotalPagar.MaxLength = 32767;
             this.txtTotalPagar.Multiline = false;
             this.txtTotalPagar.Name = "txtTotalPagar";
@@ -868,7 +869,7 @@
             // lblTotalProdutos
             // 
             this.lblTotalProdutos.AutoSize = true;
-            this.lblTotalProdutos.Location = new System.Drawing.Point(568, 407);
+            this.lblTotalProdutos.Location = new System.Drawing.Point(568, 385);
             this.lblTotalProdutos.Name = "lblTotalProdutos";
             this.lblTotalProdutos.Size = new System.Drawing.Size(79, 13);
             this.lblTotalProdutos.TabIndex = 106;
@@ -887,7 +888,7 @@
             this.txtTotalProdutos.DisabledForeColor = System.Drawing.Color.White;
             this.txtTotalProdutos.Enabled = false;
             this.txtTotalProdutos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtTotalProdutos.Location = new System.Drawing.Point(571, 422);
+            this.txtTotalProdutos.Location = new System.Drawing.Point(571, 400);
             this.txtTotalProdutos.MaxLength = 32767;
             this.txtTotalProdutos.Multiline = false;
             this.txtTotalProdutos.Name = "txtTotalProdutos";
@@ -914,7 +915,7 @@
             this.txtCondPag.DisabledForeColor = System.Drawing.Color.White;
             this.txtCondPag.Enabled = false;
             this.txtCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCondPag.Location = new System.Drawing.Point(147, 537);
+            this.txtCondPag.Location = new System.Drawing.Point(147, 515);
             this.txtCondPag.MaxLength = 14;
             this.txtCondPag.Multiline = false;
             this.txtCondPag.Name = "txtCondPag";
@@ -941,7 +942,7 @@
             this.txtCodCondPag.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodCondPag.Enabled = false;
             this.txtCodCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodCondPag.Location = new System.Drawing.Point(16, 537);
+            this.txtCodCondPag.Location = new System.Drawing.Point(16, 515);
             this.txtCodCondPag.MaxLength = 14;
             this.txtCodCondPag.Multiline = false;
             this.txtCodCondPag.Name = "txtCodCondPag";
@@ -960,7 +961,7 @@
             // lblCondPag
             // 
             this.lblCondPag.AutoSize = true;
-            this.lblCondPag.Location = new System.Drawing.Point(13, 521);
+            this.lblCondPag.Location = new System.Drawing.Point(13, 499);
             this.lblCondPag.Name = "lblCondPag";
             this.lblCondPag.Size = new System.Drawing.Size(44, 13);
             this.lblCondPag.TabIndex = 118;
@@ -969,7 +970,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(144, 521);
+            this.label3.Location = new System.Drawing.Point(144, 499);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(124, 13);
             this.label3.TabIndex = 117;
@@ -984,24 +985,32 @@
             this.dataGridViewParcelas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
             this.dataGridViewParcelas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewParcelas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Parcela,
+            this.numeroParcela,
+            this.idFormaPagamento,
             this.FormaPagamento,
-            this.VencimentoParcela,
-            this.ValorParcela});
+            this.dataVencimento,
+            this.valorParcela});
             this.dataGridViewParcelas.Enabled = false;
             this.dataGridViewParcelas.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewParcelas.Location = new System.Drawing.Point(16, 588);
+            this.dataGridViewParcelas.Location = new System.Drawing.Point(16, 561);
             this.dataGridViewParcelas.Name = "dataGridViewParcelas";
             this.dataGridViewParcelas.ReadOnly = true;
-            this.dataGridViewParcelas.Size = new System.Drawing.Size(746, 92);
+            this.dataGridViewParcelas.Size = new System.Drawing.Size(746, 150);
             this.dataGridViewParcelas.TabIndex = 122;
             // 
-            // Parcela
+            // numeroParcela
             // 
-            this.Parcela.HeaderText = "Parcela";
-            this.Parcela.Name = "Parcela";
-            this.Parcela.ReadOnly = true;
-            this.Parcela.Width = 120;
+            this.numeroParcela.HeaderText = "Parcela";
+            this.numeroParcela.Name = "numeroParcela";
+            this.numeroParcela.ReadOnly = true;
+            this.numeroParcela.Width = 120;
+            // 
+            // idFormaPagamento
+            // 
+            this.idFormaPagamento.HeaderText = "Cód. Forma Pagamento";
+            this.idFormaPagamento.Name = "idFormaPagamento";
+            this.idFormaPagamento.ReadOnly = true;
+            this.idFormaPagamento.Width = 80;
             // 
             // FormaPagamento
             // 
@@ -1010,24 +1019,24 @@
             this.FormaPagamento.Name = "FormaPagamento";
             this.FormaPagamento.ReadOnly = true;
             // 
-            // VencimentoParcela
+            // dataVencimento
             // 
-            this.VencimentoParcela.HeaderText = "Vencimento";
-            this.VencimentoParcela.Name = "VencimentoParcela";
-            this.VencimentoParcela.ReadOnly = true;
-            this.VencimentoParcela.Width = 150;
+            this.dataVencimento.HeaderText = "Data vencimento";
+            this.dataVencimento.Name = "dataVencimento";
+            this.dataVencimento.ReadOnly = true;
+            this.dataVencimento.Width = 150;
             // 
-            // ValorParcela
+            // valorParcela
             // 
-            this.ValorParcela.HeaderText = "Valor Parcela";
-            this.ValorParcela.Name = "ValorParcela";
-            this.ValorParcela.ReadOnly = true;
-            this.ValorParcela.Width = 153;
+            this.valorParcela.HeaderText = "Valor Parcela";
+            this.valorParcela.Name = "valorParcela";
+            this.valorParcela.ReadOnly = true;
+            this.valorParcela.Width = 153;
             // 
             // lblObservacao
             // 
             this.lblObservacao.AutoSize = true;
-            this.lblObservacao.Location = new System.Drawing.Point(13, 697);
+            this.lblObservacao.Location = new System.Drawing.Point(13, 726);
             this.lblObservacao.Name = "lblObservacao";
             this.lblObservacao.Size = new System.Drawing.Size(65, 13);
             this.lblObservacao.TabIndex = 124;
@@ -1045,7 +1054,7 @@
             this.txtObservacao.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtObservacao.DisabledForeColor = System.Drawing.Color.White;
             this.txtObservacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtObservacao.Location = new System.Drawing.Point(16, 713);
+            this.txtObservacao.Location = new System.Drawing.Point(16, 742);
             this.txtObservacao.MaxLength = 32767;
             this.txtObservacao.Multiline = true;
             this.txtObservacao.Name = "txtObservacao";
@@ -1070,7 +1079,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnCancelar.Location = new System.Drawing.Point(569, 790);
+            this.btnCancelar.Location = new System.Drawing.Point(569, 815);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(107, 28);
             this.btnCancelar.TabIndex = 24;
@@ -1092,7 +1101,7 @@
             this.btnConsultaCondPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConsultaCondPag.ForeColor = System.Drawing.Color.White;
             this.btnConsultaCondPag.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaCondPag.Image")));
-            this.btnConsultaCondPag.Location = new System.Drawing.Point(105, 537);
+            this.btnConsultaCondPag.Location = new System.Drawing.Point(105, 515);
             this.btnConsultaCondPag.Name = "btnConsultaCondPag";
             this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 28);
             this.btnConsultaCondPag.TabIndex = 27;
@@ -1198,7 +1207,7 @@
             this.btnExcluirProduto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExcluirProduto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExcluirProduto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnExcluirProduto.Location = new System.Drawing.Point(16, 407);
+            this.btnExcluirProduto.Location = new System.Drawing.Point(16, 385);
             this.btnExcluirProduto.Name = "btnExcluirProduto";
             this.btnExcluirProduto.Size = new System.Drawing.Size(86, 28);
             this.btnExcluirProduto.TabIndex = 127;
@@ -1218,7 +1227,7 @@
             this.btnAddCondPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddCondPag.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddCondPag.ForeColor = System.Drawing.Color.White;
-            this.btnAddCondPag.Location = new System.Drawing.Point(422, 537);
+            this.btnAddCondPag.Location = new System.Drawing.Point(422, 515);
             this.btnAddCondPag.Name = "btnAddCondPag";
             this.btnAddCondPag.Size = new System.Drawing.Size(75, 28);
             this.btnAddCondPag.TabIndex = 128;
@@ -1230,7 +1239,7 @@
             // CadastroNotaCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(778, 830);
+            this.ClientSize = new System.Drawing.Size(778, 855);
             this.Controls.Add(this.lblDataCancelamento);
             this.Controls.Add(this.btnAddCondPag);
             this.Controls.Add(this.btnExcluirProduto);
@@ -1413,10 +1422,6 @@
         protected GButtons btnCancelar;
         public GControls.GTextBox txtNroNota;
         public GButtons btnExcluirProduto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Parcela;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FormaPagamento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn VencimentoParcela;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ValorParcela;
         protected GButtons btnAddCondPag;
         public System.Windows.Forms.Label lblDataCancelamento;
         public GControls.GMaskedTextBox txtDataCancelamento;
@@ -1427,5 +1432,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeProduto;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecoUN;
         private System.Windows.Forms.DataGridViewTextBoxColumn precoTotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numeroParcela;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idFormaPagamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FormaPagamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataVencimento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorParcela;
     }
 }

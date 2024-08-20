@@ -133,7 +133,6 @@ namespace Sistema_Vendas.Views
             {
                 AtualizarConsultaNotaCompra(cbBuscaInativos.Checked);
             }
-
         }
 
         private void dataGridViewNFCompra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
