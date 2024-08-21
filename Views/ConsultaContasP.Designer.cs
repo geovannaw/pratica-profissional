@@ -1,6 +1,6 @@
 ﻿namespace Sistema_Vendas.Views
 {
-    partial class ConsultaContasPagar
+    partial class ConsultaContasP
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -38,59 +38,51 @@
             this.valorParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataCancelamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewContasPagar)).BeginInit();
             this.SuspendLayout();
             // 
             // cbBuscaInativos
             // 
-            this.cbBuscaInativos.Location = new System.Drawing.Point(684, 25);
-            this.cbBuscaInativos.Visible = false;
+            this.cbBuscaInativos.Location = new System.Drawing.Point(688, 19);
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(304, 8);
-            this.groupBox2.Size = new System.Drawing.Size(113, 40);
+            this.groupBox2.Location = new System.Drawing.Point(672, 8);
+            this.groupBox2.Size = new System.Drawing.Size(10, 40);
+            this.groupBox2.Visible = false;
             // 
             // rbCodigo
             // 
-            this.rbCodigo.Location = new System.Drawing.Point(120, 14);
             this.rbCodigo.Visible = false;
             // 
             // rbNome
             // 
-            this.rbNome.Size = new System.Drawing.Size(88, 17);
-            this.rbNome.Text = "Número Nota";
+            this.rbNome.Visible = false;
             // 
             // btnIncluir
             // 
             this.btnIncluir.FlatAppearance.BorderSize = 0;
-            this.btnIncluir.Location = new System.Drawing.Point(465, 422);
+            this.btnIncluir.Location = new System.Drawing.Point(469, 414);
             // 
             // btnAlterar
             // 
             this.btnAlterar.FlatAppearance.BorderSize = 0;
-            this.btnAlterar.Location = new System.Drawing.Point(546, 422);
+            this.btnAlterar.Location = new System.Drawing.Point(550, 414);
             // 
             // btnExcluir
             // 
             this.btnExcluir.FlatAppearance.BorderSize = 0;
-            this.btnExcluir.Location = new System.Drawing.Point(627, 422);
+            this.btnExcluir.Location = new System.Drawing.Point(631, 414);
             // 
             // btnPesquisar
             // 
             this.btnPesquisar.FlatAppearance.BorderSize = 0;
-            this.btnPesquisar.Location = new System.Drawing.Point(209, 16);
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.Location = new System.Drawing.Point(708, 422);
-            // 
-            // txtPesquisa
-            // 
-            this.txtPesquisa.Location = new System.Drawing.Point(12, 16);
+            this.btnSair.Location = new System.Drawing.Point(712, 414);
             // 
             // dataGridViewContasPagar
             // 
@@ -109,17 +101,16 @@
             this.parcela,
             this.valorParcela,
             this.dataVencimento,
-            this.dataPagamento,
-            this.dataCancelamento});
+            this.dataPagamento});
             this.dataGridViewContasPagar.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewContasPagar.Location = new System.Drawing.Point(12, 60);
+            this.dataGridViewContasPagar.Location = new System.Drawing.Point(16, 54);
             this.dataGridViewContasPagar.Name = "dataGridViewContasPagar";
             this.dataGridViewContasPagar.ReadOnly = true;
             this.dataGridViewContasPagar.Size = new System.Drawing.Size(771, 346);
-            this.dataGridViewContasPagar.TabIndex = 17;
-            this.dataGridViewContasPagar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewContasPagar_CellContentClick);
+            this.dataGridViewContasPagar.TabIndex = 16;
             this.dataGridViewContasPagar.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewContasPagar_CellDoubleClick);
             this.dataGridViewContasPagar.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewContasPagar_CellFormatting);
+            this.dataGridViewContasPagar.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewContasPagar_RowPrePaint);
             // 
             // numeroNota
             // 
@@ -151,10 +142,10 @@
             // 
             // fornecedor
             // 
+            this.fornecedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.fornecedor.HeaderText = "Fornecedor";
             this.fornecedor.Name = "fornecedor";
             this.fornecedor.ReadOnly = true;
-            this.fornecedor.Width = 160;
             // 
             // parcela
             // 
@@ -184,17 +175,10 @@
             this.dataPagamento.ReadOnly = true;
             this.dataPagamento.Width = 80;
             // 
-            // dataCancelamento
-            // 
-            this.dataCancelamento.HeaderText = "Data Cancelamento";
-            this.dataCancelamento.Name = "dataCancelamento";
-            this.dataCancelamento.ReadOnly = true;
-            this.dataCancelamento.Width = 80;
-            // 
             // ConsultaContasPagar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(800, 462);
+            this.ClientSize = new System.Drawing.Size(799, 454);
             this.Controls.Add(this.dataGridViewContasPagar);
             this.Name = "ConsultaContasPagar";
             this.Text = "Consulta Contas a Pagar";
@@ -228,6 +212,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn valorParcela;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataVencimento;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataPagamento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataCancelamento;
     }
 }

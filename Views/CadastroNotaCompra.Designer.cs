@@ -1021,7 +1021,7 @@
             // 
             // dataVencimento
             // 
-            this.dataVencimento.HeaderText = "Data vencimento";
+            this.dataVencimento.HeaderText = "Data Vencimento";
             this.dataVencimento.Name = "dataVencimento";
             this.dataVencimento.ReadOnly = true;
             this.dataVencimento.Width = 150;
@@ -1055,7 +1055,7 @@
             this.txtObservacao.DisabledForeColor = System.Drawing.Color.White;
             this.txtObservacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtObservacao.Location = new System.Drawing.Point(16, 742);
-            this.txtObservacao.MaxLength = 32767;
+            this.txtObservacao.MaxLength = 200;
             this.txtObservacao.Multiline = true;
             this.txtObservacao.Name = "txtObservacao";
             this.txtObservacao.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -1151,6 +1151,7 @@
             // lblDataCancelamento
             // 
             this.lblDataCancelamento.AutoSize = true;
+            this.lblDataCancelamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblDataCancelamento.Location = new System.Drawing.Point(661, 91);
             this.lblDataCancelamento.Name = "lblDataCancelamento";
             this.lblDataCancelamento.Size = new System.Drawing.Size(101, 13);

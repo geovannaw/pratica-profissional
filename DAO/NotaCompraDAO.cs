@@ -298,11 +298,11 @@ namespace Sistema_Vendas.DAO
 
                     try
                     {
-                        // Adiciona a data de cancelamento pelo update
+                        //add dataCancelamento na nota de compra
                         string queryCancelarNota = @"
-                UPDATE notaCompra
-                SET dataCancelamento = @dataCancelamento
-                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
+                    UPDATE notaCompra
+                    SET dataCancelamento = @dataCancelamento
+                    WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
 
                         using (SqlCommand cmd = new SqlCommand(queryCancelarNota, conn, transaction))
                         {
@@ -314,11 +314,11 @@ namespace Sistema_Vendas.DAO
                             cmd.ExecuteNonQuery();
                         }
 
-                        // Puxa os produtos da nota
+                        //puxa os produtos da nota para atualizar o estoque
                         string queryProdutosNota = @"
-                SELECT idProduto, quantidadeProduto
-                FROM notaCompra_Produto
-                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
+                    SELECT idProduto, quantidadeProduto
+                    FROM notaCompra_Produto
+                    WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
 
                         List<(int idProduto, int quantidadeProduto)> produtos = new List<(int, int)>();
 
@@ -339,13 +339,13 @@ namespace Sistema_Vendas.DAO
                             }
                         }
 
-                        // Atualiza o estoque
+                        //att o estoque
                         foreach (var produto in produtos)
                         {
                             string queryAtualizarEstoque = @"
-                    UPDATE produto
-                    SET saldo = saldo - @quantidadeProduto
-                    WHERE idProduto = @idProduto";
+                        UPDATE produto
+                        SET saldo = saldo - @quantidadeProduto
+                        WHERE idProduto = @idProduto";
 
                             using (SqlCommand cmd = new SqlCommand(queryAtualizarEstoque, conn, transaction))
                             {
@@ -353,6 +353,22 @@ namespace Sistema_Vendas.DAO
                                 cmd.Parameters.AddWithValue("@idProduto", produto.idProduto);
                                 cmd.ExecuteNonQuery();
                             }
+                        }
+
+                        //cancela as contas a pagar associadas a nota
+                        string queryCancelarContasPagar = @"
+                    UPDATE contasPagar
+                    SET dataCancelamento = @dataCancelamento
+                    WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
+
+                        using (SqlCommand cmd = new SqlCommand(queryCancelarContasPagar, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@dataCancelamento", DateTime.Now);
+                            cmd.Parameters.AddWithValue("@numeroNota", numeroNota);
+                            cmd.Parameters.AddWithValue("@modelo", modelo);
+                            cmd.Parameters.AddWithValue("@serie", serie);
+                            cmd.Parameters.AddWithValue("@idFornecedor", idFornecedor);
+                            cmd.ExecuteNonQuery();
                         }
 
                         transaction.Commit();

@@ -15,7 +15,7 @@ namespace Sistema_Vendas.DAO
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"
-            UPDATE contasPagar SET dataPagamento = @dataPagamento, juros = @juros, multa = @multa, desconto = @desconto, valorPago = @valorPago, dataCancelamento = @dataCancelamento, observacao = @observacao, dataUltAlt = @dataUltAlt
+            UPDATE contasPagar SET dataPagamento = @dataPagamento, dataEmissao = dataEmissao, idFormaPAgamento = @idFormaPagamento, dataVencimento = @dataVencimento, valorParcela = @valorParcela, juros = @juros, multa = @multa, desconto = @desconto, valorPago = @valorPago, dataCancelamento = @dataCancelamento, observacao = @observacao, dataUltAlt = @dataUltAlt
             WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor AND parcela = @parcela";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -23,7 +23,11 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@modelo", obj.modelo);
                 command.Parameters.AddWithValue("@serie", obj.serie);
                 command.Parameters.AddWithValue("@idFornecedor", obj.idFornecedor);
+                command.Parameters.AddWithValue("@dataEmissao", obj.dataEmissao);
+                command.Parameters.AddWithValue("@idFormaPagamento", obj.idFormaPagamento);
                 command.Parameters.AddWithValue("@parcela", obj.parcela);
+                command.Parameters.AddWithValue("@dataVencimento", obj.dataVencimento);
+                command.Parameters.AddWithValue("@valorParcela", obj.valorParcela);
                 command.Parameters.AddWithValue("@dataPagamento", (object)obj.dataPagamento ?? DBNull.Value);
                 command.Parameters.AddWithValue("@juros", (object)obj.juros ?? DBNull.Value);
                 command.Parameters.AddWithValue("@multa", (object)obj.multa ?? DBNull.Value);
@@ -68,6 +72,7 @@ namespace Sistema_Vendas.DAO
                         contaPagar.parcela = Convert.ToInt32(reader["parcela"]);
                         contaPagar.valorParcela = Convert.ToDecimal(reader["valorParcela"]);
                         contaPagar.dataPagamento = reader["dataPagamento"] != DBNull.Value ? Convert.ToDateTime(reader["dataPagamento"]) : (DateTime?)null;
+                        contaPagar.dataCancelamento = reader["dataCancelamento"] != DBNull.Value ? Convert.ToDateTime(reader["dataCancelamento"]) : (DateTime?)null;
 
                         contasPagar.Add(contaPagar);
                     }

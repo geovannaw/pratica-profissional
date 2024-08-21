@@ -911,7 +911,7 @@
             this.txtObservacao.DisabledForeColor = System.Drawing.Color.White;
             this.txtObservacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtObservacao.Location = new System.Drawing.Point(27, 175);
-            this.txtObservacao.MaxLength = 32767;
+            this.txtObservacao.MaxLength = 200;
             this.txtObservacao.Multiline = true;
             this.txtObservacao.Name = "txtObservacao";
             this.txtObservacao.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);

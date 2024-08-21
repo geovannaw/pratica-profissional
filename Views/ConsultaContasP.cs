@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace Sistema_Vendas.Views
 {
-    public partial class ConsultaContasPagar : Sistema_Vendas.ConsultaPai
+    public partial class ConsultaContasP : Sistema_Vendas.ConsultaPai
     {
         private CadastroContasPagar cadastroContasPagar;
         private FornecedorController<FornecedorModel> fornecedorController;
         private ContasPagarController<ContasPagarModel> contasPagarController;
-        public ConsultaContasPagar()
+        public ConsultaContasP()
         {
             InitializeComponent();
             cadastroContasPagar = new CadastroContasPagar();
@@ -67,6 +67,32 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Ocorreu um erro ao atualizar a consulta de Contas a Pagar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void ConsultaContasPagar_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastroContasPagar.FormClosed += (s, args) => AtualizarConsultaContasPagar(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
+
+                dataGridViewContasPagar.AutoGenerateColumns = false;
+                dataGridViewContasPagar.Columns["numeroNota"].DataPropertyName = "numeroNota";
+                dataGridViewContasPagar.Columns["modelo"].DataPropertyName = "modelo";
+                dataGridViewContasPagar.Columns["serie"].DataPropertyName = "serie";
+                dataGridViewContasPagar.Columns["idFornecedor"].DataPropertyName = "idFornecedor";
+                dataGridViewContasPagar.Columns["parcela"].DataPropertyName = "parcela";
+                dataGridViewContasPagar.Columns["valorParcela"].DataPropertyName = "valorParcela";
+                dataGridViewContasPagar.Columns["dataVencimento"].DataPropertyName = "dataVencimento";
+                dataGridViewContasPagar.Columns["dataVencimento"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dataGridViewContasPagar.Columns["dataPagamento"].DataPropertyName = "dataPagamento";
+                dataGridViewContasPagar.Columns["dataPagamento"].DefaultCellStyle.Format = "dd/MM/yyyy";
+
+                AtualizarConsultaContasPagar(cbBuscaInativos.Checked);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu um erro ao carregar as Contas a Pagar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         public override void Pesquisar()
         {
             string pesquisa = txtPesquisa.Texts.Trim();
@@ -102,34 +128,6 @@ namespace Sistema_Vendas.Views
 
         }
 
-        private void ConsultaContasPagar_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                cadastroContasPagar.FormClosed += (s, args) => AtualizarConsultaContasPagar(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
-                dataGridViewContasPagar.AutoGenerateColumns = false;
-                dataGridViewContasPagar.Columns["numeroNota"].DataPropertyName = "numeroNota";
-                dataGridViewContasPagar.Columns["modelo"].DataPropertyName = "modelo";
-                dataGridViewContasPagar.Columns["serie"].DataPropertyName = "serie";
-                dataGridViewContasPagar.Columns["idFornecedor"].DataPropertyName = "idFornecedor";
-                dataGridViewContasPagar.Columns["parcela"].DataPropertyName = "parcela";
-                dataGridViewContasPagar.Columns["valorParcela"].DataPropertyName = "valorParcela";
-                dataGridViewContasPagar.Columns["dataVencimento"].DataPropertyName = "dataVencimento";
-                dataGridViewContasPagar.Columns["dataVencimento"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                dataGridViewContasPagar.Columns["dataPagamento"].DataPropertyName = "dataPagamento";
-                dataGridViewContasPagar.Columns["dataPagamento"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                dataGridViewContasPagar.Columns["dataCancelamento"].DataPropertyName = "dataCancelamento";
-                dataGridViewContasPagar.Columns["dataCancelamento"].DefaultCellStyle.Format = "dd/MM/yyyy";
-
-                AtualizarConsultaContasPagar(cbBuscaInativos.Checked);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ocorreu um erro ao carregar as Contas a Pagar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void dataGridViewContasPagar_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
@@ -148,66 +146,57 @@ namespace Sistema_Vendas.Views
         {
             if (dataGridViewContasPagar.Columns[e.ColumnIndex].Name == "fornecedor" && e.RowIndex >= 0)
             {
+                //id do fornecedor na linha atual
                 int idFornecedorNF = (int)dataGridViewContasPagar.Rows[e.RowIndex].Cells["idFornecedor"].Value;
                 FornecedorModel fornecedor = fornecedorController.GetById(idFornecedorNF);
 
-                e.Value = fornecedor != null ? fornecedor.fornecedor_razao_social : "Fornecedor não encontrado";
+                if (fornecedor != null)
+                {
+                    e.Value = fornecedor.fornecedor_razao_social;
+                }
+                else
+                {
+                    e.Value = "Fornecedor não encontrado";
+                }
+
                 e.FormattingApplied = true;
             }
-
-            //verifica se a coluna 'dataPagamento'
             if (dataGridViewContasPagar.Columns[e.ColumnIndex].Name == "dataPagamento" && e.RowIndex >= 0)
             {
                 var dataPagamento = dataGridViewContasPagar.Rows[e.RowIndex].Cells["dataPagamento"].Value;
                 if (dataPagamento != DBNull.Value && dataPagamento != null)
                 {
-                    dataGridViewContasPagar.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Green; //se estiver pago fica verde
+                    dataGridViewContasPagar.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Green;
                 }
                 else
                 {
                     dataGridViewContasPagar.Rows[e.RowIndex].DefaultCellStyle.ForeColor = dataGridViewContasPagar.DefaultCellStyle.ForeColor;
                 }
             }
-
-            //verifica data vencimento e cancelamento
-            var dataVencimentoValue = dataGridViewContasPagar.Rows[e.RowIndex].Cells["dataVencimento"].Value;
-            var pagamentoValue = dataGridViewContasPagar.Rows[e.RowIndex].Cells["dataPagamento"].Value;
-            var dataCancelamentoValue = dataGridViewContasPagar.Rows[e.RowIndex].Cells["dataCancelamento"].Value;
-
-            if (dataCancelamentoValue != DBNull.Value && dataCancelamentoValue != null)
-            {
-                //se a nota está cancelada, escreve "CANCELADO" e altera a cor para vermelho
-                if (dataGridViewContasPagar.Columns[e.ColumnIndex].Name == "dataVencimento")
-                {
-                    e.Value = "CANCELADA";
-                    e.CellStyle.ForeColor = Color.Red;
-                    e.FormattingApplied = true;
-                }
-            }
-            else
-            {
-                //verifica vencimento e pagamento
-                if (dataVencimentoValue != null && DateTime.TryParse(dataVencimentoValue.ToString(), out DateTime dataVencimento))
-                {
-                    if (dataVencimento < DateTime.Now.Date && string.IsNullOrEmpty(pagamentoValue?.ToString()))
-                    {
-                        e.CellStyle.ForeColor = ColorTranslator.FromHtml("#ff6400"); //se venceu fica laranja
-                    }
-                    else if (!string.IsNullOrEmpty(pagamentoValue?.ToString()))
-                    {
-                        e.CellStyle.ForeColor = Color.Green; //se ta pago verde
-                    }
-                    else
-                    {
-                        e.CellStyle.ForeColor = dataGridViewContasPagar.DefaultCellStyle.ForeColor; //se esta em dia fica a cor padrao
-                    }
-                }
-            }
+            //formatar para data cancelamento
         }
 
-        private void dataGridViewContasPagar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewContasPagar_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
+            //verifica se a data de vencimento já passou e se a coluna pagamento está vazia
+            var dataVencimentoValue = dataGridViewContasPagar.Rows[e.RowIndex].Cells["dataVencimento"].Value;
+            var pagamentoValue = dataGridViewContasPagar.Rows[e.RowIndex].Cells["dataPagamento"].Value; 
 
+            if (dataVencimentoValue != null && DateTime.TryParse(dataVencimentoValue.ToString(), out DateTime dataVencimento))
+            {
+                if (dataVencimento < DateTime.Now.Date && string.IsNullOrEmpty(pagamentoValue?.ToString()))
+                {
+                    dataGridViewContasPagar.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Red;
+                }
+                else if (!string.IsNullOrEmpty(pagamentoValue?.ToString()))
+                {
+                    dataGridViewContasPagar.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Green;
+                }
+                else
+                {
+                    dataGridViewContasPagar.Rows[e.RowIndex].DefaultCellStyle.ForeColor = dataGridViewContasPagar.DefaultCellStyle.ForeColor;
+                }
+            }
         }
     }
 }

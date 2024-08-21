@@ -17,7 +17,7 @@ namespace Sistema_Vendas.Controller
         }
         public override void Alterar(T obj)
         {
-            throw new NotImplementedException();
+            contasPagarDAO.Alterar(obj as ContasPagarModel);
         }
 
         public override void Delete(int idObj)

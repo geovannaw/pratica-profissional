@@ -25,9 +25,9 @@ namespace Sistema_Vendas.Views
         int IdFornecedor;
         int Parcela;
 
-        decimal porcentagemJuros;
-        decimal porcentagemMulta;
-        decimal porcentagemDesconto;
+        decimal? porcentagemJuros;
+        decimal? porcentagemMulta;
+        decimal? porcentagemDesconto;
         public CadastroContasPagar()
         {
             InitializeComponent();
@@ -66,9 +66,16 @@ namespace Sistema_Vendas.Views
             txtParcela.Clear();
             txtValorParcela.Clear();
             txtDataVencimento.Clear();
+            txtJuros.Clear();
+            txtMulta.Clear();
+            txtDesconto.Clear();
+            txtTotalPagar.Clear();
             txtValorPago.Clear();
             txtDataPagamento.Clear();
             txtDataCancelamento.Clear();
+
+            lblDataCancelamento.Visible = false;
+            txtDataCancelamento.Visible = false;
 
             Desbloqueia();
         }
@@ -84,6 +91,27 @@ namespace Sistema_Vendas.Views
             txtCodFormaPag.Enabled = false;
             txtParcela.Enabled = false;
             txtValorParcela.Enabled = false;
+
+            btnConsultaFormaPag.Enabled = false;
+            btnConsultaFornecedor.Enabled = false;
+        }
+
+        public void BloqueiaTudo()
+        {
+            //usado quando a conta já está paga ou está cancelada
+            txtJuros.Enabled = false;
+            txtMulta.Enabled = false;
+            txtDesconto.Enabled = false;
+            txtValorPago.Enabled = false;
+            txtDataVencimento.Enabled = false;
+        }
+        public void DesbloqueiaTudo ()
+        {
+            txtJuros.Enabled = true;
+            txtMulta.Enabled = true;
+            txtDesconto.Enabled = true;
+            txtValorPago.Enabled = true;
+            txtDataVencimento.Enabled = true;
         }
         public override void Desbloqueia()
         {
@@ -100,6 +128,15 @@ namespace Sistema_Vendas.Views
             txtCodFormaPag.Enabled = true;
             txtParcela.Enabled = true;
             txtValorParcela.Enabled = true;
+
+            txtJuros.Enabled = true;
+            txtMulta.Enabled = true;
+            txtDesconto.Enabled = true;
+            txtValorPago.Enabled = true;
+            txtDataVencimento.Enabled = true;
+
+            btnConsultaFormaPag.Enabled = true;
+            btnConsultaFornecedor.Enabled = true;
         }
         public override void Carrega()
         {
@@ -116,9 +153,9 @@ namespace Sistema_Vendas.Views
                 txtParcela.Texts = contasPagar.parcela.ToString();
                 txtValorParcela.Texts = contasPagar.valorParcela.ToString();
                 txtDataVencimento.Texts = contasPagar.dataVencimento.ToString();
-                txtJuros.Texts = contasPagar.juros.ToString();
-                txtMulta.Texts = contasPagar.multa.ToString();
-                txtDesconto.Texts = contasPagar.desconto.ToString();
+                porcentagemJuros = contasPagar.juros;
+                porcentagemMulta = contasPagar.multa;
+                porcentagemDesconto = contasPagar.desconto;
                 txtValorPago.Texts = contasPagar.valorPago.ToString();
                 txtDataPagamento.Texts = contasPagar.dataPagamento.ToString();
                 txtObservacao.Texts = contasPagar.observacao.ToString();
@@ -138,13 +175,25 @@ namespace Sistema_Vendas.Views
                 {
                     lblDataCancelamento.Visible = true;
                     txtDataCancelamento.Visible = true;
+                    BloqueiaTudo();
+                }
+                else if (contasPagar.dataPagamento != null)
+                {
+                    BloqueiaTudo();
                 }
                 else
                 {
                     lblDataCancelamento.Visible = false;
                     txtDataCancelamento.Visible = false;
+                    DesbloqueiaTudo();
                 }
-                //calculaTotalPagar();
+                if (contasPagar.dataPagamento == null)
+                {
+                    calcularJuros();
+                    calcularMulta();
+                    calcularDesconto();
+                }
+                calculaTotalPagar();
             }
         }
         public override void Salvar()
@@ -209,12 +258,11 @@ namespace Sistema_Vendas.Views
                     int parcela = Convert.ToInt32(txtParcela.Texts);
                     decimal valorParcela = Convert.ToDecimal(txtValorParcela.Texts);
                     DateTime.TryParse(txtDataVencimento.Texts, out DateTime dataVencimento);
-                    decimal desconto = string.IsNullOrEmpty(txtDesconto.Texts) ? 0 : Convert.ToDecimal(txtDesconto.Texts);
-                    decimal juros = string.IsNullOrEmpty(txtJuros.Texts) ? 0 : Convert.ToDecimal(txtJuros.Texts);
-                    decimal multa = string.IsNullOrEmpty(txtMulta.Texts) ? 0 : Convert.ToDecimal(txtMulta.Texts);
-                    DateTime? dataPagamento = string.IsNullOrEmpty(txtDataPagamento.Texts) ? (DateTime?)null : Convert.ToDateTime(txtDataPagamento.Texts);
-                    decimal valorPago = string.IsNullOrEmpty(txtValorPago.Texts) ? 0 : Convert.ToDecimal(txtValorPago.Texts); //se nao for null
-                    DateTime? dataCancelamento = string.IsNullOrEmpty(txtDataCancelamento.Texts) ? (DateTime?)null : Convert.ToDateTime(txtDataCancelamento.Texts);
+                    string dPagamento = new string(txtDataPagamento.Texts.Where(char.IsDigit).ToArray());
+                    DateTime? dataPagamento = string.IsNullOrEmpty(dPagamento) || dPagamento.Length != 8 ? (DateTime?)null : DateTime.ParseExact(txtDataPagamento.Texts, "dd/MM/yyyy", null);
+                    decimal valorPago = string.IsNullOrEmpty(txtValorPago.Texts) ? 0 : Convert.ToDecimal(txtValorPago.Texts);
+                    string dCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
+                    DateTime? dataCancelamento = string.IsNullOrEmpty(dCancelamento) || dCancelamento.Length != 8 ? (DateTime?)null : DateTime.ParseExact(txtDataCancelamento.Texts, "dd/MM/yyyy", null);
                     string observacao = txtObservacao.Texts;
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -233,14 +281,14 @@ namespace Sistema_Vendas.Views
                         dataPagamento = dataPagamento,
                         valorPago = valorPago,
                         dataCancelamento = dataCancelamento,
-                        desconto = desconto,
-                        juros = juros,
-                        multa = multa,
+                        desconto = porcentagemDesconto,
+                        juros = porcentagemJuros,
+                        multa = porcentagemMulta,
                         observacao = observacao,
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt
                     };
-                    if (idAlterar == -1)
+                    if (NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdFornecedor == -1 && Parcela == -1)
                     {
                         contasPagarController.Salvar(novaContaPagar);
                     }
@@ -261,16 +309,60 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+        private void calcularJuros()
+        {
+            DateTime dataVencimento = DateTime.Parse(txtDataVencimento.Texts);
+            DateTime dataAtual = DateTime.Now;
 
-        //private void calculaTotalPagar()
-        //{
-        //    decimal valorDesconto = Convert.ToDecimal(txtDesconto.Texts);
-        //    decimal valorJuros = Convert.ToDecimal(txtJuros.Texts);
-        //    decimal valorMulta = Convert.ToDecimal(txtMulta.Texts);
-        //    decimal valorParcela = Convert.ToDecimal(txtValorParcela.Texts);
-        //    decimal totalPagar = valorDesconto + valorJuros + valorMulta + valorParcela;
-        //    txtTotalPagar.Texts = totalPagar.ToString();
-        //}
+            int diasAtraso = (dataAtual - dataVencimento).Days;
+            decimal valorJuros = 0;
+
+            if (diasAtraso > 0 && porcentagemJuros.HasValue)
+            {
+                valorJuros = (diasAtraso * porcentagemJuros.Value / 100) * Convert.ToDecimal(txtValorParcela.Texts);
+            }
+            txtJuros.Texts = valorJuros.ToString("N2");
+        }
+        private void calcularMulta()
+        {
+            DateTime dataVencimento = DateTime.Parse(txtDataVencimento.Texts);
+            DateTime dataAtual = DateTime.Now;
+
+            int diasAtraso = (dataAtual - dataVencimento).Days;
+            decimal valorMulta = 0;
+
+            if (diasAtraso > 0 && porcentagemJuros.HasValue)
+            {
+                valorMulta = (diasAtraso * porcentagemMulta.Value / 100) * Convert.ToDecimal(txtValorParcela.Texts);
+            }
+            txtMulta.Texts = valorMulta.ToString("N2");
+        }
+        private void calcularDesconto()
+        {
+            if (porcentagemDesconto.HasValue && !string.IsNullOrWhiteSpace(txtValorParcela.Texts))
+            {
+                decimal valorParcela = Convert.ToDecimal(txtValorParcela.Texts);
+                decimal valorDesconto = (porcentagemDesconto.Value / 100) * valorParcela;
+
+                txtDesconto.Texts = valorDesconto.ToString("N2");
+            }
+            else
+            {
+                txtDesconto.Texts = "0.00";
+            }
+        }
+
+        private void calculaTotalPagar()
+        {
+            decimal valorDesconto = string.IsNullOrWhiteSpace(txtDesconto.Texts) ? 0 : Convert.ToDecimal(txtDesconto.Texts);
+            decimal valorJuros = string.IsNullOrWhiteSpace(txtJuros.Texts) ? 0 : Convert.ToDecimal(txtJuros.Texts);
+            decimal valorMulta = string.IsNullOrWhiteSpace(txtMulta.Texts) ? 0 : Convert.ToDecimal(txtMulta.Texts);
+            decimal valorParcela = string.IsNullOrWhiteSpace(txtValorParcela.Texts) ? 0 : Convert.ToDecimal(txtValorParcela.Texts);
+
+            decimal totalPagar = valorParcela + valorJuros + valorMulta - valorDesconto;
+            txtTotalPagar.Texts = totalPagar.ToString("N2");
+        }
+
 
         private void CadastroContasPagar_Load(object sender, EventArgs e)
         {
@@ -359,6 +451,48 @@ namespace Sistema_Vendas.Views
         private void CadastroContasPagar_FormClosed(object sender, FormClosedEventArgs e)
         {
             ((ConsultaContasPagar)this.Owner).AtualizarConsultaContasPagar(false);
+        }
+
+        private void btnPagar_Click(object sender, EventArgs e)
+        {
+            string dPagamento = new string(txtDataPagamento.Texts.Where(char.IsDigit).ToArray());
+            string dCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
+            if (!string.IsNullOrEmpty(dCancelamento))
+            {
+                MessageBox.Show("Nota Cancelada! Não é possível efetuar o pagamento.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(dPagamento))
+                {
+                    if (MessageBox.Show("Deseja realizar o pagamento?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        txtDataPagamento.Texts = DateTime.Now.ToString();
+                        txtValorPago.Texts = txtTotalPagar.Texts;
+                        Salvar();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Pagamento já foi realizado dia " + txtDataPagamento.Texts, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }            
+        }
+
+        private void txtDataVencimento_Leave(object sender, EventArgs e)
+        {
+            string dVencimento = new string(txtDataVencimento.Texts.Where(char.IsDigit).ToArray());
+            if (string.IsNullOrEmpty(dVencimento))
+            {
+                MessageBox.Show("Digite uma Data de Vencimento!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDataVencimento.Focus();
+            }
+            else
+            {
+                calcularJuros();
+                calcularMulta();
+                calcularDesconto();
+            }
         }
     }
 }

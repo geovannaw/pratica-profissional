@@ -107,7 +107,6 @@ namespace Sistema_Vendas.Views
             txtDataOS.Enabled = true;
             cbSituacao.Enabled = true;
             rbAtivo.Checked = true;
-            txtDesconto.Enabled = true;
 
             btnConsultaCliente.Enabled = true;
             btnConsultaFuncionario.Enabled = true;
@@ -347,7 +346,6 @@ namespace Sistema_Vendas.Views
 
                     lblDataCancelamento.Visible = true;
                     txtDataCancelamento.Visible = true;
-                    txtDesconto.Enabled = false;
                 } else
                 {
                     txtCodProduto.Enabled = true;

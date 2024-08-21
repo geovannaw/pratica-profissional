@@ -505,6 +505,7 @@
             this.txtDataVencimento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataVencimento.Texts = "  /  /";
             this.txtDataVencimento.UnderlinedStyle = false;
+            this.txtDataVencimento.Leave += new System.EventHandler(this.txtDataVencimento_Leave);
             // 
             // lblDataPagamento
             // 
@@ -625,27 +626,27 @@
             this.lblDesconto.AutoSize = true;
             this.lblDesconto.Location = new System.Drawing.Point(233, 298);
             this.lblDesconto.Name = "lblDesconto";
-            this.lblDesconto.Size = new System.Drawing.Size(53, 13);
+            this.lblDesconto.Size = new System.Drawing.Size(70, 13);
             this.lblDesconto.TabIndex = 112;
-            this.lblDesconto.Text = "Desconto";
+            this.lblDesconto.Text = "R$ Desconto";
             // 
             // lblMulta
             // 
             this.lblMulta.AutoSize = true;
             this.lblMulta.Location = new System.Drawing.Point(120, 298);
             this.lblMulta.Name = "lblMulta";
-            this.lblMulta.Size = new System.Drawing.Size(33, 13);
+            this.lblMulta.Size = new System.Drawing.Size(50, 13);
             this.lblMulta.TabIndex = 111;
-            this.lblMulta.Text = "Multa";
+            this.lblMulta.Text = "R$ Multa";
             // 
             // lblJuros
             // 
             this.lblJuros.AutoSize = true;
             this.lblJuros.Location = new System.Drawing.Point(9, 298);
             this.lblJuros.Name = "lblJuros";
-            this.lblJuros.Size = new System.Drawing.Size(32, 13);
+            this.lblJuros.Size = new System.Drawing.Size(49, 13);
             this.lblJuros.TabIndex = 110;
-            this.lblJuros.Text = "Juros";
+            this.lblJuros.Text = "R$ Juros";
             // 
             // lblValorPago
             // 
@@ -701,6 +702,7 @@
             this.btnPagar.TextColor = System.Drawing.Color.White;
             this.btnPagar.UseVisualStyleBackColor = false;
             this.btnPagar.Visible = false;
+            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
             // 
             // btnConsultaFormaPag
             // 
@@ -817,7 +819,7 @@
             // lblTotalPagar
             // 
             this.lblTotalPagar.AutoSize = true;
-            this.lblTotalPagar.Location = new System.Drawing.Point(353, 365);
+            this.lblTotalPagar.Location = new System.Drawing.Point(347, 368);
             this.lblTotalPagar.Name = "lblTotalPagar";
             this.lblTotalPagar.Size = new System.Drawing.Size(74, 13);
             this.lblTotalPagar.TabIndex = 135;
@@ -836,7 +838,7 @@
             this.txtTotalPagar.DisabledForeColor = System.Drawing.Color.White;
             this.txtTotalPagar.Enabled = false;
             this.txtTotalPagar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtTotalPagar.Location = new System.Drawing.Point(356, 381);
+            this.txtTotalPagar.Location = new System.Drawing.Point(350, 382);
             this.txtTotalPagar.MaxLength = 32767;
             this.txtTotalPagar.Multiline = false;
             this.txtTotalPagar.Name = "txtTotalPagar";
@@ -844,7 +846,7 @@
             this.txtTotalPagar.PasswordChar = false;
             this.txtTotalPagar.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtTotalPagar.PlaceholderText = "";
-            this.txtTotalPagar.Size = new System.Drawing.Size(101, 28);
+            this.txtTotalPagar.Size = new System.Drawing.Size(107, 28);
             this.txtTotalPagar.TabIndex = 134;
             this.txtTotalPagar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTotalPagar.Texts = "";

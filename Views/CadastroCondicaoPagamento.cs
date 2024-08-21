@@ -253,7 +253,7 @@ namespace Sistema_Vendas.Views
 
         private void txtPorcentagem_Leave(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtPorcentagem.Texts) && int.Parse(txtPorcentagem.Texts) == 0)
+            if (!string.IsNullOrEmpty(txtPorcentagem.Texts) && decimal.Parse(txtPorcentagem.Texts) == 0)
             {
                 MessageBox.Show("A porcentagem deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPorcentagem.Focus();

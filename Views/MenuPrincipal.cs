@@ -115,5 +115,11 @@ namespace Sistema_Vendas
             ConsultaContasPagar consultaContasPagar = new ConsultaContasPagar();
             consultaContasPagar.ShowDialog();
         }
+
+        private void contasAReceberToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaContasReceber consultaContasReceber = new ConsultaContasReceber();
+            consultaContasReceber.ShowDialog();
+        }
     }
 }

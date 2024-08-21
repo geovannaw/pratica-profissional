@@ -247,6 +247,18 @@
     <Compile Include="Views\CadastroServicos.Designer.cs">
       <DependentUpon>CadastroServicos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsultaContasPagar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultaContasPagar.Designer.cs">
+      <DependentUpon>ConsultaContasPagar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConsultaContasReceber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultaContasReceber.Designer.cs">
+      <DependentUpon>ConsultaContasReceber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConsultaCidades.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,11 +277,11 @@
     <Compile Include="Views\ConsultaCondicaoPagamento.Designer.cs">
       <DependentUpon>ConsultaCondicaoPagamento.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ConsultaContasPagar.cs">
+    <Compile Include="Views\ConsultaContasP.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ConsultaContasPagar.Designer.cs">
-      <DependentUpon>ConsultaContasPagar.cs</DependentUpon>
+    <Compile Include="Views\ConsultaContasP.Designer.cs">
+      <DependentUpon>ConsultaContasP.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ConsultaEstados.cs">
       <SubType>Form</SubType>
@@ -413,6 +425,12 @@
     <EmbeddedResource Include="Views\CadastroServicos.resx">
       <DependentUpon>CadastroServicos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultaContasPagar.resx">
+      <DependentUpon>ConsultaContasPagar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultaContasReceber.resx">
+      <DependentUpon>ConsultaContasReceber.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaCidades.resx">
       <DependentUpon>ConsultaCidades.cs</DependentUpon>
     </EmbeddedResource>
@@ -422,8 +440,8 @@
     <EmbeddedResource Include="Views\ConsultaCondicaoPagamento.resx">
       <DependentUpon>ConsultaCondicaoPagamento.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ConsultaContasPagar.resx">
-      <DependentUpon>ConsultaContasPagar.cs</DependentUpon>
+    <EmbeddedResource Include="Views\ConsultaContasP.resx">
+      <DependentUpon>ConsultaContasP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaEstados.resx">
       <DependentUpon>ConsultaEstados.cs</DependentUpon>

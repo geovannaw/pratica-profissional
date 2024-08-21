@@ -959,8 +959,7 @@ namespace Sistema_Vendas.Views
             {
                 if (string.IsNullOrEmpty(dataCancelamento))
                 {
-                    NotaCompraDAO notaCompraDAO = new NotaCompraDAO();
-                    bool sucesso = notaCompraDAO.CancelarNotaCompra(NumeroNota, Modelo, Serie, IdFornecedor);
+                    bool sucesso = notaCompraController.CancelarNotaCompra(NumeroNota, Modelo, Serie, IdFornecedor);
 
                     if (sucesso)
                     {
