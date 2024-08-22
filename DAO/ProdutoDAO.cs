@@ -49,7 +49,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
                 command.Parameters.AddWithValue("@precoVenda", produto.precoVenda);
                 command.Parameters.AddWithValue("@precoUltCompra", produto.precoUltCompra);
-                command.Parameters.AddWithValue("@dataUltCompra", produto.dataUltCompra);
+                command.Parameters.AddWithValue("@dataUltCompra", (object)produto.dataUltCompra ?? DBNull.Value);
                 command.Parameters.AddWithValue("@observacao", produto.Observacao);
                 command.Parameters.AddWithValue("@ativo", produto.Ativo);
                 command.Parameters.AddWithValue("@dataUltAlt", produto.dataUltAlt);
@@ -165,16 +165,17 @@ namespace Sistema_Vendas.DAO
                         obj.Produto = reader["produto"].ToString();
                         obj.Unidade = reader["unidade"].ToString();
                         obj.Saldo = Convert.ToInt32(reader["saldo"]);
-                        obj.custoMedio = Convert.ToDecimal(reader["custoMedio"]);
                         obj.precoVenda = Convert.ToDecimal(reader["precoVenda"]);
                         obj.precoUltCompra = Convert.ToDecimal(reader["precoUltCompra"]);
-                        obj.dataUltCompra = DateTime.Parse(reader["dataUltCompra"].ToString());
+                        obj.custoMedio = Convert.ToDecimal(reader["custoMedio"]);
                         obj.Observacao = reader["observacao"].ToString();
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
                         obj.dataUltAlt = DateTime.Parse(reader["dataUltAlt"].ToString());
                         obj.idFornecedor = Convert.ToInt32(reader["idFornecedor"]);
                         obj.idModelo = Convert.ToInt32(reader["idModelo"]);
+
+                        obj.dataUltCompra = reader["dataUltCompra"] != DBNull.Value ? Convert.ToDateTime(reader["dataUltCompra"]) : (DateTime?)null;
                         return obj;
                     }
                     else
@@ -203,7 +204,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
                 command.Parameters.AddWithValue("@precoVenda", produto.precoVenda);
                 command.Parameters.AddWithValue("@precoUltCompra", produto.precoUltCompra);
-                command.Parameters.AddWithValue("@dataUltCompra", produto.dataUltCompra);
+                command.Parameters.AddWithValue("@dataUltCompra", produto.dataUltCompra ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@observacao", produto.Observacao);
                 command.Parameters.AddWithValue("@ativo", produto.Ativo);
                 command.Parameters.AddWithValue("@dataUltAlt", produto.dataUltAlt);

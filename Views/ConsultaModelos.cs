@@ -122,8 +122,8 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                cadastroModelos.FormClosed += (s, args) => AtualizarConsultaModelos(cbBuscaInativos.Checked); 
-
+                cadastroModelos.FormClosed += (s, args) => AtualizarConsultaModelos(cbBuscaInativos.Checked);
+                dataGridViewModelos.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewModelos.AutoGenerateColumns = false;
                 dataGridViewModelos.Columns["Código"].DataPropertyName = "idModelo";
                 dataGridViewModelos.Columns["Modelo"].DataPropertyName = "Modelo";

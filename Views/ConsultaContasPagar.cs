@@ -99,7 +99,6 @@ namespace Sistema_Vendas.Views
             {
                 AtualizarConsultaContasPagar(cbBuscaInativos.Checked);
             }
-
         }
 
         private void ConsultaContasPagar_Load(object sender, EventArgs e)
@@ -107,7 +106,12 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroContasPagar.FormClosed += (s, args) => AtualizarConsultaContasPagar(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewContasPagar.Columns["numeroNota"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dataGridViewContasPagar.Columns["modelo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dataGridViewContasPagar.Columns["serie"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dataGridViewContasPagar.Columns["idFornecedor"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dataGridViewContasPagar.Columns["parcela"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dataGridViewContasPagar.Columns["valorParcela"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewContasPagar.AutoGenerateColumns = false;
                 dataGridViewContasPagar.Columns["numeroNota"].DataPropertyName = "numeroNota";
                 dataGridViewContasPagar.Columns["modelo"].DataPropertyName = "modelo";
@@ -176,13 +180,7 @@ namespace Sistema_Vendas.Views
 
             if (dataCancelamentoValue != DBNull.Value && dataCancelamentoValue != null)
             {
-                //se a nota está cancelada, escreve "CANCELADO" e altera a cor para vermelho
-                if (dataGridViewContasPagar.Columns[e.ColumnIndex].Name == "dataVencimento")
-                {
-                    e.Value = "CANCELADA";
-                    e.CellStyle.ForeColor = Color.Red;
-                    e.FormattingApplied = true;
-                }
+                e.CellStyle.ForeColor = Color.Red;
             }
             else
             {

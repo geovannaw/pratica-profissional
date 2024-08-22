@@ -29,6 +29,8 @@ namespace Sistema_Vendas.Views
         decimal precoUNProduto;
         decimal precoUNServico;
 
+        string statusOS;
+
         private bool carregando = false;
 
         public CadastroOS()
@@ -327,6 +329,7 @@ namespace Sistema_Vendas.Views
                     cbSituacao.Items.Add(ordemServico.status);
                 }
                 cbSituacao.Texts = ordemServico.status;
+                statusOS = ordemServico.status;
 
                 FuncionarioModel funcionario = funcionarioController.GetById(int.Parse(txtCodFuncionario.Texts));
                 ClienteModel clienteDetalhes = ordemServicoController.GetClientePorId(ordemServico.idCliente);
@@ -981,7 +984,7 @@ namespace Sistema_Vendas.Views
         {
             if (carregando) return;
             if (cbSituacao.SelectedIndex == -1) return;
-            if (cbSituacao.SelectedItem.ToString() == "CANCELADO")
+            if (cbSituacao.SelectedItem.ToString() == "CANCELADO" && statusOS == "PENDENTE")
             {
                 txtCodProduto.Enabled = false;
                 btnConsultaProduto.Enabled = false;
@@ -991,7 +994,39 @@ namespace Sistema_Vendas.Views
                 txtDataCancelamento.Visible = true;
                 lblDataCancelamento.Visible = true;
                 txtDataCancelamento.Texts = DateTime.Now.ToString();
-                
+
+                if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço? Ao cancelar, os produtos presentes voltarão ao estoque.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    int idOS;
+                    if (int.TryParse(txtCodigo.Texts, out idOS))
+                    {
+                        //busca os produtos da OS
+                        List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
+
+                        //volta o estoque dos produtos
+                        foreach (var produto in produtos)
+                        {
+                            produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
+                        }
+
+                        MessageBox.Show("Ordem de Serviço cancelada e estoque atualizado.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Código da Ordem de Serviço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+            } else
+            {
+                txtCodProduto.Enabled = false;
+                btnConsultaProduto.Enabled = false;
+                txtQtdeProduto.Enabled = false;
+                dataGridViewProdutos.Enabled = false;
+
+                txtDataCancelamento.Visible = true;
+                lblDataCancelamento.Visible = true;
+                txtDataCancelamento.Texts = DateTime.Now.ToString();
             }
             if (cbSituacao.SelectedItem.ToString() == "RETIRADO")
             {

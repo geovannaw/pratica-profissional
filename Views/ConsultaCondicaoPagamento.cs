@@ -135,7 +135,7 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroCondicaoPagamento.FormClosed += (s, args) => AtualizarConsultaCondPag(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewCondPag.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewCondPag.AutoGenerateColumns = false;
                 dataGridViewCondPag.Columns["Código"].DataPropertyName = "idCondPagamento";
                 dataGridViewCondPag.Columns["Condição"].DataPropertyName = "condicaoPagamento";

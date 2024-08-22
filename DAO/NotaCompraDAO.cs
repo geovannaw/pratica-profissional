@@ -342,15 +342,47 @@ namespace Sistema_Vendas.DAO
                         //att o estoque
                         foreach (var produto in produtos)
                         {
+                            //tenta encontrar uma nota de compra anterior válida (sem dataCancelamento) para atualizar os custos/preço/data
+                            string queryNotaAnterior = @"
+                        SELECT TOP 1 nc.dataChegada, ncp.precoProduto, ncp.custoMedio
+                        FROM notaCompra nc
+                        JOIN notaCompra_Produto ncp ON nc.numeroNota = ncp.numeroNota AND nc.modelo = ncp.modelo AND nc.serie = ncp.serie AND nc.idFornecedor = ncp.idFornecedor
+                        WHERE ncp.idProduto = @idProduto AND nc.dataCancelamento IS NULL
+                        ORDER BY nc.dataChegada DESC";
+
+                            DateTime? dataUltCompra = null;
+                            decimal precoUltCompra = 0;
+                            decimal custoMedio = 0;
+                            bool notaAnteriorEncontrada = false;
+
+                            using (SqlCommand cmd = new SqlCommand(queryNotaAnterior, conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@idProduto", produto.idProduto);
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        dataUltCompra = reader.GetDateTime(reader.GetOrdinal("dataChegada"));
+                                        precoUltCompra = reader.GetDecimal(reader.GetOrdinal("precoProduto"));
+                                        custoMedio = reader.GetDecimal(reader.GetOrdinal("custoMedio"));
+                                        notaAnteriorEncontrada = true;
+                                    }
+                                }
+                            }
+
+                            //att o saldo do produto e, se houver uma nota válida anterior, atualiza os atributos do produto do produto
                             string queryAtualizarEstoque = @"
                         UPDATE produto
-                        SET saldo = saldo - @quantidadeProduto
+                        SET saldo = saldo - @quantidadeProduto, custoMedio = @custoMedio, dataUltCompra = @dataUltCompra, precoUltCompra = @precoUltCompra
                         WHERE idProduto = @idProduto";
 
                             using (SqlCommand cmd = new SqlCommand(queryAtualizarEstoque, conn, transaction))
                             {
                                 cmd.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);
                                 cmd.Parameters.AddWithValue("@idProduto", produto.idProduto);
+                                cmd.Parameters.AddWithValue("@custoMedio", notaAnteriorEncontrada ? custoMedio : 0);
+                                cmd.Parameters.AddWithValue("@dataUltCompra", (object)dataUltCompra ?? DBNull.Value);
+                                cmd.Parameters.AddWithValue("@precoUltCompra", notaAnteriorEncontrada ? precoUltCompra : 0);
                                 cmd.ExecuteNonQuery();
                             }
                         }

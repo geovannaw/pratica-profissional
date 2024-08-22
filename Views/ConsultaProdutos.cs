@@ -124,7 +124,8 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroProdutos.FormClosed += (s, args) => AtualizarConsultaProdutos(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewProdutos.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dataGridViewProdutos.Columns["precoVenda"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewProdutos.AutoGenerateColumns = false;
                 dataGridViewProdutos.Columns["Código"].DataPropertyName = "idProduto";
                 dataGridViewProdutos.Columns["Produto"].DataPropertyName = "Produto";

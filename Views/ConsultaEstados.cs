@@ -136,7 +136,7 @@ namespace Sistema_Vendas.Models
             try
             {
                 cadastroEstados.FormClosed += (s, args) => AtualizarConsultaEstados(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewEstados.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewEstados.AutoGenerateColumns = false;
                 dataGridViewEstados.Columns["Código"].DataPropertyName = "idEstado";
                 dataGridViewEstados.Columns["Estado"].DataPropertyName = "Estado";

@@ -96,11 +96,13 @@
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
             this.btnSalvar.Location = new System.Drawing.Point(296, 508);
+            this.btnSalvar.TabIndex = 20;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
             this.btnSair.Location = new System.Drawing.Point(382, 508);
+            this.btnSair.TabIndex = 21;
             // 
             // txtDataCadastro
             // 
@@ -165,7 +167,7 @@
             this.txtModelo.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtModelo.PlaceholderText = "";
             this.txtModelo.Size = new System.Drawing.Size(75, 28);
-            this.txtModelo.TabIndex = 66;
+            this.txtModelo.TabIndex = 3;
             this.txtModelo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtModelo.Texts = "";
             this.txtModelo.UnderlinedStyle = false;
@@ -218,7 +220,7 @@
             this.txtCodFornecedor.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCodFornecedor.PlaceholderText = "";
             this.txtCodFornecedor.Size = new System.Drawing.Size(92, 28);
-            this.txtCodFornecedor.TabIndex = 68;
+            this.txtCodFornecedor.TabIndex = 5;
             this.txtCodFornecedor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodFornecedor.Texts = "";
             this.txtCodFornecedor.UnderlinedStyle = false;
@@ -263,7 +265,7 @@
             this.txtSerie.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtSerie.PlaceholderText = "";
             this.txtSerie.Size = new System.Drawing.Size(75, 28);
-            this.txtSerie.TabIndex = 67;
+            this.txtSerie.TabIndex = 4;
             this.txtSerie.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtSerie.Texts = "";
             this.txtSerie.UnderlinedStyle = false;
@@ -289,7 +291,7 @@
             this.txtNroNota.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtNroNota.PlaceholderText = "";
             this.txtNroNota.Size = new System.Drawing.Size(131, 28);
-            this.txtNroNota.TabIndex = 65;
+            this.txtNroNota.TabIndex = 2;
             this.txtNroNota.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtNroNota.Texts = "";
             this.txtNroNota.UnderlinedStyle = false;
@@ -324,7 +326,7 @@
             this.txtDataEmissao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDataEmissao.PlaceholderText = "";
             this.txtDataEmissao.Size = new System.Drawing.Size(92, 27);
-            this.txtDataEmissao.TabIndex = 76;
+            this.txtDataEmissao.TabIndex = 1;
             this.txtDataEmissao.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataEmissao.Texts = "  /  /";
             this.txtDataEmissao.UnderlinedStyle = false;
@@ -377,7 +379,7 @@
             this.txtCodFormaPag.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCodFormaPag.PlaceholderText = "";
             this.txtCodFormaPag.Size = new System.Drawing.Size(92, 28);
-            this.txtCodFormaPag.TabIndex = 78;
+            this.txtCodFormaPag.TabIndex = 7;
             this.txtCodFormaPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodFormaPag.Texts = "";
             this.txtCodFormaPag.UnderlinedStyle = false;
@@ -422,7 +424,7 @@
             this.txtParcela.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtParcela.PlaceholderText = "";
             this.txtParcela.Size = new System.Drawing.Size(92, 28);
-            this.txtParcela.TabIndex = 83;
+            this.txtParcela.TabIndex = 9;
             this.txtParcela.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtParcela.Texts = "";
             this.txtParcela.UnderlinedStyle = false;
@@ -466,7 +468,7 @@
             this.txtValorParcela.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtValorParcela.PlaceholderText = "";
             this.txtValorParcela.Size = new System.Drawing.Size(92, 28);
-            this.txtValorParcela.TabIndex = 101;
+            this.txtValorParcela.TabIndex = 10;
             this.txtValorParcela.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorParcela.Texts = "0";
             this.txtValorParcela.UnderlinedStyle = false;
@@ -501,7 +503,7 @@
             this.txtDataVencimento.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDataVencimento.PlaceholderText = "";
             this.txtDataVencimento.Size = new System.Drawing.Size(92, 27);
-            this.txtDataVencimento.TabIndex = 103;
+            this.txtDataVencimento.TabIndex = 11;
             this.txtDataVencimento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataVencimento.Texts = "  /  /";
             this.txtDataVencimento.UnderlinedStyle = false;
@@ -538,7 +540,7 @@
             this.txtDataPagamento.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDataPagamento.PlaceholderText = "";
             this.txtDataPagamento.Size = new System.Drawing.Size(92, 27);
-            this.txtDataPagamento.TabIndex = 105;
+            this.txtDataPagamento.TabIndex = 15;
             this.txtDataPagamento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataPagamento.Texts = "  /  /";
             this.txtDataPagamento.UnderlinedStyle = false;
@@ -554,6 +556,7 @@
             this.txtDesconto.DisabledBackColor = System.Drawing.Color.White;
             this.txtDesconto.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDesconto.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDesconto.Enabled = false;
             this.txtDesconto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtDesconto.Location = new System.Drawing.Point(236, 314);
             this.txtDesconto.MaxLength = 12;
@@ -564,7 +567,7 @@
             this.txtDesconto.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDesconto.PlaceholderText = "";
             this.txtDesconto.Size = new System.Drawing.Size(92, 28);
-            this.txtDesconto.TabIndex = 109;
+            this.txtDesconto.TabIndex = 14;
             this.txtDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDesconto.Texts = "";
             this.txtDesconto.UnderlinedStyle = false;
@@ -580,6 +583,7 @@
             this.txtMulta.DisabledBackColor = System.Drawing.Color.White;
             this.txtMulta.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtMulta.DisabledForeColor = System.Drawing.Color.White;
+            this.txtMulta.Enabled = false;
             this.txtMulta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtMulta.Location = new System.Drawing.Point(123, 314);
             this.txtMulta.MaxLength = 12;
@@ -590,7 +594,7 @@
             this.txtMulta.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtMulta.PlaceholderText = "";
             this.txtMulta.Size = new System.Drawing.Size(92, 28);
-            this.txtMulta.TabIndex = 108;
+            this.txtMulta.TabIndex = 13;
             this.txtMulta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtMulta.Texts = "";
             this.txtMulta.UnderlinedStyle = false;
@@ -606,6 +610,7 @@
             this.txtJuros.DisabledBackColor = System.Drawing.Color.White;
             this.txtJuros.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtJuros.DisabledForeColor = System.Drawing.Color.White;
+            this.txtJuros.Enabled = false;
             this.txtJuros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtJuros.Location = new System.Drawing.Point(12, 314);
             this.txtJuros.MaxLength = 12;
@@ -616,7 +621,7 @@
             this.txtJuros.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtJuros.PlaceholderText = "";
             this.txtJuros.Size = new System.Drawing.Size(92, 28);
-            this.txtJuros.TabIndex = 107;
+            this.txtJuros.TabIndex = 12;
             this.txtJuros.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtJuros.Texts = "";
             this.txtJuros.UnderlinedStyle = false;
@@ -678,10 +683,11 @@
             this.txtValorPago.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtValorPago.PlaceholderText = "";
             this.txtValorPago.Size = new System.Drawing.Size(92, 28);
-            this.txtValorPago.TabIndex = 113;
+            this.txtValorPago.TabIndex = 16;
             this.txtValorPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorPago.Texts = "0";
             this.txtValorPago.UnderlinedStyle = false;
+            this.txtValorPago.Leave += new System.EventHandler(this.txtValorPago_Leave);
             // 
             // btnPagar
             // 
@@ -697,7 +703,7 @@
             this.btnPagar.Location = new System.Drawing.Point(211, 508);
             this.btnPagar.Name = "btnPagar";
             this.btnPagar.Size = new System.Drawing.Size(75, 28);
-            this.btnPagar.TabIndex = 129;
+            this.btnPagar.TabIndex = 19;
             this.btnPagar.Text = "&Pagar";
             this.btnPagar.TextColor = System.Drawing.Color.White;
             this.btnPagar.UseVisualStyleBackColor = false;
@@ -718,7 +724,7 @@
             this.btnConsultaFormaPag.Location = new System.Drawing.Point(113, 178);
             this.btnConsultaFormaPag.Name = "btnConsultaFormaPag";
             this.btnConsultaFormaPag.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaFormaPag.TabIndex = 79;
+            this.btnConsultaFormaPag.TabIndex = 8;
             this.btnConsultaFormaPag.TextColor = System.Drawing.Color.White;
             this.btnConsultaFormaPag.UseVisualStyleBackColor = false;
             this.btnConsultaFormaPag.Click += new System.EventHandler(this.btnConsultaFormaPag_Click);
@@ -737,7 +743,7 @@
             this.btnConsultaFornecedor.Location = new System.Drawing.Point(113, 108);
             this.btnConsultaFornecedor.Name = "btnConsultaFornecedor";
             this.btnConsultaFornecedor.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaFornecedor.TabIndex = 69;
+            this.btnConsultaFornecedor.TabIndex = 6;
             this.btnConsultaFornecedor.TextColor = System.Drawing.Color.White;
             this.btnConsultaFornecedor.UseVisualStyleBackColor = false;
             this.btnConsultaFornecedor.Click += new System.EventHandler(this.btnConsultaFornecedor_Click);
@@ -811,7 +817,7 @@
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
             this.txtObservacao.Size = new System.Drawing.Size(445, 28);
-            this.txtObservacao.TabIndex = 132;
+            this.txtObservacao.TabIndex = 18;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
             this.txtObservacao.UnderlinedStyle = false;
@@ -847,7 +853,7 @@
             this.txtTotalPagar.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtTotalPagar.PlaceholderText = "";
             this.txtTotalPagar.Size = new System.Drawing.Size(107, 28);
-            this.txtTotalPagar.TabIndex = 134;
+            this.txtTotalPagar.TabIndex = 17;
             this.txtTotalPagar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTotalPagar.Texts = "";
             this.txtTotalPagar.UnderlinedStyle = false;

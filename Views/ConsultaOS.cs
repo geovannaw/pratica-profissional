@@ -153,7 +153,7 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroOS.FormClosed += (s, args) => AtualizarConsultaOS(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewOS.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewOS.AutoGenerateColumns = false;
                 dataGridViewOS.Columns["Código"].DataPropertyName = "idOrdemServico";
                 dataGridViewOS.Columns["Status"].DataPropertyName = "status";

@@ -123,7 +123,7 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroFornecedores.FormClosed += (s, args) => AtualizarConsultaFornecedores(cbBuscaInativos.Checked);
-
+                dataGridViewFornecedores.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewFornecedores.AutoGenerateColumns = false;
                 dataGridViewFornecedores.Columns["Código"].DataPropertyName = "idFornecedor";
                 dataGridViewFornecedores.Columns["Fornecedor"].DataPropertyName = "fornecedor_razao_social";

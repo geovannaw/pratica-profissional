@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -46,16 +47,18 @@ namespace Sistema_Vendas.Views
                     string produto = txtProduto.Texts;
                     string unidade = txtUN.Texts;
                     int saldo = int.Parse(txtSaldo.Texts);
+                    decimal precoVenda = decimal.Parse(FormataPreco(txtPrecoVenda.Texts));
 
                     decimal custoMedio = decimal.Parse(txtCustoMedio.Texts);
-                    decimal precoVenda = decimal.Parse(FormataPreco(txtPrecoVenda.Texts));
                     decimal precoUltCompra = decimal.Parse(txtPrecoUltCompra.Texts);
 
                     string observacao = txtObservacao.Texts;
                     int idFornecedor = int.Parse(txtCodFornecedor.Texts);
                     int idModelo = int.Parse(txtCodModelo.Texts);
 
-                    AtualizarCampoComDataPadrao(txtDataUltCompra, out DateTime dataUltCompra);
+                    //   AtualizarCampoComDataPadrao(txtDataUltCompra, out DateTime dataUltCompra);
+                    string dUltCompra = new string(txtDataUltCompra.Texts.Where(char.IsDigit).ToArray());
+                    DateTime? dataUltCompra = string.IsNullOrEmpty(dUltCompra) || dUltCompra.Length != 8 ? (DateTime?)null : DateTime.ParseExact(txtDataUltCompra.Texts, "dd/MM/yyyy", null);
 
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -175,15 +178,16 @@ namespace Sistema_Vendas.Views
                     txtCustoMedio.Texts = produto.custoMedio.ToString();
                     txtPrecoVenda.Texts = produto.precoVenda.ToString("N2");
                     txtPrecoUltCompra.Texts = produto.precoUltCompra.ToString();
-                    txtObservacao.Texts = produto.Observacao;
+                    txtObservacao.Texts = produto.Observacao;   
                     txtDataCadastro.Texts = produto.dataCadastro.ToString();
                     txtDataUltAlt.Texts = produto.dataUltAlt.ToString();
                     rbAtivo.Checked = produto.Ativo;
                     rbInativo.Checked = !produto.Ativo;
                     txtCodFornecedor.Texts = produto.idFornecedor.ToString();
                     txtCodModelo.Texts = produto.idModelo.ToString();
+                    txtDataUltCompra.Texts = produto.dataUltCompra.ToString();
 
-                    AtualizarCampoData(produto.dataUltCompra, txtDataUltCompra);
+                 //   AtualizarCampoData(produto.dataUltCompra, txtDataUltCompra);
 
                     ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Texts));
                     if (modelo != null)

@@ -82,7 +82,10 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroNotaCompra.FormClosed += (s, args) => AtualizarConsultaNotaCompra(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewNFCompra.Columns["numeroNota"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dataGridViewNFCompra.Columns["modelo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dataGridViewNFCompra.Columns["serie"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dataGridViewNFCompra.Columns["idFornecedor"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewNFCompra.AutoGenerateColumns = false;
                 dataGridViewNFCompra.Columns["numeroNota"].DataPropertyName = "numeroNota";
                 dataGridViewNFCompra.Columns["modelo"].DataPropertyName = "modelo";

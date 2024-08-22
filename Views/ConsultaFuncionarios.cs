@@ -121,7 +121,7 @@ namespace Sistema_Vendas.Views
         {
             try { 
                 cadastroFuncionarios.FormClosed += (s, args) => AtualizarConsultaFuncionarios(cbBuscaInativos.Checked);
-
+                dataGridViewFuncionarios.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewFuncionarios.AutoGenerateColumns = false;
                 dataGridViewFuncionarios.Columns["Código"].DataPropertyName = "idFuncionario";
                 dataGridViewFuncionarios.Columns["Funcionário"].DataPropertyName = "funcionario";

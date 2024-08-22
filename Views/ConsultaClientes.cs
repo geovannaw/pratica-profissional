@@ -122,8 +122,8 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                cadastroClientes.FormClosed += (s, args) => AtualizarConsultaClientes(cbBuscaInativos.Checked); 
-
+                cadastroClientes.FormClosed += (s, args) => AtualizarConsultaClientes(cbBuscaInativos.Checked);
+                dataGridViewClientes.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewClientes.AutoGenerateColumns = false;
                 dataGridViewClientes.Columns["Código"].DataPropertyName = "idCliente";
                 dataGridViewClientes.Columns["Cliente"].DataPropertyName = "cliente_razao_social";

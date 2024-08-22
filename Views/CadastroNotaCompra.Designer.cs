@@ -135,13 +135,13 @@
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
             this.btnSalvar.Location = new System.Drawing.Point(601, 815);
-            this.btnSalvar.TabIndex = 22;
+            this.btnSalvar.TabIndex = 23;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
             this.btnSair.Location = new System.Drawing.Point(687, 815);
-            this.btnSair.TabIndex = 23;
+            this.btnSair.TabIndex = 24;
             // 
             // txtDataCadastro
             // 
@@ -1063,7 +1063,7 @@
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
             this.txtObservacao.Size = new System.Drawing.Size(746, 43);
-            this.txtObservacao.TabIndex = 21;
+            this.txtObservacao.TabIndex = 22;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
             this.txtObservacao.UnderlinedStyle = false;
@@ -1104,7 +1104,7 @@
             this.btnConsultaCondPag.Location = new System.Drawing.Point(105, 515);
             this.btnConsultaCondPag.Name = "btnConsultaCondPag";
             this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaCondPag.TabIndex = 27;
+            this.btnConsultaCondPag.TabIndex = 20;
             this.btnConsultaCondPag.TextColor = System.Drawing.Color.White;
             this.btnConsultaCondPag.UseVisualStyleBackColor = false;
             this.btnConsultaCondPag.Click += new System.EventHandler(this.btnConsultaCondPag_Click);
@@ -1231,7 +1231,7 @@
             this.btnAddCondPag.Location = new System.Drawing.Point(422, 515);
             this.btnAddCondPag.Name = "btnAddCondPag";
             this.btnAddCondPag.Size = new System.Drawing.Size(75, 28);
-            this.btnAddCondPag.TabIndex = 128;
+            this.btnAddCondPag.TabIndex = 21;
             this.btnAddCondPag.Text = "&Adicionar";
             this.btnAddCondPag.TextColor = System.Drawing.Color.White;
             this.btnAddCondPag.UseVisualStyleBackColor = false;

@@ -74,6 +74,5 @@ C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.GControls.GMask
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroNotaCompra.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaNotaCompra.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroContasPagar.resources
-C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaContasP.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaContasReceber.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaContasPagar.resources

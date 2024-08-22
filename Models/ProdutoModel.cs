@@ -15,7 +15,7 @@ namespace Sistema_Vendas.Models
         public decimal custoMedio { get; set; }
         public decimal precoVenda { get; set; }
         public decimal precoUltCompra { get; set; }
-        public DateTime dataUltCompra { get; set; }
+        public DateTime? dataUltCompra { get; set; }
         public string Observacao { get; set; }
         public int idFornecedor { get; set; }
         public int idModelo { get; set; }

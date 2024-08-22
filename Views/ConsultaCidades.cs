@@ -136,7 +136,7 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroCidades.FormClosed += (s, args) => AtualizarConsultaCidades(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewCidades.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewCidades.AutoGenerateColumns = false;
                 dataGridViewCidades.Columns["Código"].DataPropertyName = "idCidade";
                 dataGridViewCidades.Columns["Cidade"].DataPropertyName = "Cidade";

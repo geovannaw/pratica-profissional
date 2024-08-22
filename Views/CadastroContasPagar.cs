@@ -467,6 +467,7 @@ namespace Sistema_Vendas.Views
                 {
                     if (MessageBox.Show("Deseja realizar o pagamento?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
+                        Salvar();
                         txtDataPagamento.Texts = DateTime.Now.ToString();
                         txtValorPago.Texts = txtTotalPagar.Texts;
                         Salvar();
@@ -482,17 +483,17 @@ namespace Sistema_Vendas.Views
         private void txtDataVencimento_Leave(object sender, EventArgs e)
         {
             string dVencimento = new string(txtDataVencimento.Texts.Where(char.IsDigit).ToArray());
-            if (string.IsNullOrEmpty(dVencimento))
-            {
-                MessageBox.Show("Digite uma Data de Vencimento!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDataVencimento.Focus();
-            }
-            else
+            if (!string.IsNullOrEmpty(dVencimento))
             {
                 calcularJuros();
                 calcularMulta();
                 calcularDesconto();
             }
+        }
+
+        private void txtValorPago_Leave(object sender, EventArgs e)
+        {
+            txtValorPago.Texts = FormataPreco(txtValorPago.Texts);
         }
     }
 }

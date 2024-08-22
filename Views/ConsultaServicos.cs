@@ -122,7 +122,7 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroServicos.FormClosed += (s, args) => AtualizarConsultaServicos(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewServicos.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewServicos.AutoGenerateColumns = false;
                 dataGridViewServicos.Columns["Código"].DataPropertyName = "idServico";
                 dataGridViewServicos.Columns["Serviço"].DataPropertyName = "servico";

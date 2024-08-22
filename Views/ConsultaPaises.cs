@@ -116,7 +116,7 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroPaises.FormClosed += (s, args) => AtualizarConsultaPaises(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewPaises.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewPaises.AutoGenerateColumns = false;
                 dataGridViewPaises.Columns["Código"].DataPropertyName = "idPais";
                 dataGridViewPaises.Columns["País"].DataPropertyName = "Pais";

@@ -123,7 +123,7 @@ namespace Sistema_Vendas.Views
             try
             {
                 cadastroFormaPagamento.FormClosed += (s, args) => AtualizarConsultaFormasPag(cbBuscaInativos.Checked); //quando aciona o Form Closed chama o AtualizarConsulta
-
+                dataGridViewFormaPag.Columns["Código"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dataGridViewFormaPag.AutoGenerateColumns = false;
                 dataGridViewFormaPag.Columns["Código"].DataPropertyName = "idFormaPagamento";
                 dataGridViewFormaPag.Columns["formaPagamento"].DataPropertyName = "formaPagamento";
