@@ -76,3 +76,6 @@ C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaN
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroContasPagar.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaContasReceber.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaContasPagar.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroContasReceber.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroNotaVenda.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaNotasVenda.resources

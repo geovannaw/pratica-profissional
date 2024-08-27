@@ -62,24 +62,25 @@
             this.lblValorPago = new System.Windows.Forms.Label();
             this.txtValorPago = new Sistema_Vendas.GControls.GTextBox();
             this.btnPagar = new Sistema_Vendas.GButtons();
-            this.btnConsultaFormaPag = new Sistema_Vendas.GButtons();
-            this.btnConsultaFornecedor = new Sistema_Vendas.GButtons();
             this.lblDataCancelamento = new System.Windows.Forms.Label();
             this.txtDataCancelamento = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.lblObservacao = new System.Windows.Forms.Label();
             this.txtObservacao = new Sistema_Vendas.GControls.GTextBox();
             this.lblTotalPagar = new System.Windows.Forms.Label();
             this.txtTotalPagar = new Sistema_Vendas.GControls.GTextBox();
+            this.btnCancelar = new Sistema_Vendas.GButtons();
+            this.btnConsultaFormaPag = new Sistema_Vendas.GButtons();
+            this.btnConsultaFornecedor = new Sistema_Vendas.GButtons();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblDataCadastro
             // 
-            this.lblDataCadastro.Location = new System.Drawing.Point(9, 492);
+            this.lblDataCadastro.Location = new System.Drawing.Point(9, 501);
             // 
             // lblDataUltAlt
             // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(106, 492);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(106, 501);
             // 
             // groupBox1
             // 
@@ -95,23 +96,23 @@
             // btnSalvar
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
-            this.btnSalvar.Location = new System.Drawing.Point(296, 508);
+            this.btnSalvar.Location = new System.Drawing.Point(365, 516);
             this.btnSalvar.TabIndex = 20;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.Location = new System.Drawing.Point(382, 508);
+            this.btnSair.Location = new System.Drawing.Point(446, 516);
             this.btnSair.TabIndex = 21;
             // 
             // txtDataCadastro
             // 
-            this.txtDataCadastro.Location = new System.Drawing.Point(12, 508);
+            this.txtDataCadastro.Location = new System.Drawing.Point(12, 517);
             this.txtDataCadastro.Texts = "13/08/2024";
             // 
             // txtDataUltAlt
             // 
-            this.txtDataUltAlt.Location = new System.Drawing.Point(109, 508);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(109, 517);
             this.txtDataUltAlt.Texts = "13/08/2024";
             // 
             // lblCodigo
@@ -122,7 +123,7 @@
             // lblModelo
             // 
             this.lblModelo.AutoSize = true;
-            this.lblModelo.Location = new System.Drawing.Point(281, 25);
+            this.lblModelo.Location = new System.Drawing.Point(292, 25);
             this.lblModelo.Name = "lblModelo";
             this.lblModelo.Size = new System.Drawing.Size(49, 13);
             this.lblModelo.TabIndex = 75;
@@ -131,7 +132,7 @@
             // lblSerie
             // 
             this.lblSerie.AutoSize = true;
-            this.lblSerie.Location = new System.Drawing.Point(379, 24);
+            this.lblSerie.Location = new System.Drawing.Point(390, 24);
             this.lblSerie.Name = "lblSerie";
             this.lblSerie.Size = new System.Drawing.Size(38, 13);
             this.lblSerie.TabIndex = 74;
@@ -140,7 +141,7 @@
             // lblNroNota
             // 
             this.lblNroNota.AutoSize = true;
-            this.lblNroNota.Location = new System.Drawing.Point(126, 25);
+            this.lblNroNota.Location = new System.Drawing.Point(137, 25);
             this.lblNroNota.Name = "lblNroNota";
             this.lblNroNota.Size = new System.Drawing.Size(51, 13);
             this.lblNroNota.TabIndex = 73;
@@ -158,7 +159,7 @@
             this.txtModelo.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtModelo.DisabledForeColor = System.Drawing.Color.White;
             this.txtModelo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtModelo.Location = new System.Drawing.Point(284, 41);
+            this.txtModelo.Location = new System.Drawing.Point(295, 41);
             this.txtModelo.MaxLength = 32767;
             this.txtModelo.Multiline = false;
             this.txtModelo.Name = "txtModelo";
@@ -185,7 +186,7 @@
             this.txtFornecedor.DisabledForeColor = System.Drawing.Color.White;
             this.txtFornecedor.Enabled = false;
             this.txtFornecedor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtFornecedor.Location = new System.Drawing.Point(157, 108);
+            this.txtFornecedor.Location = new System.Drawing.Point(168, 108);
             this.txtFornecedor.MaxLength = 32767;
             this.txtFornecedor.Multiline = false;
             this.txtFornecedor.Name = "txtFornecedor";
@@ -193,7 +194,7 @@
             this.txtFornecedor.PasswordChar = false;
             this.txtFornecedor.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtFornecedor.PlaceholderText = "";
-            this.txtFornecedor.Size = new System.Drawing.Size(300, 28);
+            this.txtFornecedor.Size = new System.Drawing.Size(345, 28);
             this.txtFornecedor.TabIndex = 72;
             this.txtFornecedor.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtFornecedor.Texts = "";
@@ -211,7 +212,7 @@
             this.txtCodFornecedor.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodFornecedor.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodFornecedor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodFornecedor.Location = new System.Drawing.Point(12, 108);
+            this.txtCodFornecedor.Location = new System.Drawing.Point(23, 108);
             this.txtCodFornecedor.MaxLength = 5;
             this.txtCodFornecedor.Multiline = false;
             this.txtCodFornecedor.Name = "txtCodFornecedor";
@@ -229,7 +230,7 @@
             // lblFornecedor
             // 
             this.lblFornecedor.AutoSize = true;
-            this.lblFornecedor.Location = new System.Drawing.Point(154, 92);
+            this.lblFornecedor.Location = new System.Drawing.Point(165, 92);
             this.lblFornecedor.Name = "lblFornecedor";
             this.lblFornecedor.Size = new System.Drawing.Size(61, 13);
             this.lblFornecedor.TabIndex = 71;
@@ -238,7 +239,7 @@
             // lblCodFornecedor
             // 
             this.lblCodFornecedor.AutoSize = true;
-            this.lblCodFornecedor.Location = new System.Drawing.Point(9, 92);
+            this.lblCodFornecedor.Location = new System.Drawing.Point(20, 92);
             this.lblCodFornecedor.Name = "lblCodFornecedor";
             this.lblCodFornecedor.Size = new System.Drawing.Size(93, 13);
             this.lblCodFornecedor.TabIndex = 70;
@@ -256,7 +257,7 @@
             this.txtSerie.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtSerie.DisabledForeColor = System.Drawing.Color.White;
             this.txtSerie.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtSerie.Location = new System.Drawing.Point(382, 40);
+            this.txtSerie.Location = new System.Drawing.Point(393, 40);
             this.txtSerie.MaxLength = 32767;
             this.txtSerie.Multiline = false;
             this.txtSerie.Name = "txtSerie";
@@ -282,7 +283,7 @@
             this.txtNroNota.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtNroNota.DisabledForeColor = System.Drawing.Color.White;
             this.txtNroNota.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtNroNota.Location = new System.Drawing.Point(129, 41);
+            this.txtNroNota.Location = new System.Drawing.Point(140, 41);
             this.txtNroNota.MaxLength = 32767;
             this.txtNroNota.Multiline = false;
             this.txtNroNota.Name = "txtNroNota";
@@ -299,7 +300,7 @@
             // lblDataEmissao
             // 
             this.lblDataEmissao.AutoSize = true;
-            this.lblDataEmissao.Location = new System.Drawing.Point(9, 25);
+            this.lblDataEmissao.Location = new System.Drawing.Point(20, 25);
             this.lblDataEmissao.Name = "lblDataEmissao";
             this.lblDataEmissao.Size = new System.Drawing.Size(79, 13);
             this.lblDataEmissao.TabIndex = 77;
@@ -316,7 +317,7 @@
             this.txtDataEmissao.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataEmissao.DisabledForeColor = System.Drawing.Color.White;
             this.txtDataEmissao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtDataEmissao.Location = new System.Drawing.Point(12, 41);
+            this.txtDataEmissao.Location = new System.Drawing.Point(23, 41);
             this.txtDataEmissao.Mask = "00/00/0000";
             this.txtDataEmissao.MaxLength = 32767;
             this.txtDataEmissao.Multiline = false;
@@ -330,6 +331,7 @@
             this.txtDataEmissao.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataEmissao.Texts = "  /  /";
             this.txtDataEmissao.UnderlinedStyle = false;
+            this.txtDataEmissao.Leave += new System.EventHandler(this.txtDataEmissao_Leave);
             // 
             // txtFormaPag
             // 
@@ -344,7 +346,7 @@
             this.txtFormaPag.DisabledForeColor = System.Drawing.Color.White;
             this.txtFormaPag.Enabled = false;
             this.txtFormaPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtFormaPag.Location = new System.Drawing.Point(157, 178);
+            this.txtFormaPag.Location = new System.Drawing.Point(168, 178);
             this.txtFormaPag.MaxLength = 12;
             this.txtFormaPag.Multiline = false;
             this.txtFormaPag.Name = "txtFormaPag";
@@ -352,7 +354,7 @@
             this.txtFormaPag.PasswordChar = false;
             this.txtFormaPag.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtFormaPag.PlaceholderText = "";
-            this.txtFormaPag.Size = new System.Drawing.Size(300, 28);
+            this.txtFormaPag.Size = new System.Drawing.Size(345, 28);
             this.txtFormaPag.TabIndex = 82;
             this.txtFormaPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtFormaPag.Texts = "";
@@ -370,7 +372,7 @@
             this.txtCodFormaPag.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodFormaPag.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodFormaPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodFormaPag.Location = new System.Drawing.Point(12, 178);
+            this.txtCodFormaPag.Location = new System.Drawing.Point(23, 178);
             this.txtCodFormaPag.MaxLength = 12;
             this.txtCodFormaPag.Multiline = false;
             this.txtCodFormaPag.Name = "txtCodFormaPag";
@@ -388,7 +390,7 @@
             // lblFormaPag
             // 
             this.lblFormaPag.AutoSize = true;
-            this.lblFormaPag.Location = new System.Drawing.Point(154, 162);
+            this.lblFormaPag.Location = new System.Drawing.Point(165, 162);
             this.lblFormaPag.Name = "lblFormaPag";
             this.lblFormaPag.Size = new System.Drawing.Size(108, 13);
             this.lblFormaPag.TabIndex = 81;
@@ -397,7 +399,7 @@
             // lblCodFormaPag
             // 
             this.lblCodFormaPag.AutoSize = true;
-            this.lblCodFormaPag.Location = new System.Drawing.Point(9, 162);
+            this.lblCodFormaPag.Location = new System.Drawing.Point(20, 162);
             this.lblCodFormaPag.Name = "lblCodFormaPag";
             this.lblCodFormaPag.Size = new System.Drawing.Size(101, 13);
             this.lblCodFormaPag.TabIndex = 80;
@@ -415,7 +417,7 @@
             this.txtParcela.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtParcela.DisabledForeColor = System.Drawing.Color.White;
             this.txtParcela.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtParcela.Location = new System.Drawing.Point(12, 247);
+            this.txtParcela.Location = new System.Drawing.Point(23, 247);
             this.txtParcela.MaxLength = 12;
             this.txtParcela.Multiline = false;
             this.txtParcela.Name = "txtParcela";
@@ -432,7 +434,7 @@
             // lblParcela
             // 
             this.lblParcela.AutoSize = true;
-            this.lblParcela.Location = new System.Drawing.Point(9, 231);
+            this.lblParcela.Location = new System.Drawing.Point(20, 231);
             this.lblParcela.Name = "lblParcela";
             this.lblParcela.Size = new System.Drawing.Size(65, 13);
             this.lblParcela.TabIndex = 84;
@@ -441,7 +443,7 @@
             // lblValorParcela
             // 
             this.lblValorParcela.AutoSize = true;
-            this.lblValorParcela.Location = new System.Drawing.Point(120, 231);
+            this.lblValorParcela.Location = new System.Drawing.Point(149, 232);
             this.lblValorParcela.Name = "lblValorParcela";
             this.lblValorParcela.Size = new System.Drawing.Size(77, 13);
             this.lblValorParcela.TabIndex = 102;
@@ -459,7 +461,7 @@
             this.txtValorParcela.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtValorParcela.DisabledForeColor = System.Drawing.Color.White;
             this.txtValorParcela.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtValorParcela.Location = new System.Drawing.Point(123, 247);
+            this.txtValorParcela.Location = new System.Drawing.Point(152, 248);
             this.txtValorParcela.MaxLength = 32767;
             this.txtValorParcela.Multiline = false;
             this.txtValorParcela.Name = "txtValorParcela";
@@ -476,7 +478,7 @@
             // lblDataVencimento
             // 
             this.lblDataVencimento.AutoSize = true;
-            this.lblDataVencimento.Location = new System.Drawing.Point(233, 231);
+            this.lblDataVencimento.Location = new System.Drawing.Point(275, 232);
             this.lblDataVencimento.Name = "lblDataVencimento";
             this.lblDataVencimento.Size = new System.Drawing.Size(96, 13);
             this.lblDataVencimento.TabIndex = 104;
@@ -493,7 +495,7 @@
             this.txtDataVencimento.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataVencimento.DisabledForeColor = System.Drawing.Color.White;
             this.txtDataVencimento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtDataVencimento.Location = new System.Drawing.Point(236, 247);
+            this.txtDataVencimento.Location = new System.Drawing.Point(278, 248);
             this.txtDataVencimento.Mask = "00/00/0000";
             this.txtDataVencimento.MaxLength = 32767;
             this.txtDataVencimento.Multiline = false;
@@ -512,7 +514,7 @@
             // lblDataPagamento
             // 
             this.lblDataPagamento.AutoSize = true;
-            this.lblDataPagamento.Location = new System.Drawing.Point(9, 366);
+            this.lblDataPagamento.Location = new System.Drawing.Point(20, 366);
             this.lblDataPagamento.Name = "lblDataPagamento";
             this.lblDataPagamento.Size = new System.Drawing.Size(87, 13);
             this.lblDataPagamento.TabIndex = 106;
@@ -530,7 +532,7 @@
             this.txtDataPagamento.DisabledForeColor = System.Drawing.Color.White;
             this.txtDataPagamento.Enabled = false;
             this.txtDataPagamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtDataPagamento.Location = new System.Drawing.Point(12, 382);
+            this.txtDataPagamento.Location = new System.Drawing.Point(23, 382);
             this.txtDataPagamento.Mask = "00/00/0000";
             this.txtDataPagamento.MaxLength = 32767;
             this.txtDataPagamento.Multiline = false;
@@ -558,7 +560,7 @@
             this.txtDesconto.DisabledForeColor = System.Drawing.Color.White;
             this.txtDesconto.Enabled = false;
             this.txtDesconto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtDesconto.Location = new System.Drawing.Point(236, 314);
+            this.txtDesconto.Location = new System.Drawing.Point(278, 315);
             this.txtDesconto.MaxLength = 12;
             this.txtDesconto.Multiline = false;
             this.txtDesconto.Name = "txtDesconto";
@@ -585,7 +587,7 @@
             this.txtMulta.DisabledForeColor = System.Drawing.Color.White;
             this.txtMulta.Enabled = false;
             this.txtMulta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtMulta.Location = new System.Drawing.Point(123, 314);
+            this.txtMulta.Location = new System.Drawing.Point(152, 315);
             this.txtMulta.MaxLength = 12;
             this.txtMulta.Multiline = false;
             this.txtMulta.Name = "txtMulta";
@@ -612,7 +614,7 @@
             this.txtJuros.DisabledForeColor = System.Drawing.Color.White;
             this.txtJuros.Enabled = false;
             this.txtJuros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtJuros.Location = new System.Drawing.Point(12, 314);
+            this.txtJuros.Location = new System.Drawing.Point(23, 314);
             this.txtJuros.MaxLength = 12;
             this.txtJuros.Multiline = false;
             this.txtJuros.Name = "txtJuros";
@@ -629,7 +631,7 @@
             // lblDesconto
             // 
             this.lblDesconto.AutoSize = true;
-            this.lblDesconto.Location = new System.Drawing.Point(233, 298);
+            this.lblDesconto.Location = new System.Drawing.Point(275, 299);
             this.lblDesconto.Name = "lblDesconto";
             this.lblDesconto.Size = new System.Drawing.Size(70, 13);
             this.lblDesconto.TabIndex = 112;
@@ -638,7 +640,7 @@
             // lblMulta
             // 
             this.lblMulta.AutoSize = true;
-            this.lblMulta.Location = new System.Drawing.Point(120, 298);
+            this.lblMulta.Location = new System.Drawing.Point(149, 299);
             this.lblMulta.Name = "lblMulta";
             this.lblMulta.Size = new System.Drawing.Size(50, 13);
             this.lblMulta.TabIndex = 111;
@@ -647,7 +649,7 @@
             // lblJuros
             // 
             this.lblJuros.AutoSize = true;
-            this.lblJuros.Location = new System.Drawing.Point(9, 298);
+            this.lblJuros.Location = new System.Drawing.Point(20, 298);
             this.lblJuros.Name = "lblJuros";
             this.lblJuros.Size = new System.Drawing.Size(49, 13);
             this.lblJuros.TabIndex = 110;
@@ -656,7 +658,7 @@
             // lblValorPago
             // 
             this.lblValorPago.AutoSize = true;
-            this.lblValorPago.Location = new System.Drawing.Point(120, 366);
+            this.lblValorPago.Location = new System.Drawing.Point(149, 367);
             this.lblValorPago.Name = "lblValorPago";
             this.lblValorPago.Size = new System.Drawing.Size(59, 13);
             this.lblValorPago.TabIndex = 114;
@@ -674,7 +676,7 @@
             this.txtValorPago.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtValorPago.DisabledForeColor = System.Drawing.Color.White;
             this.txtValorPago.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtValorPago.Location = new System.Drawing.Point(123, 382);
+            this.txtValorPago.Location = new System.Drawing.Point(152, 383);
             this.txtValorPago.MaxLength = 32767;
             this.txtValorPago.Multiline = false;
             this.txtValorPago.Name = "txtValorPago";
@@ -700,7 +702,7 @@
             this.btnPagar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPagar.ForeColor = System.Drawing.Color.White;
-            this.btnPagar.Location = new System.Drawing.Point(211, 508);
+            this.btnPagar.Location = new System.Drawing.Point(284, 516);
             this.btnPagar.Name = "btnPagar";
             this.btnPagar.Size = new System.Drawing.Size(75, 28);
             this.btnPagar.TabIndex = 19;
@@ -710,49 +712,11 @@
             this.btnPagar.Visible = false;
             this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
             // 
-            // btnConsultaFormaPag
-            // 
-            this.btnConsultaFormaPag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaFormaPag.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaFormaPag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaFormaPag.BorderRadius = 5;
-            this.btnConsultaFormaPag.BorderSize = 1;
-            this.btnConsultaFormaPag.FlatAppearance.BorderSize = 0;
-            this.btnConsultaFormaPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConsultaFormaPag.ForeColor = System.Drawing.Color.White;
-            this.btnConsultaFormaPag.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaFormaPag.Image")));
-            this.btnConsultaFormaPag.Location = new System.Drawing.Point(113, 178);
-            this.btnConsultaFormaPag.Name = "btnConsultaFormaPag";
-            this.btnConsultaFormaPag.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaFormaPag.TabIndex = 8;
-            this.btnConsultaFormaPag.TextColor = System.Drawing.Color.White;
-            this.btnConsultaFormaPag.UseVisualStyleBackColor = false;
-            this.btnConsultaFormaPag.Click += new System.EventHandler(this.btnConsultaFormaPag_Click);
-            // 
-            // btnConsultaFornecedor
-            // 
-            this.btnConsultaFornecedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaFornecedor.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaFornecedor.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaFornecedor.BorderRadius = 5;
-            this.btnConsultaFornecedor.BorderSize = 1;
-            this.btnConsultaFornecedor.FlatAppearance.BorderSize = 0;
-            this.btnConsultaFornecedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConsultaFornecedor.ForeColor = System.Drawing.Color.White;
-            this.btnConsultaFornecedor.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaFornecedor.Image")));
-            this.btnConsultaFornecedor.Location = new System.Drawing.Point(113, 108);
-            this.btnConsultaFornecedor.Name = "btnConsultaFornecedor";
-            this.btnConsultaFornecedor.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaFornecedor.TabIndex = 6;
-            this.btnConsultaFornecedor.TextColor = System.Drawing.Color.White;
-            this.btnConsultaFornecedor.UseVisualStyleBackColor = false;
-            this.btnConsultaFornecedor.Click += new System.EventHandler(this.btnConsultaFornecedor_Click);
-            // 
             // lblDataCancelamento
             // 
             this.lblDataCancelamento.AutoSize = true;
             this.lblDataCancelamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblDataCancelamento.Location = new System.Drawing.Point(233, 367);
+            this.lblDataCancelamento.Location = new System.Drawing.Point(275, 368);
             this.lblDataCancelamento.Name = "lblDataCancelamento";
             this.lblDataCancelamento.Size = new System.Drawing.Size(101, 13);
             this.lblDataCancelamento.TabIndex = 131;
@@ -771,7 +735,7 @@
             this.txtDataCancelamento.DisabledForeColor = System.Drawing.Color.White;
             this.txtDataCancelamento.Enabled = false;
             this.txtDataCancelamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtDataCancelamento.Location = new System.Drawing.Point(236, 383);
+            this.txtDataCancelamento.Location = new System.Drawing.Point(278, 384);
             this.txtDataCancelamento.Mask = "00/00/0000";
             this.txtDataCancelamento.MaxLength = 32767;
             this.txtDataCancelamento.Multiline = false;
@@ -790,7 +754,7 @@
             // lblObservacao
             // 
             this.lblObservacao.AutoSize = true;
-            this.lblObservacao.Location = new System.Drawing.Point(9, 430);
+            this.lblObservacao.Location = new System.Drawing.Point(20, 430);
             this.lblObservacao.Name = "lblObservacao";
             this.lblObservacao.Size = new System.Drawing.Size(65, 13);
             this.lblObservacao.TabIndex = 133;
@@ -808,7 +772,7 @@
             this.txtObservacao.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtObservacao.DisabledForeColor = System.Drawing.Color.White;
             this.txtObservacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtObservacao.Location = new System.Drawing.Point(12, 446);
+            this.txtObservacao.Location = new System.Drawing.Point(23, 446);
             this.txtObservacao.MaxLength = 200;
             this.txtObservacao.Multiline = false;
             this.txtObservacao.Name = "txtObservacao";
@@ -816,7 +780,7 @@
             this.txtObservacao.PasswordChar = false;
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
-            this.txtObservacao.Size = new System.Drawing.Size(445, 28);
+            this.txtObservacao.Size = new System.Drawing.Size(490, 28);
             this.txtObservacao.TabIndex = 18;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
@@ -825,7 +789,7 @@
             // lblTotalPagar
             // 
             this.lblTotalPagar.AutoSize = true;
-            this.lblTotalPagar.Location = new System.Drawing.Point(347, 368);
+            this.lblTotalPagar.Location = new System.Drawing.Point(403, 369);
             this.lblTotalPagar.Name = "lblTotalPagar";
             this.lblTotalPagar.Size = new System.Drawing.Size(74, 13);
             this.lblTotalPagar.TabIndex = 135;
@@ -844,7 +808,7 @@
             this.txtTotalPagar.DisabledForeColor = System.Drawing.Color.White;
             this.txtTotalPagar.Enabled = false;
             this.txtTotalPagar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtTotalPagar.Location = new System.Drawing.Point(350, 382);
+            this.txtTotalPagar.Location = new System.Drawing.Point(406, 383);
             this.txtTotalPagar.MaxLength = 32767;
             this.txtTotalPagar.Multiline = false;
             this.txtTotalPagar.Name = "txtTotalPagar";
@@ -858,10 +822,69 @@
             this.txtTotalPagar.Texts = "";
             this.txtTotalPagar.UnderlinedStyle = false;
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.White;
+            this.btnCancelar.BackgroundColor = System.Drawing.Color.White;
+            this.btnCancelar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCancelar.BorderRadius = 5;
+            this.btnCancelar.BorderSize = 1;
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCancelar.Location = new System.Drawing.Point(203, 516);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 28);
+            this.btnCancelar.TabIndex = 136;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnConsultaFormaPag
+            // 
+            this.btnConsultaFormaPag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaFormaPag.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaFormaPag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaFormaPag.BorderRadius = 5;
+            this.btnConsultaFormaPag.BorderSize = 1;
+            this.btnConsultaFormaPag.FlatAppearance.BorderSize = 0;
+            this.btnConsultaFormaPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsultaFormaPag.ForeColor = System.Drawing.Color.White;
+            this.btnConsultaFormaPag.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaFormaPag.Image")));
+            this.btnConsultaFormaPag.Location = new System.Drawing.Point(124, 178);
+            this.btnConsultaFormaPag.Name = "btnConsultaFormaPag";
+            this.btnConsultaFormaPag.Size = new System.Drawing.Size(36, 28);
+            this.btnConsultaFormaPag.TabIndex = 8;
+            this.btnConsultaFormaPag.TextColor = System.Drawing.Color.White;
+            this.btnConsultaFormaPag.UseVisualStyleBackColor = false;
+            this.btnConsultaFormaPag.Click += new System.EventHandler(this.btnConsultaFormaPag_Click);
+            // 
+            // btnConsultaFornecedor
+            // 
+            this.btnConsultaFornecedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaFornecedor.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaFornecedor.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaFornecedor.BorderRadius = 5;
+            this.btnConsultaFornecedor.BorderSize = 1;
+            this.btnConsultaFornecedor.FlatAppearance.BorderSize = 0;
+            this.btnConsultaFornecedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsultaFornecedor.ForeColor = System.Drawing.Color.White;
+            this.btnConsultaFornecedor.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaFornecedor.Image")));
+            this.btnConsultaFornecedor.Location = new System.Drawing.Point(124, 108);
+            this.btnConsultaFornecedor.Name = "btnConsultaFornecedor";
+            this.btnConsultaFornecedor.Size = new System.Drawing.Size(36, 28);
+            this.btnConsultaFornecedor.TabIndex = 6;
+            this.btnConsultaFornecedor.TextColor = System.Drawing.Color.White;
+            this.btnConsultaFornecedor.UseVisualStyleBackColor = false;
+            this.btnConsultaFornecedor.Click += new System.EventHandler(this.btnConsultaFornecedor_Click);
+            // 
             // CadastroContasPagar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(469, 547);
+            this.ClientSize = new System.Drawing.Size(533, 556);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.lblTotalPagar);
             this.Controls.Add(this.txtTotalPagar);
             this.Controls.Add(this.lblObservacao);
@@ -957,6 +980,7 @@
             this.Controls.SetChildIndex(this.lblObservacao, 0);
             this.Controls.SetChildIndex(this.txtTotalPagar, 0);
             this.Controls.SetChildIndex(this.lblTotalPagar, 0);
+            this.Controls.SetChildIndex(this.btnCancelar, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -1007,5 +1031,6 @@
         private GControls.GTextBox txtObservacao;
         protected System.Windows.Forms.Label lblTotalPagar;
         private GControls.GTextBox txtTotalPagar;
+        protected GButtons btnCancelar;
     }
 }

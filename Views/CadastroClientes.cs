@@ -1,4 +1,5 @@
-﻿using MySqlX.XDevAPI;
+﻿
+using MySqlX.XDevAPI;
 using Sistema_Vendas.Controller;
 using Sistema_Vendas.Models;
 using System;

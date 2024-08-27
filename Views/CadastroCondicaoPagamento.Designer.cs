@@ -139,7 +139,7 @@
             // lblPorcentagem
             // 
             this.lblPorcentagem.AutoSize = true;
-            this.lblPorcentagem.Location = new System.Drawing.Point(185, 143);
+            this.lblPorcentagem.Location = new System.Drawing.Point(177, 143);
             this.lblPorcentagem.Name = "lblPorcentagem";
             this.lblPorcentagem.Size = new System.Drawing.Size(22, 13);
             this.lblPorcentagem.TabIndex = 19;
@@ -148,7 +148,7 @@
             // lblPorcentagemTotal
             // 
             this.lblPorcentagemTotal.AutoSize = true;
-            this.lblPorcentagemTotal.Location = new System.Drawing.Point(233, 143);
+            this.lblPorcentagemTotal.Location = new System.Drawing.Point(227, 143);
             this.lblPorcentagemTotal.Name = "lblPorcentagemTotal";
             this.lblPorcentagemTotal.Size = new System.Drawing.Size(42, 13);
             this.lblPorcentagemTotal.TabIndex = 21;
@@ -403,7 +403,7 @@
             this.txtDias.PasswordChar = false;
             this.txtDias.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDias.PlaceholderText = "";
-            this.txtDias.Size = new System.Drawing.Size(62, 28);
+            this.txtDias.Size = new System.Drawing.Size(50, 28);
             this.txtDias.TabIndex = 6;
             this.txtDias.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDias.Texts = "";
@@ -422,7 +422,7 @@
             this.txtPorcentagem.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtPorcentagem.DisabledForeColor = System.Drawing.Color.White;
             this.txtPorcentagem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtPorcentagem.Location = new System.Drawing.Point(172, 159);
+            this.txtPorcentagem.Location = new System.Drawing.Point(164, 159);
             this.txtPorcentagem.MaxLength = 12;
             this.txtPorcentagem.Multiline = false;
             this.txtPorcentagem.Name = "txtPorcentagem";
@@ -451,7 +451,7 @@
             this.txtPorcentagemTotal.DisabledForeColor = System.Drawing.Color.White;
             this.txtPorcentagemTotal.Enabled = false;
             this.txtPorcentagemTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtPorcentagemTotal.Location = new System.Drawing.Point(236, 159);
+            this.txtPorcentagemTotal.Location = new System.Drawing.Point(230, 159);
             this.txtPorcentagemTotal.MaxLength = 12;
             this.txtPorcentagemTotal.Multiline = false;
             this.txtPorcentagemTotal.Name = "txtPorcentagemTotal";
@@ -459,7 +459,7 @@
             this.txtPorcentagemTotal.PasswordChar = false;
             this.txtPorcentagemTotal.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtPorcentagemTotal.PlaceholderText = "";
-            this.txtPorcentagemTotal.Size = new System.Drawing.Size(48, 28);
+            this.txtPorcentagemTotal.Size = new System.Drawing.Size(54, 28);
             this.txtPorcentagemTotal.TabIndex = 8;
             this.txtPorcentagemTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPorcentagemTotal.Texts = "";

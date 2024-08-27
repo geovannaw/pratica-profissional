@@ -3,6 +3,7 @@ using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -11,38 +12,39 @@ using System.Windows.Forms;
 
 namespace Sistema_Vendas.Views
 {
-    public partial class CadastroContasPagar : Sistema_Vendas.Views.CadastroPaiCEP
+    public partial class CadastroContasReceber : Sistema_Vendas.Views.CadastroPaiCEP
     {
         private ConsultaFormasPagamento consultaFormasPagamento;
         private FormaPagamentoController<FormaPagamentoModel> formaPagamentoController;
-        private ConsultaFornecedores consultaFornecedores;
-        private FornecedorController<FornecedorModel> fornecedorController;
-        private ContasPagarController<ContasPagarModel> contasPagarController;
+        private ConsultaClientes consultaClientes;
+        private ClienteController<ClienteModel> clienteController;
+        private ContasReceberController<ContasReceberModel> contasReceberController;
 
         int NumeroNota;
         int Modelo;
         int Serie;
-        int IdFornecedor;
+        int IdCliente;
         int Parcela;
 
         decimal? porcentagemJuros;
         decimal? porcentagemMulta;
         decimal? porcentagemDesconto;
-        public CadastroContasPagar()
+        public CadastroContasReceber()
         {
             InitializeComponent();
-            contasPagarController = new ContasPagarController<ContasPagarModel>();
+            contasReceberController = new ContasReceberController<ContasReceberModel>();
             consultaFormasPagamento = new ConsultaFormasPagamento();
-            consultaFornecedores = new ConsultaFornecedores();
-            fornecedorController = new FornecedorController<FornecedorModel>();
+            consultaClientes = new ConsultaClientes();
+            clienteController = new ClienteController<ClienteModel>();
             formaPagamentoController = new FormaPagamentoController<FormaPagamentoModel>();
         }
-        public void SetID(int numero, int modelo, int serie, int idFornecedor, int parcela)
+
+        public void SetID(int numero, int modelo, int serie, int idCliente, int parcela)
         {
             NumeroNota = numero;
             Modelo = modelo;
             Serie = serie;
-            IdFornecedor = idFornecedor;
+            IdCliente = idCliente;
             Parcela = parcela;
         }
         public override void LimparCampos()
@@ -52,15 +54,15 @@ namespace Sistema_Vendas.Views
             NumeroNota = -1;
             Modelo = -1;
             Serie = -1;
-            IdFornecedor = -1;
+            IdCliente = -1;
             Parcela = -1;
 
             txtNroNota.Clear();
             txtSerie.Clear();
             txtModelo.Clear();
-            txtCodFornecedor.Clear();
+            txtCodCliente.Clear();
             txtDataEmissao.Clear();
-            txtFornecedor.Clear();
+            txtCliente.Clear();
             txtCodFormaPag.Clear();
             txtFormaPag.Clear();
             txtParcela.Clear();
@@ -69,9 +71,9 @@ namespace Sistema_Vendas.Views
             txtJuros.Clear();
             txtMulta.Clear();
             txtDesconto.Clear();
-            txtTotalPagar.Clear();
-            txtValorPago.Clear();
-            txtDataPagamento.Clear();
+            txtTotalReceber.Clear();
+            txtValorRecebido.Clear();
+            txtDataRecebimento.Clear();
             txtDataCancelamento.Clear();
 
             lblDataCancelamento.Visible = false;
@@ -84,18 +86,18 @@ namespace Sistema_Vendas.Views
 
         public override void Bloqueia()
         {
-            base.Bloqueia(); 
+            base.Bloqueia();
             txtNroNota.Enabled = false;
             txtModelo.Enabled = false;
             txtSerie.Enabled = false;
-            txtCodFornecedor.Enabled = false;
+            txtCodCliente.Enabled = false;
             txtDataEmissao.Enabled = false;
             txtCodFormaPag.Enabled = false;
             txtParcela.Enabled = false;
             txtValorParcela.Enabled = false;
 
             btnConsultaFormaPag.Enabled = false;
-            btnConsultaFornecedor.Enabled = false;
+            btnConsultaCliente.Enabled = false;
         }
 
         public void BloqueiaTudo()
@@ -104,28 +106,28 @@ namespace Sistema_Vendas.Views
             txtJuros.Enabled = false;
             txtMulta.Enabled = false;
             txtDesconto.Enabled = false;
-            txtValorPago.Enabled = false;
+            txtValorRecebido.Enabled = false;
             txtDataVencimento.Enabled = false;
         }
-        public void DesbloqueiaTudo ()
+        public void DesbloqueiaTudo()
         {
             txtJuros.Enabled = true;
             txtMulta.Enabled = true;
             txtDesconto.Enabled = true;
-            txtValorPago.Enabled = true;
+            txtValorRecebido.Enabled = true;
             txtDataVencimento.Enabled = true;
         }
         public override void Desbloqueia()
         {
             base.Desbloqueia();
 
-            btnPagar.Visible = false;
+            btnReceber.Visible = false;
             btnSalvar.Visible = true;
 
             txtNroNota.Enabled = true;
             txtModelo.Enabled = true;
             txtSerie.Enabled = true;
-            txtCodFornecedor.Enabled = true;
+            txtCodCliente.Enabled = true;
             txtDataEmissao.Enabled = true;
             txtCodFormaPag.Enabled = true;
             txtParcela.Enabled = true;
@@ -134,46 +136,46 @@ namespace Sistema_Vendas.Views
             txtJuros.Enabled = true;
             txtMulta.Enabled = true;
             txtDesconto.Enabled = true;
-            txtValorPago.Enabled = true;
+            txtValorRecebido.Enabled = true;
             txtDataVencimento.Enabled = true;
 
             btnConsultaFormaPag.Enabled = true;
-            btnConsultaFornecedor.Enabled = true;
+            btnConsultaCliente.Enabled = true;
         }
         public override void Carrega()
         {
             base.Carrega();
-            var contasPagar = contasPagarController.GetContaById(NumeroNota, Modelo, Serie, IdFornecedor, Parcela);
-            if (contasPagar != null)
+            var contasReceber = contasReceberController.GetContaById(NumeroNota, Modelo, Serie, IdCliente, Parcela);
+            if (contasReceber != null)
             {
-                txtNroNota.Texts = contasPagar.numeroNota.ToString();
-                txtModelo.Texts = contasPagar.modelo.ToString();
-                txtSerie.Texts = contasPagar.serie.ToString();
-                txtCodFornecedor.Texts = contasPagar.idFornecedor.ToString();
-                txtDataEmissao.Texts = contasPagar.dataEmissao.ToString();
-                txtCodFormaPag.Texts = contasPagar.idFormaPagamento.ToString();
-                txtParcela.Texts = contasPagar.parcela.ToString();
-                txtValorParcela.Texts = contasPagar.valorParcela.ToString();
-                txtDataVencimento.Texts = contasPagar.dataVencimento.ToString();
-                porcentagemJuros = contasPagar.juros;
-                porcentagemMulta = contasPagar.multa;
-                porcentagemDesconto = contasPagar.desconto;
-                txtValorPago.Texts = contasPagar.valorPago.ToString();
-                txtDataPagamento.Texts = contasPagar.dataPagamento.ToString();
-                txtObservacao.Texts = contasPagar.observacao.ToString();
-                txtDataCancelamento.Texts = contasPagar.dataCancelamento.ToString();
-                txtDataCadastro.Texts = contasPagar.dataCadastro.ToString();
-                txtDataUltAlt.Texts = contasPagar.dataUltAlt.ToString();
+                txtNroNota.Texts = contasReceber.numeroNota.ToString();
+                txtModelo.Texts = contasReceber.modelo.ToString();
+                txtSerie.Texts = contasReceber.serie.ToString();
+                txtCodCliente.Texts = contasReceber.idCliente.ToString();
+                txtDataEmissao.Texts = contasReceber.dataEmissao.ToString();
+                txtCodFormaPag.Texts = contasReceber.idFormaPagamento.ToString();
+                txtParcela.Texts = contasReceber.parcela.ToString();
+                txtValorParcela.Texts = contasReceber.valorParcela.ToString();
+                txtDataVencimento.Texts = contasReceber.dataVencimento.ToString();
+                porcentagemJuros = contasReceber.juros;
+                porcentagemMulta = contasReceber.multa;
+                porcentagemDesconto = contasReceber.desconto;
+                txtValorRecebido.Texts = contasReceber.valorRecebido.ToString();
+                txtDataRecebimento.Texts = contasReceber.dataRecebimento.ToString();
+                txtObservacao.Texts = contasReceber.observacao.ToString();
+                txtDataCancelamento.Texts = contasReceber.dataCancelamento.ToString();
+                txtDataCadastro.Texts = contasReceber.dataCadastro.ToString();
+                txtDataUltAlt.Texts = contasReceber.dataUltAlt.ToString();
 
-                FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
+                ClienteModel cliente = clienteController.GetById(int.Parse(txtCodCliente.Texts));
                 FormaPagamentoModel formaPagamento = formaPagamentoController.GetById(int.Parse(txtCodFormaPag.Texts));
 
-                if (fornecedor != null)
-                    txtFornecedor.Texts = fornecedor.fornecedor_razao_social;
+                if (cliente != null)
+                    txtCliente.Texts = cliente.cliente_razao_social;
                 if (formaPagamento != null)
                     txtFormaPag.Texts = formaPagamento.formaPagamento;
 
-                if (contasPagar.dataCancelamento != null)
+                if (contasReceber.dataCancelamento != null)
                 {
                     lblDataCancelamento.Visible = true;
                     txtDataCancelamento.Visible = true;
@@ -187,7 +189,7 @@ namespace Sistema_Vendas.Views
                     btnCancelar.Visible = true;
                     DesbloqueiaTudo();
                 }
-                if (contasPagar.dataPagamento == null)
+                if (contasReceber.dataRecebimento == null)
                 {
                     calcularJuros();
                     calcularMulta();
@@ -197,7 +199,7 @@ namespace Sistema_Vendas.Views
                 {
                     BloqueiaTudo();
                 }
-                calculaTotalPagar();
+                calculaTotalReceber();
             }
         }
         public override void Salvar()
@@ -209,50 +211,51 @@ namespace Sistema_Vendas.Views
             int numeroNF = int.Parse(txtNroNota.Texts);
             int modeloNF = int.Parse(txtModelo.Texts);
             int serieNF = int.Parse(txtSerie.Texts);
-            int idFornecedorNF = int.Parse(txtCodFornecedor.Texts);
+            int idClienteNF = int.Parse(txtCodCliente.Texts);
             int parcelaNF = int.Parse(txtParcela.Texts);
 
-            bool incluindo = numeroNF == -1 && modeloNF == -1 && serieNF == -1 && idFornecedorNF == -1 && parcelaNF == -1;
+            bool incluindo = numeroNF == -1 && modeloNF == -1 && serieNF == -1 && idClienteNF == -1 && parcelaNF == -1;
 
-            if (contasPagarController.JaCadastrado(numeroNF, modeloNF, serieNF, idFornecedorNF, parcelaNF, incluindo))
+            if (contasReceberController.JaCadastrado(numeroNF, modeloNF, serieNF, idClienteNF, parcelaNF, incluindo))
             {
-                MessageBox.Show("Conta a Pagar já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Conta a Receber já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            } else
+            }
+            else
             {
                 try
                 {
                     int numeroNota = Convert.ToInt32(txtNroNota.Texts);
                     int modelo = Convert.ToInt32(txtModelo.Texts);
                     int serie = Convert.ToInt32(txtSerie.Texts);
-                    int idFornecedor = Convert.ToInt32(txtCodFornecedor.Texts);
+                    int idCliente = Convert.ToInt32(txtCodCliente.Texts);
                     DateTime.TryParse(txtDataEmissao.Texts, out DateTime dataEmissao);
                     int idFormaPag = Convert.ToInt32(txtCodFormaPag.Texts);
                     int parcela = Convert.ToInt32(txtParcela.Texts);
                     decimal valorParcela = Convert.ToDecimal(txtValorParcela.Texts);
                     DateTime.TryParse(txtDataVencimento.Texts, out DateTime dataVencimento);
-                    string dPagamento = new string(txtDataPagamento.Texts.Where(char.IsDigit).ToArray());
-                    DateTime? dataPagamento = string.IsNullOrEmpty(dPagamento) || dPagamento.Length != 8 ? (DateTime?)null : DateTime.ParseExact(txtDataPagamento.Texts, "dd/MM/yyyy", null);
-                    decimal valorPago = string.IsNullOrEmpty(txtValorPago.Texts) ? 0 : Convert.ToDecimal(txtValorPago.Texts);
+                    string dRecebimento = new string(txtDataRecebimento.Texts.Where(char.IsDigit).ToArray());
+                    DateTime? dataRecebimento = string.IsNullOrEmpty(dRecebimento) || dRecebimento.Length != 8 ? (DateTime?)null : DateTime.ParseExact(txtDataRecebimento.Texts, "dd/MM/yyyy", null);
+                    decimal valorRecebido = string.IsNullOrEmpty(txtValorRecebido.Texts) ? 0 : Convert.ToDecimal(txtValorRecebido.Texts);
                     string dCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
                     DateTime? dataCancelamento = string.IsNullOrEmpty(dCancelamento) || dCancelamento.Length != 8 ? (DateTime?)null : DateTime.ParseExact(txtDataCancelamento.Texts, "dd/MM/yyyy", null);
                     string observacao = txtObservacao.Texts;
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
-                    ContasPagarModel novaContaPagar = new ContasPagarModel
+                    ContasReceberModel novaContaReceber = new ContasReceberModel
                     {
                         numeroNota = numeroNota,
                         modelo = modelo,
                         serie = serie,
                         dataEmissao = dataEmissao,
-                        idFornecedor = idFornecedor,
+                        idCliente = idCliente,
                         idFormaPagamento = idFormaPag,
                         parcela = parcela,
                         valorParcela = valorParcela,
                         dataVencimento = dataVencimento,
-                        dataPagamento = dataPagamento,
-                        valorPago = valorPago,
+                        dataRecebimento = dataRecebimento,
+                        valorRecebido = valorRecebido,
                         dataCancelamento = dataCancelamento,
                         desconto = porcentagemDesconto,
                         juros = porcentagemJuros,
@@ -261,18 +264,18 @@ namespace Sistema_Vendas.Views
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt
                     };
-                    if (NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdFornecedor == -1 && Parcela == -1)
+                    if (NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdCliente == -1 && Parcela == -1)
                     {
-                        contasPagarController.Salvar(novaContaPagar);
+                        contasReceberController.Salvar(novaContaReceber);
                     }
                     else
                     {
-                        novaContaPagar.numeroNota = NumeroNota;
-                        novaContaPagar.modelo = Modelo;
-                        novaContaPagar.serie = Serie;
-                        novaContaPagar.idFornecedor = IdFornecedor;
-                        novaContaPagar.parcela = Parcela;
-                        contasPagarController.Alterar(novaContaPagar);
+                        novaContaReceber.numeroNota = NumeroNota;
+                        novaContaReceber.modelo = Modelo;
+                        novaContaReceber.serie = Serie;
+                        novaContaReceber.idCliente = IdCliente;
+                        novaContaReceber.parcela = Parcela;
+                        contasReceberController.Alterar(novaContaReceber);
                     }
                     this.DialogResult = DialogResult.OK;
                 }
@@ -282,7 +285,6 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
-
         protected bool VerificaCamposObrigatorios()
         {
             string dEmissao = new string(txtDataEmissao.Texts.Where(char.IsDigit).ToArray());
@@ -305,10 +307,10 @@ namespace Sistema_Vendas.Views
                 txtSerie.Focus();
                 return false;
             }
-            if (!CampoObrigatorio(txtCodFornecedor.Texts))
+            if (!CampoObrigatorio(txtCodCliente.Texts))
             {
-                MessageBox.Show("Campo Código Fornecedor é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodFornecedor.Focus();
+                MessageBox.Show("Campo Código Cliente é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodCliente.Focus();
                 return false;
             }
             if (!CampoObrigatorio(dEmissao))
@@ -345,7 +347,7 @@ namespace Sistema_Vendas.Views
         }
         private void calcularJuros()
         {
-            if(DataValida(txtDataVencimento.Text))
+            if (DataValida(txtDataVencimento.Text))
             {
                 DateTime dataVencimento = DateTime.Parse(txtDataVencimento.Texts);
                 DateTime dataAtual = DateTime.Now;
@@ -395,7 +397,7 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void calculaTotalPagar()
+        private void calculaTotalReceber()
         {
             decimal valorDesconto = string.IsNullOrWhiteSpace(txtDesconto.Texts) ? 0 : Convert.ToDecimal(txtDesconto.Texts);
             decimal valorJuros = string.IsNullOrWhiteSpace(txtJuros.Texts) ? 0 : Convert.ToDecimal(txtJuros.Texts);
@@ -403,55 +405,20 @@ namespace Sistema_Vendas.Views
             decimal valorParcela = string.IsNullOrWhiteSpace(txtValorParcela.Texts) ? 0 : Convert.ToDecimal(txtValorParcela.Texts);
 
             decimal totalPagar = valorParcela + valorJuros + valorMulta - valorDesconto;
-            txtTotalPagar.Texts = totalPagar.ToString("N2");
+            txtTotalReceber.Texts = totalPagar.ToString("N2");
         }
 
-
-        private void CadastroContasPagar_Load(object sender, EventArgs e)
+        private void CadastroContasReceber_Load(object sender, EventArgs e)
         {
-            if (NumeroNota != -1 && Modelo != -1 && Serie != -1 && IdFornecedor != -1 && Parcela != -1)
+            if (NumeroNota != -1 && Modelo != -1 && Serie != -1 && IdCliente != -1 && Parcela != -1)
             {
-                btnPagar.Visible = true;
+                btnReceber.Visible = true;
                 btnSalvar.Visible = true;
             }
         }
-
-        private void btnConsultaFornecedor_Click(object sender, EventArgs e)
+        private void CadastroContasReceber_FormClosed(object sender, FormClosedEventArgs e)
         {
-            consultaFornecedores.btnSair.Text = "Selecionar";
-
-            if (consultaFornecedores.ShowDialog() == DialogResult.OK)
-            {
-                var fornecedoresDetalhes = consultaFornecedores.Tag as Tuple<int, string>;
-
-                if (fornecedoresDetalhes != null)
-                {
-                    int fornecedorID = fornecedoresDetalhes.Item1;
-                    string fornecedorNome = fornecedoresDetalhes.Item2;
-
-                    txtCodFornecedor.Texts = fornecedorID.ToString();
-                    txtFornecedor.Texts = fornecedorNome;
-                }
-            }
-        }
-
-        private void txtCodFornecedor_Leave(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtCodFornecedor.Texts))
-            {
-                FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
-                if (fornecedor != null)
-                {
-                    txtFornecedor.Texts = fornecedor.fornecedor_razao_social;
-                }
-                else
-                {
-                    MessageBox.Show("Fornecedor não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodFornecedor.Focus();
-                    txtCodFornecedor.Clear();
-                    txtFornecedor.Clear();
-                }
-            }
+            ((ConsultaContasReceber)this.Owner).AtualizarConsultaContasReceber(false);
         }
 
         private void btnConsultaFormaPag_Click(object sender, EventArgs e)
@@ -472,7 +439,7 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void txtCodFormaPag_Leave(object sender, EventArgs e)
+        private void btnConsultaFormaPag_Leave(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtCodFormaPag.Texts))
             {
@@ -491,69 +458,46 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void CadastroContasPagar_FormClosed(object sender, FormClosedEventArgs e)
+        private void btnConsultaCliente_Click(object sender, EventArgs e)
         {
-            ((ConsultaContasPagar)this.Owner).AtualizarConsultaContasPagar(false);
+            consultaClientes.btnSair.Text = "Selecionar";
+
+            if (consultaClientes.ShowDialog() == DialogResult.OK)
+            {
+                var infosCliente = consultaClientes.Tag as Tuple<int, string, string>;
+                if (infosCliente != null)
+                {
+                    int idCliente = infosCliente.Item1;
+                    string cliente = infosCliente.Item2;
+
+                    txtCodCliente.Texts = idCliente.ToString();
+                    txtCliente.Texts = cliente;
+                }
+            }
         }
 
-        private void btnPagar_Click(object sender, EventArgs e)
+        private void txtCodCliente_Leave(object sender, EventArgs e)
         {
-            string dPagamento = new string(txtDataPagamento.Texts.Where(char.IsDigit).ToArray());
-            string dCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
-            if (!string.IsNullOrEmpty(dCancelamento))
+            if (!string.IsNullOrEmpty(txtCodCliente.Texts))
             {
-                MessageBox.Show("Nota Cancelada! Não é possível efetuar o pagamento.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(dPagamento))
+                ClienteModel cliente = clienteController.GetById(int.Parse(txtCodCliente.Texts));
+                if (cliente != null)
                 {
-                    if (MessageBox.Show("Deseja realizar o pagamento?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        Salvar();
-                        txtDataPagamento.Texts = DateTime.Now.ToString();
-                        txtValorPago.Texts = txtTotalPagar.Texts;
-                        Salvar();
-                    }
+                    txtCliente.Texts = cliente.cliente_razao_social;
                 }
                 else
                 {
-                    MessageBox.Show("Pagamento já foi realizado dia " + txtDataPagamento.Texts, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Cliente não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodCliente.Focus();
+                    txtCodCliente.Clear();
+                    txtCliente.Clear();
                 }
-            }            
+            }
         }
 
-        private void txtDataVencimento_Leave(object sender, EventArgs e) //ARRUMAR
+        private void txtDataVencimento_Leave(object sender, EventArgs e)
         {
             string dVencimento = new string(txtDataVencimento.Texts.Where(char.IsDigit).ToArray());
-            string dEmissao = new string(txtDataEmissao.Texts.Where(char.IsDigit).ToArray());
-            if (!string.IsNullOrEmpty(dVencimento) && !string.IsNullOrEmpty(dEmissao))
-            {
-                if (DataValida(txtDataEmissao.Texts) && DataValida(txtDataVencimento.Texts))
-                {
-                    DateTime dataEmissao;
-                    DateTime dataVencimento;
-
-                    bool dataEmissaoValida = DateTime.TryParseExact(txtDataEmissao.Texts, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out dataEmissao);
-                    bool dataVencimentoValida = DateTime.TryParseExact(txtDataVencimento.Texts, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out dataVencimento);
-
-                    if (dataEmissaoValida && dataVencimentoValida)
-                    {
-                        if (dataVencimento < dataEmissao)
-                        {
-                            MessageBox.Show("Data de vencimento inválida! A data de vencimento deve ser maior ou igual à data de emissão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            txtDataVencimento.Focus();
-                            return;
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Data de emissão ou data de vencimento inválida! Verifique os valores inseridos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtDataVencimento.Focus();
-                }
-            }
-                    
             if (!string.IsNullOrEmpty(dVencimento))
             {
                 calcularJuros();
@@ -562,55 +506,82 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void txtValorPago_Leave(object sender, EventArgs e)
+        private void txtValorRecebido_Leave(object sender, EventArgs e)
         {
-            txtValorPago.Texts = FormataPreco(txtValorPago.Texts);
+            txtValorRecebido.Texts = FormataPreco(txtValorRecebido.Texts);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            string dPagamento = new string(txtDataPagamento.Texts.Where(char.IsDigit).ToArray());
-            DialogResult result = MessageBox.Show("Tem certeza que deseja cancelar esta conta a pagar?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            string dRecebimento = new string(txtDataRecebimento.Texts.Where(char.IsDigit).ToArray());
+            DialogResult result = MessageBox.Show("Tem certeza que deseja cancelar esta conta a receber?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                if (string.IsNullOrEmpty(dPagamento))
+                if (string.IsNullOrEmpty(dRecebimento))
                 {
                     try
                     {
-                        ContasPagarModel contaPagar = new ContasPagarModel
+                        ContasReceberModel contaReceber = new ContasReceberModel
                         {
                             numeroNota = NumeroNota,
                             modelo = Modelo,
                             serie = Serie,
-                            idFornecedor = IdFornecedor,
+                            idCliente = IdCliente,
                             parcela = Parcela,
                             dataCancelamento = DateTime.Now
                         };
-                        bool cancelamentoRealizado = contasPagarController.CancelarConta(contaPagar);
+                        bool cancelamentoRealizado = contasReceberController.CancelarConta(contaReceber);
 
                         if (cancelamentoRealizado)
                         {
-                            txtDataCancelamento.Texts = contaPagar.dataCancelamento?.ToString("dd/MM/yyyy");
+                            txtDataCancelamento.Texts = contaReceber.dataCancelamento?.ToString("dd/MM/yyyy");
                             lblDataCancelamento.Visible = true;
                             txtDataCancelamento.Visible = true;
                             BloqueiaTudo();
 
-                            MessageBox.Show("Conta a pagar cancelada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Conta a receber cancelada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Não foi possível cancelar a conta, pois ela está associada a uma nota de compra.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Não foi possível cancelar a conta, pois ela está associada a uma nota de venda.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Ocorreu um erro ao cancelar a conta: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Não é possível cancelar uma conta que o pagamento já foi realizado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+            }
+        }
+
+        private void btnReceber_Click(object sender, EventArgs e)
+        {
+            string dRecebimento = new string(txtDataRecebimento.Texts.Where(char.IsDigit).ToArray());
+            string dCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
+            if (!string.IsNullOrEmpty(dCancelamento))
+            {
+                MessageBox.Show("Nota Cancelada! Não é possível efetuar o pagamento.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(dRecebimento))
+                {
+                    if (MessageBox.Show("Deseja confirmar o recebimento?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        Salvar();
+                        txtDataRecebimento.Texts = DateTime.Now.ToString();
+                        txtValorRecebido.Texts = txtTotalReceber.Texts;
+                        Salvar();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Pagamento já foi realizado dia " + txtDataRecebimento.Texts, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 

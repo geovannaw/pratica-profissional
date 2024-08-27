@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Sistema_Vendas.Controller
 {
-    public class ContasPagarController<T> : ControllerPai<T> where T : ContasPagarModel
+    public class ContasReceberController<T> : ControllerPai<T> where T : ContasReceberModel
     {
-        protected ContasPagarDAO contasPagarDAO;
-        public ContasPagarController() : base()
+        protected ContasReceberDAO contasReceberDAO;
+        public ContasReceberController() : base()
         {
-            contasPagarDAO = new ContasPagarDAO();
+            contasReceberDAO = new ContasReceberDAO();
         }
         public override void Alterar(T obj)
         {
-            contasPagarDAO.Alterar(obj as ContasPagarModel);
+            contasReceberDAO.Alterar(obj as ContasReceberModel);
         }
 
         public override void Delete(int idObj)
@@ -28,7 +28,7 @@ namespace Sistema_Vendas.Controller
         public override List<T> GetAll(bool incluiInativos)
         {
             List<T> lista = new List<T>();
-            var ordens = contasPagarDAO.GetAll(incluiInativos);
+            var ordens = contasReceberDAO.GetAll(incluiInativos);
             foreach (var item in ordens)
             {
                 lista.Add(item as T);
@@ -41,29 +41,29 @@ namespace Sistema_Vendas.Controller
             throw new NotImplementedException();
         }
 
-        public T GetContaById(int numero, int modelo, int serie, int idFornecedor, int parcela)
+        public T GetContaById(int numero, int modelo, int serie, int idCliente, int parcela)
         {
-            return contasPagarDAO.GetContaById(numero, modelo, serie, idFornecedor, parcela) as T;
+            return contasReceberDAO.GetContaById(numero, modelo, serie, idCliente, parcela) as T;
         }
 
         public override void Salvar(T obj)
         {
-            contasPagarDAO.Salvar(obj as ContasPagarModel);
+            contasReceberDAO.Salvar(obj as ContasReceberModel);
         }
         public bool CancelarConta(T obj)
         {
-            return contasPagarDAO.CancelarConta(obj as ContasPagarModel);
+            return contasReceberDAO.CancelarConta(obj as ContasReceberModel);
         }
-        public bool JaCadastrado(int numeroNota, int modelo, int serie, int idFornecedor, int parcela, bool incluindo)
+        public bool JaCadastrado(int numeroNota, int modelo, int serie, int idCliente, int parcela, bool incluindo)
         {
-            List<ContasPagarModel> contasPagar = contasPagarDAO.GetAll(false).Cast<ContasPagarModel>().ToList();
+            List<ContasReceberModel> contasReceber = contasReceberDAO.GetAll(false).Cast<ContasReceberModel>().ToList();
 
-            foreach (ContasPagarModel conta in contasPagar)
+            foreach (ContasReceberModel conta in contasReceber)
             {
                 if (conta.numeroNota == numeroNota &&
                     conta.modelo == modelo &&
                     conta.serie == serie &&
-                    conta.idFornecedor == idFornecedor &&
+                    conta.idCliente == idCliente &&
                     conta.parcela == parcela)
                 {
                     //se estiver incluindo e já existe uma conta com a mesma chave composta

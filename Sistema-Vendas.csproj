@@ -106,6 +106,7 @@
     <Compile Include="Controller\ClienteController.cs" />
     <Compile Include="Controller\CondicaoPagamentoController.cs" />
     <Compile Include="Controller\ContasPagarController.cs" />
+    <Compile Include="Controller\ContasReceberController.cs" />
     <Compile Include="Controller\ControllerPai.cs" />
     <Compile Include="Controller\EstadoController.cs" />
     <Compile Include="Controller\FormaPagamentoController.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="DAO\CidadeDAO.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\CondicaoPagamentoDAO.cs" />
+    <Compile Include="DAO\ContasReceberDAO.cs" />
     <Compile Include="DAO\ContasPagarDAO.cs" />
     <Compile Include="DAO\FormaPagamentoDAO.cs" />
     <Compile Include="DAO\FornecedorDAO.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\CondicaoPagamentoModel.cs" />
     <Compile Include="Models\ContasPagarModel.cs" />
+    <Compile Include="Models\ContasReceberModel.cs" />
     <Compile Include="Models\FormaPagamentoModel.cs" />
     <Compile Include="Models\FornecedorModel.cs" />
     <Compile Include="Models\FuncionarioModel.cs" />
@@ -187,6 +190,12 @@
     <Compile Include="Views\CadastroContasPagar.Designer.cs">
       <DependentUpon>CadastroContasPagar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\CadastroContasReceber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CadastroContasReceber.Designer.cs">
+      <DependentUpon>CadastroContasReceber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CadastroEstados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +231,12 @@
     </Compile>
     <Compile Include="Views\CadastroNotaCompra.Designer.cs">
       <DependentUpon>CadastroNotaCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CadastroNotaVenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CadastroNotaVenda.Designer.cs">
+      <DependentUpon>CadastroNotaVenda.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CadastroOS.cs">
       <SubType>Form</SubType>
@@ -329,6 +344,12 @@
     <Compile Include="Views\ConsultaNotaCompra.Designer.cs">
       <DependentUpon>ConsultaNotaCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsultaNotasVenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultaNotasVenda.Designer.cs">
+      <DependentUpon>ConsultaNotasVenda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConsultaOS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -389,6 +410,9 @@
     <EmbeddedResource Include="Views\CadastroContasPagar.resx">
       <DependentUpon>CadastroContasPagar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CadastroContasReceber.resx">
+      <DependentUpon>CadastroContasReceber.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroEstados.resx">
       <DependentUpon>CadastroEstados.cs</DependentUpon>
     </EmbeddedResource>
@@ -406,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroNotaCompra.resx">
       <DependentUpon>CadastroNotaCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CadastroNotaVenda.resx">
+      <DependentUpon>CadastroNotaVenda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroOS.resx">
       <DependentUpon>CadastroOS.cs</DependentUpon>
@@ -457,6 +484,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaNotaCompra.resx">
       <DependentUpon>ConsultaNotaCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultaNotasVenda.resx">
+      <DependentUpon>ConsultaNotasVenda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaOS.resx">
       <DependentUpon>ConsultaOS.cs</DependentUpon>

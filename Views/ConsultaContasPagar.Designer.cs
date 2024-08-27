@@ -66,17 +66,18 @@
             // btnIncluir
             // 
             this.btnIncluir.FlatAppearance.BorderSize = 0;
-            this.btnIncluir.Location = new System.Drawing.Point(465, 422);
+            this.btnIncluir.Location = new System.Drawing.Point(546, 422);
             // 
             // btnAlterar
             // 
             this.btnAlterar.FlatAppearance.BorderSize = 0;
-            this.btnAlterar.Location = new System.Drawing.Point(546, 422);
+            this.btnAlterar.Location = new System.Drawing.Point(627, 422);
             // 
             // btnExcluir
             // 
             this.btnExcluir.FlatAppearance.BorderSize = 0;
-            this.btnExcluir.Location = new System.Drawing.Point(627, 422);
+            this.btnExcluir.Location = new System.Drawing.Point(12, 422);
+            this.btnExcluir.Visible = false;
             // 
             // btnPesquisar
             // 

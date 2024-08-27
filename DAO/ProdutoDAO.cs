@@ -94,15 +94,30 @@ namespace Sistema_Vendas.DAO
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "DELETE FROM produto WHERE idProduto = @id";
-
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id", id);
+                string queryCheckSaldo = "SELECT saldo FROM produto WHERE idProduto = @id";
+                SqlCommand commandCheckSaldo = new SqlCommand(queryCheckSaldo, connection);
+                commandCheckSaldo.Parameters.AddWithValue("@id", id);
 
                 try
                 {
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    //verifica o saldo do produto
+                    object saldoObj = commandCheckSaldo.ExecuteScalar();
+                    if (saldoObj != null)
+                    {
+                        decimal saldo = Convert.ToDecimal(saldoObj);
+                        if (saldo > 0)
+                        {
+                            MessageBox.Show("Não é possível excluir o produto, pois ele ainda possui saldo.", "Erro ao deletar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    //se o saldo for 0, continua a exclusão
+                    string queryDelete = "DELETE FROM produto WHERE idProduto = @id";
+                    SqlCommand commandDelete = new SqlCommand(queryDelete, connection);
+                    commandDelete.Parameters.AddWithValue("@id", id);
+                    commandDelete.ExecuteNonQuery();
                 }
                 catch (SqlException ex)
                 {
@@ -118,6 +133,7 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+
 
         public override List<T> GetAll(bool incluiInativos = false)
         {
