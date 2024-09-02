@@ -268,7 +268,7 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Campo Data Chegada é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtDataChegada.Focus();
             }
-            else if (dataGridViewProdutos.Rows.Count < 0)
+            else if (dataGridViewProdutos.Rows.Count <= 0)
             {
                 MessageBox.Show("É necessário adicionar pelo menos um produto", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodProduto.Focus();
@@ -278,7 +278,7 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Campo Código Condição de Pagamento é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodCondPag.Focus();
             }
-            else if (dataGridViewParcelas.Rows.Count < 0)
+            else if (dataGridViewParcelas.Rows.Count <= 0)
             {
                 MessageBox.Show("É necessário adicionar pelo menos uma parcela", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodProduto.Focus();
@@ -300,6 +300,7 @@ namespace Sistema_Vendas.Views
                     string observacao = txtObservacao.Texts;
                     DateTime.TryParse(txtDataEmissao.Texts, out DateTime dataEmissao);
                     DateTime.TryParse(txtDataChegada.Texts, out DateTime dataChegada);
+                    dataChegada = dataChegada.Date.Add(DateTime.Now.TimeOfDay); //add a hora que está chegando
 
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -460,6 +461,13 @@ namespace Sistema_Vendas.Views
 
                     txtCodFornecedor.Texts = fornecedorID.ToString();
                     txtFornecedor.Texts = fornecedorNome;
+
+                    FornecedorModel fornecedorDetalhes = fornecedorController.GetById(fornecedorID);
+                    if (fornecedorDetalhes != null)
+                        txtCodCondPag.Texts = fornecedorDetalhes.idCondPagamento.ToString();
+                    CondicaoPagamentoModel condPag = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
+                    if (condPag != null)
+                        txtCondPag.Texts = condPag.condicaoPagamento.ToString();
                 }
             }
         }
@@ -472,6 +480,13 @@ namespace Sistema_Vendas.Views
                 if (fornecedor != null)
                 {
                     txtFornecedor.Texts = fornecedor.fornecedor_razao_social;
+
+                    FornecedorModel fornecedorDetalhes = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
+                    if (fornecedorDetalhes != null)
+                        txtCodCondPag.Texts = fornecedorDetalhes.idCondPagamento.ToString();
+                    CondicaoPagamentoModel condPag = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
+                    if (condPag != null)
+                        txtCondPag.Texts = condPag.condicaoPagamento.ToString();
                 }
                 else
                 {
@@ -711,6 +726,7 @@ namespace Sistema_Vendas.Views
                 txtDataEmissao.Enabled = !habilitar;
                 txtDataChegada.Enabled = !habilitar;
                 txtCodFornecedor.Enabled = !habilitar;
+                btnConsultaFornecedor.Enabled = !habilitar;
 
                 groupBox2.Enabled = habilitar;
                 rbCIF.Enabled = habilitar;
@@ -733,6 +749,7 @@ namespace Sistema_Vendas.Views
             txtQtdeProduto.Enabled = !camposPreenchidos;
             txtPrecoProd.Enabled = !camposPreenchidos;
             dataGridViewProdutos.Enabled = !camposPreenchidos;
+            btnConsultaProduto.Enabled = !camposPreenchidos;
         }
         private void VerificaCamposPreenchidosCondPagamento()
         {
@@ -913,6 +930,7 @@ namespace Sistema_Vendas.Views
                         dataGridViewProdutos.Rows.Remove(row);
                     }
                     atualizaTotalProdutos();
+                    atualizaTotalPagar();
                 }
                 else
                 {
@@ -1028,6 +1046,70 @@ namespace Sistema_Vendas.Views
         private void txtPrecoProd_Leave(object sender, EventArgs e)
         {
             txtPrecoProd.Texts = FormataPreco(txtPrecoProd.Texts);
+        }
+
+        private void txtNroNota_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtModelo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtSerie_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtQtdeProduto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPrecoProd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtValorFrete_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtValorSeguro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtOutrasDespesas_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

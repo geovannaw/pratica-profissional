@@ -34,7 +34,7 @@ namespace Sistema_Vendas
         }
         public bool DataValida(string data, string formato = "dd/MM/yyyy")
         {
-            // Tenta converter a string para DateTime usando o formato especificado
+            //tenta converter a string para DateTime usando o formato especificado
             DateTime dataConvertida;
             bool dataValida = DateTime.TryParseExact(data, formato, null, System.Globalization.DateTimeStyles.None, out dataConvertida);
 

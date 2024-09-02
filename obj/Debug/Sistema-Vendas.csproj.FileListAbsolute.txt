@@ -79,3 +79,5 @@ C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaC
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroContasReceber.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroNotaVenda.resources
 C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaNotasVenda.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.CadastroNotasServico.resources
+C:\prática profissional\Sistema-Vendas\obj\Debug\Sistema_Vendas.Views.ConsultaNotasServico.resources

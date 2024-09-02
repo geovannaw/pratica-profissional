@@ -230,5 +230,32 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+        public bool VerificarParcelasNaoPagas(string numeroNota, string modelo, string serie, int idCliente, int parcelaAtual)
+        {
+            string query = @"
+        SELECT COUNT(*)
+        FROM contasReceber
+        WHERE numeroNota = @numeroNota
+          AND modelo = @modelo
+          AND serie = @serie
+          AND idCliente = @idCliente
+          AND parcela < @parcelaAtual
+          AND dataRecebimento IS NULL";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@numeroNota", numeroNota);
+                command.Parameters.AddWithValue("@modelo", modelo);
+                command.Parameters.AddWithValue("@serie", serie);
+                command.Parameters.AddWithValue("@idCliente", idCliente);
+                command.Parameters.AddWithValue("@parcelaAtual", parcelaAtual);
+
+                connection.Open();
+                int count = (int)command.ExecuteScalar();
+
+                return count > 0;
+            }
+        }
     }
 }

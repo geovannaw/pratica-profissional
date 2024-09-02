@@ -183,6 +183,7 @@
             this.txtNroNota.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtNroNota.Texts = "";
             this.txtNroNota.UnderlinedStyle = false;
+            this.txtNroNota.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNroNota_KeyPress);
             this.txtNroNota.Leave += new System.EventHandler(this.txtNroNota_Leave);
             // 
             // txtSerie
@@ -210,6 +211,7 @@
             this.txtSerie.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtSerie.Texts = "";
             this.txtSerie.UnderlinedStyle = false;
+            this.txtSerie.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerie_KeyPress);
             this.txtSerie.Leave += new System.EventHandler(this.txtSerie_Leave);
             // 
             // txtFornecedor
@@ -310,6 +312,7 @@
             this.txtModelo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtModelo.Texts = "";
             this.txtModelo.UnderlinedStyle = false;
+            this.txtModelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtModelo_KeyPress);
             this.txtModelo.Leave += new System.EventHandler(this.txtModelo_Leave);
             // 
             // txtDataEmissao
@@ -448,6 +451,7 @@
             this.txtQtdeProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtQtdeProduto.Texts = "";
             this.txtQtdeProduto.UnderlinedStyle = false;
+            this.txtQtdeProduto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeProduto_KeyPress);
             // 
             // txtProduto
             // 
@@ -614,6 +618,7 @@
             this.txtPrecoProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecoProd.Texts = "";
             this.txtPrecoProd.UnderlinedStyle = false;
+            this.txtPrecoProd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecoProd_KeyPress);
             this.txtPrecoProd.Leave += new System.EventHandler(this.txtPrecoProd_Leave);
             // 
             // dataGridViewProdutos
@@ -754,6 +759,7 @@
             this.txtValorSeguro.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorSeguro.Texts = "0";
             this.txtValorSeguro.UnderlinedStyle = false;
+            this.txtValorSeguro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorSeguro_KeyPress);
             this.txtValorSeguro.Leave += new System.EventHandler(this.txtValorSeguro_Leave);
             // 
             // lblValorFrete
@@ -791,6 +797,7 @@
             this.txtValorFrete.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorFrete.Texts = "0";
             this.txtValorFrete.UnderlinedStyle = false;
+            this.txtValorFrete.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorFrete_KeyPress);
             this.txtValorFrete.Leave += new System.EventHandler(this.txtValorFrete_Leave);
             // 
             // lblOutrasDespesas
@@ -828,6 +835,7 @@
             this.txtOutrasDespesas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtOutrasDespesas.Texts = "0";
             this.txtOutrasDespesas.UnderlinedStyle = false;
+            this.txtOutrasDespesas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtOutrasDespesas_KeyPress);
             this.txtOutrasDespesas.Leave += new System.EventHandler(this.txtOutrasDespesas_Leave);
             // 
             // lblTotalPagar

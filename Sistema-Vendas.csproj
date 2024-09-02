@@ -114,6 +114,8 @@
     <Compile Include="Controller\FuncionarioController.cs" />
     <Compile Include="Controller\ModeloController.cs" />
     <Compile Include="Controller\NotaCompraController.cs" />
+    <Compile Include="Controller\NotaServicoController.cs" />
+    <Compile Include="Controller\NotaVendaController.cs" />
     <Compile Include="Controller\OSController.cs" />
     <Compile Include="Controller\PaisController.cs" />
     <Compile Include="Controller\ProdutoController.cs" />
@@ -128,6 +130,8 @@
     <Compile Include="DAO\FuncionarioDAO.cs" />
     <Compile Include="DAO\ModeloDAO.cs" />
     <Compile Include="DAO\NotaCompraDAO.cs" />
+    <Compile Include="DAO\NotaServicoDAO.cs" />
+    <Compile Include="DAO\NotaVendaDAO.cs" />
     <Compile Include="DAO\OSDAO.cs" />
     <Compile Include="DAO\ProdutoDAO.cs" />
     <Compile Include="DAO\ServicoDAO.cs" />
@@ -160,6 +164,10 @@
     <Compile Include="Models\ModeloModel.cs" />
     <Compile Include="Models\NotaCompraModel.cs" />
     <Compile Include="Models\NotaCompra_ProdutoModel.cs" />
+    <Compile Include="Models\NotaServicoModel.cs" />
+    <Compile Include="Models\NotaServico_ServicoModel.cs" />
+    <Compile Include="Models\NotaVendaModel.cs" />
+    <Compile Include="Models\NotaVenda_ProdutoModel.cs" />
     <Compile Include="Models\OrdemServicoModel.cs" />
     <Compile Include="Models\OS_ProdutoModel.cs" />
     <Compile Include="Models\OS_ServicoModel.cs" />
@@ -231,6 +239,12 @@
     </Compile>
     <Compile Include="Views\CadastroNotaCompra.Designer.cs">
       <DependentUpon>CadastroNotaCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CadastroNotasServico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CadastroNotasServico.Designer.cs">
+      <DependentUpon>CadastroNotasServico.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CadastroNotaVenda.cs">
       <SubType>Form</SubType>
@@ -344,6 +358,12 @@
     <Compile Include="Views\ConsultaNotaCompra.Designer.cs">
       <DependentUpon>ConsultaNotaCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsultaNotasServico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsultaNotasServico.Designer.cs">
+      <DependentUpon>ConsultaNotasServico.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConsultaNotasVenda.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -431,6 +451,9 @@
     <EmbeddedResource Include="Views\CadastroNotaCompra.resx">
       <DependentUpon>CadastroNotaCompra.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CadastroNotasServico.resx">
+      <DependentUpon>CadastroNotasServico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CadastroNotaVenda.resx">
       <DependentUpon>CadastroNotaVenda.cs</DependentUpon>
     </EmbeddedResource>
@@ -484,6 +507,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaNotaCompra.resx">
       <DependentUpon>ConsultaNotaCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsultaNotasServico.resx">
+      <DependentUpon>ConsultaNotasServico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsultaNotasVenda.resx">
       <DependentUpon>ConsultaNotasVenda.cs</DependentUpon>

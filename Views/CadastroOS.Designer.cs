@@ -41,24 +41,7 @@
             this.lblSubTotalServicos = new System.Windows.Forms.Label();
             this.lblSubTotalProdutos = new System.Windows.Forms.Label();
             this.lblSituacao = new System.Windows.Forms.Label();
-            this.tabServicos = new System.Windows.Forms.TabPage();
-            this.btnExcluirServico = new Sistema_Vendas.GButtons();
-            this.lblQtdeServico = new System.Windows.Forms.Label();
-            this.txtQtdeServico = new Sistema_Vendas.GControls.GTextBox();
-            this.btnConsultaServico = new Sistema_Vendas.GButtons();
-            this.txtServico = new Sistema_Vendas.GControls.GTextBox();
-            this.txtCodServico = new Sistema_Vendas.GControls.GTextBox();
-            this.lblCodServico = new System.Windows.Forms.Label();
-            this.lblServico = new System.Windows.Forms.Label();
-            this.dataGridViewServicos = new System.Windows.Forms.DataGridView();
-            this.idServiço = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Serviço = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precoUNServ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precoServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnAddServico = new Sistema_Vendas.GButtons();
             this.tabProdutos = new System.Windows.Forms.TabPage();
-            this.btnExcluirProduto = new Sistema_Vendas.GButtons();
             this.lblQtdeProduto = new System.Windows.Forms.Label();
             this.txtQtdeProduto = new Sistema_Vendas.GControls.GTextBox();
             this.btnConsultaProduto = new Sistema_Vendas.GButtons();
@@ -73,6 +56,7 @@
             this.quantidadeProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.precoProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddProdutos = new Sistema_Vendas.GButtons();
+            this.btnExcluirServico = new Sistema_Vendas.GButtons();
             this.tabDadosPrincipais = new System.Windows.Forms.TabPage();
             this.lblCelular = new System.Windows.Forms.Label();
             this.txtCelular = new Sistema_Vendas.GControls.GTextBox();
@@ -89,6 +73,21 @@
             this.lblCodCliente = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
             this.tabPrincipal = new System.Windows.Forms.TabControl();
+            this.tabServicos = new System.Windows.Forms.TabPage();
+            this.lblQtdeServico = new System.Windows.Forms.Label();
+            this.txtQtdeServico = new Sistema_Vendas.GControls.GTextBox();
+            this.btnConsultaServico = new Sistema_Vendas.GButtons();
+            this.txtServico = new Sistema_Vendas.GControls.GTextBox();
+            this.txtCodServico = new Sistema_Vendas.GControls.GTextBox();
+            this.lblCodServico = new System.Windows.Forms.Label();
+            this.lblServico = new System.Windows.Forms.Label();
+            this.dataGridViewServicos = new System.Windows.Forms.DataGridView();
+            this.idServiço = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Serviço = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoUNServ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAddServico = new Sistema_Vendas.GButtons();
             this.txtDataOS = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.lblDataOS = new System.Windows.Forms.Label();
             this.cbSituacao = new Sistema_Vendas.GControls.GComboBox();
@@ -104,14 +103,29 @@
             this.txtDataPrevista = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.txtValorEntrada = new Sistema_Vendas.GControls.GTextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.tabCondPagamento = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnAddCondPag = new Sistema_Vendas.GButtons();
+            this.dataGridViewParcelas = new System.Windows.Forms.DataGridView();
+            this.numeroParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idFormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnConsultaCondPag = new Sistema_Vendas.GButtons();
+            this.txtCondPag = new Sistema_Vendas.GControls.GTextBox();
+            this.txtCodCondPag = new Sistema_Vendas.GControls.GTextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.gpTotal.SuspendLayout();
-            this.tabServicos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServicos)).BeginInit();
             this.tabProdutos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).BeginInit();
             this.tabDadosPrincipais.SuspendLayout();
             this.tabPrincipal.SuspendLayout();
+            this.tabServicos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServicos)).BeginInit();
+            this.tabCondPagamento.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewParcelas)).BeginInit();
             this.SuspendLayout();
             // 
             // lblDataCadastro
@@ -365,245 +379,8 @@
             this.lblSituacao.TabIndex = 15;
             this.lblSituacao.Text = "Situação *";
             // 
-            // tabServicos
-            // 
-            this.tabServicos.Controls.Add(this.btnExcluirServico);
-            this.tabServicos.Controls.Add(this.lblQtdeServico);
-            this.tabServicos.Controls.Add(this.txtQtdeServico);
-            this.tabServicos.Controls.Add(this.btnConsultaServico);
-            this.tabServicos.Controls.Add(this.txtServico);
-            this.tabServicos.Controls.Add(this.txtCodServico);
-            this.tabServicos.Controls.Add(this.lblCodServico);
-            this.tabServicos.Controls.Add(this.lblServico);
-            this.tabServicos.Controls.Add(this.dataGridViewServicos);
-            this.tabServicos.Controls.Add(this.btnAddServico);
-            this.tabServicos.Location = new System.Drawing.Point(4, 22);
-            this.tabServicos.Name = "tabServicos";
-            this.tabServicos.Padding = new System.Windows.Forms.Padding(3);
-            this.tabServicos.Size = new System.Drawing.Size(591, 269);
-            this.tabServicos.TabIndex = 2;
-            this.tabServicos.Text = "Serviços";
-            this.tabServicos.UseVisualStyleBackColor = true;
-            // 
-            // btnExcluirServico
-            // 
-            this.btnExcluirServico.BackColor = System.Drawing.Color.White;
-            this.btnExcluirServico.BackgroundColor = System.Drawing.Color.White;
-            this.btnExcluirServico.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnExcluirServico.BorderRadius = 5;
-            this.btnExcluirServico.BorderSize = 1;
-            this.btnExcluirServico.FlatAppearance.BorderSize = 0;
-            this.btnExcluirServico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcluirServico.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExcluirServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnExcluirServico.Location = new System.Drawing.Point(484, 279);
-            this.btnExcluirServico.Name = "btnExcluirServico";
-            this.btnExcluirServico.Size = new System.Drawing.Size(86, 28);
-            this.btnExcluirServico.TabIndex = 21;
-            this.btnExcluirServico.Text = "Excluir Serviço";
-            this.btnExcluirServico.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnExcluirServico.UseVisualStyleBackColor = false;
-            this.btnExcluirServico.Click += new System.EventHandler(this.btnExcluirServico_Click);
-            // 
-            // lblQtdeServico
-            // 
-            this.lblQtdeServico.AutoSize = true;
-            this.lblQtdeServico.Location = new System.Drawing.Point(414, 13);
-            this.lblQtdeServico.Name = "lblQtdeServico";
-            this.lblQtdeServico.Size = new System.Drawing.Size(69, 13);
-            this.lblQtdeServico.TabIndex = 93;
-            this.lblQtdeServico.Text = "Quantidade *";
-            // 
-            // txtQtdeServico
-            // 
-            this.txtQtdeServico.BackColor = System.Drawing.SystemColors.Window;
-            this.txtQtdeServico.BorderColor = System.Drawing.Color.DarkGray;
-            this.txtQtdeServico.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.txtQtdeServico.BorderRadius = 5;
-            this.txtQtdeServico.BorderSize = 1;
-            this.txtQtdeServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtQtdeServico.DisabledBackColor = System.Drawing.Color.White;
-            this.txtQtdeServico.DisabledBorderColor = System.Drawing.Color.Gainsboro;
-            this.txtQtdeServico.DisabledForeColor = System.Drawing.Color.White;
-            this.txtQtdeServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtQtdeServico.Location = new System.Drawing.Point(417, 29);
-            this.txtQtdeServico.MaxLength = 32767;
-            this.txtQtdeServico.Multiline = false;
-            this.txtQtdeServico.Name = "txtQtdeServico";
-            this.txtQtdeServico.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
-            this.txtQtdeServico.PasswordChar = false;
-            this.txtQtdeServico.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtQtdeServico.PlaceholderText = "";
-            this.txtQtdeServico.Size = new System.Drawing.Size(66, 28);
-            this.txtQtdeServico.TabIndex = 19;
-            this.txtQtdeServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtQtdeServico.Texts = "";
-            this.txtQtdeServico.UnderlinedStyle = false;
-            this.txtQtdeServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeServico_KeyPress);
-            // 
-            // btnConsultaServico
-            // 
-            this.btnConsultaServico.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaServico.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaServico.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaServico.BorderRadius = 5;
-            this.btnConsultaServico.BorderSize = 1;
-            this.btnConsultaServico.FlatAppearance.BorderSize = 0;
-            this.btnConsultaServico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConsultaServico.ForeColor = System.Drawing.Color.White;
-            this.btnConsultaServico.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaServico.Image")));
-            this.btnConsultaServico.Location = new System.Drawing.Point(92, 29);
-            this.btnConsultaServico.Name = "btnConsultaServico";
-            this.btnConsultaServico.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaServico.TabIndex = 18;
-            this.btnConsultaServico.TextColor = System.Drawing.Color.White;
-            this.btnConsultaServico.UseVisualStyleBackColor = false;
-            this.btnConsultaServico.Click += new System.EventHandler(this.btnConsultaServico_Click);
-            // 
-            // txtServico
-            // 
-            this.txtServico.BackColor = System.Drawing.SystemColors.Window;
-            this.txtServico.BorderColor = System.Drawing.Color.DarkGray;
-            this.txtServico.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.txtServico.BorderRadius = 5;
-            this.txtServico.BorderSize = 1;
-            this.txtServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtServico.DisabledBackColor = System.Drawing.Color.White;
-            this.txtServico.DisabledBorderColor = System.Drawing.Color.Gainsboro;
-            this.txtServico.DisabledForeColor = System.Drawing.Color.White;
-            this.txtServico.Enabled = false;
-            this.txtServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtServico.Location = new System.Drawing.Point(134, 29);
-            this.txtServico.MaxLength = 32767;
-            this.txtServico.Multiline = false;
-            this.txtServico.Name = "txtServico";
-            this.txtServico.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
-            this.txtServico.PasswordChar = false;
-            this.txtServico.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtServico.PlaceholderText = "";
-            this.txtServico.Size = new System.Drawing.Size(270, 28);
-            this.txtServico.TabIndex = 90;
-            this.txtServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtServico.Texts = "";
-            this.txtServico.UnderlinedStyle = false;
-            // 
-            // txtCodServico
-            // 
-            this.txtCodServico.BackColor = System.Drawing.SystemColors.Window;
-            this.txtCodServico.BorderColor = System.Drawing.Color.DarkGray;
-            this.txtCodServico.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.txtCodServico.BorderRadius = 5;
-            this.txtCodServico.BorderSize = 1;
-            this.txtCodServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCodServico.DisabledBackColor = System.Drawing.Color.White;
-            this.txtCodServico.DisabledBorderColor = System.Drawing.Color.Gainsboro;
-            this.txtCodServico.DisabledForeColor = System.Drawing.Color.White;
-            this.txtCodServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodServico.Location = new System.Drawing.Point(20, 29);
-            this.txtCodServico.MaxLength = 32767;
-            this.txtCodServico.Multiline = false;
-            this.txtCodServico.Name = "txtCodServico";
-            this.txtCodServico.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
-            this.txtCodServico.PasswordChar = false;
-            this.txtCodServico.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtCodServico.PlaceholderText = "";
-            this.txtCodServico.Size = new System.Drawing.Size(66, 28);
-            this.txtCodServico.TabIndex = 17;
-            this.txtCodServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtCodServico.Texts = "";
-            this.txtCodServico.UnderlinedStyle = false;
-            this.txtCodServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodServico_KeyPress);
-            this.txtCodServico.Leave += new System.EventHandler(this.txtCodServico_Leave);
-            // 
-            // lblCodServico
-            // 
-            this.lblCodServico.AutoSize = true;
-            this.lblCodServico.Location = new System.Drawing.Point(17, 13);
-            this.lblCodServico.Name = "lblCodServico";
-            this.lblCodServico.Size = new System.Drawing.Size(75, 13);
-            this.lblCodServico.TabIndex = 88;
-            this.lblCodServico.Text = "Cód. Serviço *";
-            // 
-            // lblServico
-            // 
-            this.lblServico.AutoSize = true;
-            this.lblServico.Location = new System.Drawing.Point(131, 13);
-            this.lblServico.Name = "lblServico";
-            this.lblServico.Size = new System.Drawing.Size(43, 13);
-            this.lblServico.TabIndex = 87;
-            this.lblServico.Text = "Serviço";
-            // 
-            // dataGridViewServicos
-            // 
-            this.dataGridViewServicos.AllowUserToAddRows = false;
-            this.dataGridViewServicos.AllowUserToResizeColumns = false;
-            this.dataGridViewServicos.AllowUserToResizeRows = false;
-            this.dataGridViewServicos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
-            this.dataGridViewServicos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewServicos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idServiço,
-            this.Serviço,
-            this.precoUNServ,
-            this.quantidadeServico,
-            this.precoServico});
-            this.dataGridViewServicos.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewServicos.Location = new System.Drawing.Point(20, 69);
-            this.dataGridViewServicos.Name = "dataGridViewServicos";
-            this.dataGridViewServicos.Size = new System.Drawing.Size(550, 184);
-            this.dataGridViewServicos.TabIndex = 86;
-            this.dataGridViewServicos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewServicos_CellEndEdit);
-            // 
-            // idServiço
-            // 
-            this.idServiço.HeaderText = "Código";
-            this.idServiço.Name = "idServiço";
-            this.idServiço.Width = 80;
-            // 
-            // Serviço
-            // 
-            this.Serviço.HeaderText = "Serviço";
-            this.Serviço.Name = "Serviço";
-            this.Serviço.Width = 145;
-            // 
-            // precoUNServ
-            // 
-            this.precoUNServ.HeaderText = "Preço UN";
-            this.precoUNServ.Name = "precoUNServ";
-            // 
-            // quantidadeServico
-            // 
-            this.quantidadeServico.HeaderText = "Quantidade";
-            this.quantidadeServico.Name = "quantidadeServico";
-            this.quantidadeServico.Width = 80;
-            // 
-            // precoServico
-            // 
-            this.precoServico.HeaderText = "Preço Total";
-            this.precoServico.Name = "precoServico";
-            // 
-            // btnAddServico
-            // 
-            this.btnAddServico.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnAddServico.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnAddServico.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnAddServico.BorderRadius = 5;
-            this.btnAddServico.BorderSize = 1;
-            this.btnAddServico.FlatAppearance.BorderSize = 0;
-            this.btnAddServico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddServico.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddServico.ForeColor = System.Drawing.Color.White;
-            this.btnAddServico.Location = new System.Drawing.Point(495, 29);
-            this.btnAddServico.Name = "btnAddServico";
-            this.btnAddServico.Size = new System.Drawing.Size(75, 28);
-            this.btnAddServico.TabIndex = 20;
-            this.btnAddServico.Text = "&Adicionar";
-            this.btnAddServico.TextColor = System.Drawing.Color.White;
-            this.btnAddServico.UseVisualStyleBackColor = false;
-            this.btnAddServico.Click += new System.EventHandler(this.btnAddServico_Click);
-            // 
             // tabProdutos
             // 
-            this.tabProdutos.Controls.Add(this.btnExcluirProduto);
             this.tabProdutos.Controls.Add(this.lblQtdeProduto);
             this.tabProdutos.Controls.Add(this.txtQtdeProduto);
             this.tabProdutos.Controls.Add(this.btnConsultaProduto);
@@ -613,41 +390,22 @@
             this.tabProdutos.Controls.Add(this.lblProduto);
             this.tabProdutos.Controls.Add(this.dataGridViewProdutos);
             this.tabProdutos.Controls.Add(this.btnAddProdutos);
+            this.tabProdutos.Controls.Add(this.btnExcluirServico);
             this.tabProdutos.Location = new System.Drawing.Point(4, 22);
             this.tabProdutos.Name = "tabProdutos";
             this.tabProdutos.Padding = new System.Windows.Forms.Padding(3);
             this.tabProdutos.Size = new System.Drawing.Size(591, 269);
-            this.tabProdutos.TabIndex = 1;
+            this.tabProdutos.TabIndex = 2;
             this.tabProdutos.Text = "Produtos";
             this.tabProdutos.UseVisualStyleBackColor = true;
-            // 
-            // btnExcluirProduto
-            // 
-            this.btnExcluirProduto.BackColor = System.Drawing.Color.White;
-            this.btnExcluirProduto.BackgroundColor = System.Drawing.Color.White;
-            this.btnExcluirProduto.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnExcluirProduto.BorderRadius = 5;
-            this.btnExcluirProduto.BorderSize = 1;
-            this.btnExcluirProduto.FlatAppearance.BorderSize = 0;
-            this.btnExcluirProduto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcluirProduto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExcluirProduto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnExcluirProduto.Location = new System.Drawing.Point(484, 279);
-            this.btnExcluirProduto.Name = "btnExcluirProduto";
-            this.btnExcluirProduto.Size = new System.Drawing.Size(86, 28);
-            this.btnExcluirProduto.TabIndex = 15;
-            this.btnExcluirProduto.Text = "Excluir Produto";
-            this.btnExcluirProduto.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnExcluirProduto.UseVisualStyleBackColor = false;
-            this.btnExcluirProduto.Click += new System.EventHandler(this.btnExcluirProduto_Click);
             // 
             // lblQtdeProduto
             // 
             this.lblQtdeProduto.AutoSize = true;
-            this.lblQtdeProduto.Location = new System.Drawing.Point(414, 13);
+            this.lblQtdeProduto.Location = new System.Drawing.Point(416, 15);
             this.lblQtdeProduto.Name = "lblQtdeProduto";
             this.lblQtdeProduto.Size = new System.Drawing.Size(69, 13);
-            this.lblQtdeProduto.TabIndex = 84;
+            this.lblQtdeProduto.TabIndex = 111;
             this.lblQtdeProduto.Text = "Quantidade *";
             // 
             // txtQtdeProduto
@@ -662,7 +420,7 @@
             this.txtQtdeProduto.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtQtdeProduto.DisabledForeColor = System.Drawing.Color.White;
             this.txtQtdeProduto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtQtdeProduto.Location = new System.Drawing.Point(417, 29);
+            this.txtQtdeProduto.Location = new System.Drawing.Point(419, 31);
             this.txtQtdeProduto.MaxLength = 32767;
             this.txtQtdeProduto.Multiline = false;
             this.txtQtdeProduto.Name = "txtQtdeProduto";
@@ -671,7 +429,7 @@
             this.txtQtdeProduto.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtQtdeProduto.PlaceholderText = "";
             this.txtQtdeProduto.Size = new System.Drawing.Size(66, 28);
-            this.txtQtdeProduto.TabIndex = 13;
+            this.txtQtdeProduto.TabIndex = 105;
             this.txtQtdeProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtQtdeProduto.Texts = "";
             this.txtQtdeProduto.UnderlinedStyle = false;
@@ -688,10 +446,10 @@
             this.btnConsultaProduto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConsultaProduto.ForeColor = System.Drawing.Color.White;
             this.btnConsultaProduto.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaProduto.Image")));
-            this.btnConsultaProduto.Location = new System.Drawing.Point(92, 29);
+            this.btnConsultaProduto.Location = new System.Drawing.Point(94, 31);
             this.btnConsultaProduto.Name = "btnConsultaProduto";
             this.btnConsultaProduto.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaProduto.TabIndex = 12;
+            this.btnConsultaProduto.TabIndex = 104;
             this.btnConsultaProduto.TextColor = System.Drawing.Color.White;
             this.btnConsultaProduto.UseVisualStyleBackColor = false;
             this.btnConsultaProduto.Click += new System.EventHandler(this.btnConsultaProduto_Click);
@@ -709,7 +467,7 @@
             this.txtProduto.DisabledForeColor = System.Drawing.Color.White;
             this.txtProduto.Enabled = false;
             this.txtProduto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtProduto.Location = new System.Drawing.Point(134, 29);
+            this.txtProduto.Location = new System.Drawing.Point(136, 31);
             this.txtProduto.MaxLength = 32767;
             this.txtProduto.Multiline = false;
             this.txtProduto.Name = "txtProduto";
@@ -718,7 +476,7 @@
             this.txtProduto.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtProduto.PlaceholderText = "";
             this.txtProduto.Size = new System.Drawing.Size(270, 28);
-            this.txtProduto.TabIndex = 81;
+            this.txtProduto.TabIndex = 110;
             this.txtProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtProduto.Texts = "";
             this.txtProduto.UnderlinedStyle = false;
@@ -735,7 +493,7 @@
             this.txtCodProduto.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodProduto.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodProduto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodProduto.Location = new System.Drawing.Point(20, 29);
+            this.txtCodProduto.Location = new System.Drawing.Point(22, 31);
             this.txtCodProduto.MaxLength = 32767;
             this.txtCodProduto.Multiline = false;
             this.txtCodProduto.Name = "txtCodProduto";
@@ -744,7 +502,7 @@
             this.txtCodProduto.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCodProduto.PlaceholderText = "";
             this.txtCodProduto.Size = new System.Drawing.Size(66, 28);
-            this.txtCodProduto.TabIndex = 11;
+            this.txtCodProduto.TabIndex = 103;
             this.txtCodProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodProduto.Texts = "";
             this.txtCodProduto.UnderlinedStyle = false;
@@ -754,19 +512,19 @@
             // lblCodProduto
             // 
             this.lblCodProduto.AutoSize = true;
-            this.lblCodProduto.Location = new System.Drawing.Point(17, 13);
+            this.lblCodProduto.Location = new System.Drawing.Point(19, 15);
             this.lblCodProduto.Name = "lblCodProduto";
             this.lblCodProduto.Size = new System.Drawing.Size(69, 13);
-            this.lblCodProduto.TabIndex = 79;
+            this.lblCodProduto.TabIndex = 109;
             this.lblCodProduto.Text = "Cód. Produto";
             // 
             // lblProduto
             // 
             this.lblProduto.AutoSize = true;
-            this.lblProduto.Location = new System.Drawing.Point(131, 13);
+            this.lblProduto.Location = new System.Drawing.Point(133, 15);
             this.lblProduto.Name = "lblProduto";
             this.lblProduto.Size = new System.Drawing.Size(44, 13);
-            this.lblProduto.TabIndex = 78;
+            this.lblProduto.TabIndex = 108;
             this.lblProduto.Text = "Produto";
             // 
             // dataGridViewProdutos
@@ -784,11 +542,10 @@
             this.quantidadeProduto,
             this.precoProduto});
             this.dataGridViewProdutos.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewProdutos.Location = new System.Drawing.Point(20, 68);
+            this.dataGridViewProdutos.Location = new System.Drawing.Point(22, 70);
             this.dataGridViewProdutos.Name = "dataGridViewProdutos";
             this.dataGridViewProdutos.Size = new System.Drawing.Size(550, 184);
-            this.dataGridViewProdutos.TabIndex = 38;
-            this.dataGridViewProdutos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProdutos_CellEndEdit);
+            this.dataGridViewProdutos.TabIndex = 107;
             // 
             // idProduto
             // 
@@ -829,14 +586,34 @@
             this.btnAddProdutos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddProdutos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddProdutos.ForeColor = System.Drawing.Color.White;
-            this.btnAddProdutos.Location = new System.Drawing.Point(495, 29);
+            this.btnAddProdutos.Location = new System.Drawing.Point(497, 31);
             this.btnAddProdutos.Name = "btnAddProdutos";
             this.btnAddProdutos.Size = new System.Drawing.Size(75, 28);
-            this.btnAddProdutos.TabIndex = 14;
+            this.btnAddProdutos.TabIndex = 106;
             this.btnAddProdutos.Text = "&Adicionar";
             this.btnAddProdutos.TextColor = System.Drawing.Color.White;
             this.btnAddProdutos.UseVisualStyleBackColor = false;
             this.btnAddProdutos.Click += new System.EventHandler(this.btnAddProdutos_Click);
+            // 
+            // btnExcluirServico
+            // 
+            this.btnExcluirServico.BackColor = System.Drawing.Color.White;
+            this.btnExcluirServico.BackgroundColor = System.Drawing.Color.White;
+            this.btnExcluirServico.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnExcluirServico.BorderRadius = 5;
+            this.btnExcluirServico.BorderSize = 1;
+            this.btnExcluirServico.FlatAppearance.BorderSize = 0;
+            this.btnExcluirServico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluirServico.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExcluirServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnExcluirServico.Location = new System.Drawing.Point(484, 279);
+            this.btnExcluirServico.Name = "btnExcluirServico";
+            this.btnExcluirServico.Size = new System.Drawing.Size(86, 28);
+            this.btnExcluirServico.TabIndex = 21;
+            this.btnExcluirServico.Text = "Excluir Serviço";
+            this.btnExcluirServico.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnExcluirServico.UseVisualStyleBackColor = false;
+            this.btnExcluirServico.Click += new System.EventHandler(this.btnExcluirServico_Click);
             // 
             // tabDadosPrincipais
             // 
@@ -1122,11 +899,226 @@
             this.tabPrincipal.Controls.Add(this.tabDadosPrincipais);
             this.tabPrincipal.Controls.Add(this.tabProdutos);
             this.tabPrincipal.Controls.Add(this.tabServicos);
+            this.tabPrincipal.Controls.Add(this.tabCondPagamento);
             this.tabPrincipal.Location = new System.Drawing.Point(16, 73);
             this.tabPrincipal.Name = "tabPrincipal";
             this.tabPrincipal.SelectedIndex = 0;
             this.tabPrincipal.Size = new System.Drawing.Size(599, 295);
             this.tabPrincipal.TabIndex = 16;
+            // 
+            // tabServicos
+            // 
+            this.tabServicos.Controls.Add(this.lblQtdeServico);
+            this.tabServicos.Controls.Add(this.txtQtdeServico);
+            this.tabServicos.Controls.Add(this.btnConsultaServico);
+            this.tabServicos.Controls.Add(this.txtServico);
+            this.tabServicos.Controls.Add(this.txtCodServico);
+            this.tabServicos.Controls.Add(this.lblCodServico);
+            this.tabServicos.Controls.Add(this.lblServico);
+            this.tabServicos.Controls.Add(this.dataGridViewServicos);
+            this.tabServicos.Controls.Add(this.btnAddServico);
+            this.tabServicos.Location = new System.Drawing.Point(4, 22);
+            this.tabServicos.Name = "tabServicos";
+            this.tabServicos.Padding = new System.Windows.Forms.Padding(3);
+            this.tabServicos.Size = new System.Drawing.Size(591, 269);
+            this.tabServicos.TabIndex = 3;
+            this.tabServicos.Text = "Serviços";
+            this.tabServicos.UseVisualStyleBackColor = true;
+            // 
+            // lblQtdeServico
+            // 
+            this.lblQtdeServico.AutoSize = true;
+            this.lblQtdeServico.Location = new System.Drawing.Point(416, 14);
+            this.lblQtdeServico.Name = "lblQtdeServico";
+            this.lblQtdeServico.Size = new System.Drawing.Size(69, 13);
+            this.lblQtdeServico.TabIndex = 102;
+            this.lblQtdeServico.Text = "Quantidade *";
+            // 
+            // txtQtdeServico
+            // 
+            this.txtQtdeServico.BackColor = System.Drawing.SystemColors.Window;
+            this.txtQtdeServico.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtQtdeServico.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtQtdeServico.BorderRadius = 5;
+            this.txtQtdeServico.BorderSize = 1;
+            this.txtQtdeServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtQtdeServico.DisabledBackColor = System.Drawing.Color.White;
+            this.txtQtdeServico.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtQtdeServico.DisabledForeColor = System.Drawing.Color.White;
+            this.txtQtdeServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtQtdeServico.Location = new System.Drawing.Point(419, 30);
+            this.txtQtdeServico.MaxLength = 32767;
+            this.txtQtdeServico.Multiline = false;
+            this.txtQtdeServico.Name = "txtQtdeServico";
+            this.txtQtdeServico.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtQtdeServico.PasswordChar = false;
+            this.txtQtdeServico.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtQtdeServico.PlaceholderText = "";
+            this.txtQtdeServico.Size = new System.Drawing.Size(66, 28);
+            this.txtQtdeServico.TabIndex = 96;
+            this.txtQtdeServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtQtdeServico.Texts = "";
+            this.txtQtdeServico.UnderlinedStyle = false;
+            this.txtQtdeServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeServico_KeyPress);
+            // 
+            // btnConsultaServico
+            // 
+            this.btnConsultaServico.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaServico.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaServico.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaServico.BorderRadius = 5;
+            this.btnConsultaServico.BorderSize = 1;
+            this.btnConsultaServico.FlatAppearance.BorderSize = 0;
+            this.btnConsultaServico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsultaServico.ForeColor = System.Drawing.Color.White;
+            this.btnConsultaServico.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaServico.Image")));
+            this.btnConsultaServico.Location = new System.Drawing.Point(94, 30);
+            this.btnConsultaServico.Name = "btnConsultaServico";
+            this.btnConsultaServico.Size = new System.Drawing.Size(36, 28);
+            this.btnConsultaServico.TabIndex = 95;
+            this.btnConsultaServico.TextColor = System.Drawing.Color.White;
+            this.btnConsultaServico.UseVisualStyleBackColor = false;
+            this.btnConsultaServico.Click += new System.EventHandler(this.btnConsultaServico_Click);
+            // 
+            // txtServico
+            // 
+            this.txtServico.BackColor = System.Drawing.SystemColors.Window;
+            this.txtServico.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtServico.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtServico.BorderRadius = 5;
+            this.txtServico.BorderSize = 1;
+            this.txtServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtServico.DisabledBackColor = System.Drawing.Color.White;
+            this.txtServico.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtServico.DisabledForeColor = System.Drawing.Color.White;
+            this.txtServico.Enabled = false;
+            this.txtServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtServico.Location = new System.Drawing.Point(136, 30);
+            this.txtServico.MaxLength = 32767;
+            this.txtServico.Multiline = false;
+            this.txtServico.Name = "txtServico";
+            this.txtServico.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtServico.PasswordChar = false;
+            this.txtServico.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtServico.PlaceholderText = "";
+            this.txtServico.Size = new System.Drawing.Size(270, 28);
+            this.txtServico.TabIndex = 101;
+            this.txtServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtServico.Texts = "";
+            this.txtServico.UnderlinedStyle = false;
+            // 
+            // txtCodServico
+            // 
+            this.txtCodServico.BackColor = System.Drawing.SystemColors.Window;
+            this.txtCodServico.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtCodServico.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtCodServico.BorderRadius = 5;
+            this.txtCodServico.BorderSize = 1;
+            this.txtCodServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtCodServico.DisabledBackColor = System.Drawing.Color.White;
+            this.txtCodServico.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtCodServico.DisabledForeColor = System.Drawing.Color.White;
+            this.txtCodServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtCodServico.Location = new System.Drawing.Point(22, 30);
+            this.txtCodServico.MaxLength = 32767;
+            this.txtCodServico.Multiline = false;
+            this.txtCodServico.Name = "txtCodServico";
+            this.txtCodServico.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtCodServico.PasswordChar = false;
+            this.txtCodServico.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtCodServico.PlaceholderText = "";
+            this.txtCodServico.Size = new System.Drawing.Size(66, 28);
+            this.txtCodServico.TabIndex = 94;
+            this.txtCodServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCodServico.Texts = "";
+            this.txtCodServico.UnderlinedStyle = false;
+            this.txtCodServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodServico_KeyPress);
+            this.txtCodServico.Leave += new System.EventHandler(this.txtCodServico_Leave);
+            // 
+            // lblCodServico
+            // 
+            this.lblCodServico.AutoSize = true;
+            this.lblCodServico.Location = new System.Drawing.Point(19, 14);
+            this.lblCodServico.Name = "lblCodServico";
+            this.lblCodServico.Size = new System.Drawing.Size(75, 13);
+            this.lblCodServico.TabIndex = 100;
+            this.lblCodServico.Text = "Cód. Serviço *";
+            // 
+            // lblServico
+            // 
+            this.lblServico.AutoSize = true;
+            this.lblServico.Location = new System.Drawing.Point(133, 14);
+            this.lblServico.Name = "lblServico";
+            this.lblServico.Size = new System.Drawing.Size(43, 13);
+            this.lblServico.TabIndex = 99;
+            this.lblServico.Text = "Serviço";
+            // 
+            // dataGridViewServicos
+            // 
+            this.dataGridViewServicos.AllowUserToAddRows = false;
+            this.dataGridViewServicos.AllowUserToResizeColumns = false;
+            this.dataGridViewServicos.AllowUserToResizeRows = false;
+            this.dataGridViewServicos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
+            this.dataGridViewServicos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewServicos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idServiço,
+            this.Serviço,
+            this.precoUNServ,
+            this.quantidadeServico,
+            this.precoServico});
+            this.dataGridViewServicos.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridViewServicos.Location = new System.Drawing.Point(22, 70);
+            this.dataGridViewServicos.Name = "dataGridViewServicos";
+            this.dataGridViewServicos.Size = new System.Drawing.Size(550, 184);
+            this.dataGridViewServicos.TabIndex = 98;
+            // 
+            // idServiço
+            // 
+            this.idServiço.HeaderText = "Código";
+            this.idServiço.Name = "idServiço";
+            this.idServiço.Width = 80;
+            // 
+            // Serviço
+            // 
+            this.Serviço.HeaderText = "Serviço";
+            this.Serviço.Name = "Serviço";
+            this.Serviço.Width = 145;
+            // 
+            // precoUNServ
+            // 
+            this.precoUNServ.HeaderText = "Preço UN";
+            this.precoUNServ.Name = "precoUNServ";
+            // 
+            // quantidadeServico
+            // 
+            this.quantidadeServico.HeaderText = "Quantidade";
+            this.quantidadeServico.Name = "quantidadeServico";
+            this.quantidadeServico.Width = 80;
+            // 
+            // precoServico
+            // 
+            this.precoServico.HeaderText = "Preço Total";
+            this.precoServico.Name = "precoServico";
+            // 
+            // btnAddServico
+            // 
+            this.btnAddServico.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAddServico.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAddServico.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAddServico.BorderRadius = 5;
+            this.btnAddServico.BorderSize = 1;
+            this.btnAddServico.FlatAppearance.BorderSize = 0;
+            this.btnAddServico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddServico.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddServico.ForeColor = System.Drawing.Color.White;
+            this.btnAddServico.Location = new System.Drawing.Point(497, 30);
+            this.btnAddServico.Name = "btnAddServico";
+            this.btnAddServico.Size = new System.Drawing.Size(75, 28);
+            this.btnAddServico.TabIndex = 97;
+            this.btnAddServico.Text = "&Adicionar";
+            this.btnAddServico.TextColor = System.Drawing.Color.White;
+            this.btnAddServico.UseVisualStyleBackColor = false;
+            this.btnAddServico.Click += new System.EventHandler(this.btnAddServico_Click);
             // 
             // txtDataOS
             // 
@@ -1415,6 +1407,192 @@
             this.label4.TabIndex = 132;
             this.label4.Text = "Valor Entrada";
             // 
+            // tabCondPagamento
+            // 
+            this.tabCondPagamento.Controls.Add(this.label6);
+            this.tabCondPagamento.Controls.Add(this.btnAddCondPag);
+            this.tabCondPagamento.Controls.Add(this.dataGridViewParcelas);
+            this.tabCondPagamento.Controls.Add(this.btnConsultaCondPag);
+            this.tabCondPagamento.Controls.Add(this.txtCondPag);
+            this.tabCondPagamento.Controls.Add(this.txtCodCondPag);
+            this.tabCondPagamento.Controls.Add(this.label5);
+            this.tabCondPagamento.Location = new System.Drawing.Point(4, 22);
+            this.tabCondPagamento.Name = "tabCondPagamento";
+            this.tabCondPagamento.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCondPagamento.Size = new System.Drawing.Size(591, 269);
+            this.tabCondPagamento.TabIndex = 4;
+            this.tabCondPagamento.Text = "Condição de Pagamento";
+            this.tabCondPagamento.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 13);
+            this.label6.TabIndex = 137;
+            this.label6.Text = "Código*";
+            // 
+            // btnAddCondPag
+            // 
+            this.btnAddCondPag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAddCondPag.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAddCondPag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAddCondPag.BorderRadius = 5;
+            this.btnAddCondPag.BorderSize = 1;
+            this.btnAddCondPag.FlatAppearance.BorderSize = 0;
+            this.btnAddCondPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddCondPag.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddCondPag.ForeColor = System.Drawing.Color.White;
+            this.btnAddCondPag.Location = new System.Drawing.Point(500, 29);
+            this.btnAddCondPag.Name = "btnAddCondPag";
+            this.btnAddCondPag.Size = new System.Drawing.Size(75, 28);
+            this.btnAddCondPag.TabIndex = 133;
+            this.btnAddCondPag.Text = "&Adicionar";
+            this.btnAddCondPag.TextColor = System.Drawing.Color.White;
+            this.btnAddCondPag.UseVisualStyleBackColor = false;
+            this.btnAddCondPag.Click += new System.EventHandler(this.btnAddCondPag_Click);
+            // 
+            // dataGridViewParcelas
+            // 
+            this.dataGridViewParcelas.AllowUserToAddRows = false;
+            this.dataGridViewParcelas.AllowUserToDeleteRows = false;
+            this.dataGridViewParcelas.AllowUserToResizeColumns = false;
+            this.dataGridViewParcelas.AllowUserToResizeRows = false;
+            this.dataGridViewParcelas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
+            this.dataGridViewParcelas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewParcelas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.numeroParcela,
+            this.idFormaPagamento,
+            this.FormaPagamento,
+            this.dataVencimento,
+            this.valorParcela});
+            this.dataGridViewParcelas.Enabled = false;
+            this.dataGridViewParcelas.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridViewParcelas.Location = new System.Drawing.Point(18, 69);
+            this.dataGridViewParcelas.Name = "dataGridViewParcelas";
+            this.dataGridViewParcelas.ReadOnly = true;
+            this.dataGridViewParcelas.Size = new System.Drawing.Size(557, 186);
+            this.dataGridViewParcelas.TabIndex = 136;
+            // 
+            // numeroParcela
+            // 
+            this.numeroParcela.HeaderText = "Parcela";
+            this.numeroParcela.Name = "numeroParcela";
+            this.numeroParcela.ReadOnly = true;
+            this.numeroParcela.Width = 80;
+            // 
+            // idFormaPagamento
+            // 
+            this.idFormaPagamento.HeaderText = "Cód. Forma Pagamento";
+            this.idFormaPagamento.Name = "idFormaPagamento";
+            this.idFormaPagamento.ReadOnly = true;
+            this.idFormaPagamento.Width = 80;
+            // 
+            // FormaPagamento
+            // 
+            this.FormaPagamento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FormaPagamento.HeaderText = "Forma de Pagamento";
+            this.FormaPagamento.Name = "FormaPagamento";
+            this.FormaPagamento.ReadOnly = true;
+            // 
+            // dataVencimento
+            // 
+            this.dataVencimento.HeaderText = "Data Vencimento";
+            this.dataVencimento.Name = "dataVencimento";
+            this.dataVencimento.ReadOnly = true;
+            this.dataVencimento.Width = 85;
+            // 
+            // valorParcela
+            // 
+            this.valorParcela.HeaderText = "Valor Parcela";
+            this.valorParcela.Name = "valorParcela";
+            this.valorParcela.ReadOnly = true;
+            this.valorParcela.Width = 80;
+            // 
+            // btnConsultaCondPag
+            // 
+            this.btnConsultaCondPag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaCondPag.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaCondPag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaCondPag.BorderRadius = 5;
+            this.btnConsultaCondPag.BorderSize = 1;
+            this.btnConsultaCondPag.FlatAppearance.BorderSize = 0;
+            this.btnConsultaCondPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsultaCondPag.ForeColor = System.Drawing.Color.White;
+            this.btnConsultaCondPag.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaCondPag.Image")));
+            this.btnConsultaCondPag.Location = new System.Drawing.Point(90, 29);
+            this.btnConsultaCondPag.Name = "btnConsultaCondPag";
+            this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 28);
+            this.btnConsultaCondPag.TabIndex = 132;
+            this.btnConsultaCondPag.TextColor = System.Drawing.Color.White;
+            this.btnConsultaCondPag.UseVisualStyleBackColor = false;
+            this.btnConsultaCondPag.Click += new System.EventHandler(this.btnConsultaCondPag_Click);
+            // 
+            // txtCondPag
+            // 
+            this.txtCondPag.BackColor = System.Drawing.SystemColors.Window;
+            this.txtCondPag.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtCondPag.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtCondPag.BorderRadius = 5;
+            this.txtCondPag.BorderSize = 1;
+            this.txtCondPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtCondPag.DisabledBackColor = System.Drawing.Color.White;
+            this.txtCondPag.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtCondPag.DisabledForeColor = System.Drawing.Color.White;
+            this.txtCondPag.Enabled = false;
+            this.txtCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtCondPag.Location = new System.Drawing.Point(132, 29);
+            this.txtCondPag.MaxLength = 14;
+            this.txtCondPag.Multiline = false;
+            this.txtCondPag.Name = "txtCondPag";
+            this.txtCondPag.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtCondPag.PasswordChar = false;
+            this.txtCondPag.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtCondPag.PlaceholderText = "";
+            this.txtCondPag.Size = new System.Drawing.Size(362, 28);
+            this.txtCondPag.TabIndex = 135;
+            this.txtCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtCondPag.Texts = "";
+            this.txtCondPag.UnderlinedStyle = false;
+            // 
+            // txtCodCondPag
+            // 
+            this.txtCodCondPag.BackColor = System.Drawing.SystemColors.Window;
+            this.txtCodCondPag.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtCodCondPag.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtCodCondPag.BorderRadius = 5;
+            this.txtCodCondPag.BorderSize = 1;
+            this.txtCodCondPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtCodCondPag.DisabledBackColor = System.Drawing.Color.White;
+            this.txtCodCondPag.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtCodCondPag.DisabledForeColor = System.Drawing.Color.White;
+            this.txtCodCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtCodCondPag.Location = new System.Drawing.Point(18, 29);
+            this.txtCodCondPag.MaxLength = 14;
+            this.txtCodCondPag.Multiline = false;
+            this.txtCodCondPag.Name = "txtCodCondPag";
+            this.txtCodCondPag.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtCodCondPag.PasswordChar = false;
+            this.txtCodCondPag.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtCodCondPag.PlaceholderText = "";
+            this.txtCodCondPag.Size = new System.Drawing.Size(66, 28);
+            this.txtCodCondPag.TabIndex = 131;
+            this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCodCondPag.Texts = "";
+            this.txtCodCondPag.UnderlinedStyle = false;
+            this.txtCodCondPag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCondPag_KeyPress);
+            this.txtCodCondPag.Leave += new System.EventHandler(this.txtCodCondPag_Leave);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(129, 13);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(124, 13);
+            this.label5.TabIndex = 134;
+            this.label5.Text = "Condição de Pagamento";
+            // 
             // CadastroOS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1449,15 +1627,6 @@
             this.Controls.SetChildIndex(this.cbSituacao, 0);
             this.Controls.SetChildIndex(this.txtDataEntrega, 0);
             this.Controls.SetChildIndex(this.lblDataEntrega, 0);
-            this.Controls.SetChildIndex(this.lblCodigo, 0);
-            this.Controls.SetChildIndex(this.txtCodigo, 0);
-            this.Controls.SetChildIndex(this.btnSalvar, 0);
-            this.Controls.SetChildIndex(this.btnSair, 0);
-            this.Controls.SetChildIndex(this.txtDataCadastro, 0);
-            this.Controls.SetChildIndex(this.txtDataUltAlt, 0);
-            this.Controls.SetChildIndex(this.lblDataCadastro, 0);
-            this.Controls.SetChildIndex(this.lblDataUltAlt, 0);
-            this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.txtValorPendente, 0);
@@ -1468,19 +1637,31 @@
             this.Controls.SetChildIndex(this.lblDataPrevista, 0);
             this.Controls.SetChildIndex(this.label4, 0);
             this.Controls.SetChildIndex(this.txtValorEntrada, 0);
+            this.Controls.SetChildIndex(this.lblCodigo, 0);
+            this.Controls.SetChildIndex(this.txtCodigo, 0);
+            this.Controls.SetChildIndex(this.btnSalvar, 0);
+            this.Controls.SetChildIndex(this.btnSair, 0);
+            this.Controls.SetChildIndex(this.txtDataCadastro, 0);
+            this.Controls.SetChildIndex(this.txtDataUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblDataCadastro, 0);
+            this.Controls.SetChildIndex(this.lblDataUltAlt, 0);
+            this.Controls.SetChildIndex(this.groupBox1, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gpTotal.ResumeLayout(false);
             this.gpTotal.PerformLayout();
-            this.tabServicos.ResumeLayout(false);
-            this.tabServicos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServicos)).EndInit();
             this.tabProdutos.ResumeLayout(false);
             this.tabProdutos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).EndInit();
             this.tabDadosPrincipais.ResumeLayout(false);
             this.tabDadosPrincipais.PerformLayout();
             this.tabPrincipal.ResumeLayout(false);
+            this.tabServicos.ResumeLayout(false);
+            this.tabServicos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServicos)).EndInit();
+            this.tabCondPagamento.ResumeLayout(false);
+            this.tabCondPagamento.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewParcelas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1494,7 +1675,6 @@
         private System.Windows.Forms.Label lblSubTotalProdutos;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblSituacao;
-        private System.Windows.Forms.TabPage tabServicos;
         private System.Windows.Forms.TabPage tabProdutos;
         private System.Windows.Forms.TabPage tabDadosPrincipais;
         protected System.Windows.Forms.Label lblObservacao;
@@ -1511,8 +1691,6 @@
         private GControls.GTextBox txtObservacao;
         private GControls.GMaskedTextBox txtDataOS;
         private System.Windows.Forms.Label lblDataOS;
-        protected GButtons btnAddProdutos;
-        private System.Windows.Forms.DataGridView dataGridViewProdutos;
         private GControls.GTextBox txtDesconto;
         private GControls.GTextBox txtSubtotalServicos;
         private GControls.GTextBox txtSubtotalProdutos;
@@ -1521,37 +1699,10 @@
         private GControls.GTextBox txtCelular;
         protected System.Windows.Forms.Label lblCelular;
         protected GControls.GComboBox cbSituacao;
-        private GButtons btnConsultaProduto;
-        private GControls.GTextBox txtProduto;
-        private GControls.GTextBox txtCodProduto;
-        protected System.Windows.Forms.Label lblCodProduto;
-        protected System.Windows.Forms.Label lblProduto;
-        protected System.Windows.Forms.Label lblQtdeProduto;
-        private GControls.GTextBox txtQtdeProduto;
         private System.Windows.Forms.Label lblDataEntrega;
         private GControls.GMaskedTextBox txtDataEntrega;
-        protected System.Windows.Forms.Label lblQtdeServico;
-        private GControls.GTextBox txtQtdeServico;
-        private GButtons btnConsultaServico;
-        private GControls.GTextBox txtServico;
-        private GControls.GTextBox txtCodServico;
-        protected System.Windows.Forms.Label lblCodServico;
-        protected System.Windows.Forms.Label lblServico;
-        private System.Windows.Forms.DataGridView dataGridViewServicos;
-        protected GButtons btnAddServico;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idProduto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn produto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precoUNProd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeProduto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precoProduto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idServiço;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Serviço;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precoUNServ;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeServico;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precoServico;
         public GControls.GTextBox txtCodCliente;
         public GButtons btnExcluirServico;
-        public GButtons btnExcluirProduto;
         private System.Windows.Forms.Label label2;
         private GControls.GTextBox txtValorPendente;
         private System.Windows.Forms.Label label3;
@@ -1562,5 +1713,47 @@
         private GControls.GMaskedTextBox txtDataPrevista;
         private GControls.GTextBox txtValorEntrada;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TabPage tabServicos;
+        protected System.Windows.Forms.Label lblQtdeProduto;
+        private GControls.GTextBox txtQtdeProduto;
+        private GButtons btnConsultaProduto;
+        private GControls.GTextBox txtProduto;
+        private GControls.GTextBox txtCodProduto;
+        protected System.Windows.Forms.Label lblCodProduto;
+        protected System.Windows.Forms.Label lblProduto;
+        private System.Windows.Forms.DataGridView dataGridViewProdutos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idProduto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn produto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precoUNProd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeProduto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precoProduto;
+        protected GButtons btnAddProdutos;
+        protected System.Windows.Forms.Label lblQtdeServico;
+        private GControls.GTextBox txtQtdeServico;
+        private GButtons btnConsultaServico;
+        private GControls.GTextBox txtServico;
+        private GControls.GTextBox txtCodServico;
+        protected System.Windows.Forms.Label lblCodServico;
+        protected System.Windows.Forms.Label lblServico;
+        private System.Windows.Forms.DataGridView dataGridViewServicos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idServiço;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Serviço;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precoUNServ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeServico;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precoServico;
+        protected GButtons btnAddServico;
+        private System.Windows.Forms.TabPage tabCondPagamento;
+        protected System.Windows.Forms.Label label6;
+        protected GButtons btnAddCondPag;
+        private System.Windows.Forms.DataGridView dataGridViewParcelas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numeroParcela;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idFormaPagamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FormaPagamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataVencimento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorParcela;
+        protected GButtons btnConsultaCondPag;
+        protected GControls.GTextBox txtCondPag;
+        protected GControls.GTextBox txtCodCondPag;
+        protected System.Windows.Forms.Label label5;
     }
 }

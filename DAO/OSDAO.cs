@@ -38,8 +38,8 @@ namespace Sistema_Vendas.DAO
                 try
                 {
                     string queryOS = @"INSERT INTO ordemServico 
-                               (data, precoTotal, status, dataEntrega, observacao, idCliente, porcentagemDesconto, idFuncionario, dataPrevista, dataCancelamento, valorRetirada, valorEntrada, dataCadastro, dataUltAlt, Ativo) 
-                               VALUES (@data, @precoTotal, @status, @dataEntrega, @observacao, @idCliente, @porcentagemDesconto, @idFuncionario, @dataPrevista, @dataCancelamento, @valorRetirada, @valorEntrada, @dataCadastro, @dataUltAlt, @Ativo);
+                               (data, precoTotal, status, dataEntrega, observacao, idCliente, idCondPagamento, porcentagemDesconto, idFuncionario, dataPrevista, dataCancelamento, valorRetirada, valorEntrada, dataCadastro, dataUltAlt, Ativo) 
+                               VALUES (@data, @precoTotal, @status, @dataEntrega, @observacao, @idCliente, @idCondPagamento, @porcentagemDesconto, @idFuncionario, @dataPrevista, @dataCancelamento, @valorRetirada, @valorEntrada, @dataCadastro, @dataUltAlt, @Ativo);
                                SELECT SCOPE_IDENTITY();";
                     SqlCommand cmdOS = new SqlCommand(queryOS, conn, transaction);
                     cmdOS.Parameters.AddWithValue("@data", obj.data);
@@ -48,6 +48,7 @@ namespace Sistema_Vendas.DAO
                     cmdOS.Parameters.AddWithValue("@status", obj.status);
                     cmdOS.Parameters.AddWithValue("@observacao", obj.observacao);
                     cmdOS.Parameters.AddWithValue("@idCliente", obj.idCliente);
+                    cmdOS.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
                     cmdOS.Parameters.AddWithValue("@porcentagemDesconto", obj.porcentagemDesconto);
                     cmdOS.Parameters.AddWithValue("@idFuncionario", obj.idFuncionario);
                     cmdOS.Parameters.AddWithValue("@dataPrevista", obj.dataPrevista);
@@ -125,6 +126,7 @@ namespace Sistema_Vendas.DAO
                         ordemServico.idOrdemServico = Convert.ToInt32(reader["idOrdemServico"]);
                         ordemServico.idCliente = Convert.ToInt32(reader["idCliente"]);
                         ordemServico.idFuncionario = Convert.ToInt32(reader["idFuncionario"]);
+                        ordemServico.idCondPagamento = Convert.ToInt32(reader["idCondPagamento"]);
                         ordemServico.dataPrevista = Convert.ToDateTime(reader["dataPrevista"]);
                         ordemServico.precoTotal = Convert.ToDecimal(reader["precoTotal"]);
                         ordemServico.valorEntrada = Convert.ToDecimal(reader["valorEntrada"]);
@@ -247,7 +249,7 @@ namespace Sistema_Vendas.DAO
                     string queryOrdemServico = @"UPDATE ordemServico 
                                          SET data = @data, precoTotal = @precoTotal, status = @status, 
                                              dataEntrega = @dataEntrega, observacao = @observacao, 
-                                             idCliente = @idCliente, porcentagemDesconto = @porcentagemDesconto, 
+                                             idCliente = @idCliente, idCondPagamento = @idCondPagamento, porcentagemDesconto = @porcentagemDesconto, 
                                              idFuncionario = @idFuncionario, dataPrevista = @dataPrevista, dataCancelamento = @dataCancelamento,
                                              valorRetirada = @valorRetirada, valorEntrada = @valorEntrada, dataUltAlt = @dataUltAlt, Ativo = @Ativo 
                                          WHERE idOrdemServico = @idOrdemServico";
@@ -260,6 +262,7 @@ namespace Sistema_Vendas.DAO
                     cmdOrdemServico.Parameters.AddWithValue("@idCliente", obj.idCliente);
                     cmdOrdemServico.Parameters.AddWithValue("@porcentagemDesconto", obj.porcentagemDesconto);
                     cmdOrdemServico.Parameters.AddWithValue("@idFuncionario", obj.idFuncionario);
+                    cmdOrdemServico.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
                     cmdOrdemServico.Parameters.AddWithValue("@dataPrevista", obj.dataPrevista);
                     cmdOrdemServico.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
                     cmdOrdemServico.Parameters.AddWithValue("@Ativo", obj.Ativo);

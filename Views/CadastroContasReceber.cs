@@ -214,16 +214,14 @@ namespace Sistema_Vendas.Views
             int idClienteNF = int.Parse(txtCodCliente.Texts);
             int parcelaNF = int.Parse(txtParcela.Texts);
 
-            bool incluindo = numeroNF == -1 && modeloNF == -1 && serieNF == -1 && idClienteNF == -1 && parcelaNF == -1;
+            bool incluindo = NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdCliente == -1 && Parcela == -1;
 
             if (contasReceberController.JaCadastrado(numeroNF, modeloNF, serieNF, idClienteNF, parcelaNF, incluindo))
             {
                 MessageBox.Show("Conta a Receber já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else
-            {
-                try
+            try
                 {
                     int numeroNota = Convert.ToInt32(txtNroNota.Texts);
                     int modelo = Convert.ToInt32(txtModelo.Texts);
@@ -264,26 +262,20 @@ namespace Sistema_Vendas.Views
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt
                     };
-                    if (NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdCliente == -1 && Parcela == -1)
-                    {
-                        contasReceberController.Salvar(novaContaReceber);
-                    }
-                    else
-                    {
-                        novaContaReceber.numeroNota = NumeroNota;
-                        novaContaReceber.modelo = Modelo;
-                        novaContaReceber.serie = Serie;
-                        novaContaReceber.idCliente = IdCliente;
-                        novaContaReceber.parcela = Parcela;
-                        contasReceberController.Alterar(novaContaReceber);
-                    }
-                    this.DialogResult = DialogResult.OK;
+                if (NumeroNota != -1 && Modelo != -1 && Serie != -1 && IdCliente != -1 && Parcela != -1)
+                {
+                    contasReceberController.Alterar(novaContaReceber);
+                }
+                else
+                {
+                    contasReceberController.Salvar(novaContaReceber);
+                }
+                this.DialogResult = DialogResult.OK;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
         }
         protected bool VerificaCamposObrigatorios()
         {
@@ -347,7 +339,7 @@ namespace Sistema_Vendas.Views
         }
         private void calcularJuros()
         {
-            if (DataValida(txtDataVencimento.Text))
+            if (DataValida(txtDataVencimento.Texts))
             {
                 DateTime dataVencimento = DateTime.Parse(txtDataVencimento.Texts);
                 DateTime dataAtual = DateTime.Now;
@@ -364,7 +356,7 @@ namespace Sistema_Vendas.Views
         }
         private void calcularMulta()
         {
-            if (DataValida(txtDataVencimento.Text))
+            if (DataValida(txtDataVencimento.Texts))
             {
                 DateTime dataVencimento = DateTime.Parse(txtDataVencimento.Texts);
                 DateTime dataAtual = DateTime.Now;
@@ -381,7 +373,7 @@ namespace Sistema_Vendas.Views
         }
         private void calcularDesconto()
         {
-            if (DataValida(txtDataVencimento.Text))
+            if (DataValida(txtDataVencimento.Texts))
             {
                 if (porcentagemDesconto.HasValue && !string.IsNullOrWhiteSpace(txtValorParcela.Texts))
                 {
@@ -498,11 +490,35 @@ namespace Sistema_Vendas.Views
         private void txtDataVencimento_Leave(object sender, EventArgs e)
         {
             string dVencimento = new string(txtDataVencimento.Texts.Where(char.IsDigit).ToArray());
-            if (!string.IsNullOrEmpty(dVencimento))
+            string dEmissao = new string(txtDataEmissao.Texts.Where(char.IsDigit).ToArray());
+            if (!string.IsNullOrEmpty(dVencimento) && !string.IsNullOrEmpty(dEmissao))
             {
-                calcularJuros();
-                calcularMulta();
-                calcularDesconto();
+                if (DataValida(txtDataEmissao.Texts) && DataValida(txtDataVencimento.Texts))
+                {
+                    DateTime dataEmissao;
+                    DateTime dataVencimento;
+
+                    bool dataEmissaoValida = DateTime.TryParseExact(txtDataEmissao.Texts, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out dataEmissao);
+                    bool dataVencimentoValida = DateTime.TryParseExact(txtDataVencimento.Texts, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out dataVencimento);
+
+                    if (dataEmissaoValida && dataVencimentoValida)
+                    {
+                        if (dataVencimento < dataEmissao)
+                        {
+                            MessageBox.Show("Data de vencimento inválida! A data de vencimento deve ser maior ou igual à data de emissão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtDataVencimento.Focus();
+                            return;
+                        }
+                    }
+                    calcularJuros();
+                    calcularMulta();
+                    calcularDesconto();
+                }
+                else
+                {
+                    MessageBox.Show("Data de emissão ou data de vencimento inválida! Verifique os valores inseridos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDataVencimento.Focus();
+                }
             }
         }
 
@@ -562,26 +578,42 @@ namespace Sistema_Vendas.Views
         {
             string dRecebimento = new string(txtDataRecebimento.Texts.Where(char.IsDigit).ToArray());
             string dCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
+
             if (!string.IsNullOrEmpty(dCancelamento))
             {
                 MessageBox.Show("Nota Cancelada! Não é possível efetuar o pagamento.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
+
+            if (!string.IsNullOrEmpty(dRecebimento))
             {
-                if (string.IsNullOrEmpty(dRecebimento))
-                {
-                    if (MessageBox.Show("Deseja confirmar o recebimento?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        Salvar();
-                        txtDataRecebimento.Texts = DateTime.Now.ToString();
-                        txtValorRecebido.Texts = txtTotalReceber.Texts;
-                        Salvar();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Pagamento já foi realizado dia " + txtDataRecebimento.Texts, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                MessageBox.Show("Pagamento já foi realizado dia " + txtDataRecebimento.Texts, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            //parcela atual
+            int parcelaAtual = Convert.ToInt32(txtParcela.Texts);
+            string numeroNota = txtNroNota.Texts;
+            string modelo = txtModelo.Texts;
+            string serie = txtSerie.Texts;
+            int idCliente = Convert.ToInt32(txtCodCliente.Texts);
+
+            //verificar se existe uma parcela menor não paga
+            bool parcelaNaoPaga = contasReceberController.VerificarParcelasNaoPagas(numeroNota, modelo, serie, idCliente, parcelaAtual);
+
+            if (parcelaNaoPaga)
+            {
+                MessageBox.Show("Existem parcelas anteriores que não foram pagas. Pague as parcelas anteriores antes de pagar esta.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            //se não existe parcelas menor não pagas, permitir o pagamento
+            if (MessageBox.Show("Deseja realizar o pagamento?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Salvar();
+                txtDataRecebimento.Texts = DateTime.Now.ToString();
+                txtValorRecebido.Texts = txtTotalReceber.Texts;
+                Salvar();
             }
         }
 
@@ -593,19 +625,26 @@ namespace Sistema_Vendas.Views
 
             string dataE = new string(txtDataEmissao.Texts.Where(char.IsDigit).ToArray());
 
-            if (!string.IsNullOrWhiteSpace(dataE) && dataValida)
+            if (!string.IsNullOrEmpty(dataE))
             {
-                if (dataEmissao > dataHoje)
+                if (DataValida(txtDataEmissao.Texts))
                 {
-                    MessageBox.Show("Data de emissão inválida! A data deve ser menor ou igual a hoje.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (!string.IsNullOrWhiteSpace(dataE) && dataValida)
+                    {
+                        if (dataEmissao > dataHoje)
+                        {
+                            MessageBox.Show("Data de emissão inválida! A data deve ser menor ou igual a hoje.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtDataEmissao.Focus();
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Data de emissão inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtDataEmissao.Focus();
                     return;
                 }
-            }
-            else if (string.IsNullOrWhiteSpace(dataE) || !dataValida)
-            {
-                //se estiver vazio ou com a máscara inicial, sai do método sem validação
-                return;
             }
         }
     }

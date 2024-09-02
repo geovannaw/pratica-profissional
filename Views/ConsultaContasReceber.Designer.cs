@@ -65,12 +65,12 @@
             // btnIncluir
             // 
             this.btnIncluir.FlatAppearance.BorderSize = 0;
-            this.btnIncluir.Location = new System.Drawing.Point(549, 422);
+            this.btnIncluir.Location = new System.Drawing.Point(648, 422);
             // 
             // btnAlterar
             // 
             this.btnAlterar.FlatAppearance.BorderSize = 0;
-            this.btnAlterar.Location = new System.Drawing.Point(630, 422);
+            this.btnAlterar.Location = new System.Drawing.Point(729, 422);
             // 
             // btnExcluir
             // 
@@ -85,7 +85,7 @@
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.Location = new System.Drawing.Point(711, 422);
+            this.btnSair.Location = new System.Drawing.Point(810, 422);
             // 
             // dataGridViewContasReceber
             // 
@@ -110,7 +110,7 @@
             this.dataGridViewContasReceber.Location = new System.Drawing.Point(15, 58);
             this.dataGridViewContasReceber.Name = "dataGridViewContasReceber";
             this.dataGridViewContasReceber.ReadOnly = true;
-            this.dataGridViewContasReceber.Size = new System.Drawing.Size(771, 346);
+            this.dataGridViewContasReceber.Size = new System.Drawing.Size(870, 346);
             this.dataGridViewContasReceber.TabIndex = 18;
             this.dataGridViewContasReceber.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewContasReceber_CellDoubleClick);
             this.dataGridViewContasReceber.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewContasReceber_CellFormatting);
@@ -145,10 +145,10 @@
             // 
             // cliente
             // 
+            this.cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.cliente.HeaderText = "Cliente";
             this.cliente.Name = "cliente";
             this.cliente.ReadOnly = true;
-            this.cliente.Width = 160;
             // 
             // parcela
             // 
@@ -188,7 +188,7 @@
             // ConsultaContasReceber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(800, 462);
+            this.ClientSize = new System.Drawing.Size(902, 462);
             this.Controls.Add(this.dataGridViewContasReceber);
             this.Name = "ConsultaContasReceber";
             this.Text = "Consulta Contas Receber";

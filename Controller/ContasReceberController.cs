@@ -54,6 +54,10 @@ namespace Sistema_Vendas.Controller
         {
             return contasReceberDAO.CancelarConta(obj as ContasReceberModel);
         }
+        public bool VerificarParcelasNaoPagas(string numeroNota, string modelo, string serie, int idCliente, int parcelaAtual)
+        {
+            return contasReceberDAO.VerificarParcelasNaoPagas(numeroNota, modelo, serie, idCliente, parcelaAtual);
+        }
         public bool JaCadastrado(int numeroNota, int modelo, int serie, int idCliente, int parcela, bool incluindo)
         {
             List<ContasReceberModel> contasReceber = contasReceberDAO.GetAll(false).Cast<ContasReceberModel>().ToList();
@@ -66,15 +70,28 @@ namespace Sistema_Vendas.Controller
                     conta.idCliente == idCliente &&
                     conta.parcela == parcela)
                 {
-                    //se estiver incluindo e já existe uma conta com a mesma chave composta
                     if (incluindo)
                     {
+                        //se está incluindo, e encontrou um registro com a mesma chave, retorna true
                         return true;
                     }
                     else
                     {
-                        //se estiver alterando e encontrou outra conta com a mesma chave composta, diferente da atual
-                        return true;
+                        //se está alterando, verificar se é a mesma conta que está sendo alterada
+                        if (conta.numeroNota == numeroNota &&
+                            conta.modelo == modelo &&
+                            conta.serie == serie &&
+                            conta.idCliente == idCliente &&
+                            conta.parcela == parcela)
+                        {
+                            //é a mesma conta que está sendo alterada, não é duplicada
+                            return false;
+                        }
+                        else
+                        {
+                            //é uma conta diferente, retorna true
+                            return true;
+                        }
                     }
                 }
             }

@@ -1,5 +1,4 @@
-﻿using Mysqlx.Notice;
-using Sistema_Vendas.Controller;
+﻿using Sistema_Vendas.Controller;
 using Sistema_Vendas.Models;
 using System;
 using System.Collections.Generic;
@@ -9,19 +8,18 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Sistema_Vendas.Views
 {
-    public partial class CadastroNotaVenda : Sistema_Vendas.Views.CadastroPaiCEP
+    public partial class CadastroNotasServico : Sistema_Vendas.Views.CadastroPaiCEP
     {
         private ConsultaClientes consultaClientes;
         private ClienteController<ClienteModel> clienteController;
         private ConsultaCondicaoPagamento consultaCondicaoPagamento;
         private CondicaoPagamentoController<CondicaoPagamentoModel> condicaoPagamentoController;
-        private ConsultaProdutos consultaProdutos;
-        private ProdutoController<ProdutoModel> produtoController;
-        private NotaVendaController<NotaVendaModel> notaVendaController;
+        private ConsultaServicos consultaServicos;
+        private ServicoController<ServicoModel> servicoController;
+        private NotaServicoController<NotaServicoModel> notaServicoController;
         private ContasReceberController<ContasReceberModel> contasReceberController;
 
         int NumeroNota;
@@ -32,21 +30,19 @@ namespace Sistema_Vendas.Views
         decimal juros;
         decimal descontos;
         decimal multa;
-        public CadastroNotaVenda()
+        public CadastroNotasServico()
         {
             InitializeComponent();
             consultaClientes = new ConsultaClientes();
             clienteController = new ClienteController<ClienteModel>();
             consultaCondicaoPagamento = new ConsultaCondicaoPagamento();
             condicaoPagamentoController = new CondicaoPagamentoController<CondicaoPagamentoModel>();
-            consultaProdutos = new ConsultaProdutos();
-            produtoController = new ProdutoController<ProdutoModel>();
-            notaVendaController = new NotaVendaController<NotaVendaModel>();
+            consultaServicos = new ConsultaServicos();
+            servicoController = new ServicoController<ServicoModel>();
+            notaServicoController = new NotaServicoController<NotaServicoModel>();
             contasReceberController = new ContasReceberController<ContasReceberModel>();
             txtNroNota.Focus();
-
         }
-
         public void SetID(int numero, int modelo, int serie, int idCliente)
         {
             NumeroNota = numero;
@@ -70,14 +66,13 @@ namespace Sistema_Vendas.Views
             txtCodCliente.Clear();
             txtCliente.Clear();
             lblCancelada.Visible = false;
-            txtCodProduto.Clear();
-            txtProduto.Clear();
-            txtUN.Clear();
-            txtQtdeProduto.Clear();
-            txtPrecoProd.Clear();
+            txtCodServico.Clear();
+            txtServico.Clear();
+            txtQtdeServico.Clear();
+            txtPrecoServico.Clear();
             txtCodCondPag.Clear();
             txtCondPag.Clear();
-            txtTotalProdutos.Clear();
+            txtTotalServicos.Clear();
             txtTotalPagar.Clear();
             txtObservacao.Clear();
             txtDataCadastro.Clear();
@@ -87,7 +82,7 @@ namespace Sistema_Vendas.Views
             txtDesconto.Clear();
 
             //limpa os DataGridViews
-            dataGridViewProdutos.Rows.Clear();
+            dataGridViewServicos.Rows.Clear();
             dataGridViewParcelas.Rows.Clear();
 
             Desbloqueia();
@@ -102,14 +97,13 @@ namespace Sistema_Vendas.Views
             txtObservacao.Enabled = true;
             txtDataEmissao.Enabled = true;
 
-            txtCodProduto.Enabled = false;
-            txtProduto.Enabled = false;
-            txtUN.Enabled = false;
-            txtQtdeProduto.Enabled = false;
-            txtPrecoProd.Enabled = false;
+            txtCodServico.Enabled = false;
+            txtServico.Enabled = false;
+            txtQtdeServico.Enabled = false;
+            txtPrecoServico.Enabled = false;
             txtCodCondPag.Enabled = false;
             txtCondPag.Enabled = false;
-            txtTotalProdutos.Enabled = false;
+            txtTotalServicos.Enabled = false;
             txtTotalPagar.Enabled = false;
             txtObservacao.Enabled = false;
             txtDataCadastro.Enabled = false;
@@ -121,10 +115,10 @@ namespace Sistema_Vendas.Views
             btnSalvar.Visible = true;
             btnCancelar.Visible = false;
 
-            dataGridViewProdutos.Enabled = true;
+            dataGridViewServicos.Enabled = true;
             dataGridViewParcelas.Enabled = true;
 
-            btnExcluirProduto.Visible = true;
+            btnExcluirServico.Visible = true;
         }
 
         public void BloqueiaTudo()
@@ -136,14 +130,13 @@ namespace Sistema_Vendas.Views
             txtDataEmissao.Enabled = false;
             txtCodCliente.Enabled = false;
             txtCliente.Enabled = false;
-            txtCodProduto.Enabled = false;
-            txtProduto.Enabled = false;
-            txtUN.Enabled = false;
-            txtQtdeProduto.Enabled = false;
-            txtPrecoProd.Enabled = false;
+            txtCodServico.Enabled = false;
+            txtServico.Enabled = false;
+            txtQtdeServico.Enabled = false;
+            txtPrecoServico.Enabled = false;
             txtCodCondPag.Enabled = false;
             txtCondPag.Enabled = false;
-            txtTotalProdutos.Enabled = false;
+            txtTotalServicos.Enabled = false;
             txtTotalPagar.Enabled = false;
             txtObservacao.Enabled = false;
             txtDataCadastro.Enabled = false;
@@ -153,35 +146,35 @@ namespace Sistema_Vendas.Views
 
             //desativa todos os botões
             btnConsultaCliente.Enabled = false;
-            btnConsultaProduto.Enabled = false;
+            btnConsultaServico.Enabled = false;
             btnConsultaCondPag.Enabled = false;
 
             //desativa o DataGridView
-            dataGridViewProdutos.Enabled = true;
+            dataGridViewServicos.Enabled = true;
             dataGridViewParcelas.Enabled = true;
 
-            btnExcluirProduto.Visible = false;
+            btnExcluirServico.Visible = false;
         }
         public override void Carrega()
         {
             base.Carrega();
 
-            var notaVenda = notaVendaController.GetNotaById(NumeroNota, Modelo, Serie, IdCliente);
-            if (notaVenda != null)
+            var notaServico = notaServicoController.GetNotaById(NumeroNota, Modelo, Serie, IdCliente);
+            if (notaServico != null)
             {
-                txtNroNota.Texts = notaVenda.numeroNota.ToString();
-                txtModelo.Texts = notaVenda.modelo.ToString();
-                txtSerie.Texts = notaVenda.serie.ToString();
-                txtDataEmissao.Texts = notaVenda.dataEmissao.ToString();
-                txtCodCliente.Texts = notaVenda.idCliente.ToString();
-                txtTotalPagar.Texts = notaVenda.totalPagar.ToString();
-                txtTotalProdutos.Texts = notaVenda.totalProdutos.ToString();
-                txtPorcentagemDesconto.Texts = notaVenda.porcentagemDesconto.ToString();
-                txtCodCondPag.Texts = notaVenda.idCondPagamento.ToString();
-                txtObservacao.Texts = notaVenda.observacao.ToString();
-                txtDataCadastro.Texts = notaVenda.dataCadastro.ToString();
-                txtDataUltAlt.Texts = notaVenda.dataUltAlt.ToString();
-                txtDataCancelamento.Texts = notaVenda.dataCancelamento.ToString();
+                txtNroNota.Texts = notaServico.numeroNota.ToString();
+                txtModelo.Texts = notaServico.modelo.ToString();
+                txtSerie.Texts = notaServico.serie.ToString();
+                txtDataEmissao.Texts = notaServico.dataEmissao.ToString();
+                txtCodCliente.Texts = notaServico.idCliente.ToString();
+                txtTotalPagar.Texts = notaServico.totalPagar.ToString();
+                txtTotalServicos.Texts = notaServico.totalServicos.ToString();
+                txtPorcentagemDesconto.Texts = notaServico.porcentagemDesconto.ToString();
+                txtCodCondPag.Texts = notaServico.idCondPagamento.ToString();
+                txtObservacao.Texts = notaServico.observacao.ToString();
+                txtDataCadastro.Texts = notaServico.dataCadastro.ToString();
+                txtDataUltAlt.Texts = notaServico.dataUltAlt.ToString();
+                txtDataCancelamento.Texts = notaServico.dataCancelamento.ToString();
 
                 ClienteModel cliente = clienteController.GetById(int.Parse(txtCodCliente.Texts));
                 CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
@@ -191,7 +184,7 @@ namespace Sistema_Vendas.Views
                 if (condPagamento != null)
                     txtCondPag.Texts = condPagamento.condicaoPagamento;
 
-                if (notaVenda.dataCancelamento != null)
+                if (notaServico.dataCancelamento != null)
                 {
                     lblCancelada.Visible = true;
                     lblDataCancelamento.Visible = true;
@@ -203,7 +196,7 @@ namespace Sistema_Vendas.Views
                     lblDataCancelamento.Visible = false;
                     txtDataCancelamento.Visible = false;
                 }
-                exibirProdutosDGV(notaVenda.Produtos);
+                exibirServicosDGV(notaServico.Servicos);
                 exibirParcelasDGV(condPagamento.Parcelas);
             }
         }
@@ -235,10 +228,10 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Campo Data Emissão é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtDataEmissao.Focus();
             }
-            else if (dataGridViewProdutos.Rows.Count <= 0)
+            else if (dataGridViewServicos.Rows.Count <= 0)
             {
-                MessageBox.Show("É necessário adicionar pelo menos um produto", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodProduto.Focus();
+                MessageBox.Show("É necessário adicionar pelo menos um serviço", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodServico.Focus();
             }
             else if (!CampoObrigatorio(txtCodCondPag.Texts))
             {
@@ -258,7 +251,7 @@ namespace Sistema_Vendas.Views
                     int modelo = Convert.ToInt32(txtModelo.Texts);
                     int serie = Convert.ToInt32(txtSerie.Texts);
                     int idCliente = Convert.ToInt32(txtCodCliente.Texts);
-                    decimal totalProdutos = Convert.ToDecimal(txtTotalProdutos.Texts);
+                    decimal totalServicos = Convert.ToDecimal(txtTotalServicos.Texts);
                     decimal totalPagar = Convert.ToDecimal(txtTotalPagar.Texts);
                     decimal porcentagemDesconto = Convert.ToDecimal(txtPorcentagemDesconto.Texts);
                     int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
@@ -267,13 +260,13 @@ namespace Sistema_Vendas.Views
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
-                    NotaVendaModel notaVenda = new NotaVendaModel
+                    NotaServicoModel notaServico = new NotaServicoModel
                     {
                         numeroNota = numeroNota,
                         modelo = modelo,
                         serie = serie,
                         idCliente = idCliente,
-                        totalProdutos = totalProdutos,
+                        totalServicos = totalServicos,
                         totalPagar = totalPagar,
                         porcentagemDesconto = porcentagemDesconto,
                         idCondPagamento = idCondPagamento,
@@ -281,12 +274,10 @@ namespace Sistema_Vendas.Views
                         observacao = observacao,
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt,
-                        Produtos = obtemProdutos(totalProdutos),
+                        Servicos = obtemServicos(totalServicos),
                     };
 
-                    notaVendaController.Salvar(notaVenda);
-                    notaVendaController.AtualizarProdutosNotaVenda(notaVenda);
-
+                    notaServicoController.Salvar(notaServico);
 
                     try //salvar contas a receber
                     {
@@ -357,56 +348,55 @@ namespace Sistema_Vendas.Views
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocorreu um erro ao salvar a Nota de Venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocorreu um erro ao salvar a Nota de Serviço: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-        private List<NotaVenda_ProdutoModel> obtemProdutos(decimal totalProdutos)
+        private List<NotaServico_ServicoModel> obtemServicos(decimal totalServicos)
         {
-            List<NotaVenda_ProdutoModel> produtos = new List<NotaVenda_ProdutoModel>();
+            List<NotaServico_ServicoModel> servicos = new List<NotaServico_ServicoModel>();
 
-            foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
+            foreach (DataGridViewRow row in dataGridViewServicos.Rows)
             {
                 decimal precoUN = Convert.ToDecimal(row.Cells["PrecoUN"].Value);
-                decimal quantidadeProduto = Convert.ToDecimal(row.Cells["quantidadeProduto"].Value);
-                decimal precoTotalProd = precoUN * quantidadeProduto;
+                decimal quantidadeServico = Convert.ToDecimal(row.Cells["quantidadeServico"].Value);
+                decimal precoTotalServ = precoUN * quantidadeServico;
 
-                NotaVenda_ProdutoModel produto = new NotaVenda_ProdutoModel
+                NotaServico_ServicoModel servico = new NotaServico_ServicoModel
                 {
-                    quantidadeProduto = Convert.ToInt32(row.Cells["quantidadeProduto"].Value),
-                    precoProduto = Math.Round(precoUN, 4),
-                    idProduto = Convert.ToInt32(row.Cells["idProduto"].Value),
+                    quantidadeServico = Convert.ToInt32(row.Cells["quantidadeServico"].Value),
+                    precoServico = Math.Round(precoUN, 4),
+                    idServico = Convert.ToInt32(row.Cells["idServico"].Value),
                 };
 
-                produtos.Add(produto);
+                servicos.Add(servico);
             }
 
-            return produtos;
+            return servicos;
         }
-        private void exibirProdutosDGV(List<NotaVenda_ProdutoModel> produtos)
+        private void exibirServicosDGV(List<NotaServico_ServicoModel> servicos)
         {
-            dataGridViewProdutos.Rows.Clear();
+            dataGridViewServicos.Rows.Clear();
 
-            foreach (var produto in produtos)
+            foreach (var servico in servicos)
             {
-                ProdutoModel produtoDetalhes = notaVendaController.GetProdutoPorId(produto.idProduto);
+                ServicoModel servicoDetalhes = notaServicoController.GetServicoPorId(servico.idServico);
 
-                if (produtoDetalhes != null)
+                if (servicoDetalhes != null)
                 {
-                    dataGridViewProdutos.Rows.Add(
-                        produto.idProduto,
-                        produtoDetalhes.Produto,
-                        produtoDetalhes.Unidade,
-                        produto.quantidadeProduto,
-                        produto.precoProduto,
-                        (produto.quantidadeProduto * produto.precoProduto)
+                    dataGridViewServicos.Rows.Add(
+                        servico.idServico,
+                        servicoDetalhes.servico,
+                        servico.quantidadeServico,
+                        servico.precoServico,
+                        (servico.quantidadeServico * servico.precoServico)
                     );
                 }
             }
 
-            if (dataGridViewProdutos.Columns.Contains("idProduto"))
+            if (dataGridViewServicos.Columns.Contains("idServico"))
             {
-                dataGridViewProdutos.Sort(dataGridViewProdutos.Columns["idProduto"], ListSortDirection.Ascending);
+                dataGridViewServicos.Sort(dataGridViewServicos.Columns["idServico"], ListSortDirection.Ascending);
             }
         }
 
@@ -453,7 +443,8 @@ namespace Sistema_Vendas.Views
                 MessageBox.Show("Data de emissão ou valor total inválido.");
             }
         }
-        private void CadastroNotaVenda_Load(object sender, EventArgs e)
+
+        private void CadastroNotasServico_Load(object sender, EventArgs e)
         {
             if (NumeroNota != -1 && Modelo != -1 && Serie != -1 && IdCliente != -1)
             {
@@ -473,15 +464,16 @@ namespace Sistema_Vendas.Views
                 !string.IsNullOrWhiteSpace(txtSerie.Texts) &&
                 int.TryParse(txtCodCliente.Texts, out int idCliente))
             {
-                bool notaExiste = notaVendaController.ExisteNota(numeroNota, txtModelo.Texts, txtSerie.Texts, idCliente);
+                bool notaExiste = notaServicoController.ExisteNota(numeroNota, txtModelo.Texts, txtSerie.Texts, idCliente);
 
                 if (notaExiste)
                 {
                     MessageBox.Show("Nota de Venda já existe! Verifique os dados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodProduto.Enabled = !notaExiste;
-                    txtQtdeProduto.Enabled = !notaExiste;
-                    btnConsultaProduto.Enabled = !notaExiste;
-                    dataGridViewProdutos.Enabled = !notaExiste;
+                    txtCodServico.Enabled = !notaExiste;
+                    txtQtdeServico.Enabled = !notaExiste;
+                    txtPrecoServico.Enabled = !notaExiste;
+                    btnConsultaServico.Enabled = !notaExiste;
+                    dataGridViewServicos.Enabled = !notaExiste;
                     txtPorcentagemDesconto.Enabled = !notaExiste;
                 }
             }
@@ -495,17 +487,17 @@ namespace Sistema_Vendas.Views
                                      !string.IsNullOrEmpty(dataEmissao) &&
                                      !string.IsNullOrEmpty(txtCodCliente.Texts);
 
-            txtCodProduto.Enabled = camposPreenchidos;
-            txtQtdeProduto.Enabled = camposPreenchidos;
-            btnConsultaProduto.Enabled = camposPreenchidos;
-            dataGridViewProdutos.Enabled = camposPreenchidos;
+            txtCodServico.Enabled = camposPreenchidos;
+            txtQtdeServico.Enabled = camposPreenchidos;
+            btnConsultaServico.Enabled = camposPreenchidos;
+            dataGridViewServicos.Enabled = camposPreenchidos;
             txtPorcentagemDesconto.Enabled = camposPreenchidos;
         }
-        private void VerificaProdutos()
+        private void VerificaServicos()
         {
             if (NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdCliente == -1)
             {
-                bool habilitar = dataGridViewProdutos.Rows.Count > 0;
+                bool habilitar = dataGridViewServicos.Rows.Count > 0;
 
                 //desabilita os campos com infos da nota
                 txtNroNota.Enabled = !habilitar;
@@ -524,11 +516,18 @@ namespace Sistema_Vendas.Views
         {
             bool camposPreenchidos = !string.IsNullOrEmpty(txtCodCondPag.Texts);
 
-            txtCodProduto.Enabled = !camposPreenchidos;
-            txtQtdeProduto.Enabled = !camposPreenchidos;
-            dataGridViewProdutos.Enabled = !camposPreenchidos;
+            txtCodServico.Enabled = !camposPreenchidos;
+            txtQtdeServico.Enabled = !camposPreenchidos;
+            dataGridViewServicos.Enabled = !camposPreenchidos;
             txtPorcentagemDesconto.Enabled = !camposPreenchidos;
-            btnConsultaProduto.Enabled = !camposPreenchidos;
+            btnConsultaServico.Enabled = !camposPreenchidos;
+        }
+        private void limpaCamposServicos()
+        {
+            txtCodServico.Clear();
+            txtServico.Clear();
+            txtQtdeServico.Clear();
+            txtPrecoServico.Clear();
         }
 
         private void txtNroNota_Leave(object sender, EventArgs e)
@@ -539,9 +538,9 @@ namespace Sistema_Vendas.Views
 
         private void txtModelo_Leave(object sender, EventArgs e)
         {
-            if (txtModelo.Texts != "55" && txtModelo.Texts != "65")
+            if (txtModelo.Texts != "22" && txtModelo.Texts != "21")
             {
-                MessageBox.Show("O modelo da nota de venda deve ser 55 ou 65. Verifique.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("O modelo da nota de serviço deve ser 21 ou 22. Verifique legislação.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtModelo.Focus();
             }
             else
@@ -609,97 +608,74 @@ namespace Sistema_Vendas.Views
                 return;
             }
         }
-        private void limpaCamposProdutos()
-        {
-            txtCodProduto.Clear();
-            txtProduto.Clear();
-            txtUN.Clear();
-            txtQtdeProduto.Clear();
-            txtPrecoProd.Clear();
-        }
 
-        private void btnAddProdutos_Click(object sender, EventArgs e)
+        private void btnAddServico_Click(object sender, EventArgs e)
         {
-            if (!CampoObrigatorio(txtCodProduto.Texts))
+            if (!CampoObrigatorio(txtCodServico.Texts))
             {
-                MessageBox.Show("Campo Código Produto é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodProduto.Focus();
+                MessageBox.Show("Campo Cód. Serviço é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodServico.Focus();
             }
-            else if (!CampoObrigatorio(txtQtdeProduto.Texts))
+            else if (!CampoObrigatorio(txtQtdeServico.Texts))
             {
-                MessageBox.Show("Campo Quantidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtQtdeProduto.Focus();
-            }
-            else if (!CampoObrigatorio(txtPrecoProd.Texts))
-            {
-                MessageBox.Show("Campo Preço é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPrecoProd.Focus();
+                MessageBox.Show("Campo Quantidade Serviço é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtQtdeServico.Focus();
             }
             else
             {
                 try
                 {
-                    int idProduto = Convert.ToInt32(txtCodProduto.Texts);
-                    string produto = txtProduto.Texts;
-                    int qtdeProduto = Convert.ToInt32(txtQtdeProduto.Texts);
-                    string unidade = txtUN.Texts;
-                    decimal precoUN = Convert.ToDecimal(txtPrecoProd.Texts);
-                    decimal precoTotal = Convert.ToDecimal(txtPrecoProd.Texts) * Convert.ToInt32(txtQtdeProduto.Texts);
+                    int codigoServico = Convert.ToInt32(txtCodServico.Texts);
+                    string servico = txtServico.Texts;
+                    decimal pUNServ = Convert.ToDecimal(txtPrecoServico.Texts); ;
+                    int quantidadeServ = Convert.ToInt32(txtQtdeServico.Texts);
+                    decimal sTotal = quantidadeServ * pUNServ;
+                    decimal precoTotalServ = sTotal;
 
-                    // Verificar saldo do produto
-                    ProdutoModel produtoDetalhes = produtoController.GetById(idProduto);
-                    if (produtoDetalhes != null)
+                    bool servicoExistente = false;
+
+                    foreach (DataGridViewRow row in dataGridViewServicos.Rows)
                     {
-                        if (produtoDetalhes.Saldo >= qtdeProduto)
+                        if (Convert.ToInt32(row.Cells["idServico"].Value) == codigoServico)
                         {
-                            bool produtoExistente = false;
-
-                            foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
-                            {
-                                if (Convert.ToInt32(row.Cells["idProduto"].Value) == idProduto)
-                                {
-                                    int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeProduto"].Value);
-                                    row.Cells["quantidadeProduto"].Value = quantidadeAtual + qtdeProduto;
-                                    row.Cells["precoProduto"].Value = (quantidadeAtual + qtdeProduto) * precoUN;
-                                    produtoExistente = true;
-                                    break;
-                                }
-                            }
-                            if (!produtoExistente)
-                            {
-                                dataGridViewProdutos.Rows.Add(idProduto, produto, unidade, qtdeProduto, precoUN, precoTotal); //add nova linha com os valores 
-                            }
-                            atualizaTotalProdutos();
-                            atualizaTotalPagar();
-                            dataGridViewProdutos.Sort(dataGridViewProdutos.Columns["idProduto"], ListSortDirection.Ascending);
-                            limpaCamposProdutos();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Saldo insuficiente para o produto selecionado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeServico"].Value);
+                            row.Cells["quantidadeServico"].Value = quantidadeAtual + quantidadeServ;
+                            row.Cells["precoServico"].Value = (quantidadeAtual + quantidadeServ) * pUNServ;
+                            servicoExistente = true;
+                            break;
                         }
                     }
+
+                    if (!servicoExistente)
+                    {
+                        dataGridViewServicos.Rows.Add(codigoServico, servico, pUNServ, quantidadeServ, precoTotalServ);
+                    }
+
+                    atualizaTotalServicos();
+                    atualizaTotalPagar();
+                    dataGridViewServicos.Sort(dataGridViewServicos.Columns["idServico"], ListSortDirection.Ascending);
+                    limpaCamposServicos();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erro ao adicionar produto: " + ex.Message);
+                    MessageBox.Show("Erro ao adicionar serviço: " + ex.Message);
                 }
             }
         }
-        private void atualizaTotalProdutos()
+        private void atualizaTotalServicos()
         {
             decimal subtotalProd = 0;
 
-            foreach (DataGridViewRow row in dataGridViewProdutos.Rows) //percorre as linhas do dgv
+            foreach (DataGridViewRow row in dataGridViewServicos.Rows) //percorre as linhas do dgv
             {
                 subtotalProd += Convert.ToDecimal(row.Cells["precoTotal"].Value); //add os valores da coluna precoProduto a variavel
             }
-            txtTotalProdutos.Texts = subtotalProd.ToString("F2"); //att o campo com 2 casas decimais
+            txtTotalServicos.Texts = subtotalProd.ToString("F2"); //att o campo com 2 casas decimais
         }
 
         private void atualizaTotalPagar()
         {
-            decimal subtotalProd = Convert.ToDecimal(txtTotalProdutos.Texts);
+            decimal subtotalProd = Convert.ToDecimal(txtTotalServicos.Texts);
             decimal total = subtotalProd;
 
             decimal porcentagemDesconto = 0;
@@ -717,36 +693,31 @@ namespace Sistema_Vendas.Views
             txtDesconto.Texts = valorDesconto.ToString("F2");
         }
 
-        private void btnExcluirProduto_Click(object sender, EventArgs e)
+        private void btnExcluirServico_Click(object sender, EventArgs e)
         {
             try
             {
-                if (dataGridViewProdutos.SelectedRows.Count > 0)
+                if (dataGridViewServicos.SelectedRows.Count > 0)
                 {
-                    foreach (DataGridViewRow row in dataGridViewProdutos.SelectedRows)
+                    foreach (DataGridViewRow row in dataGridViewServicos.SelectedRows)
                     {
-                        dataGridViewProdutos.Rows.Remove(row);
+                        dataGridViewServicos.Rows.Remove(row);
                     }
-                    atualizaTotalProdutos();
+                    atualizaTotalServicos();
                     atualizaTotalPagar();
                 }
                 else
                 {
-                    MessageBox.Show("Selecione um produto para excluir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Selecione um serviço para excluir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao excluir produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao serviço produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnAddCondPag_Click(object sender, EventArgs e)
-        {
-            adicionarCondPagamento();
-        }
-
-        private void adicionarCondPagamento()
         {
             CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
             juros = condPagamento.juros;
@@ -763,7 +734,7 @@ namespace Sistema_Vendas.Views
             {
                 if (string.IsNullOrEmpty(dataCancelamento))
                 {
-                    bool sucesso = notaVendaController.CancelarNotaVenda(NumeroNota, Modelo, Serie, IdCliente);
+                    bool sucesso = notaServicoController.CancelarNotaServico(NumeroNota, Modelo, Serie, IdCliente);
 
                     if (sucesso)
                     {
@@ -782,32 +753,24 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void CadastroNotaVenda_FormClosed(object sender, FormClosedEventArgs e)
+        private void CadastroNotasServico_FormClosed(object sender, FormClosedEventArgs e)
         {
-            ((ConsultaNotasVenda)this.Owner).AtualizarConsultaNotaVenda(false);
+            ((ConsultaNotasServico)this.Owner).AtualizarConsultaNotaServico(false);
         }
 
-        private void dataGridViewProdutos_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        private void dataGridViewServicos_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            VerificaProdutos();
+            VerificaServicos();
         }
 
-        private void dataGridViewProdutos_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        private void dataGridViewServicos_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            VerificaProdutos();
+            VerificaServicos();
         }
 
         private void txtPorcentagemDesconto_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtQtdeProduto_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -845,7 +808,15 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void txtCodProduto_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtCodServico_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtQtdeServico_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -923,53 +894,49 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void btnConsultaProduto_Click(object sender, EventArgs e)
+        private void txtCodServico_Leave(object sender, EventArgs e)
         {
-            consultaProdutos.btnSair.Text = "Selecionar";
-
-            if (consultaProdutos.ShowDialog() == DialogResult.OK)
+            if (!string.IsNullOrEmpty(txtCodServico.Texts))
             {
-                var infosProd = consultaProdutos.Tag as Tuple<int, string, decimal, string>;
-                if (infosProd != null)
+                ServicoModel servico = servicoController.GetById(int.Parse(txtCodServico.Texts));
+                if (servico != null)
                 {
-                    int idProd = infosProd.Item1;
-                    string produto = infosProd.Item2;
-                    decimal precoVenda = infosProd.Item3;
-                    string unidade = infosProd.Item4;
-
-                    txtCodProduto.Texts = idProd.ToString();
-                    txtProduto.Texts = produto;
-                    txtUN.Texts = unidade;
-                    txtPrecoProd.Texts = precoVenda.ToString();
+                    txtServico.Texts = servico.servico;
+                    txtPrecoServico.Texts = servico.preco.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("Serviço não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodServico.Focus();
+                    txtCodServico.Clear();
+                    txtServico.Clear();
+                    txtQtdeServico.Clear();
                 }
             }
         }
 
-        private void txtCodProduto_Leave(object sender, EventArgs e)
+        private void btnConsultaServico_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtCodProduto.Texts))
-            {
-                ProdutoModel produto = produtoController.GetById(int.Parse(txtCodProduto.Texts));
-                if (produto != null)
-                {
-                    txtProduto.Texts = produto.Produto;
-                    txtPrecoProd.Texts = produto.precoVenda.ToString();
-                    txtUN.Texts = produto.Unidade;
-                }
-                else
-                {
-                    MessageBox.Show("Produto não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodProduto.Focus();
-                    txtCodProduto.Clear();
-                    txtProduto.Clear();
-                    txtUN.Clear();
+            consultaServicos.btnSair.Text = "Selecionar";
 
+            if (consultaServicos.ShowDialog() == DialogResult.OK)
+            {
+                var infosServico = consultaServicos.Tag as Tuple<int, string, decimal>;
+                if (infosServico != null)
+                {
+                    int idServico = infosServico.Item1;
+                    string servico = infosServico.Item2;
+                    decimal precoUN = infosServico.Item3;
+
+                    txtCodServico.Texts = idServico.ToString();
+                    txtServico.Texts = servico;
+                    txtPrecoServico.Texts = precoUN.ToString();
                 }
             }
         }
         public void atualizaDesconto()
         {
-            if(!string.IsNullOrEmpty(txtPorcentagemDesconto.Texts))
+            if (!string.IsNullOrEmpty(txtPorcentagemDesconto.Texts))
             {
                 decimal porcentagem = Convert.ToDecimal(txtPorcentagemDesconto.Texts);
                 if (porcentagem <= 100)
@@ -977,14 +944,14 @@ namespace Sistema_Vendas.Views
                     try
                     {
                         //verifica se o valor do txtTotal é válido e converte para decimal
-                        if (decimal.TryParse(txtTotalProdutos.Texts, out decimal subtotalProd))
+                        if (decimal.TryParse(txtTotalServicos.Texts, out decimal subtotalServ))
                         {
                             //atualiza o total considerando o desconto
                             atualizaTotalPagar();
                         }
                         else
                         {
-                            MessageBox.Show("Por favor, insira valores válidos para o total dos produtos.", "Entrada Inválida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Por favor, insira valores válidos para o total dos serviços.", "Entrada Inválida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     catch (Exception ex)

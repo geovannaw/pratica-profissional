@@ -93,8 +93,8 @@ namespace Sistema_Vendas.Views
                 dataGridViewNFCompra.Columns["idFornecedor"].DataPropertyName = "idFornecedor";
                 dataGridViewNFCompra.Columns["dataChegada"].DataPropertyName = "dataChegada";
                 dataGridViewNFCompra.Columns["dataChegada"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                dataGridViewNFCompra.Columns["DataCancelamento"].DataPropertyName = "dataCancelamento";
-                dataGridViewNFCompra.Columns["DataCancelamento"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dataGridViewNFCompra.Columns["dataCancelamento"].DataPropertyName = "dataCancelamento";
+                dataGridViewNFCompra.Columns["dataCancelamento"].DefaultCellStyle.Format = "dd/MM/yyyy";
 
                 AtualizarConsultaNotaCompra(cbBuscaInativos.Checked);
             }
@@ -137,7 +137,6 @@ namespace Sistema_Vendas.Views
                 AtualizarConsultaNotaCompra(cbBuscaInativos.Checked);
             }
         }
-
         private void dataGridViewNFCompra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
@@ -170,9 +169,9 @@ namespace Sistema_Vendas.Views
 
                 e.FormattingApplied = true;
             }
-            if (dataGridViewNFCompra.Columns[e.ColumnIndex].Name == "DataCancelamento" && e.RowIndex >= 0)
+            if (dataGridViewNFCompra.Columns[e.ColumnIndex].Name == "dataCancelamento" && e.RowIndex >= 0)
             {
-                var dataCancelamento = dataGridViewNFCompra.Rows[e.RowIndex].Cells["DataCancelamento"].Value;
+                var dataCancelamento = dataGridViewNFCompra.Rows[e.RowIndex].Cells["dataCancelamento"].Value;
                 if (dataCancelamento != DBNull.Value && dataCancelamento != null)
                 {
                     dataGridViewNFCompra.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Red;
@@ -182,10 +181,6 @@ namespace Sistema_Vendas.Views
                     dataGridViewNFCompra.Rows[e.RowIndex].DefaultCellStyle.ForeColor = dataGridViewNFCompra.DefaultCellStyle.ForeColor;
                 }
             }
-        }
-
-        private void dataGridViewNFCompra_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
         }
     }
 }

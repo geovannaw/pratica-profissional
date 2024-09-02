@@ -206,21 +206,21 @@ namespace Sistema_Vendas.Views
             {
                 return;
             }
+
             int numeroNF = int.Parse(txtNroNota.Texts);
             int modeloNF = int.Parse(txtModelo.Texts);
             int serieNF = int.Parse(txtSerie.Texts);
             int idFornecedorNF = int.Parse(txtCodFornecedor.Texts);
             int parcelaNF = int.Parse(txtParcela.Texts);
 
-            bool incluindo = numeroNF == -1 && modeloNF == -1 && serieNF == -1 && idFornecedorNF == -1 && parcelaNF == -1;
+            bool incluindo = NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdFornecedor == -1 && Parcela == -1;
 
             if (contasPagarController.JaCadastrado(numeroNF, modeloNF, serieNF, idFornecedorNF, parcelaNF, incluindo))
             {
                 MessageBox.Show("Conta a Pagar já cadastrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            } else
-            {
-                try
+            }
+            try
                 {
                     int numeroNota = Convert.ToInt32(txtNroNota.Texts);
                     int modelo = Convert.ToInt32(txtModelo.Texts);
@@ -261,26 +261,20 @@ namespace Sistema_Vendas.Views
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt
                     };
-                    if (NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdFornecedor == -1 && Parcela == -1)
-                    {
-                        contasPagarController.Salvar(novaContaPagar);
-                    }
-                    else
-                    {
-                        novaContaPagar.numeroNota = NumeroNota;
-                        novaContaPagar.modelo = Modelo;
-                        novaContaPagar.serie = Serie;
-                        novaContaPagar.idFornecedor = IdFornecedor;
-                        novaContaPagar.parcela = Parcela;
-                        contasPagarController.Alterar(novaContaPagar);
-                    }
-                    this.DialogResult = DialogResult.OK;
+                if (NumeroNota != -1 && Modelo != -1 && Serie != -1 && IdFornecedor != -1 && Parcela != -1)
+                {
+                    contasPagarController.Alterar(novaContaPagar);
+                }
+                else
+                {
+                    contasPagarController.Salvar(novaContaPagar);
+                }
+                this.DialogResult = DialogResult.OK;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
         }
 
         protected bool VerificaCamposObrigatorios()
@@ -345,7 +339,7 @@ namespace Sistema_Vendas.Views
         }
         private void calcularJuros()
         {
-            if(DataValida(txtDataVencimento.Text))
+            if(DataValida(txtDataVencimento.Texts))
             {
                 DateTime dataVencimento = DateTime.Parse(txtDataVencimento.Texts);
                 DateTime dataAtual = DateTime.Now;
@@ -362,7 +356,7 @@ namespace Sistema_Vendas.Views
         }
         private void calcularMulta()
         {
-            if (DataValida(txtDataVencimento.Text))
+            if (DataValida(txtDataVencimento.Texts))
             {
                 DateTime dataVencimento = DateTime.Parse(txtDataVencimento.Texts);
                 DateTime dataAtual = DateTime.Now;
@@ -379,7 +373,7 @@ namespace Sistema_Vendas.Views
         }
         private void calcularDesconto()
         {
-            if (DataValida(txtDataVencimento.Text))
+            if (DataValida(txtDataVencimento.Texts))
             {
                 if (porcentagemDesconto.HasValue && !string.IsNullOrWhiteSpace(txtValorParcela.Texts))
                 {
@@ -500,30 +494,46 @@ namespace Sistema_Vendas.Views
         {
             string dPagamento = new string(txtDataPagamento.Texts.Where(char.IsDigit).ToArray());
             string dCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
+
             if (!string.IsNullOrEmpty(dCancelamento))
             {
                 MessageBox.Show("Nota Cancelada! Não é possível efetuar o pagamento.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
+
+            if (!string.IsNullOrEmpty(dPagamento))
             {
-                if (string.IsNullOrEmpty(dPagamento))
-                {
-                    if (MessageBox.Show("Deseja realizar o pagamento?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        Salvar();
-                        txtDataPagamento.Texts = DateTime.Now.ToString();
-                        txtValorPago.Texts = txtTotalPagar.Texts;
-                        Salvar();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Pagamento já foi realizado dia " + txtDataPagamento.Texts, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }            
+                MessageBox.Show("Pagamento já foi realizado dia " + txtDataPagamento.Texts, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            //parcela atual
+            int parcelaAtual = Convert.ToInt32(txtParcela.Texts);
+            string numeroNota = txtNroNota.Texts;
+            string modelo = txtModelo.Texts;
+            string serie = txtSerie.Texts;
+            int idFornecedor = Convert.ToInt32(txtCodFornecedor.Texts);
+
+            //verificar se existe uma parcela menor não paga
+            bool parcelaNaoPaga = contasPagarController.VerificarParcelasNaoPagas(numeroNota, modelo, serie, idFornecedor, parcelaAtual);
+
+            if (parcelaNaoPaga)
+            {
+                MessageBox.Show("Existem parcelas anteriores que não foram pagas. Pague as parcelas anteriores antes de pagar esta.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            //se não existe parcelas menor não pagas, permitir o pagamento
+            if (MessageBox.Show("Deseja realizar o pagamento?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Salvar();
+                txtDataPagamento.Texts = DateTime.Now.ToString();
+                txtValorPago.Texts = txtTotalPagar.Texts;
+                Salvar();
+            }
         }
 
-        private void txtDataVencimento_Leave(object sender, EventArgs e) //ARRUMAR
+        private void txtDataVencimento_Leave(object sender, EventArgs e)
         {
             string dVencimento = new string(txtDataVencimento.Texts.Where(char.IsDigit).ToArray());
             string dEmissao = new string(txtDataEmissao.Texts.Where(char.IsDigit).ToArray());
@@ -546,20 +556,16 @@ namespace Sistema_Vendas.Views
                             return;
                         }
                     }
+                    calcularJuros();
+                    calcularMulta();
+                    calcularDesconto();
                 }
                 else
                 {
                     MessageBox.Show("Data de emissão ou data de vencimento inválida! Verifique os valores inseridos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtDataVencimento.Focus();
                 }
-            }
-                    
-            if (!string.IsNullOrEmpty(dVencimento))
-            {
-                calcularJuros();
-                calcularMulta();
-                calcularDesconto();
-            }
+            }         
         }
 
         private void txtValorPago_Leave(object sender, EventArgs e)
@@ -622,19 +628,25 @@ namespace Sistema_Vendas.Views
 
             string dataE = new string(txtDataEmissao.Texts.Where(char.IsDigit).ToArray());
 
-            if (!string.IsNullOrWhiteSpace(dataE) && dataValida)
+            if (!string.IsNullOrEmpty(dataE))
             {
-                if (dataEmissao > dataHoje)
+                if (DataValida(txtDataEmissao.Texts))
                 {
-                    MessageBox.Show("Data de emissão inválida! A data deve ser menor ou igual a hoje.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (!string.IsNullOrWhiteSpace(dataE) && dataValida)
+                    {
+                        if (dataEmissao > dataHoje)
+                        {
+                            MessageBox.Show("Data de emissão inválida! A data deve ser menor ou igual a hoje.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtDataEmissao.Focus();
+                            return;
+                        }
+                    }
+                } else
+                {
+                    MessageBox.Show("Data de emissão inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtDataEmissao.Focus();
                     return;
                 }
-            }
-            else if (string.IsNullOrWhiteSpace(dataE) || !dataValida)
-            {
-                //se estiver vazio ou com a máscara inicial, sai do método sem validação
-                return;
             }
         }
     }

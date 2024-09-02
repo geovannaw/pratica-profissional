@@ -121,5 +121,17 @@ namespace Sistema_Vendas
             ConsultaContasReceber consultaContasReceber = new ConsultaContasReceber();
             consultaContasReceber.ShowDialog();
         }
+
+        private void notaDeVendaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaNotasVenda consultaNotasVenda = new ConsultaNotasVenda();
+            consultaNotasVenda.ShowDialog();
+        }
+
+        private void notasDeServiçoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaNotasServico consultaNotasServico = new ConsultaNotasServico();
+            consultaNotasServico.ShowDialog();
+        }
     }
 }

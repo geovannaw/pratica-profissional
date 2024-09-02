@@ -187,8 +187,6 @@ namespace Sistema_Vendas.Views
                     txtCodModelo.Texts = produto.idModelo.ToString();
                     txtDataUltCompra.Texts = produto.dataUltCompra.ToString();
 
-                 //   AtualizarCampoData(produto.dataUltCompra, txtDataUltCompra);
-
                     ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Texts));
                     if (modelo != null)
                     {

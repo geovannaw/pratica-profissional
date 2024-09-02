@@ -1,0 +1,405 @@
+CREATE DATABASE MISATELIE;
+USE MISATELIE;
+
+CREATE TABLE pais (
+    idPais INT IDENTITY(1,1) PRIMARY KEY,
+    pais VARCHAR(100) NOT NULL,
+    sigla VARCHAR(5),
+    DDI VARCHAR(5),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL
+);
+
+CREATE TABLE estado (
+    idEstado INT IDENTITY(1,1) PRIMARY KEY,
+    estado VARCHAR(100) NOT NULL,
+    UF VARCHAR(5),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    idPais INT FOREIGN KEY REFERENCES pais(idPais)
+);
+
+CREATE TABLE cidade (
+    idCidade INT IDENTITY(1,1) PRIMARY KEY,
+    cidade VARCHAR(100) NOT NULL,
+    DDD VARCHAR(5),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    idEstado INT FOREIGN KEY REFERENCES estado(idEstado)
+);
+
+ CREATE TABLE funcionario (
+    idFuncionario INT IDENTITY(1,1) NOT NULL,
+    funcionario VARCHAR(70) NOT NULL,
+    apelido VARCHAR(50),
+    endereco VARCHAR(150),
+    bairro VARCHAR(100),
+    numero VARCHAR(8),
+    cep VARCHAR(8),
+    complemento VARCHAR(100),
+    sexo VARCHAR(15),
+    email VARCHAR(100),
+    telefone VARCHAR(50),
+    celular VARCHAR(50),
+    data_nasc DATE NOT NULL,
+    cpf VARCHAR(14),
+    rg VARCHAR(14),
+    cargo VARCHAR(50) NOT NULL,
+    salario DECIMAL(10,2) NOT NULL,
+    pis VARCHAR(11) NOT NULL,
+    data_admissao DATE NOT NULL,
+    data_demissao DATE,
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    idCidade INT,
+    PRIMARY KEY (idFuncionario),
+    CONSTRAINT FK_idCidade_funcionario FOREIGN KEY (idCidade) REFERENCES cidade(idCidade)
+);
+
+CREATE TABLE formaPagamento (
+    idFormaPagamento INT IDENTITY(1,1) NOT NULL,
+    formaPagamento VARCHAR(50),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    PRIMARY KEY (idFormaPagamento),
+);
+
+CREATE TABLE condicaoPagamento (
+    idCondPagamento INT IDENTITY(1,1) NOT NULL,
+    condicaoPagamento VARCHAR(50) NOT NULL,
+    desconto DECIMAL(10, 2),
+    juros DECIMAL(10, 2),
+    multa DECIMAL(10, 2),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    PRIMARY KEY (idCondPagamento),
+
+);
+
+CREATE TABLE parcela (
+    idParcela INT IDENTITY(1,1) NOT NULL,
+    numeroParcela INT NOT NULL,
+    dias INT NOT NULL,
+    porcentagem DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (idParcela),
+    idCondPagamento INT NOT NULL,
+    idFormaPagamento INT NOT NULL,
+    CONSTRAINT FK_idCondPagamento_parcela FOREIGN KEY (idCondPagamento) REFERENCES condicaoPagamento(idCondPagamento),
+    CONSTRAINT FK_idFormaPagamento_parcela FOREIGN KEY (idFormaPagamento) REFERENCES formaPagamento(idFormaPagamento)
+);
+
+CREATE TABLE cliente (
+    idCliente INT IDENTITY(1,1) NOT NULL,
+    tipo_pessoa BIT NOT NULL,
+    cliente_razao_social VARCHAR(70) NOT NULL,
+    apelido_nome_fantasia VARCHAR(70),
+    endereco VARCHAR(150),
+    bairro VARCHAR(100),
+    numero VARCHAR(8), 
+    cep VARCHAR(8),
+    complemento VARCHAR(100),
+    sexo VARCHAR(15),
+    email VARCHAR(100),
+    telefone VARCHAR(50),
+    celular VARCHAR(50),
+    nome_contato VARCHAR(70),
+    data_nasc DATE,
+    cpf_cnpj VARCHAR(14),
+    rg_ie VARCHAR(14),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    idCidade INT,
+    idCondPagamento INT,
+    PRIMARY KEY (idCliente),
+    CONSTRAINT FK_idCidade_cliente FOREIGN KEY (idCidade) REFERENCES cidade(idCidade),
+    CONSTRAINT FK_idCondPagamento_cliente FOREIGN KEY (idCondPagamento) REFERENCES condicaoPagamento(idCondPagamento)
+);
+
+CREATE TABLE fornecedor (
+    idFornecedor INT IDENTITY(1,1) NOT NULL,
+    tipo_pessoa BIT NOT NULL,
+    fornecedor_razao_social VARCHAR(70) NOT NULL,
+    apelido_nome_fantasia VARCHAR(70),
+    endereco VARCHAR(150),
+    bairro VARCHAR(100),
+    numero VARCHAR(8),
+    cep VARCHAR(8),
+    complemento VARCHAR(50),
+    sexo VARCHAR(15),
+    email VARCHAR(100),
+    telefone VARCHAR(50),
+    celular VARCHAR(50),
+    nome_contato VARCHAR(70),
+    data_nasc DATE,
+    cpf_cnpj VARCHAR(14),
+    rg_ie VARCHAR(14),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    idCidade INT,
+    idCondPagamento INT,
+    PRIMARY KEY (idFornecedor),
+    CONSTRAINT FK_idCidade_fornecedor FOREIGN KEY (idCidade) REFERENCES cidade(idCidade),
+    CONSTRAINT FK_idCondPagamento_fornecedor FOREIGN KEY (idCondPagamento) REFERENCES condicaoPagamento(idCondPagamento)
+);
+
+CREATE TABLE dadosEmpresa (
+    idDadosEmpresa INT IDENTITY(1,1) NOT NULL,
+    razao_social VARCHAR(50) NOT NULL,
+    nome_fantasia VARCHAR(50),
+    endereco VARCHAR(150),
+    bairro VARCHAR(100),
+    numero INT,
+    cep VARCHAR(8),
+    complemento VARCHAR(100),
+    email VARCHAR(100),
+    telefone VARCHAR(50),
+    celular VARCHAR(50),
+    cnpj VARCHAR(14),
+    ie VARCHAR(14),
+    nome_responsavel VARCHAR(50),
+    idCidade INT,
+    PRIMARY KEY (idDadosEmpresa),
+    CONSTRAINT FK_idCidade_dadosEmpresa FOREIGN KEY (idCidade) REFERENCES cidade(idCidade)
+);
+
+CREATE TABLE modelo (
+    idModelo INT IDENTITY(1,1) NOT NULL,
+    modelo VARCHAR(100) NOT NULL,
+    marca VARCHAR(100) NOT NULL,
+    observacao VARCHAR(100),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    PRIMARY KEY (idModelo)
+);
+
+CREATE TABLE produto (
+    idProduto INT IDENTITY(1,1) NOT NULL,
+    produto VARCHAR(200) NOT NULL,
+    unidade VARCHAR(5) NOT NULL,
+    saldo INT NOT NULL,
+    custoMedio DECIMAL(10,4),
+    precoVenda DECIMAL(10,2),
+    precoUltCompra DECIMAL(10,4),
+    dataUltCompra DATE,
+    observacao VARCHAR(200),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    idFornecedor INT NOT NULL,
+    idModelo INT NOT NULL,
+    PRIMARY KEY (idProduto),
+    CONSTRAINT FK_idFornecedor_produto FOREIGN KEY (idFornecedor) REFERENCES fornecedor(idFornecedor),
+    CONSTRAINT FK_idModelo_produto FOREIGN KEY (idModelo) REFERENCES modelo(idModelo)
+);
+
+CREATE TABLE servico (
+    idServico INT IDENTITY(1,1) NOT NULL,
+    servico VARCHAR(100),
+    preco DECIMAL(10,2),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    PRIMARY KEY (idServico),
+);
+
+CREATE TABLE ordemServico (
+    idOrdemServico INT IDENTITY(1,1) NOT NULL,
+    precoTotal DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    porcentagemDesconto DECIMAL(10,2),
+    observacao VARCHAR(200),
+    data DATE NOT NULL,
+    dataEntrega DATE,
+    dataCancelamento DATE,
+    dataPrevista DATE NOT NULL,
+    valorRetirada DECIMAL(10,2), 
+    valorEntrada DECIMAL(10,2), 
+    idCliente INT NOT NULL,
+    idCondPagamento INT NOT NULL,
+    idFuncionario INT NOT NULL,
+    CONSTRAINT FK_idCliente_OS FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
+    CONSTRAINT FK_idFuncionario_OS FOREIGN KEY (idFuncionario) REFERENCES funcionario(idFuncionario),
+    CONSTRAINT FK_idCondPagamento_OS FOREIGN KEY (idCondPagamento) REFERENCES condicaoPagamento(idCondPagamento),
+    ativo BIT NOT NULL,
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    PRIMARY KEY (idOrdemServico),
+);
+
+CREATE TABLE OS_Produto (
+    id_os_produto INT IDENTITY(1,1) NOT NULL,
+    quantidadeProduto INT NOT NULL,
+    precoProduto DECIMAL(10, 2) NOT NULL,
+    idOrdemServico INT NOT NULL,
+    idProduto INT,
+    CONSTRAINT FK_idOrdemServico_os_produto FOREIGN KEY (idOrdemServico) REFERENCES ordemServico(idOrdemServico),
+    CONSTRAINT FK_idProduto FOREIGN KEY (idProduto) REFERENCES produto(idProduto),
+    PRIMARY KEY (id_os_produto)
+);
+
+CREATE TABLE OS_Servico (
+    id_os_servico INT IDENTITY(1,1) NOT NULL,
+    quantidadeServico INT NOT NULL,
+    precoServico DECIMAL(10, 2) NOT NULL,
+    idOrdemServico INT NOT NULL,
+    idServico INT NOT NULL,
+    CONSTRAINT FK_idOrdemServico_os_servico FOREIGN KEY (idOrdemServico) REFERENCES ordemServico(idOrdemServico),
+    CONSTRAINT FK_idServico FOREIGN KEY (idServico) REFERENCES servico(idServico),
+    PRIMARY KEY (id_os_Servico),
+);
+
+CREATE TABLE notaCompra (
+    numeroNota INT NOT NULL,
+    modelo INT NOT NULL,
+    serie INT NOT NULL,
+    idFornecedor INT NOT NULL,
+    dataEmissao DATE NOT NULL,
+    dataChegada DATETIME NOT NULL,
+    tipoFrete BIT NOT NULL,
+    valorFrete DECIMAL(10,2),
+    valorSeguro DECIMAL(10,2),
+    outrasDespesas DECIMAL(10,2),
+    totalProdutos DECIMAL(10,2) NOT NULL,
+    totalPagar DECIMAL(10,2) NOT NULL,
+    idCondPagamento INT NOT NULL,
+    observacao VARCHAR(200),
+    dataCancelamento DATE, 
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    PRIMARY KEY (numeroNota, modelo, serie, idFornecedor),
+    CONSTRAINT FK_idFornecedor_notaCompra FOREIGN KEY (idFornecedor) REFERENCES fornecedor(idFornecedor),
+    CONSTRAINT FK_idCondPagamento_notaCompra FOREIGN KEY (idCondPagamento) REFERENCES condicaoPagamento(idCondPagamento)
+);
+
+CREATE TABLE notaCompra_Produto (
+    numeroNota INT NOT NULL,
+    modelo INT NOT NULL,
+    serie INT NOT NULL,
+    idFornecedor INT NOT NULL,
+    idProduto INT NOT NULL,
+    quantidadeProduto INT NOT NULL,
+    precoProduto DECIMAL(10, 4) NOT NULL,
+    custoMedio DECIMAL(10, 4) NOT NULL,
+    rateio DECIMAL (10, 4),
+    PRIMARY KEY (numeroNota, modelo, serie, idFornecedor, idProduto),
+    CONSTRAINT FK_idNotaCompra FOREIGN KEY (numeroNota, modelo, serie, idFornecedor) REFERENCES notaCompra(numeroNota, modelo, serie, idFornecedor),
+    CONSTRAINT FK_notaCompraProduto_idProduto FOREIGN KEY (idProduto) REFERENCES produto(idProduto)
+);
+
+CREATE TABLE contasPagar (
+    numeroNota INT NOT NULL,
+    modelo INT NOT NULL,
+    serie INT NOT NULL,
+    idFornecedor INT NOT NULL,
+    dataEmissao DATE NOT NULL,
+    idFormaPagamento INT NOT NULL,
+    parcela INT NOT NULL,
+    valorParcela DECIMAL(10,2) NOT NULL,
+    dataVencimento DATE NOT NULL,
+    dataPagamento DATE,
+    juros DECIMAL(10,2),
+    multa DECIMAL(10,2),
+    desconto DECIMAL(10,2),
+    valorPago DECIMAL(10,2),
+    dataCancelamento DATE,
+    observacao VARCHAR(200),
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    CONSTRAINT PK_contasPagar PRIMARY KEY (numeroNota, modelo, serie, idFornecedor, parcela),
+    CONSTRAINT FK_idFormaPagamento_contasPagar FOREIGN KEY (idFormaPagamento) REFERENCES formaPagamento(idFormaPagamento)
+);
+
+CREATE TABLE contasReceber (
+    numeroNota INT NOT NULL,
+    modelo INT NOT NULL,
+    serie INT NOT NULL,
+    idCliente INT NOT NULL,
+    dataEmissao DATE NOT NULL,
+    idFormaPagamento INT NOT NULL,
+    parcela INT NOT NULL,
+    valorParcela DECIMAL(10,2) NOT NULL,
+    dataVencimento DATE NOT NULL,
+    dataRecebimento DATE,
+    juros DECIMAL(10,2),
+    multa DECIMAL(10,2),
+    desconto DECIMAL(10,2),
+    valorRecebido DECIMAL(10,2),
+    dataCancelamento DATE,
+    observacao VARCHAR(200),
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    CONSTRAINT PK_contasReceber PRIMARY KEY (numeroNota, modelo, serie, idCliente, parcela),    CONSTRAINT FK_idFormaPagamento_contasReceber FOREIGN KEY (idFormaPagamento) REFERENCES formaPagamento(idFormaPagamento));
+
+CREATE TABLE notaVenda (
+    numeroNota INT NOT NULL,
+    modelo INT NOT NULL,
+    serie INT NOT NULL,
+    idCliente INT NOT NULL,
+    dataEmissao DATE NOT NULL,
+    totalProdutos DECIMAL(10,2) NOT NULL,
+    totalPagar DECIMAL(10,2) NOT NULL,
+    porcentagemDesconto DECIMAL(10,2),
+    idCondPagamento INT NOT NULL,
+    observacao VARCHAR(200),
+    dataCancelamento DATE, 
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    PRIMARY KEY (numeroNota, modelo, serie, idCliente),
+    CONSTRAINT FK_idCliente_notaVenda FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
+    CONSTRAINT FK_idCondPagamento_notaVenda FOREIGN KEY (idCondPagamento) REFERENCES condicaoPagamento(idCondPagamento)
+);
+
+CREATE TABLE notaVenda_Produto (
+    numeroNota INT NOT NULL,
+    modelo INT NOT NULL,
+    serie INT NOT NULL,
+    idCliente INT NOT NULL,
+    idProduto INT NOT NULL,
+    quantidadeProduto INT NOT NULL,
+    precoProduto DECIMAL(10, 4) NOT NULL,
+    PRIMARY KEY (numeroNota, modelo, serie, idCliente, idProduto),
+    CONSTRAINT FK_idNotaVenda FOREIGN KEY (numeroNota, modelo, serie, idCliente) REFERENCES notaVenda(numeroNota, modelo, serie, idCliente),
+    CONSTRAINT FK_notaCompraProduto_idProduto FOREIGN KEY (idProduto) REFERENCES produto(idProduto)
+);
+
+CREATE TABLE notaServico (
+    numeroNota INT NOT NULL,
+    modelo INT NOT NULL,
+    serie INT NOT NULL,
+    idCliente INT NOT NULL,
+    dataEmissao DATE NOT NULL,
+    totalServicos DECIMAL(10,2) NOT NULL,
+    totalPagar DECIMAL(10,2) NOT NULL,
+    porcentagemDesconto DECIMAL(10,2),
+    idCondPagamento INT NOT NULL,
+    observacao VARCHAR(200),
+    dataCancelamento DATE, 
+    dataCadastro DATE NOT NULL,
+    dataUltAlt DATE NOT NULL,
+    PRIMARY KEY (numeroNota, modelo, serie, idCliente),
+    CONSTRAINT FK_idCliente_notaServico FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
+    CONSTRAINT FK_idCondPagamento_notaServico FOREIGN KEY (idCondPagamento) REFERENCES condicaoPagamento(idCondPagamento)
+);
+
+CREATE TABLE notaServico_Servico (
+    numeroNota INT NOT NULL,
+    modelo INT NOT NULL,
+    serie INT NOT NULL,
+    idCliente INT NOT NULL,
+    idServico INT NOT NULL,
+    quantidadeServico INT NOT NULL,
+    precoServico DECIMAL(10, 4) NOT NULL,
+    PRIMARY KEY (numeroNota, modelo, serie, idCliente, idServico),
+    CONSTRAINT FK_idNotaServico FOREIGN KEY (numeroNota, modelo, serie, idCliente) REFERENCES notaServico(numeroNota, modelo, serie, idCliente),
+    CONSTRAINT FK_notaServico_idServico FOREIGN KEY (idServico) REFERENCES servico(idServico)
+);
+

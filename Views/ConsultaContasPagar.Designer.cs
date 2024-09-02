@@ -66,12 +66,12 @@
             // btnIncluir
             // 
             this.btnIncluir.FlatAppearance.BorderSize = 0;
-            this.btnIncluir.Location = new System.Drawing.Point(546, 422);
+            this.btnIncluir.Location = new System.Drawing.Point(645, 422);
             // 
             // btnAlterar
             // 
             this.btnAlterar.FlatAppearance.BorderSize = 0;
-            this.btnAlterar.Location = new System.Drawing.Point(627, 422);
+            this.btnAlterar.Location = new System.Drawing.Point(726, 422);
             // 
             // btnExcluir
             // 
@@ -87,7 +87,7 @@
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.Location = new System.Drawing.Point(708, 422);
+            this.btnSair.Location = new System.Drawing.Point(807, 422);
             // 
             // txtPesquisa
             // 
@@ -116,7 +116,7 @@
             this.dataGridViewContasPagar.Location = new System.Drawing.Point(12, 60);
             this.dataGridViewContasPagar.Name = "dataGridViewContasPagar";
             this.dataGridViewContasPagar.ReadOnly = true;
-            this.dataGridViewContasPagar.Size = new System.Drawing.Size(771, 346);
+            this.dataGridViewContasPagar.Size = new System.Drawing.Size(870, 346);
             this.dataGridViewContasPagar.TabIndex = 17;
             this.dataGridViewContasPagar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewContasPagar_CellContentClick);
             this.dataGridViewContasPagar.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewContasPagar_CellDoubleClick);
@@ -152,10 +152,10 @@
             // 
             // fornecedor
             // 
+            this.fornecedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.fornecedor.HeaderText = "Fornecedor";
             this.fornecedor.Name = "fornecedor";
             this.fornecedor.ReadOnly = true;
-            this.fornecedor.Width = 160;
             // 
             // parcela
             // 
@@ -195,7 +195,7 @@
             // ConsultaContasPagar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(800, 462);
+            this.ClientSize = new System.Drawing.Size(900, 462);
             this.Controls.Add(this.dataGridViewContasPagar);
             this.Name = "ConsultaContasPagar";
             this.Text = "Consulta Contas a Pagar";
