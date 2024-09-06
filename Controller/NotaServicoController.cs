@@ -15,6 +15,10 @@ namespace Sistema_Vendas.Controller
         {
             notaServicoDAO = new NotaServicoDAO();
         }
+        public int GetUltimoNumeroNota()
+        {
+            return notaServicoDAO.GetUltimoNumeroNota();
+        }
 
         public override void Alterar(T obj)
         {

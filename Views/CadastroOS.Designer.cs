@@ -88,6 +88,19 @@
             this.quantidadeServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.precoServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddServico = new Sistema_Vendas.GButtons();
+            this.tabCondPagamento = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnAddCondPag = new Sistema_Vendas.GButtons();
+            this.dataGridViewParcelas = new System.Windows.Forms.DataGridView();
+            this.numeroParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idFormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnConsultaCondPag = new Sistema_Vendas.GButtons();
+            this.txtCondPag = new Sistema_Vendas.GControls.GTextBox();
+            this.txtCodCondPag = new Sistema_Vendas.GControls.GTextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.txtDataOS = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.lblDataOS = new System.Windows.Forms.Label();
             this.cbSituacao = new Sistema_Vendas.GControls.GComboBox();
@@ -103,19 +116,8 @@
             this.txtDataPrevista = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.txtValorEntrada = new Sistema_Vendas.GControls.GTextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.tabCondPagamento = new System.Windows.Forms.TabPage();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnAddCondPag = new Sistema_Vendas.GButtons();
-            this.dataGridViewParcelas = new System.Windows.Forms.DataGridView();
-            this.numeroParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idFormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnConsultaCondPag = new Sistema_Vendas.GButtons();
-            this.txtCondPag = new Sistema_Vendas.GControls.GTextBox();
-            this.txtCodCondPag = new Sistema_Vendas.GControls.GTextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.btnExcluirProduto = new Sistema_Vendas.GButtons();
+            this.btnExcluirServicos = new Sistema_Vendas.GButtons();
             this.groupBox1.SuspendLayout();
             this.gpTotal.SuspendLayout();
             this.tabProdutos.SuspendLayout();
@@ -381,6 +383,7 @@
             // 
             // tabProdutos
             // 
+            this.tabProdutos.Controls.Add(this.btnExcluirProduto);
             this.tabProdutos.Controls.Add(this.lblQtdeProduto);
             this.tabProdutos.Controls.Add(this.txtQtdeProduto);
             this.tabProdutos.Controls.Add(this.btnConsultaProduto);
@@ -542,9 +545,9 @@
             this.quantidadeProduto,
             this.precoProduto});
             this.dataGridViewProdutos.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewProdutos.Location = new System.Drawing.Point(22, 70);
+            this.dataGridViewProdutos.Location = new System.Drawing.Point(22, 68);
             this.dataGridViewProdutos.Name = "dataGridViewProdutos";
-            this.dataGridViewProdutos.Size = new System.Drawing.Size(550, 184);
+            this.dataGridViewProdutos.Size = new System.Drawing.Size(550, 161);
             this.dataGridViewProdutos.TabIndex = 107;
             // 
             // idProduto
@@ -908,6 +911,7 @@
             // 
             // tabServicos
             // 
+            this.tabServicos.Controls.Add(this.btnExcluirServicos);
             this.tabServicos.Controls.Add(this.lblQtdeServico);
             this.tabServicos.Controls.Add(this.txtQtdeServico);
             this.tabServicos.Controls.Add(this.btnConsultaServico);
@@ -1067,9 +1071,9 @@
             this.quantidadeServico,
             this.precoServico});
             this.dataGridViewServicos.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewServicos.Location = new System.Drawing.Point(22, 70);
+            this.dataGridViewServicos.Location = new System.Drawing.Point(22, 68);
             this.dataGridViewServicos.Name = "dataGridViewServicos";
-            this.dataGridViewServicos.Size = new System.Drawing.Size(550, 184);
+            this.dataGridViewServicos.Size = new System.Drawing.Size(550, 161);
             this.dataGridViewServicos.TabIndex = 98;
             // 
             // idServiço
@@ -1119,6 +1123,192 @@
             this.btnAddServico.TextColor = System.Drawing.Color.White;
             this.btnAddServico.UseVisualStyleBackColor = false;
             this.btnAddServico.Click += new System.EventHandler(this.btnAddServico_Click);
+            // 
+            // tabCondPagamento
+            // 
+            this.tabCondPagamento.Controls.Add(this.label6);
+            this.tabCondPagamento.Controls.Add(this.btnAddCondPag);
+            this.tabCondPagamento.Controls.Add(this.dataGridViewParcelas);
+            this.tabCondPagamento.Controls.Add(this.btnConsultaCondPag);
+            this.tabCondPagamento.Controls.Add(this.txtCondPag);
+            this.tabCondPagamento.Controls.Add(this.txtCodCondPag);
+            this.tabCondPagamento.Controls.Add(this.label5);
+            this.tabCondPagamento.Location = new System.Drawing.Point(4, 22);
+            this.tabCondPagamento.Name = "tabCondPagamento";
+            this.tabCondPagamento.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCondPagamento.Size = new System.Drawing.Size(591, 269);
+            this.tabCondPagamento.TabIndex = 4;
+            this.tabCondPagamento.Text = "Condição de Pagamento";
+            this.tabCondPagamento.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 13);
+            this.label6.TabIndex = 137;
+            this.label6.Text = "Código*";
+            // 
+            // btnAddCondPag
+            // 
+            this.btnAddCondPag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAddCondPag.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAddCondPag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAddCondPag.BorderRadius = 5;
+            this.btnAddCondPag.BorderSize = 1;
+            this.btnAddCondPag.FlatAppearance.BorderSize = 0;
+            this.btnAddCondPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddCondPag.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddCondPag.ForeColor = System.Drawing.Color.White;
+            this.btnAddCondPag.Location = new System.Drawing.Point(500, 29);
+            this.btnAddCondPag.Name = "btnAddCondPag";
+            this.btnAddCondPag.Size = new System.Drawing.Size(75, 28);
+            this.btnAddCondPag.TabIndex = 133;
+            this.btnAddCondPag.Text = "&Adicionar";
+            this.btnAddCondPag.TextColor = System.Drawing.Color.White;
+            this.btnAddCondPag.UseVisualStyleBackColor = false;
+            this.btnAddCondPag.Click += new System.EventHandler(this.btnAddCondPag_Click);
+            // 
+            // dataGridViewParcelas
+            // 
+            this.dataGridViewParcelas.AllowUserToAddRows = false;
+            this.dataGridViewParcelas.AllowUserToDeleteRows = false;
+            this.dataGridViewParcelas.AllowUserToResizeColumns = false;
+            this.dataGridViewParcelas.AllowUserToResizeRows = false;
+            this.dataGridViewParcelas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
+            this.dataGridViewParcelas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewParcelas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.numeroParcela,
+            this.idFormaPagamento,
+            this.FormaPagamento,
+            this.dataVencimento,
+            this.valorParcela});
+            this.dataGridViewParcelas.Enabled = false;
+            this.dataGridViewParcelas.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridViewParcelas.Location = new System.Drawing.Point(18, 69);
+            this.dataGridViewParcelas.Name = "dataGridViewParcelas";
+            this.dataGridViewParcelas.ReadOnly = true;
+            this.dataGridViewParcelas.Size = new System.Drawing.Size(557, 186);
+            this.dataGridViewParcelas.TabIndex = 136;
+            // 
+            // numeroParcela
+            // 
+            this.numeroParcela.HeaderText = "Parcela";
+            this.numeroParcela.Name = "numeroParcela";
+            this.numeroParcela.ReadOnly = true;
+            this.numeroParcela.Width = 80;
+            // 
+            // idFormaPagamento
+            // 
+            this.idFormaPagamento.HeaderText = "Cód. Forma Pagamento";
+            this.idFormaPagamento.Name = "idFormaPagamento";
+            this.idFormaPagamento.ReadOnly = true;
+            this.idFormaPagamento.Width = 80;
+            // 
+            // FormaPagamento
+            // 
+            this.FormaPagamento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FormaPagamento.HeaderText = "Forma de Pagamento";
+            this.FormaPagamento.Name = "FormaPagamento";
+            this.FormaPagamento.ReadOnly = true;
+            // 
+            // dataVencimento
+            // 
+            this.dataVencimento.HeaderText = "Data Vencimento";
+            this.dataVencimento.Name = "dataVencimento";
+            this.dataVencimento.ReadOnly = true;
+            this.dataVencimento.Width = 85;
+            // 
+            // valorParcela
+            // 
+            this.valorParcela.HeaderText = "Valor Parcela";
+            this.valorParcela.Name = "valorParcela";
+            this.valorParcela.ReadOnly = true;
+            this.valorParcela.Width = 80;
+            // 
+            // btnConsultaCondPag
+            // 
+            this.btnConsultaCondPag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaCondPag.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaCondPag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnConsultaCondPag.BorderRadius = 5;
+            this.btnConsultaCondPag.BorderSize = 1;
+            this.btnConsultaCondPag.FlatAppearance.BorderSize = 0;
+            this.btnConsultaCondPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsultaCondPag.ForeColor = System.Drawing.Color.White;
+            this.btnConsultaCondPag.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaCondPag.Image")));
+            this.btnConsultaCondPag.Location = new System.Drawing.Point(90, 29);
+            this.btnConsultaCondPag.Name = "btnConsultaCondPag";
+            this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 28);
+            this.btnConsultaCondPag.TabIndex = 132;
+            this.btnConsultaCondPag.TextColor = System.Drawing.Color.White;
+            this.btnConsultaCondPag.UseVisualStyleBackColor = false;
+            this.btnConsultaCondPag.Click += new System.EventHandler(this.btnConsultaCondPag_Click);
+            // 
+            // txtCondPag
+            // 
+            this.txtCondPag.BackColor = System.Drawing.SystemColors.Window;
+            this.txtCondPag.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtCondPag.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtCondPag.BorderRadius = 5;
+            this.txtCondPag.BorderSize = 1;
+            this.txtCondPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtCondPag.DisabledBackColor = System.Drawing.Color.White;
+            this.txtCondPag.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtCondPag.DisabledForeColor = System.Drawing.Color.White;
+            this.txtCondPag.Enabled = false;
+            this.txtCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtCondPag.Location = new System.Drawing.Point(132, 29);
+            this.txtCondPag.MaxLength = 14;
+            this.txtCondPag.Multiline = false;
+            this.txtCondPag.Name = "txtCondPag";
+            this.txtCondPag.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtCondPag.PasswordChar = false;
+            this.txtCondPag.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtCondPag.PlaceholderText = "";
+            this.txtCondPag.Size = new System.Drawing.Size(362, 28);
+            this.txtCondPag.TabIndex = 135;
+            this.txtCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtCondPag.Texts = "";
+            this.txtCondPag.UnderlinedStyle = false;
+            // 
+            // txtCodCondPag
+            // 
+            this.txtCodCondPag.BackColor = System.Drawing.SystemColors.Window;
+            this.txtCodCondPag.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtCodCondPag.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtCodCondPag.BorderRadius = 5;
+            this.txtCodCondPag.BorderSize = 1;
+            this.txtCodCondPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtCodCondPag.DisabledBackColor = System.Drawing.Color.White;
+            this.txtCodCondPag.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtCodCondPag.DisabledForeColor = System.Drawing.Color.White;
+            this.txtCodCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtCodCondPag.Location = new System.Drawing.Point(18, 29);
+            this.txtCodCondPag.MaxLength = 14;
+            this.txtCodCondPag.Multiline = false;
+            this.txtCodCondPag.Name = "txtCodCondPag";
+            this.txtCodCondPag.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtCodCondPag.PasswordChar = false;
+            this.txtCodCondPag.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtCodCondPag.PlaceholderText = "";
+            this.txtCodCondPag.Size = new System.Drawing.Size(66, 28);
+            this.txtCodCondPag.TabIndex = 131;
+            this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCodCondPag.Texts = "";
+            this.txtCodCondPag.UnderlinedStyle = false;
+            this.txtCodCondPag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCondPag_KeyPress);
+            this.txtCodCondPag.Leave += new System.EventHandler(this.txtCodCondPag_Leave);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(129, 13);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(124, 13);
+            this.label5.TabIndex = 134;
+            this.label5.Text = "Condição de Pagamento";
             // 
             // txtDataOS
             // 
@@ -1407,191 +1597,45 @@
             this.label4.TabIndex = 132;
             this.label4.Text = "Valor Entrada";
             // 
-            // tabCondPagamento
+            // btnExcluirProduto
             // 
-            this.tabCondPagamento.Controls.Add(this.label6);
-            this.tabCondPagamento.Controls.Add(this.btnAddCondPag);
-            this.tabCondPagamento.Controls.Add(this.dataGridViewParcelas);
-            this.tabCondPagamento.Controls.Add(this.btnConsultaCondPag);
-            this.tabCondPagamento.Controls.Add(this.txtCondPag);
-            this.tabCondPagamento.Controls.Add(this.txtCodCondPag);
-            this.tabCondPagamento.Controls.Add(this.label5);
-            this.tabCondPagamento.Location = new System.Drawing.Point(4, 22);
-            this.tabCondPagamento.Name = "tabCondPagamento";
-            this.tabCondPagamento.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCondPagamento.Size = new System.Drawing.Size(591, 269);
-            this.tabCondPagamento.TabIndex = 4;
-            this.tabCondPagamento.Text = "Condição de Pagamento";
-            this.tabCondPagamento.UseVisualStyleBackColor = true;
+            this.btnExcluirProduto.BackColor = System.Drawing.Color.White;
+            this.btnExcluirProduto.BackgroundColor = System.Drawing.Color.White;
+            this.btnExcluirProduto.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnExcluirProduto.BorderRadius = 5;
+            this.btnExcluirProduto.BorderSize = 1;
+            this.btnExcluirProduto.FlatAppearance.BorderSize = 0;
+            this.btnExcluirProduto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluirProduto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExcluirProduto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnExcluirProduto.Location = new System.Drawing.Point(486, 235);
+            this.btnExcluirProduto.Name = "btnExcluirProduto";
+            this.btnExcluirProduto.Size = new System.Drawing.Size(86, 28);
+            this.btnExcluirProduto.TabIndex = 162;
+            this.btnExcluirProduto.Text = "Excluir Produto";
+            this.btnExcluirProduto.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnExcluirProduto.UseVisualStyleBackColor = false;
+            this.btnExcluirProduto.Click += new System.EventHandler(this.btnExcluirProduto_Click);
             // 
-            // label6
+            // btnExcluirServicos
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 13);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 13);
-            this.label6.TabIndex = 137;
-            this.label6.Text = "Código*";
-            // 
-            // btnAddCondPag
-            // 
-            this.btnAddCondPag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnAddCondPag.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnAddCondPag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnAddCondPag.BorderRadius = 5;
-            this.btnAddCondPag.BorderSize = 1;
-            this.btnAddCondPag.FlatAppearance.BorderSize = 0;
-            this.btnAddCondPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddCondPag.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddCondPag.ForeColor = System.Drawing.Color.White;
-            this.btnAddCondPag.Location = new System.Drawing.Point(500, 29);
-            this.btnAddCondPag.Name = "btnAddCondPag";
-            this.btnAddCondPag.Size = new System.Drawing.Size(75, 28);
-            this.btnAddCondPag.TabIndex = 133;
-            this.btnAddCondPag.Text = "&Adicionar";
-            this.btnAddCondPag.TextColor = System.Drawing.Color.White;
-            this.btnAddCondPag.UseVisualStyleBackColor = false;
-            this.btnAddCondPag.Click += new System.EventHandler(this.btnAddCondPag_Click);
-            // 
-            // dataGridViewParcelas
-            // 
-            this.dataGridViewParcelas.AllowUserToAddRows = false;
-            this.dataGridViewParcelas.AllowUserToDeleteRows = false;
-            this.dataGridViewParcelas.AllowUserToResizeColumns = false;
-            this.dataGridViewParcelas.AllowUserToResizeRows = false;
-            this.dataGridViewParcelas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(245)))));
-            this.dataGridViewParcelas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewParcelas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.numeroParcela,
-            this.idFormaPagamento,
-            this.FormaPagamento,
-            this.dataVencimento,
-            this.valorParcela});
-            this.dataGridViewParcelas.Enabled = false;
-            this.dataGridViewParcelas.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewParcelas.Location = new System.Drawing.Point(18, 69);
-            this.dataGridViewParcelas.Name = "dataGridViewParcelas";
-            this.dataGridViewParcelas.ReadOnly = true;
-            this.dataGridViewParcelas.Size = new System.Drawing.Size(557, 186);
-            this.dataGridViewParcelas.TabIndex = 136;
-            // 
-            // numeroParcela
-            // 
-            this.numeroParcela.HeaderText = "Parcela";
-            this.numeroParcela.Name = "numeroParcela";
-            this.numeroParcela.ReadOnly = true;
-            this.numeroParcela.Width = 80;
-            // 
-            // idFormaPagamento
-            // 
-            this.idFormaPagamento.HeaderText = "Cód. Forma Pagamento";
-            this.idFormaPagamento.Name = "idFormaPagamento";
-            this.idFormaPagamento.ReadOnly = true;
-            this.idFormaPagamento.Width = 80;
-            // 
-            // FormaPagamento
-            // 
-            this.FormaPagamento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.FormaPagamento.HeaderText = "Forma de Pagamento";
-            this.FormaPagamento.Name = "FormaPagamento";
-            this.FormaPagamento.ReadOnly = true;
-            // 
-            // dataVencimento
-            // 
-            this.dataVencimento.HeaderText = "Data Vencimento";
-            this.dataVencimento.Name = "dataVencimento";
-            this.dataVencimento.ReadOnly = true;
-            this.dataVencimento.Width = 85;
-            // 
-            // valorParcela
-            // 
-            this.valorParcela.HeaderText = "Valor Parcela";
-            this.valorParcela.Name = "valorParcela";
-            this.valorParcela.ReadOnly = true;
-            this.valorParcela.Width = 80;
-            // 
-            // btnConsultaCondPag
-            // 
-            this.btnConsultaCondPag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaCondPag.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaCondPag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.btnConsultaCondPag.BorderRadius = 5;
-            this.btnConsultaCondPag.BorderSize = 1;
-            this.btnConsultaCondPag.FlatAppearance.BorderSize = 0;
-            this.btnConsultaCondPag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConsultaCondPag.ForeColor = System.Drawing.Color.White;
-            this.btnConsultaCondPag.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaCondPag.Image")));
-            this.btnConsultaCondPag.Location = new System.Drawing.Point(90, 29);
-            this.btnConsultaCondPag.Name = "btnConsultaCondPag";
-            this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaCondPag.TabIndex = 132;
-            this.btnConsultaCondPag.TextColor = System.Drawing.Color.White;
-            this.btnConsultaCondPag.UseVisualStyleBackColor = false;
-            this.btnConsultaCondPag.Click += new System.EventHandler(this.btnConsultaCondPag_Click);
-            // 
-            // txtCondPag
-            // 
-            this.txtCondPag.BackColor = System.Drawing.SystemColors.Window;
-            this.txtCondPag.BorderColor = System.Drawing.Color.DarkGray;
-            this.txtCondPag.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.txtCondPag.BorderRadius = 5;
-            this.txtCondPag.BorderSize = 1;
-            this.txtCondPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCondPag.DisabledBackColor = System.Drawing.Color.White;
-            this.txtCondPag.DisabledBorderColor = System.Drawing.Color.Gainsboro;
-            this.txtCondPag.DisabledForeColor = System.Drawing.Color.White;
-            this.txtCondPag.Enabled = false;
-            this.txtCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCondPag.Location = new System.Drawing.Point(132, 29);
-            this.txtCondPag.MaxLength = 14;
-            this.txtCondPag.Multiline = false;
-            this.txtCondPag.Name = "txtCondPag";
-            this.txtCondPag.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
-            this.txtCondPag.PasswordChar = false;
-            this.txtCondPag.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtCondPag.PlaceholderText = "";
-            this.txtCondPag.Size = new System.Drawing.Size(362, 28);
-            this.txtCondPag.TabIndex = 135;
-            this.txtCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtCondPag.Texts = "";
-            this.txtCondPag.UnderlinedStyle = false;
-            // 
-            // txtCodCondPag
-            // 
-            this.txtCodCondPag.BackColor = System.Drawing.SystemColors.Window;
-            this.txtCodCondPag.BorderColor = System.Drawing.Color.DarkGray;
-            this.txtCodCondPag.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
-            this.txtCodCondPag.BorderRadius = 5;
-            this.txtCodCondPag.BorderSize = 1;
-            this.txtCodCondPag.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCodCondPag.DisabledBackColor = System.Drawing.Color.White;
-            this.txtCodCondPag.DisabledBorderColor = System.Drawing.Color.Gainsboro;
-            this.txtCodCondPag.DisabledForeColor = System.Drawing.Color.White;
-            this.txtCodCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodCondPag.Location = new System.Drawing.Point(18, 29);
-            this.txtCodCondPag.MaxLength = 14;
-            this.txtCodCondPag.Multiline = false;
-            this.txtCodCondPag.Name = "txtCodCondPag";
-            this.txtCodCondPag.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
-            this.txtCodCondPag.PasswordChar = false;
-            this.txtCodCondPag.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtCodCondPag.PlaceholderText = "";
-            this.txtCodCondPag.Size = new System.Drawing.Size(66, 28);
-            this.txtCodCondPag.TabIndex = 131;
-            this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtCodCondPag.Texts = "";
-            this.txtCodCondPag.UnderlinedStyle = false;
-            this.txtCodCondPag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCondPag_KeyPress);
-            this.txtCodCondPag.Leave += new System.EventHandler(this.txtCodCondPag_Leave);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(129, 13);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 13);
-            this.label5.TabIndex = 134;
-            this.label5.Text = "Condição de Pagamento";
+            this.btnExcluirServicos.BackColor = System.Drawing.Color.White;
+            this.btnExcluirServicos.BackgroundColor = System.Drawing.Color.White;
+            this.btnExcluirServicos.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnExcluirServicos.BorderRadius = 5;
+            this.btnExcluirServicos.BorderSize = 1;
+            this.btnExcluirServicos.FlatAppearance.BorderSize = 0;
+            this.btnExcluirServicos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluirServicos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExcluirServicos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnExcluirServicos.Location = new System.Drawing.Point(486, 235);
+            this.btnExcluirServicos.Name = "btnExcluirServicos";
+            this.btnExcluirServicos.Size = new System.Drawing.Size(86, 28);
+            this.btnExcluirServicos.TabIndex = 214;
+            this.btnExcluirServicos.Text = "Excluir Serviço";
+            this.btnExcluirServicos.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnExcluirServicos.UseVisualStyleBackColor = false;
+            this.btnExcluirServicos.Click += new System.EventHandler(this.btnExcluirServicos_Click);
             // 
             // CadastroOS
             // 
@@ -1755,5 +1799,7 @@
         protected GControls.GTextBox txtCondPag;
         protected GControls.GTextBox txtCodCondPag;
         protected System.Windows.Forms.Label label5;
+        public GButtons btnExcluirProduto;
+        public GButtons btnExcluirServicos;
     }
 }

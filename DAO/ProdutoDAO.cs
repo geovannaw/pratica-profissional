@@ -94,14 +94,41 @@ namespace Sistema_Vendas.DAO
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string queryCheckSaldo = "SELECT saldo FROM produto WHERE idProduto = @id";
-                SqlCommand commandCheckSaldo = new SqlCommand(queryCheckSaldo, connection);
-                commandCheckSaldo.Parameters.AddWithValue("@id", id);
+                //verifica se o produto está sendo usado em notaVenda_Produto ou OS_Produto
+                string queryCheckUsage = @"
+            IF EXISTS (SELECT 1 FROM notaVenda_Produto WHERE idProduto = @id)
+            BEGIN
+                SELECT 1
+            END
+            ELSE IF EXISTS (SELECT 1 FROM OS_Produto WHERE idProduto = @id)
+            BEGIN
+                SELECT 1
+            END
+            ELSE
+            BEGIN
+                SELECT 0
+            END";
+
+                SqlCommand commandCheckUsage = new SqlCommand(queryCheckUsage, connection);
+                commandCheckUsage.Parameters.AddWithValue("@id", id);
 
                 try
                 {
                     connection.Open();
+
+                    //verifica se o produto está sendo usado
+                    int usageExists = (int)commandCheckUsage.ExecuteScalar();
+                    if (usageExists == 1)
+                    {
+                        MessageBox.Show("Não é possível excluir o produto, pois ele está sendo utilizado em uma nota de venda ou ordem de serviço.", "Erro ao deletar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     //verifica o saldo do produto
+                    string queryCheckSaldo = "SELECT saldo FROM produto WHERE idProduto = @id";
+                    SqlCommand commandCheckSaldo = new SqlCommand(queryCheckSaldo, connection);
+                    commandCheckSaldo.Parameters.AddWithValue("@id", id);
+
                     object saldoObj = commandCheckSaldo.ExecuteScalar();
                     if (saldoObj != null)
                     {
@@ -113,7 +140,7 @@ namespace Sistema_Vendas.DAO
                         }
                     }
 
-                    //se o saldo for 0, continua a exclusão
+                    // Se o saldo for 0 e o produto não estiver em uso, continua a exclusão
                     string queryDelete = "DELETE FROM produto WHERE idProduto = @id";
                     SqlCommand commandDelete = new SqlCommand(queryDelete, connection);
                     commandDelete.Parameters.AddWithValue("@id", id);
@@ -124,7 +151,7 @@ namespace Sistema_Vendas.DAO
                     //verifica se a exceção está relacionada a uma restrição de chave estrangeira (uso em algum cadastro)
                     if (ex.Number == 547) //código de erro para conflito de chave estrangeira
                     {
-                        MessageBox.Show("Não é possível excluir o Produto, pois ele está sendo utilizado em um cadastro.", "Erro ao deletar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Não é possível excluir o produto, pois ele está sendo utilizado em um cadastro.", "Erro ao deletar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {

@@ -52,6 +52,7 @@
             // btnExcluir
             // 
             this.btnExcluir.FlatAppearance.BorderSize = 0;
+//            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // btnPesquisar
             // 

@@ -90,7 +90,7 @@ namespace Sistema_Vendas.Views
 
         public void Desbloqueia()
         {
-            txtNroNota.Enabled = true;
+         //   txtNroNota.Enabled = false;
             txtModelo.Enabled = true;
             txtSerie.Enabled = true;
             txtCodCliente.Enabled = true;
@@ -262,7 +262,7 @@ namespace Sistema_Vendas.Views
 
                     NotaServicoModel notaServico = new NotaServicoModel
                     {
-                        numeroNota = numeroNota,
+                      //  numeroNota = numeroNota,
                         modelo = modelo,
                         serie = serie,
                         idCliente = idCliente,
@@ -455,6 +455,8 @@ namespace Sistema_Vendas.Views
             {
                 txtDataEmissao.Texts = DateTime.Now.ToString();
                 txtPorcentagemDesconto.Texts = "0";
+                int novoCodigo = notaServicoController.GetUltimoNumeroNota() + 1;
+                txtNroNota.Texts = novoCodigo.ToString();
             }
         }
         private void VerificaNotaExistente()
@@ -500,7 +502,7 @@ namespace Sistema_Vendas.Views
                 bool habilitar = dataGridViewServicos.Rows.Count > 0;
 
                 //desabilita os campos com infos da nota
-                txtNroNota.Enabled = !habilitar;
+              //  txtNroNota.Enabled = !habilitar;
                 txtModelo.Enabled = !habilitar;
                 txtSerie.Enabled = !habilitar;
                 txtDataEmissao.Enabled = !habilitar;

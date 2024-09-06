@@ -1024,6 +1024,7 @@
             this.txtNroNota.DisabledBackColor = System.Drawing.Color.White;
             this.txtNroNota.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtNroNota.DisabledForeColor = System.Drawing.Color.White;
+            this.txtNroNota.Enabled = false;
             this.txtNroNota.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtNroNota.Location = new System.Drawing.Point(121, 32);
             this.txtNroNota.MaxLength = 32767;

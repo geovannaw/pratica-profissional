@@ -15,6 +15,10 @@ namespace Sistema_Vendas.Controller
         {
             notaVendaDAO = new NotaVendaDAO();
         }
+        public int GetUltimoNumeroNota()
+        {
+            return notaVendaDAO.GetUltimoNumeroNota();
+        }
         public override void Alterar(T obj)
         {
             throw new NotImplementedException();

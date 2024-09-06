@@ -10,6 +10,23 @@ namespace Sistema_Vendas.DAO
 {
     public class NotaVendaDAO : DAO<NotaVendaModel>
     {
+        public int GetUltimoNumeroNota()
+        {
+            int ultimoCodigo = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT ISNULL(MAX(numeroNota), 0) FROM notaVenda";
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                {
+                    ultimoCodigo = Convert.ToInt32(result);
+                }
+            }
+            return ultimoCodigo;
+        }
         public override void Alterar(NotaVendaModel obj)
         {
             throw new NotImplementedException();
@@ -161,11 +178,10 @@ namespace Sistema_Vendas.DAO
                 {
                     //insere uma nova nota de venda
                     string queryNFVenda = @"INSERT INTO notaVenda 
-                                   (numeroNota, modelo, serie, idCliente, dataEmissao, totalProdutos, totalPagar, porcentagemDesconto, idCondPagamento, observacao, dataCadastro, dataUltAlt) 
-                                   VALUES (@numeroNota, @modelo, @serie, @idCliente, @dataEmissao, @totalProdutos, @totalPagar, @porcentagemDesconto, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt);";
+                (modelo, serie, idCliente, dataEmissao, totalProdutos, totalPagar, porcentagemDesconto, idCondPagamento, observacao, dataCadastro, dataUltAlt) 
+                VALUES (@modelo, @serie, @idCliente, @dataEmissao, @totalProdutos, @totalPagar, @porcentagemDesconto, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt);
+                SELECT SCOPE_IDENTITY();";
                     SqlCommand cmdNFVenda = new SqlCommand(queryNFVenda, conn, transaction);
-
-                    cmdNFVenda.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
                     cmdNFVenda.Parameters.AddWithValue("@modelo", obj.modelo);
                     cmdNFVenda.Parameters.AddWithValue("@serie", obj.serie);
                     cmdNFVenda.Parameters.AddWithValue("@idCliente", obj.idCliente);
@@ -177,18 +193,17 @@ namespace Sistema_Vendas.DAO
                     cmdNFVenda.Parameters.AddWithValue("@observacao", obj.observacao);
                     cmdNFVenda.Parameters.AddWithValue("@dataCadastro", obj.dataCadastro);
                     cmdNFVenda.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
+                    int numeroNota = Convert.ToInt32(cmdNFVenda.ExecuteScalar());
 
-                    cmdNFVenda.ExecuteNonQuery();
-
-                    //insere os produtos da nota de venda
+                    // Insere os produtos da nota de venda
                     foreach (var produto in obj.Produtos)
                     {
                         string queryProduto = @"INSERT INTO notaVenda_Produto 
-                                        (numeroNota, modelo, serie, idCliente, quantidadeProduto, precoProduto, idProduto) 
-                                        VALUES (@numeroNota, @modelo, @serie, @idCliente, @quantidadeProduto, @precoProduto, @idProduto)";
+                    (numeroNota, modelo, serie, idCliente, quantidadeProduto, precoProduto, idProduto) 
+                    VALUES (@numeroNota, @modelo, @serie, @idCliente, @quantidadeProduto, @precoProduto, @idProduto)";
                         SqlCommand cmdProduto = new SqlCommand(queryProduto, conn, transaction);
 
-                        cmdProduto.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
+                        cmdProduto.Parameters.AddWithValue("@numeroNota", numeroNota);
                         cmdProduto.Parameters.AddWithValue("@modelo", obj.modelo);
                         cmdProduto.Parameters.AddWithValue("@serie", obj.serie);
                         cmdProduto.Parameters.AddWithValue("@idCliente", obj.idCliente);
@@ -208,6 +223,8 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+
+
         public ProdutoModel GetProdutoPorId(int idProduto)
         {
             ProdutoModel produto = null;

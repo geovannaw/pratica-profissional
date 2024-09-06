@@ -10,6 +10,23 @@ namespace Sistema_Vendas.DAO
 {
     public class NotaServicoDAO : DAO<NotaServicoModel>
     {
+        public int GetUltimoNumeroNota()
+        {
+            int ultimoCodigo = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT ISNULL(MAX(numeroNota), 0) FROM notaServico";
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                {
+                    ultimoCodigo = Convert.ToInt32(result);
+                }
+            }
+            return ultimoCodigo;
+        }
         public override void Alterar(NotaServicoModel obj)
         {
             throw new NotImplementedException();
@@ -161,11 +178,11 @@ namespace Sistema_Vendas.DAO
                 {
                     //insere uma nova nota de servico
                     string queryNFServico = @"INSERT INTO notaServico 
-                                   (numeroNota, modelo, serie, idCliente, dataEmissao, totalServicos, totalPagar, porcentagemDesconto, idCondPagamento, observacao, dataCadastro, dataUltAlt) 
-                                   VALUES (@numeroNota, @modelo, @serie, @idCliente, @dataEmissao, @totalServicos, @totalPagar, @porcentagemDesconto, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt);";
+                                   (modelo, serie, idCliente, dataEmissao, totalServicos, totalPagar, porcentagemDesconto, idCondPagamento, observacao, dataCadastro, dataUltAlt) 
+                                   VALUES (@modelo, @serie, @idCliente, @dataEmissao, @totalServicos, @totalPagar, @porcentagemDesconto, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt);
+                                   SELECT SCOPE_IDENTITY();";
                     SqlCommand cmdNFServico = new SqlCommand(queryNFServico, conn, transaction);
 
-                    cmdNFServico.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
                     cmdNFServico.Parameters.AddWithValue("@modelo", obj.modelo);
                     cmdNFServico.Parameters.AddWithValue("@serie", obj.serie);
                     cmdNFServico.Parameters.AddWithValue("@idCliente", obj.idCliente);
@@ -177,8 +194,7 @@ namespace Sistema_Vendas.DAO
                     cmdNFServico.Parameters.AddWithValue("@observacao", obj.observacao);
                     cmdNFServico.Parameters.AddWithValue("@dataCadastro", obj.dataCadastro);
                     cmdNFServico.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
-
-                    cmdNFServico.ExecuteNonQuery();
+                    int numeroNota = Convert.ToInt32(cmdNFServico.ExecuteScalar());
 
                     //insere os servicos da nota de servico
                     foreach (var servico in obj.Servicos)
@@ -188,7 +204,7 @@ namespace Sistema_Vendas.DAO
                                         VALUES (@numeroNota, @modelo, @serie, @idCliente, @quantidadeServico, @precoServico, @idServico)";
                         SqlCommand cmdProduto = new SqlCommand(queryProduto, conn, transaction);
 
-                        cmdProduto.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
+                        cmdProduto.Parameters.AddWithValue("@numeroNota", numeroNota);
                         cmdProduto.Parameters.AddWithValue("@modelo", obj.modelo);
                         cmdProduto.Parameters.AddWithValue("@serie", obj.serie);
                         cmdProduto.Parameters.AddWithValue("@idCliente", obj.idCliente);
