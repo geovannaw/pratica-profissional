@@ -30,6 +30,7 @@ namespace Sistema_Vendas.Views
         private NotaServicoController<NotaServicoModel> notaServicoController;
         private NotaVendaController<NotaVendaModel> notaVendaController;
         private ContasReceberController<ContasReceberModel> contasReceberController;
+        private ConsultaFormasPagamento consultaFormasPagamento;
 
         decimal precoUNProduto;
         decimal precoUNServico;
@@ -39,6 +40,8 @@ namespace Sistema_Vendas.Views
         decimal multa;
 
         string statusOS;
+
+        int idFormaPag;
 
         private bool carregando = false;
 
@@ -59,6 +62,7 @@ namespace Sistema_Vendas.Views
             notaServicoController = new NotaServicoController<NotaServicoModel>();
             notaVendaController = new NotaVendaController<NotaVendaModel>();
             contasReceberController = new ContasReceberController<ContasReceberModel>();
+            consultaFormasPagamento = new ConsultaFormasPagamento();
             txtCodCliente.Focus();
         }
 
@@ -123,13 +127,11 @@ namespace Sistema_Vendas.Views
             txtDataOS.Enabled = true;
             cbSituacao.Enabled = true;
             rbAtivo.Checked = true;
-            txtCodCondPag.Enabled = true;
 
             btnConsultaCliente.Enabled = true;
             btnConsultaFuncionario.Enabled = true;
             btnConsultaProduto.Enabled = true;
             btnConsultaServico.Enabled = true;
-            btnConsultaCondPag.Enabled = true;
 
             dataGridViewProdutos.Enabled = true;
             dataGridViewServicos.Enabled = true;
@@ -147,13 +149,11 @@ namespace Sistema_Vendas.Views
             txtQtdeServico.Enabled= false;
             txtDataPrevista.Enabled = false;
             txtValorEntrada.Enabled = false;
-            txtCodCondPag.Enabled = false;
 
             btnConsultaCliente.Enabled=false;
             btnConsultaFuncionario.Enabled=false;
             btnConsultaProduto.Enabled=false;
             btnConsultaServico.Enabled=false;
-            btnConsultaCondPag.Enabled = false;
 
             dataGridViewProdutos.Enabled = false;
             dataGridViewServicos.Enabled = false;
@@ -330,47 +330,47 @@ namespace Sistema_Vendas.Views
 
                     if (idAlterar == -1)
                     {
-                        foreach (DataGridViewRow row in dataGridViewParcelas.Rows)
-                        {
-                            if (row.IsNewRow) continue;
-                            //validação do que está no datagrid
-                            if (row.Cells["idFormaPagamento"].Value == null || !int.TryParse(row.Cells["idFormaPagamento"].Value.ToString(), out int idFormaPagamento))
-                            {
-                                MessageBox.Show("Forma de pagamento inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-                            int numeroOS = int.Parse(txtCodigo.Texts);
-                            int idCliente = Convert.ToInt32(txtCodCliente.Texts);
-                            try
-                            {
-                                ContasReceberModel contaReceber = new ContasReceberModel
-                                {
-                                    numeroNota = numeroOS,
-                                    modelo = 0,
-                                    serie = 0,
-                                    idCliente = idCliente,
-                                    dataEmissao = dataOS,
-                                    idFormaPagamento = idFormaPagamento,
-                                    parcela = 0,
-                                    valorParcela = valorEntrada,
-                                    dataVencimento = dataOS,
-                                    dataRecebimento = dataOS,
-                                    juros = juros,
-                                    multa = multa,
-                                    desconto = descontos,
-                                    valorRecebido = valorEntrada,
-                                    dataCancelamento = null,
-                                    observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts,
-                                    dataCadastro = DateTime.Now,
-                                    dataUltAlt = DateTime.Now
-                                };
+                        consultaFormasPagamento.btnSair.Text = "Selecionar";
+                        consultaFormasPagamento.Text = "Selecione a Forma de Pagamento do Valor de Entrada";
 
-                                contasReceberController.Salvar(contaReceber);
-                            }
-                            catch (Exception ex)
+                        if (consultaFormasPagamento.ShowDialog() == DialogResult.OK)
+                        {
+                            var infosFormaPag = consultaFormasPagamento.Tag as Tuple<int, string>;
+                            if (infosFormaPag != null)
                             {
-                                MessageBox.Show("Ocorreu um erro ao salvar Conta a Receber: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                idFormaPag = infosFormaPag.Item1;
                             }
+                        }
+                        int numeroOS = int.Parse(txtCodigo.Texts);
+                        try
+                        {
+                            ContasReceberModel contaReceber = new ContasReceberModel
+                            {
+                                numeroNota = numeroOS,
+                                modelo = 0,
+                                serie = 0,
+                                idCliente = codCliente,
+                                dataEmissao = dataOS,
+                                idFormaPagamento = idFormaPag,
+                                parcela = 0,
+                                valorParcela = valorEntrada,
+                                dataVencimento = dataOS,
+                                dataRecebimento = dataOS,
+                                juros = juros,
+                                multa = multa,
+                                desconto = descontos,
+                                valorRecebido = valorEntrada,
+                                dataCancelamento = null,
+                                observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts,
+                                dataCadastro = DateTime.Now,
+                                dataUltAlt = DateTime.Now
+                            };
+
+                            contasReceberController.Salvar(contaReceber);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Ocorreu um erro ao salvar Conta a Receber: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         ordemServicoController.Salvar(novaOS);
                     }
@@ -480,7 +480,6 @@ namespace Sistema_Vendas.Views
                 Bloqueia();
                 exibirProdutosDGV(ordemServico.Produtos);
                 exibirServicosDGV(ordemServico.Servicos);
-                exibirParcelasDGV(condPagamento.Parcelas);
                 atualizaSubtotalProdutos();
                 atualizaSubtotalServicos();
                 atualizaDesconto();
@@ -732,64 +731,6 @@ namespace Sistema_Vendas.Views
             }
         }
 
-        private void dataGridViewProdutos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == dataGridViewProdutos.Columns["quantidadeProduto"].Index)
-            {
-                //obtém a linha editada
-                DataGridViewRow row = dataGridViewProdutos.Rows[e.RowIndex];
-
-                //obtém a quantidade e o preço unitário
-                int quantidade;
-                decimal precoUnitario;
-
-                if (int.TryParse(row.Cells["quantidadeProduto"].Value.ToString(), out quantidade) &&
-                    decimal.TryParse(row.Cells["precoUNProd"].Value.ToString(), out precoUnitario))
-                {
-                    //calcula o preço total
-                    decimal precoTotal = quantidade * precoUnitario;
-
-                    //atualiza preço Total
-                    row.Cells["precoProduto"].Value = precoTotal;
-                    atualizaSubtotalProdutos();
-                    atualizaTotal();
-                }
-                else
-                {
-                    MessageBox.Show("Quantidade ou Preço Unitário inválidos!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void dataGridViewServicos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == dataGridViewServicos.Columns["quantidadeServico"].Index)
-            {
-                //obtém a linha editada
-                DataGridViewRow row = dataGridViewServicos.Rows[e.RowIndex];
-
-                //obtém a quantidade e o preço unitário
-                int quantidade;
-                decimal precoUnitario;
-
-                if (int.TryParse(row.Cells["quantidadeServico"].Value.ToString(), out quantidade) &&
-                    decimal.TryParse(row.Cells["precoUNServ"].Value.ToString(), out precoUnitario))
-                {
-                    //calcula o preço total
-                    decimal precoTotal = quantidade * precoUnitario;
-
-                    //atualiza preço Total
-                    row.Cells["precoServico"].Value = precoTotal;
-                    atualizaSubtotalServicos();
-                    atualizaTotal();
-                }
-                else
-                {
-                    MessageBox.Show("Quantidade ou Preço Unitário inválidos!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
         private void btnExcluirServico_Click(object sender, EventArgs e)
         {
             
@@ -808,55 +749,70 @@ namespace Sistema_Vendas.Views
         {
             if (carregando) return;
             if (cbSituacao.SelectedIndex == -1) return;
-            if (cbSituacao.SelectedItem.ToString() == "CANCELADO" && statusOS == "PENDENTE")
+            if (cbSituacao.SelectedItem.ToString() == "CANCELADO")
             {
-
-                if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço? Ao cancelar, os produtos presentes voltarão ao estoque.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if(statusOS == "PENDENTE")
                 {
-                    txtCodProduto.Enabled = false;
-                    btnConsultaProduto.Enabled = false;
-                    txtQtdeProduto.Enabled = false;
-                    dataGridViewProdutos.Enabled = false;
-
-                    txtDataCancelamento.Visible = true;
-                    lblDataCancelamento.Visible = true;
-                    txtDataCancelamento.Texts = DateTime.Now.ToString();
-
-                    int idOS;
-                    if (int.TryParse(txtCodigo.Texts, out idOS))
+                    if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço? Ao cancelar, os produtos presentes voltarão ao estoque.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        //busca os produtos da OS
-                        List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
+                        txtCodProduto.Enabled = false;
+                        btnConsultaProduto.Enabled = false;
+                        txtQtdeProduto.Enabled = false;
+                        dataGridViewProdutos.Enabled = false;
 
-                        //volta o estoque dos produtos
-                        foreach (var produto in produtos)
+                        txtDataCancelamento.Visible = true;
+                        lblDataCancelamento.Visible = true;
+                        txtDataCancelamento.Texts = DateTime.Now.ToString();
+
+                        Salvar();
+
+                        int idOS;
+                        if (int.TryParse(txtCodigo.Texts, out idOS))
                         {
-                            produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
-                        }
+                            //busca os produtos da OS
+                            List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
 
-                        MessageBox.Show("Ordem de Serviço cancelada e estoque atualizado.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //volta o estoque dos produtos
+                            foreach (var produto in produtos)
+                            {
+                                produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
+                            }
+
+                            MessageBox.Show("Ordem de Serviço cancelada e estoque atualizado.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Código da Ordem de Serviço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Código da Ordem de Serviço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cbSituacao.Texts = statusOS;
                     }
                 } else
                 {
-                    cbSituacao.SelectedIndex = 0;
-                }
+                    if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        txtCodProduto.Enabled = false;
+                        btnConsultaProduto.Enabled = false;
+                        txtQtdeProduto.Enabled = false;
+                        dataGridViewProdutos.Enabled = false;
 
-            } else
-            {
-                //txtCodProduto.Enabled = false;
-                //btnConsultaProduto.Enabled = false;
-                //txtQtdeProduto.Enabled = false;
-                //dataGridViewProdutos.Enabled = false;
+                        txtDataCancelamento.Visible = true;
+                        lblDataCancelamento.Visible = true;
+                        txtDataCancelamento.Texts = DateTime.Now.ToString();
 
-                //txtDataCancelamento.Visible = true;
-                //lblDataCancelamento.Visible = true;
-                //txtDataCancelamento.Texts = DateTime.Now.ToString();
+                        Salvar();
+                    }
+                    else
+                    {
+                        cbSituacao.Texts = statusOS;
+                    }
+                }       
             }
-            if (cbSituacao.SelectedItem.ToString() == "RETIRADO")
+            //quando o pedido for retirado, ele gera uma nota de venda e/ou serviço, de acordo com o que está na OS e uma conta a receber, com o valor pendente
+            //para acertar na retirada
+            if (cbSituacao.SelectedItem.ToString() == "RETIRADO" && statusOS != "RETIRADO") //ver status os tbm para não fazer a operação 2x caso precise voltar ao status (por ex, ao colocar NAO para cancelar)
             {
                 if (MessageBox.Show("Confirmar retirada?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -866,84 +822,159 @@ namespace Sistema_Vendas.Views
                         {
                             txtDataEntrega.Texts = DateTime.Now.ToString();
                             cbSituacao.Enabled = false;
+                            try
+                            {
+                                int modelo = 21;
+                                int serie = 1;
+                                int idCliente = Convert.ToInt32(txtCodCliente.Texts);
+                                decimal totalServicos = Convert.ToDecimal(txtSubtotalServicos.Texts);
+                                decimal totalPagar = Convert.ToDecimal(txtSubtotalServicos.Texts);
+                                int idCondPag = Convert.ToInt32(txtCodCondPag.Texts);
+                                string obs = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts;
+                                DateTime.TryParse(txtDataOS.Texts, out DateTime dataEmissao);
+                                DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                                DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
+
+                                NotaServicoModel notaServico = new NotaServicoModel
+                                {
+                                    modelo = modelo,
+                                    serie = serie,
+                                    idCliente = idCliente,
+                                    totalServicos = totalServicos,
+                                    totalPagar = totalPagar,
+                                    porcentagemDesconto = 0,
+                                    idCondPagamento = idCondPag,
+                                    dataEmissao = dataEmissao,
+                                    observacao = obs,
+                                    dataCadastro = dataCadastro,
+                                    dataUltAlt = dataUltAlt,
+                                    Servicos = obtemServicosNota(totalServicos),
+                                };
+
+                                notaServicoController.Salvar(notaServico);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Ocorreu um erro ao salvar Nota de Serviço: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            if (dataGridViewProdutos.Rows.Count > 0)
+                            {
+                                try
+                                {
+                                    int modelo = 65;
+                                    int serie = 1;
+                                    int idCliente = Convert.ToInt32(txtCodCliente.Texts);
+                                    decimal totalProdutos = Convert.ToDecimal(txtSubtotalProdutos.Texts);
+                                    decimal totalPagar = Convert.ToDecimal(txtSubtotalProdutos.Texts);
+                                    int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
+                                    string observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts;
+                                    DateTime.TryParse(txtDataOS.Texts, out DateTime dataEmissao);
+                                    DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
+
+                                    NotaVendaModel notaVenda = new NotaVendaModel
+                                    {
+                                        modelo = modelo,
+                                        serie = serie,
+                                        idCliente = idCliente,
+                                        totalProdutos = totalProdutos,
+                                        totalPagar = totalPagar,
+                                        porcentagemDesconto = 0,
+                                        idCondPagamento = idCondPagamento,
+                                        dataEmissao = dataEmissao,
+                                        observacao = observacao,
+                                        dataCadastro = dataCadastro,
+                                        dataUltAlt = dataUltAlt,
+                                        Produtos = obtemProdutosNota(totalProdutos),
+                                    };
+
+                                    notaVendaController.Salvar(notaVenda);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Ocorreu um erro ao salvar Nota de Venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
                             Salvar();
                         }
                         else
                         {
-                            cbSituacao.SelectedIndex = 0;
+                            cbSituacao.Texts = statusOS;
                         }
                     }
                     else
                     {
                         txtDataEntrega.Texts = DateTime.Now.ToString();
                         cbSituacao.Enabled = false;
-                        Salvar();
-                    }
-                } else
-                {
-                    cbSituacao.SelectedIndex = 0;
-                }
-            }
-            if(cbSituacao.SelectedItem.ToString() == "PRONTO")
-            {
-                if (MessageBox.Show("Deseja alterar a situação para 'PRONTO'? Esta ação gerará uma nota de produto e/ou serviço de acordo com a ordem de serviço.", "Confirmação de Alteração", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        int modelo = 21;
-                        int serie = 1;
                         int idCliente = Convert.ToInt32(txtCodCliente.Texts);
-                        decimal totalServicos = Convert.ToDecimal(txtSubtotalServicos.Texts);
-                        decimal totalPagar = Convert.ToDecimal(txtSubtotalServicos.Texts);
-                        int idCondPag = Convert.ToInt32(txtCodCondPag.Texts);
-                        string obs = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts;
+                        decimal totalPagar = Convert.ToDecimal(txtSubtotalProdutos.Texts);
+                        int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
+                        string observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts;
                         DateTime.TryParse(txtDataOS.Texts, out DateTime dataEmissao);
                         DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                         DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
-                        NotaServicoModel notaServico = new NotaServicoModel
+                        if (txtValorEntrada.Texts != txtTotal.Texts) //se na entrada nao ter sido pago o total, gera uma conta a receber
                         {
-                            modelo = modelo,
-                            serie = serie,
-                            idCliente = idCliente,
-                            totalServicos = totalServicos,
-                            totalPagar = totalPagar,
-                            porcentagemDesconto = 0,
-                            idCondPagamento = idCondPag,
-                            dataEmissao = dataEmissao,
-                            observacao = obs,
-                            dataCadastro = dataCadastro,
-                            dataUltAlt = dataUltAlt,
-                            Servicos = obtemServicosNota(totalServicos),
-                        };
+                            consultaFormasPagamento.btnSair.Text = "Selecionar";
+                            consultaFormasPagamento.Text = "Selecione a Forma de Pagamento da Retirada ";
 
-                        notaServicoController.Salvar(notaServico);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Ocorreu um erro ao salvar Nota de Serviço: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    if(dataGridViewProdutos.Rows.Count > 0)
-                    {
+                            if (consultaFormasPagamento.ShowDialog() == DialogResult.OK)
+                            {
+                                var infosFormaPag = consultaFormasPagamento.Tag as Tuple<int, string>;
+                                if (infosFormaPag != null)
+                                {
+                                    idFormaPag = infosFormaPag.Item1;
+                                }
+                            }
+                            int numeroOS = int.Parse(txtCodigo.Texts);
+                            decimal valorRetirada = Convert.ToDecimal(txtValorRetirada.Texts);
+                            DateTime.TryParse(txtDataPrevista.Texts, out DateTime dataPrevista);
+                            DateTime.TryParse(txtDataOS.Texts, out DateTime dataOS);
+                            DateTime.TryParse(txtDataEntrega.Texts, out DateTime dataEntrega);
+                            try
+                            {
+                                ContasReceberModel contaReceber = new ContasReceberModel
+                                {
+                                    numeroNota = numeroOS,
+                                    modelo = 0,
+                                    serie = 0,
+                                    idCliente = idCliente,
+                                    dataEmissao = dataOS,
+                                    idFormaPagamento = idFormaPag,
+                                    parcela = 1,
+                                    valorParcela = valorRetirada,
+                                    dataVencimento = dataEntrega,
+                                    dataRecebimento = dataEntrega,
+                                    juros = juros,
+                                    multa = multa,
+                                    desconto = descontos,
+                                    valorRecebido = valorRetirada,
+                                    dataCancelamento = null,
+                                    observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts,
+                                    dataCadastro = DateTime.Now,
+                                    dataUltAlt = DateTime.Now
+                                };
+
+                                contasReceberController.Salvar(contaReceber);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Ocorreu um erro ao salvar Conta a Receber: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
                         try
                         {
-                            int modelo = 65;
+                            int modelo = 21;
                             int serie = 1;
-                            int idCliente = Convert.ToInt32(txtCodCliente.Texts);
-                            decimal totalProdutos = Convert.ToDecimal(txtSubtotalProdutos.Texts);
-                            decimal totalPagar = Convert.ToDecimal(txtSubtotalProdutos.Texts);
-                            int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
-                            string observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts;
-                            DateTime.TryParse(txtDataOS.Texts, out DateTime dataEmissao);
-                            DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
-                            DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
+                            decimal totalServicos = Convert.ToDecimal(txtSubtotalServicos.Texts);
 
-                            NotaVendaModel notaVenda = new NotaVendaModel
+                            NotaServicoModel notaServico = new NotaServicoModel
                             {
                                 modelo = modelo,
                                 serie = serie,
                                 idCliente = idCliente,
-                                totalProdutos = totalProdutos,
+                                totalServicos = totalServicos,
                                 totalPagar = totalPagar,
                                 porcentagemDesconto = 0,
                                 idCondPagamento = idCondPagamento,
@@ -951,66 +982,73 @@ namespace Sistema_Vendas.Views
                                 observacao = observacao,
                                 dataCadastro = dataCadastro,
                                 dataUltAlt = dataUltAlt,
-                                Produtos = obtemProdutosNota(totalProdutos),
+                                Servicos = obtemServicosNota(totalServicos),
                             };
 
-                            notaVendaController.Salvar(notaVenda);
+                            notaServicoController.Salvar(notaServico);
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Ocorreu um erro ao salvar Nota de Venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Ocorreu um erro ao salvar Nota de Serviço: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                    }
-                    foreach (DataGridViewRow row in dataGridViewParcelas.Rows)
-                    {
-                        if (row.IsNewRow) continue;
-                        //validação do que está no datagrid
-                        if (row.Cells["idFormaPagamento"].Value == null || !int.TryParse(row.Cells["idFormaPagamento"].Value.ToString(), out int idFormaPagamento))
+                        if (dataGridViewProdutos.Rows.Count > 0)
                         {
-                            MessageBox.Show("Forma de pagamento inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        int numeroOS = int.Parse(txtCodigo.Texts);
-                        int idCliente = Convert.ToInt32(txtCodCliente.Texts);
-                        decimal valorPendente = Convert.ToDecimal(txtValorPendente.Texts);
-                        DateTime.TryParse(txtDataPrevista.Texts, out DateTime dataPrevista);
-                        DateTime.TryParse(txtDataOS.Texts, out DateTime dataOS);
-                        try
-                        {
-                            ContasReceberModel contaReceber = new ContasReceberModel
+                            try
                             {
-                                numeroNota = numeroOS,
-                                modelo = 0,
-                                serie = 0,
-                                idCliente = idCliente,
-                                dataEmissao = dataOS,
-                                idFormaPagamento = idFormaPagamento,
-                                parcela = 1,
-                                valorParcela = valorPendente,
-                                dataVencimento = dataPrevista,
-                                dataRecebimento = null,
-                                juros = juros,
-                                multa = multa,
-                                desconto = descontos,
-                                valorRecebido = null,
-                                dataCancelamento = null,
-                                observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts,
-                                dataCadastro = DateTime.Now,
-                                dataUltAlt = DateTime.Now
-                            };
+                                int modelo = 65;
+                                int serie = 1;
+                                decimal totalProdutos = Convert.ToDecimal(txtSubtotalProdutos.Texts);
 
-                            contasReceberController.Salvar(contaReceber);
+                                NotaVendaModel notaVenda = new NotaVendaModel
+                                {
+                                    modelo = modelo,
+                                    serie = serie,
+                                    idCliente = idCliente,
+                                    totalProdutos = totalProdutos,
+                                    totalPagar = totalPagar,
+                                    porcentagemDesconto = 0,
+                                    idCondPagamento = idCondPagamento,
+                                    dataEmissao = dataEmissao,
+                                    observacao = observacao,
+                                    dataCadastro = dataCadastro,
+                                    dataUltAlt = dataUltAlt,
+                                    Produtos = obtemProdutosNota(totalProdutos),
+                                };
+
+                                notaVendaController.Salvar(notaVenda);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Ocorreu um erro ao salvar Nota de Venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Ocorreu um erro ao salvar Conta a Receber: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        Salvar();
                     }
+                } else
+                {
+                    cbSituacao.Texts = statusOS;
+                }
+            }
+            if(cbSituacao.SelectedItem.ToString() == "PRONTO" && statusOS != "PRONTO")
+            {
+                if (MessageBox.Show("Deseja alterar a situação para 'PRONTO'?", "Confirmação de Alteração", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
                     Salvar();
                 }
                 else
                 {
-                    cbSituacao.SelectedIndex = 0;
+                    cbSituacao.Texts = statusOS;
+                }
+            }
+            if (cbSituacao.SelectedItem.ToString() == "EM ANDAMENTO" && statusOS != "EM ANDAMENTO")
+            {
+                if (MessageBox.Show("Deseja alterar a situação para 'EM ANDAMENTO'?", "Confirmação de Alteração", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Salvar();
+                }
+                else
+                {
+                    cbSituacao.Texts = statusOS;
                 }
             }
         }
@@ -1026,7 +1064,6 @@ namespace Sistema_Vendas.Views
                 txtValorPendente.Texts = valorRestante.ToString("F2");
             }
         }
-
 
         private void txtDataPrevista_Leave(object sender, EventArgs e)
         {
@@ -1361,103 +1398,6 @@ namespace Sistema_Vendas.Views
                 e.Handled = true;
             }
         }
-        private void exibirParcelasDGV(List<ParcelaModel> parcelas)
-        {
-            dataGridViewParcelas.Rows.Clear();
-
-            DateTime dataOS;
-            decimal valorTotalNota;
-            if (DateTime.TryParse(txtDataOS.Texts, out dataOS) && decimal.TryParse(txtTotal.Texts, out valorTotalNota))
-            {
-                decimal somaParcelas = 0m;
-                for (int i = 0; i < parcelas.Count; i++)
-                {
-                    var parcela = parcelas[i]; //parcela atual
-                    int codFormaPagamento = parcela.idFormaPagamento;
-                    string formaPagamento = condicaoPagamentoController.GetFormaPagByParcelaId(parcela.idParcela);
-                    DateTime dataParcela = dataOS.AddDays(parcela.dias);
-                    decimal valorParcela;
-
-                    if (i == parcelas.Count - 1) //se for a ultima parcela
-                    {
-                        //para a última parcela, subtrai o valor das parcelas anteriores    
-                        //assim nao corre o risco do valor final nao ser igual ao valor total
-                        valorParcela = valorTotalNota - somaParcelas;
-                    }
-                    else
-                    { //se nao for a ultima, faz a conta normal de acordo com a porcentagem do contas a pagar
-                        valorParcela = Math.Round((valorTotalNota * parcela.porcentagem) / 100, 2);
-                        somaParcelas += valorParcela;
-                    }
-
-                    dataGridViewParcelas.Rows.Add(
-                        parcela.numeroParcela,
-                        codFormaPagamento,
-                        formaPagamento,
-                        dataParcela.ToString("dd/MM/yyyy"),
-                        valorParcela.ToString("F2")
-                    );
-                }
-            }
-            else
-            {
-                MessageBox.Show("Data de emissão ou valor total inválido.");
-            }
-        }
-
-        private void txtCodCondPag_Leave(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
-            {
-                CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
-                if (condPagamento != null)
-                {
-                    txtCondPag.Texts = condPagamento.condicaoPagamento;
-                }
-                else
-                {
-                    MessageBox.Show("Condição de Pagamento não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCodCondPag.Focus();
-                    txtCodCondPag.Clear();
-                    txtCondPag.Clear();
-                }
-            }
-        }
-
-        private void txtCodCondPag_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void btnAddCondPag_Click(object sender, EventArgs e)
-        {
-            CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
-            juros = condPagamento.juros;
-            multa = condPagamento.multa;
-            descontos = condPagamento.desconto;
-            exibirParcelasDGV(condPagamento.Parcelas);
-        }
-
-        private void btnConsultaCondPag_Click(object sender, EventArgs e)
-        {
-            consultaCondicaoPagamento.btnSair.Text = "Selecionar";
-            if (consultaCondicaoPagamento.ShowDialog() == DialogResult.OK)
-            {
-                var condPagamento = consultaCondicaoPagamento.Tag as Tuple<int, string>;
-                if (condPagamento != null)
-                {
-                    int idCondPag = condPagamento.Item1;
-                    string condicaoPagamento = condPagamento.Item2;
-
-                    txtCodCondPag.Texts = idCondPag.ToString();
-                    txtCondPag.Texts = condicaoPagamento;
-                }
-            }
-        }
-
         private void btnExcluirProduto_Click(object sender, EventArgs e)
         {
             try
@@ -1503,6 +1443,91 @@ namespace Sistema_Vendas.Views
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao excluir serviço: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtCodCondPag_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
+            {
+                CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
+                if (condPagamento != null)
+                {
+                    txtCondPag.Texts = condPagamento.condicaoPagamento;
+                }
+                else
+                {
+                    MessageBox.Show("Condição de Pagamento não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodCondPag.Focus();
+                    txtCodCondPag.Clear();
+                    txtCondPag.Clear();
+                }
+            }
+        }
+
+        private void txtCodCondPag_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void dataGridViewProdutos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewProdutos.Columns["quantidadeProduto"].Index)
+            {
+                //obtém a linha editada
+                DataGridViewRow row = dataGridViewProdutos.Rows[e.RowIndex];
+
+                //obtém a quantidade e o preço unitário
+                int quantidade;
+                decimal precoUnitario;
+
+                if (int.TryParse(row.Cells["quantidadeProduto"].Value.ToString(), out quantidade) &&
+                    decimal.TryParse(row.Cells["precoUNProd"].Value.ToString(), out precoUnitario))
+                {
+                    //calcula o preço total
+                    decimal precoTotal = quantidade * precoUnitario;
+
+                    //atualiza preço Total
+                    row.Cells["precoProduto"].Value = precoTotal;
+                    atualizaSubtotalProdutos();
+                    atualizaTotal();
+                }
+                else
+                {
+                    MessageBox.Show("Quantidade ou Preço Unitário inválidos!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void dataGridViewServicos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewServicos.Columns["quantidadeServico"].Index)
+            {
+                //obtém a linha editada
+                DataGridViewRow row = dataGridViewServicos.Rows[e.RowIndex];
+
+                //obtém a quantidade e o preço unitário
+                int quantidade;
+                decimal precoUnitario;
+
+                if (int.TryParse(row.Cells["quantidadeServico"].Value.ToString(), out quantidade) &&
+                    decimal.TryParse(row.Cells["precoUNServ"].Value.ToString(), out precoUnitario))
+                {
+                    //calcula o preço total
+                    decimal precoTotal = quantidade * precoUnitario;
+
+                    //atualiza preço Total
+                    row.Cells["precoServico"].Value = precoTotal;
+                    atualizaSubtotalServicos();
+                    atualizaTotal();
+                }
+                else
+                {
+                    MessageBox.Show("Quantidade ou Preço Unitário inválidos!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

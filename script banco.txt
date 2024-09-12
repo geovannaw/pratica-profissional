@@ -340,7 +340,7 @@ CREATE TABLE contasReceber (
     CONSTRAINT PK_contasReceber PRIMARY KEY (numeroNota, modelo, serie, idCliente, parcela),    CONSTRAINT FK_idFormaPagamento_contasReceber FOREIGN KEY (idFormaPagamento) REFERENCES formaPagamento(idFormaPagamento));
 
 CREATE TABLE notaVenda (
-    numeroNota INT NOT NULL,
+    numeroNota INT IDENTITY(1,1) NOT NULL,
     modelo INT NOT NULL,
     serie INT NOT NULL,
     idCliente INT NOT NULL,
@@ -358,6 +358,7 @@ CREATE TABLE notaVenda (
     CONSTRAINT FK_idCondPagamento_notaVenda FOREIGN KEY (idCondPagamento) REFERENCES condicaoPagamento(idCondPagamento)
 );
 
+
 CREATE TABLE notaVenda_Produto (
     numeroNota INT NOT NULL,
     modelo INT NOT NULL,
@@ -368,11 +369,11 @@ CREATE TABLE notaVenda_Produto (
     precoProduto DECIMAL(10, 4) NOT NULL,
     PRIMARY KEY (numeroNota, modelo, serie, idCliente, idProduto),
     CONSTRAINT FK_idNotaVenda FOREIGN KEY (numeroNota, modelo, serie, idCliente) REFERENCES notaVenda(numeroNota, modelo, serie, idCliente),
-    CONSTRAINT FK_notaCompraProduto_idProduto FOREIGN KEY (idProduto) REFERENCES produto(idProduto)
+    CONSTRAINT FK_notaVendaProduto_idProduto FOREIGN KEY (idProduto) REFERENCES produto(idProduto)
 );
 
 CREATE TABLE notaServico (
-    numeroNota INT NOT NULL,
+    numeroNota INT IDENTITY(1,1) NOT NULL,
     modelo INT NOT NULL,
     serie INT NOT NULL,
     idCliente INT NOT NULL,
