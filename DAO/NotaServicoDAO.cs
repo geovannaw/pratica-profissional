@@ -97,6 +97,7 @@ namespace Sistema_Vendas.DAO
                             porcentagemDesconto = Convert.ToDecimal(reader["porcentagemDesconto"]),
                             idCondPagamento = Convert.ToInt32(reader["idCondPagamento"]),
                             observacao = reader["observacao"].ToString(),
+                            usuario = reader["usuario"].ToString(),
                             dataCancelamento = reader["dataCancelamento"] != DBNull.Value ? Convert.ToDateTime(reader["dataCancelamento"]) : (DateTime?)null,
                             dataCadastro = Convert.ToDateTime(reader["dataCadastro"]),
                             dataUltAlt = Convert.ToDateTime(reader["dataUltAlt"]),
@@ -178,8 +179,8 @@ namespace Sistema_Vendas.DAO
                 {
                     //insere uma nova nota de servico
                     string queryNFServico = @"INSERT INTO notaServico 
-                                   (modelo, serie, idCliente, dataEmissao, totalServicos, totalPagar, porcentagemDesconto, idCondPagamento, observacao, dataCadastro, dataUltAlt) 
-                                   VALUES (@modelo, @serie, @idCliente, @dataEmissao, @totalServicos, @totalPagar, @porcentagemDesconto, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt);
+                                   (modelo, serie, idCliente, dataEmissao, totalServicos, totalPagar, porcentagemDesconto, idCondPagamento, observacao, dataCadastro, dataUltAlt, usuario) 
+                                   VALUES (@modelo, @serie, @idCliente, @dataEmissao, @totalServicos, @totalPagar, @porcentagemDesconto, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt, @usuario);
                                    SELECT SCOPE_IDENTITY();";
                     SqlCommand cmdNFServico = new SqlCommand(queryNFServico, conn, transaction);
 
@@ -194,6 +195,7 @@ namespace Sistema_Vendas.DAO
                     cmdNFServico.Parameters.AddWithValue("@observacao", obj.observacao);
                     cmdNFServico.Parameters.AddWithValue("@dataCadastro", obj.dataCadastro);
                     cmdNFServico.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
+                    cmdNFServico.Parameters.AddWithValue("@usuario", obj.usuario);
                     int numeroNota = Convert.ToInt32(cmdNFServico.ExecuteScalar());
 
                     //insere os servicos da nota de servico

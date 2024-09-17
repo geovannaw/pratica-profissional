@@ -16,7 +16,8 @@ namespace Sistema_Vendas
     public partial class MenuPrincipal : Form
     {
         private Timer timerAtualizacao;
-        public MenuPrincipal()
+        private string permissaoUsuario;
+        public MenuPrincipal(string permissao)
         {
             timerAtualizacao = new Timer();
             timerAtualizacao.Interval = 1000; //1 segundo
@@ -25,6 +26,29 @@ namespace Sistema_Vendas
 
             InitializeComponent();
 
+            permissaoUsuario = permissao;
+
+            //configurar permissões de acordo com o usuário
+            configurarPermissoes();
+
+            lblUsuarioLogado.Text = Program.usuarioLogado;
+        }
+
+        private void configurarPermissoes()
+        {
+            if (permissaoUsuario == "ADMIN")
+            {
+                usuáriosToolStripMenuItem.Enabled = true; //se for admin ou gerente, pode cadastrar usuarios
+            }
+            else if(permissaoUsuario == "GERENTE")
+            {
+                usuáriosToolStripMenuItem.Enabled = true; //se for admin ou gerente, pode cadastrar usuarios
+            }
+            else if (permissaoUsuario == "ATENDENTE") //se for atendente, nao tem permissao para ver os fornecedores
+            {
+                fornecedoresToolStripMenuItem.Enabled = false; 
+            }
+             //o funcionário normal só nao terá permissao para cadastrar usuários
         }
 
         private void TimerAtualizacao_Tick(object sender, EventArgs e)
@@ -132,6 +156,36 @@ namespace Sistema_Vendas
         {
             ConsultaNotasServico consultaNotasServico = new ConsultaNotasServico();
             consultaNotasServico.ShowDialog();
+        }
+
+        private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaUsuarios consultaUsuarios = new ConsultaUsuarios();
+            consultaUsuarios.ShowDialog();
+        }
+
+        private void MenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show("Você realmente deseja sair?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Application.ExitThread(); //encerra todas as threads e fecha o sistema
+            }
+        }
+
+        private void MenuPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+        }
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

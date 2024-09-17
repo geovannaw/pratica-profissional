@@ -88,6 +88,14 @@
             // 
             this.lblCodigo.Location = new System.Drawing.Point(13, 17);
             // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(192, 243);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(189, 227);
+            // 
             // lblServico
             // 
             this.lblServico.AutoSize = true;
@@ -172,6 +180,8 @@
             this.Text = "Cadastro de Serviços";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroServicos_FormClosed);
             this.Load += new System.EventHandler(this.CadastroServicos_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.txtCodigo, 0);
             this.Controls.SetChildIndex(this.btnSalvar, 0);

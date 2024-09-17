@@ -14,6 +14,7 @@ namespace Sistema_Vendas.Models
         public string Pais { get; set; }
         public string DDI { get; set; }
         public string Sigla { get; set; }
+        public string usuario { get; set; }
         public DateTime dataCadastro { get; set; }
         public DateTime dataUltAlt { get; set; }
         public bool Ativo { get; set; }

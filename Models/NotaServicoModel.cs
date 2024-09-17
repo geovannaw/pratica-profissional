@@ -18,6 +18,7 @@ namespace Sistema_Vendas.Models
         public decimal porcentagemDesconto { get; set; }
         public int idCondPagamento { get; set; }
         public string observacao { get; set; }
+        public string usuario { get; set; }
         public DateTime? dataCancelamento { get; set; }
         public List<NotaServico_ServicoModel> Servicos { get; set; }
         public DateTime dataCadastro { get; set; }

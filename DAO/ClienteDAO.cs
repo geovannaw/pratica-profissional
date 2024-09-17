@@ -40,7 +40,7 @@ namespace Sistema_Vendas.DAO
                 string query = "UPDATE cliente SET tipo_pessoa = @tipo_pessoa, cliente_razao_social = @cliente_razao_social, apelido_nome_fantasia = @apelido_nome_fantasia, " +
                                "endereco = @endereco, bairro = @bairro, numero = @numero, cep = @cep, complemento = @complemento, sexo = @sexo, email = @email, " +
                                "telefone = @telefone, celular = @celular, nome_contato = @nome_contato, data_nasc = @data_nasc, cpf_cnpj = @cpf_cnpj, rg_ie = @rg_ie, ativo = @ativo, " +
-                               "dataUltAlt = @dataUltAlt, idCidade = @idCidade, idCondPagamento = @idCondPagamento WHERE idCliente = @id";
+                               "dataUltAlt = @dataUltAlt, idCidade = @idCidade, idCondPagamento = @idCondPagamento, usuario = @usuario WHERE idCliente = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -65,6 +65,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataUltAlt", cliente.dataUltAlt);
                 command.Parameters.AddWithValue("@idCidade", cliente.idCidade);
                 command.Parameters.AddWithValue("@idCondPagamento", cliente.idCondPagamento);
+                command.Parameters.AddWithValue("@usuario", cliente.usuario);
                 try
                 {
                     connection.Open();
@@ -159,6 +160,7 @@ namespace Sistema_Vendas.DAO
                         obj.numero = reader["numero"].ToString();
                         obj.cep = reader["cep"].ToString();
                         obj.complemento = reader["complemento"].ToString();
+                        obj.usuario = reader["usuario"].ToString();
                         obj.sexo = reader["sexo"].ToString();
                         obj.email = reader["email"].ToString();
                         obj.telefone = reader["telefone"].ToString();
@@ -257,8 +259,8 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO cliente (tipo_pessoa, cliente_razao_social, apelido_nome_fantasia, endereco, bairro, numero, cep, complemento, sexo, email, telefone, celular, nome_contato, data_nasc, cpf_cnpj, rg_ie, ativo, dataCadastro, dataUltAlt, idCidade, idCondPagamento) " +
-                               "VALUES (@tipo_pessoa, @cliente_razao_social, @apelido_nome_fantasia, @endereco, @bairro, @numero, @cep, @complemento, @sexo, @email, @telefone, @celular, @nome_contato, @data_nasc, @cpf_cnpj, @rg_ie, @ativo, @dataCadastro, @dataUltAlt, @idCidade, @idCondPagamento)";
+                string query = "INSERT INTO cliente (tipo_pessoa, cliente_razao_social, apelido_nome_fantasia, endereco, bairro, numero, cep, complemento, sexo, email, telefone, celular, nome_contato, data_nasc, cpf_cnpj, rg_ie, ativo, dataCadastro, dataUltAlt, idCidade, idCondPagamento, usuario) " +
+                               "VALUES (@tipo_pessoa, @cliente_razao_social, @apelido_nome_fantasia, @endereco, @bairro, @numero, @cep, @complemento, @sexo, @email, @telefone, @celular, @nome_contato, @data_nasc, @cpf_cnpj, @rg_ie, @ativo, @dataCadastro, @dataUltAlt, @idCidade, @idCondPagamento, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -283,6 +285,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataUltAlt", cliente.dataUltAlt);
                 command.Parameters.AddWithValue("@idCidade", cliente.idCidade);
                 command.Parameters.AddWithValue("@idCondPagamento", cliente.idCondPagamento);
+                command.Parameters.AddWithValue("@usuario", cliente.usuario);
 
                 try
                 {

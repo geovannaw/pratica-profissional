@@ -45,6 +45,7 @@ namespace Sistema_Vendas.Views
                     string endereco = txtEndereco.Texts;
                     string bairro = txtBairro.Texts;
                     string numero = txtNumero.Texts;
+                    string usuario = Program.usuarioLogado;
                     string cep = new string(txtCEP.Texts.Where(char.IsDigit).ToArray());
                     string complemento = txtComplemento.Texts;
                     string email = txtEmail.Texts;
@@ -56,13 +57,6 @@ namespace Sistema_Vendas.Views
                     string pis = new string(txtPis.Texts.Where(char.IsDigit).ToArray());
                     int idCidade = int.Parse(txtCodCidade.Texts);
                     string sexo = txtSexo.SelectedItem.ToString();
-
-                    AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
-                    if (!VerificarDataMenorOuIgualHoje(data_nasc, "nascimento"))
-                    {
-                        txtDataNasc.Focus();
-                        return;
-                    }
 
                     AtualizarCampoComDataPadrao(txtDataAdmissao, out DateTime data_admissao);
                     if (!VerificarDataMenorOuIgualHoje(data_admissao, "admissão"))
@@ -76,6 +70,7 @@ namespace Sistema_Vendas.Views
                         txtDataDemissao.Focus();
                         return;
                     }
+                    AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
 
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -104,7 +99,8 @@ namespace Sistema_Vendas.Views
                         Ativo = isAtivo,
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt,
-                        idCidade = idCidade
+                        idCidade = idCidade,
+                        usuario = usuario,
                     };
 
                     if (idAlterar == -1)
@@ -156,6 +152,7 @@ namespace Sistema_Vendas.Views
             txtDataDemissao.Clear();
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
+            txtUsuarioUltAlt.Clear();
             rbAtivo.Checked = true;
         }
 
@@ -178,6 +175,7 @@ namespace Sistema_Vendas.Views
                     txtBairro.Texts = funcionario.bairro;
                     txtNumero.Texts = funcionario.numero;
                     txtCEP.Texts = funcionario.cep;
+                    txtUsuarioUltAlt.Texts = funcionario.usuario;
                     txtComplemento.Texts = funcionario.complemento;
                     txtCodCidade.Texts = funcionario.idCidade.ToString();
 
@@ -529,6 +527,28 @@ namespace Sistema_Vendas.Views
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
                 e.Handled = true;
+            }
+        }
+
+        private void txtDataNasc_Leave(object sender, EventArgs e)
+        {
+            DateTime dataNasc;
+            string dataN = new string(txtDataNasc.Texts.Where(char.IsDigit).ToArray());
+            bool dataValida = DateTime.TryParse(txtDataNasc.Texts, out dataNasc);
+
+            if (!string.IsNullOrEmpty(dataN))
+            {
+                if (!dataValida)
+                {
+                    MessageBox.Show("Data de Nascimento inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDataNasc.Focus();
+                    return;
+                }
+                if (!VerificarDataMenorOuIgualHoje(dataNasc, "nascimento"))
+                {
+                    txtDataNasc.Focus();
+                    return;
+                }
             }
         }
     }

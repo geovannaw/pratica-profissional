@@ -22,6 +22,7 @@ namespace Sistema_Vendas.Models
         public int idFuncionario { get; set; }
         public int idCliente { get; set; }
         public int idCondPagamento { get; set; }
+        public string usuario { get; set; }
         public List<OS_ProdutoModel> Produtos { get; set; }
         public List<OS_ServicoModel> Servicos { get; set; }
         public DateTime dataCadastro { get; set; }

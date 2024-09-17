@@ -38,7 +38,7 @@ namespace Sistema_Vendas.DAO
                 string query = "UPDATE produto SET produto = @produto, unidade = @unidade, saldo = @saldo, " +
                                "custoMedio = @custoMedio, precoVenda = @precoVenda, precoUltCompra = @precoUltCompra, " +
                                "dataUltCompra = @dataUltCompra, observacao = @observacao, ativo = @ativo, " +
-                               "dataUltAlt = @dataUltAlt, idFornecedor = @idFornecedor, idModelo = @idModelo WHERE idProduto = @id";
+                               "dataUltAlt = @dataUltAlt, idFornecedor = @idFornecedor, idModelo = @idModelo, usuario = @usuario WHERE idProduto = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -55,6 +55,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataUltAlt", produto.dataUltAlt);
                 command.Parameters.AddWithValue("@idFornecedor", produto.idFornecedor);
                 command.Parameters.AddWithValue("@idModelo", produto.idModelo);
+                command.Parameters.AddWithValue("@usuario", produto.usuario);
 
                 try
                 {
@@ -207,6 +208,7 @@ namespace Sistema_Vendas.DAO
                         obj.idProduto = Convert.ToInt32(reader["idProduto"]);
                         obj.Produto = reader["produto"].ToString();
                         obj.Unidade = reader["unidade"].ToString();
+                        obj.usuario = reader["usuario"].ToString();
                         obj.Saldo = Convert.ToInt32(reader["saldo"]);
                         obj.precoVenda = Convert.ToDecimal(reader["precoVenda"]);
                         obj.precoUltCompra = Convert.ToDecimal(reader["precoUltCompra"]);
@@ -235,8 +237,8 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO produto (produto, unidade, saldo, custoMedio, precoVenda, precoUltCompra, dataUltCompra, observacao, ativo, dataCadastro, dataUltAlt, idFornecedor, idModelo) " +
-                               "VALUES (@produto, @unidade, @saldo, @custoMedio, @precoVenda, @precoUltCompra, @dataUltCompra, @observacao, @ativo, @dataCadastro, @dataUltAlt, @idFornecedor, @idModelo)";
+                string query = "INSERT INTO produto (produto, unidade, saldo, custoMedio, precoVenda, precoUltCompra, dataUltCompra, observacao, ativo, dataCadastro, dataUltAlt, idFornecedor, idModelo, usuario) " +
+                               "VALUES (@produto, @unidade, @saldo, @custoMedio, @precoVenda, @precoUltCompra, @dataUltCompra, @observacao, @ativo, @dataCadastro, @dataUltAlt, @idFornecedor, @idModelo, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -254,6 +256,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataCadastro", produto.dataCadastro);
                 command.Parameters.AddWithValue("@idFornecedor", produto.idFornecedor);
                 command.Parameters.AddWithValue("@idModelo", produto.idModelo);
+                command.Parameters.AddWithValue("@usuario", produto.usuario);
 
                 try
                 {

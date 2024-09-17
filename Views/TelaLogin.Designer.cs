@@ -57,7 +57,7 @@
             this.txtUsuario.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtUsuario.PlaceholderText = "";
             this.txtUsuario.Size = new System.Drawing.Size(250, 28);
-            this.txtUsuario.TabIndex = 0;
+            this.txtUsuario.TabIndex = 1;
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtUsuario.Texts = "";
             this.txtUsuario.UnderlinedStyle = false;
@@ -76,10 +76,11 @@
             this.btnLogin.Location = new System.Drawing.Point(22, 171);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(250, 28);
-            this.btnLogin.TabIndex = 98;
+            this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "&Login";
             this.btnLogin.TextColor = System.Drawing.Color.White;
             this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // lblUsuario
             // 
@@ -116,11 +117,11 @@
             this.txtSenha.Multiline = false;
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
-            this.txtSenha.PasswordChar = false;
+            this.txtSenha.PasswordChar = true;
             this.txtSenha.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtSenha.PlaceholderText = "";
             this.txtSenha.Size = new System.Drawing.Size(250, 28);
-            this.txtSenha.TabIndex = 101;
+            this.txtSenha.TabIndex = 2;
             this.txtSenha.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtSenha.Texts = "";
             this.txtSenha.UnderlinedStyle = false;
@@ -139,10 +140,11 @@
             this.btnCancelar.Location = new System.Drawing.Point(22, 205);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(250, 28);
-            this.btnCancelar.TabIndex = 102;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "&Cancelar";
             this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // TelaLogin
             // 

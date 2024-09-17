@@ -100,6 +100,7 @@ namespace Sistema_Vendas.DAO
                             dataCancelamento = reader["dataCancelamento"] != DBNull.Value ? Convert.ToDateTime(reader["dataCancelamento"]) : (DateTime?)null,
                             dataCadastro = Convert.ToDateTime(reader["dataCadastro"]),
                             dataUltAlt = Convert.ToDateTime(reader["dataUltAlt"]),
+                            usuario = reader["usuario"].ToString(),
                         };
 
                         notaVenda.Produtos = GetProdutosByNFVenda(notaVenda.numeroNota, notaVenda.modelo, notaVenda.serie, notaVenda.idCliente);
@@ -178,8 +179,8 @@ namespace Sistema_Vendas.DAO
                 {
                     //insere uma nova nota de venda
                     string queryNFVenda = @"INSERT INTO notaVenda 
-                (modelo, serie, idCliente, dataEmissao, totalProdutos, totalPagar, porcentagemDesconto, idCondPagamento, observacao, dataCadastro, dataUltAlt) 
-                VALUES (@modelo, @serie, @idCliente, @dataEmissao, @totalProdutos, @totalPagar, @porcentagemDesconto, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt);
+                (modelo, serie, idCliente, dataEmissao, totalProdutos, totalPagar, porcentagemDesconto, idCondPagamento, observacao, dataCadastro, dataUltAlt, usuario) 
+                VALUES (@modelo, @serie, @idCliente, @dataEmissao, @totalProdutos, @totalPagar, @porcentagemDesconto, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt, @usuario);
                 SELECT SCOPE_IDENTITY();";
                     SqlCommand cmdNFVenda = new SqlCommand(queryNFVenda, conn, transaction);
                     cmdNFVenda.Parameters.AddWithValue("@modelo", obj.modelo);
@@ -193,6 +194,7 @@ namespace Sistema_Vendas.DAO
                     cmdNFVenda.Parameters.AddWithValue("@observacao", obj.observacao);
                     cmdNFVenda.Parameters.AddWithValue("@dataCadastro", obj.dataCadastro);
                     cmdNFVenda.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
+                    cmdNFVenda.Parameters.AddWithValue("@usuario", obj.usuario);
                     int numeroNota = Convert.ToInt32(cmdNFVenda.ExecuteScalar());
 
                     // Insere os produtos da nota de venda

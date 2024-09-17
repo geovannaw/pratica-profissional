@@ -34,7 +34,7 @@ namespace Sistema_Vendas.Models
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE estado SET Estado = @estado, UF = @UF, idPais = @idPais, ativo = @ativo, dataCadastro = @dataCadastro, dataUltAlt = @dataUltAlt WHERE idEstado = @id";
+                string query = "UPDATE estado SET Estado = @estado, UF = @UF, idPais = @idPais, ativo = @ativo, dataCadastro = @dataCadastro, dataUltAlt = @dataUltAlt, usuario = @usuario WHERE idEstado = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", estado.idEstado);
@@ -44,6 +44,7 @@ namespace Sistema_Vendas.Models
                 command.Parameters.AddWithValue("@ativo", estado.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", estado.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", estado.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", estado.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -123,6 +124,7 @@ namespace Sistema_Vendas.Models
                         obj.idEstado = Convert.ToInt32(reader["idEstado"]);
                         obj.Estado = reader["Estado"].ToString();
                         obj.UF = reader["UF"].ToString();
+                        obj.usuario = reader["usuario"].ToString();
                         obj.idPais = Convert.ToInt32(reader["idPais"]);
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
@@ -169,7 +171,7 @@ namespace Sistema_Vendas.Models
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO estado (estado, UF, idPais, ativo, dataCadastro, dataUltAlt) VALUES (@estado, @UF, @idPais, @ativo, @dataCadastro, @dataUltAlt)";
+                string query = "INSERT INTO estado (estado, UF, idPais, ativo, dataCadastro, dataUltAlt, usuario) VALUES (@estado, @UF, @idPais, @ativo, @dataCadastro, @dataUltAlt, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -179,6 +181,7 @@ namespace Sistema_Vendas.Models
                 command.Parameters.AddWithValue("@ativo", estado.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", estado.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", estado.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", estado.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();

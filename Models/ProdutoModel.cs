@@ -19,6 +19,7 @@ namespace Sistema_Vendas.Models
         public string Observacao { get; set; }
         public int idFornecedor { get; set; }
         public int idModelo { get; set; }
+        public string usuario { get; set; }
         public DateTime dataCadastro { get; set; }
         public DateTime dataUltAlt { get; set; }
         public bool Ativo { get; set; }

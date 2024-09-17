@@ -85,6 +85,7 @@ namespace Sistema_Vendas.DAO
                             totalPagar = Convert.ToDecimal(reader["totalPagar"]),
                             idCondPagamento = Convert.ToInt32(reader["idCondPagamento"]),
                             observacao = reader["observacao"].ToString(),
+                            usuario = reader["usuario"].ToString(),
                             dataCancelamento = reader["dataCancelamento"] != DBNull.Value ? Convert.ToDateTime(reader["dataCancelamento"]) : (DateTime?)null,
                             dataCadastro = Convert.ToDateTime(reader["dataCadastro"]),
                             dataUltAlt = Convert.ToDateTime(reader["dataUltAlt"]),
@@ -170,8 +171,8 @@ namespace Sistema_Vendas.DAO
                 {
                     //insere uma nova nota de compra
                     string queryNFCompra = @"INSERT INTO notaCompra 
-                                   (numeroNota, modelo, serie, idFornecedor, dataEmissao, dataChegada, tipoFrete, valorFrete, valorSeguro, outrasDespesas, totalProdutos, totalPagar, idCondPagamento, observacao, dataCadastro, dataUltAlt) 
-                                   VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @dataEmissao, @dataChegada, @tipoFrete, @valorFrete, @valorSeguro, @outrasDespesas, @totalProdutos, @totalPagar, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt);";
+                                   (numeroNota, modelo, serie, idFornecedor, dataEmissao, dataChegada, tipoFrete, valorFrete, valorSeguro, outrasDespesas, totalProdutos, totalPagar, idCondPagamento, observacao, dataCadastro, dataUltAlt, usuario) 
+                                   VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @dataEmissao, @dataChegada, @tipoFrete, @valorFrete, @valorSeguro, @outrasDespesas, @totalProdutos, @totalPagar, @idCondPagamento, @observacao, @dataCadastro, @dataUltAlt, @usuario);";
                     SqlCommand cmdNFCompra = new SqlCommand(queryNFCompra, conn, transaction);
 
                     cmdNFCompra.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
@@ -190,6 +191,7 @@ namespace Sistema_Vendas.DAO
                     cmdNFCompra.Parameters.AddWithValue("@observacao", obj.observacao);
                     cmdNFCompra.Parameters.AddWithValue("@dataCadastro", obj.dataCadastro);
                     cmdNFCompra.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
+                    cmdNFCompra.Parameters.AddWithValue("@usuario", obj.usuario);
 
                     cmdNFCompra.ExecuteNonQuery();
 

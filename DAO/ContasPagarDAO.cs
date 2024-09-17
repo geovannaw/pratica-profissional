@@ -15,7 +15,7 @@ namespace Sistema_Vendas.DAO
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"
-            UPDATE contasPagar SET dataPagamento = @dataPagamento, dataEmissao = dataEmissao, idFormaPAgamento = @idFormaPagamento, dataVencimento = @dataVencimento, valorParcela = @valorParcela, juros = @juros, multa = @multa, desconto = @desconto, valorPago = @valorPago, dataCancelamento = @dataCancelamento, observacao = @observacao, dataUltAlt = @dataUltAlt
+            UPDATE contasPagar SET dataPagamento = @dataPagamento, dataEmissao = dataEmissao, idFormaPAgamento = @idFormaPagamento, dataVencimento = @dataVencimento, valorParcela = @valorParcela, juros = @juros, multa = @multa, desconto = @desconto, valorPago = @valorPago, dataCancelamento = @dataCancelamento, observacao = @observacao, dataUltAlt = @dataUltAlt, usuario = @usuario
             WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor AND parcela = @parcela";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -36,6 +36,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataCancelamento", (object)obj.dataCancelamento ?? DBNull.Value);
                 command.Parameters.AddWithValue("@observacao", obj.observacao ?? string.Empty);
                 command.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", obj.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -125,6 +126,7 @@ namespace Sistema_Vendas.DAO
                             valorPago = reader["valorPago"] != DBNull.Value ? Convert.ToDecimal(reader["valorPago"]) : (decimal?)null,
 
                             observacao = reader["observacao"].ToString(),
+                            usuario = reader["usuario"].ToString(),
                             dataCancelamento = reader["dataCancelamento"] != DBNull.Value ? Convert.ToDateTime(reader["dataCancelamento"]) : (DateTime?)null,
                             dataCadastro = Convert.ToDateTime(reader["dataCadastro"]),
                             dataUltAlt = Convert.ToDateTime(reader["dataUltAlt"]),
@@ -141,8 +143,8 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = @"INSERT INTO contasPagar (numeroNota, modelo, serie, idFornecedor, dataEmissao, idFormaPagamento, parcela, valorParcela, dataVencimento, dataPagamento, juros, multa, desconto, valorPago, dataCancelamento, observacao, dataCadastro, dataUltAlt) 
-                VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @dataEmissao, @idFormaPagamento, @parcela, @valorParcela, @dataVencimento, @dataPagamento, @juros, @multa, @desconto, @valorPago, @dataCancelamento,@observacao, @dataCadastro, @dataUltAlt)";
+                string query = @"INSERT INTO contasPagar (numeroNota, modelo, serie, idFornecedor, dataEmissao, idFormaPagamento, parcela, valorParcela, dataVencimento, dataPagamento, juros, multa, desconto, valorPago, dataCancelamento, observacao, dataCadastro, dataUltAlt, usuario) 
+                VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @dataEmissao, @idFormaPagamento, @parcela, @valorParcela, @dataVencimento, @dataPagamento, @juros, @multa, @desconto, @valorPago, @dataCancelamento,@observacao, @dataCadastro, @dataUltAlt, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -164,6 +166,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@observacao", contaPagar.observacao ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@dataCadastro", contaPagar.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", contaPagar.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", contaPagar.usuario);
 
                 try
                 {

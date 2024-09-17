@@ -71,8 +71,6 @@ namespace Sistema_Vendas
                 campoTexto.Texts = data.ToString("dd/MM/yyyy");
             }
         }
-
-
         public bool VerificarDataMenorOuIgualHoje(DateTime data, string campoNome)
         {
             if (data > DateTime.Today)

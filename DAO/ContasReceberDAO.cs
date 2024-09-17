@@ -15,7 +15,7 @@ namespace Sistema_Vendas.DAO
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"
-            UPDATE contasReceber SET dataRecebimento = @dataRecebimento, dataEmissao = dataEmissao, idFormaPagamento = @idFormaPagamento, dataVencimento = @dataVencimento, valorParcela = @valorParcela, juros = @juros, multa = @multa, desconto = @desconto, valorRecebido = @valorRecebido, dataCancelamento = @dataCancelamento, observacao = @observacao, dataUltAlt = @dataUltAlt
+            UPDATE contasReceber SET dataRecebimento = @dataRecebimento, dataEmissao = dataEmissao, idFormaPagamento = @idFormaPagamento, dataVencimento = @dataVencimento, valorParcela = @valorParcela, juros = @juros, multa = @multa, desconto = @desconto, valorRecebido = @valorRecebido, dataCancelamento = @dataCancelamento, observacao = @observacao, dataUltAlt = @dataUltAlt, usuario = @usuario
             WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idCliente = @idCliente AND parcela = @parcela";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -36,6 +36,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataCancelamento", (object)obj.dataCancelamento ?? DBNull.Value);
                 command.Parameters.AddWithValue("@observacao", obj.observacao ?? string.Empty);
                 command.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", obj.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -123,6 +124,7 @@ namespace Sistema_Vendas.DAO
                             valorRecebido = reader["valorRecebido"] != DBNull.Value ? Convert.ToDecimal(reader["valorRecebido"]) : (decimal?)null,
 
                             observacao = reader["observacao"].ToString(),
+                            usuario = reader["usuario"].ToString(),
                             dataCancelamento = reader["dataCancelamento"] != DBNull.Value ? Convert.ToDateTime(reader["dataCancelamento"]) : (DateTime?)null,
                             dataCadastro = Convert.ToDateTime(reader["dataCadastro"]),
                             dataUltAlt = Convert.ToDateTime(reader["dataUltAlt"]),
@@ -139,8 +141,8 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = @"INSERT INTO contasReceber (numeroNota, modelo, serie, idCliente, dataEmissao, idFormaPagamento, parcela, valorParcela, dataVencimento, dataRecebimento, juros, multa, desconto, valorRecebido, dataCancelamento, observacao, dataCadastro, dataUltAlt) 
-                VALUES (@numeroNota, @modelo, @serie, @idCliente, @dataEmissao, @idFormaPagamento, @parcela, @valorParcela, @dataVencimento, @dataRecebimento, @juros, @multa, @desconto, @valorRecebido, @dataCancelamento,@observacao, @dataCadastro, @dataUltAlt)";
+                string query = @"INSERT INTO contasReceber (numeroNota, modelo, serie, idCliente, dataEmissao, idFormaPagamento, parcela, valorParcela, dataVencimento, dataRecebimento, juros, multa, desconto, valorRecebido, dataCancelamento, observacao, dataCadastro, dataUltAlt, usuario) 
+                VALUES (@numeroNota, @modelo, @serie, @idCliente, @dataEmissao, @idFormaPagamento, @parcela, @valorParcela, @dataVencimento, @dataRecebimento, @juros, @multa, @desconto, @valorRecebido, @dataCancelamento,@observacao, @dataCadastro, @dataUltAlt, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -162,6 +164,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@observacao", contaReceber.observacao ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@dataCadastro", contaReceber.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", contaReceber.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", contaReceber.usuario);
 
                 try
                 {

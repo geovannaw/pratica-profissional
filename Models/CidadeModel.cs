@@ -13,6 +13,7 @@ namespace Sistema_Vendas.Models
         public string Cidade { get; set; }
         public int DDD { get; set; }
         public int idEstado { get; set; }
+        public string usuario { get; set; }
         public DateTime dataCadastro { get; set; }
         public DateTime dataUltAlt { get; set; }
         public bool Ativo { get; set; }

@@ -41,6 +41,7 @@ namespace Sistema_Vendas.Views
             txtDataUltAlt.Clear();
             rbAtivo.Checked = true;
             dataGridViewParcelas.Rows.Clear();
+            txtUsuarioUltAlt.Clear();
             limpaCamposParcelas();
         }
 
@@ -86,6 +87,7 @@ namespace Sistema_Vendas.Views
                     decimal desconto = Convert.ToDecimal(txtDesconto.Texts);
                     decimal juros = Convert.ToDecimal(txtJuros.Texts);
                     decimal multa = Convert.ToDecimal(txtMulta.Texts);
+                    string usuario = Program.usuarioLogado;
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
@@ -98,6 +100,7 @@ namespace Sistema_Vendas.Views
                         Ativo = isAtivo,
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt,
+                        usuario = usuario,
                         Parcelas = obtemParcelas()
                     };
                     if (idAlterar == -1)
@@ -125,6 +128,7 @@ namespace Sistema_Vendas.Views
             if (condicaoPagamento != null)
             {
                 txtCodigo.Texts = condicaoPagamento.idCondPagamento.ToString();
+                txtUsuarioUltAlt.Texts = condicaoPagamento.usuario.ToString();
                 txtCondPag.Texts = condicaoPagamento.condicaoPagamento;
                 txtJuros.Texts = condicaoPagamento.juros.ToString();
                 txtMulta.Texts = condicaoPagamento.multa.ToString();

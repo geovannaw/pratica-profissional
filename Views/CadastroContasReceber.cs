@@ -75,6 +75,7 @@ namespace Sistema_Vendas.Views
             txtValorRecebido.Clear();
             txtDataRecebimento.Clear();
             txtDataCancelamento.Clear();
+            txtUsuarioUltAlt.Clear();
 
             lblDataCancelamento.Visible = false;
             txtDataCancelamento.Visible = false;
@@ -166,6 +167,7 @@ namespace Sistema_Vendas.Views
                 txtDataCancelamento.Texts = contasReceber.dataCancelamento.ToString();
                 txtDataCadastro.Texts = contasReceber.dataCadastro.ToString();
                 txtDataUltAlt.Texts = contasReceber.dataUltAlt.ToString();
+                txtUsuarioUltAlt.Texts = contasReceber.usuario;
 
                 ClienteModel cliente = clienteController.GetById(int.Parse(txtCodCliente.Texts));
                 FormaPagamentoModel formaPagamento = formaPagamentoController.GetById(int.Parse(txtCodFormaPag.Texts));
@@ -175,14 +177,14 @@ namespace Sistema_Vendas.Views
                 if (formaPagamento != null)
                     txtFormaPag.Texts = formaPagamento.formaPagamento;
 
-                if (contasReceber.dataCancelamento != null)
+                if (contasReceber.dataCancelamento != null) //se estiver cancelado, aparece as infos de cancelamento e bloqueia todos os campos
                 {
                     lblDataCancelamento.Visible = true;
                     txtDataCancelamento.Visible = true;
                     btnCancelar.Visible = false;
                     BloqueiaTudo();
                 }
-                else
+                else //se nao estiver cancelado, fica padrao
                 {
                     lblDataCancelamento.Visible = false;
                     txtDataCancelamento.Visible = false;
@@ -213,6 +215,7 @@ namespace Sistema_Vendas.Views
             int serieNF = int.Parse(txtSerie.Texts);
             int idClienteNF = int.Parse(txtCodCliente.Texts);
             int parcelaNF = int.Parse(txtParcela.Texts);
+            string usuario = Program.usuarioLogado;
 
             bool incluindo = NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdCliente == -1 && Parcela == -1;
 
@@ -260,7 +263,8 @@ namespace Sistema_Vendas.Views
                         multa = porcentagemMulta,
                         observacao = observacao,
                         dataCadastro = dataCadastro,
-                        dataUltAlt = dataUltAlt
+                        dataUltAlt = dataUltAlt,
+                        usuario = usuario,
                     };
                 if (NumeroNota != -1 && Modelo != -1 && Serie != -1 && IdCliente != -1 && Parcela != -1)
                 {

@@ -11,6 +11,7 @@ namespace Sistema_Vendas.Models
         public int idServico { get; set; }
         public string servico { get; set; }
         public decimal preco { get; set; }
+        public string usuario { get; set; }
         public DateTime dataCadastro { get; set; }
         public DateTime dataUltAlt { get; set; }
         public bool Ativo { get; set; }

@@ -35,6 +35,7 @@ namespace Sistema_Vendas.Views
                     txtPais.Texts = pais.Pais;
                     txtSigla.Texts = pais.Sigla;
                     txtDDI.Texts = pais.DDI;
+                    txtUsuarioUltAlt.Texts = pais.usuario;
                     txtDataCadastro.Texts = pais.dataCadastro.ToString();
                     txtDataUltAlt.Texts = pais.dataUltAlt.ToString();
                     rbAtivo.Checked = pais.Ativo;
@@ -79,6 +80,7 @@ namespace Sistema_Vendas.Views
                         string pais = txtPais.Texts;
                         string sigla = txtSigla.Texts;
                         string ddi = txtDDI.Texts;
+                        string usuario = Program.usuarioLogado;
 
                         DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                         DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -90,6 +92,7 @@ namespace Sistema_Vendas.Views
                             DDI = ddi,
                             dataCadastro = dataCadastro,
                             dataUltAlt = dataUltAlt,
+                            usuario = usuario,
                             Ativo = isAtivo
                         };
 
@@ -122,6 +125,7 @@ namespace Sistema_Vendas.Views
             txtDDI.Clear();
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
+            txtUsuarioUltAlt.Clear();
             rbAtivo.Checked = true;
         }
 
@@ -143,6 +147,7 @@ namespace Sistema_Vendas.Views
                 int novoCodigo = paisController.GetUltimoCodigo() + 1;
                 txtCodigo.Texts = novoCodigo.ToString();
             }
+            
         }
 
         private void txtSigla_Leave(object sender, EventArgs e)

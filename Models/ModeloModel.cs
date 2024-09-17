@@ -10,11 +10,10 @@ namespace Sistema_Vendas.Models
     public class ModeloModel
     {
         public int idModelo { get; set; }
-        [Required]
         public string Modelo { get; set; }
-        [Required]
         public string Marca { get; set; }
         public string Observacao { get; set; }
+        public string usuario { get; set; }
         public DateTime dataCadastro { get; set; }
         public DateTime dataUltAlt { get; set; }
         public bool Ativo { get; set; }

@@ -29,6 +29,7 @@ namespace Sistema_Vendas.Views
                 {
                     txtCodigo.Texts = servico.idServico.ToString();
                     txtServico.Texts = servico.servico;
+                    txtUsuarioUltAlt.Texts = servico.usuario;
                     txtPreco.Texts = servico.preco.ToString("N2");
                     txtDataCadastro.Texts = servico.dataCadastro.ToString();
                     txtDataUltAlt.Texts = servico.dataUltAlt.ToString();
@@ -69,6 +70,7 @@ namespace Sistema_Vendas.Views
                     {
                         string servico = txtServico.Texts;
                         decimal preco = decimal.Parse(FormataPreco(txtPreco.Texts));
+                        string usuario = Program.usuarioLogado;
                         DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                         DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
@@ -78,6 +80,7 @@ namespace Sistema_Vendas.Views
                             preco = preco,
                             dataCadastro = dataCadastro,
                             dataUltAlt = dataUltAlt,
+                            usuario = usuario,
                             Ativo = isAtivo
                         };
 
@@ -110,6 +113,7 @@ namespace Sistema_Vendas.Views
             txtPreco.Clear();
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
+            txtUsuarioUltAlt.Clear();
             rbAtivo.Checked = true;
         }
 

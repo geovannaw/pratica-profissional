@@ -46,6 +46,7 @@ namespace Sistema_Vendas.Views
                 {
                     string produto = txtProduto.Texts;
                     string unidade = txtUN.Texts;
+                    string usuario = Program.usuarioLogado;
                     int saldo = int.Parse(txtSaldo.Texts);
                     decimal precoVenda = decimal.Parse(FormataPreco(txtPrecoVenda.Texts));
 
@@ -78,6 +79,7 @@ namespace Sistema_Vendas.Views
                         dataUltAlt = dataUltAlt,
                         idFornecedor = idFornecedor,
                         idModelo = idModelo,
+                        usuario = usuario,
                     };
 
                     if (idAlterar == -1)
@@ -119,6 +121,7 @@ namespace Sistema_Vendas.Views
             txtObservacao.Clear();
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
+            txtUsuarioUltAlt.Clear();
             rbAtivo.Checked = true;
         }
 
@@ -173,6 +176,7 @@ namespace Sistema_Vendas.Views
                 {
                     txtCodigo.Texts = produto.idProduto.ToString();
                     txtProduto.Texts = produto.Produto;
+                    txtUsuarioUltAlt.Texts = produto.usuario;
                     txtSaldo.Texts = produto.Saldo.ToString();
                     txtUN.Texts = produto.Unidade.ToString();
                     txtCustoMedio.Texts = produto.custoMedio.ToString();
@@ -221,6 +225,11 @@ namespace Sistema_Vendas.Views
                 txtSaldo.Texts = "0";
                 txtPrecoUltCompra.Texts = "0";
                 txtCustoMedio.Texts = "0";
+            }
+            if (Program.permissaoLogado == "ATENDENTE")
+            {
+                btnConsultaFornecedor.Enabled = false;
+                txtCodFornecedor.Enabled = false;
             }
         }
 

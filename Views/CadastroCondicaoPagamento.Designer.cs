@@ -109,6 +109,14 @@
             this.txtDataUltAlt.Location = new System.Drawing.Point(104, 460);
             this.txtDataUltAlt.Texts = "04/07/2024";
             // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(192, 460);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(189, 444);
+            // 
             // lblCondPag
             // 
             this.lblCondPag.AutoSize = true;
@@ -611,6 +619,8 @@
             this.Text = "Cadastro de Condição de Pagamento";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroCondicaoPagamento_FormClosed);
             this.Load += new System.EventHandler(this.CadastroCondicaoPagamento_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.txtCodigo, 0);
             this.Controls.SetChildIndex(this.btnSalvar, 0);

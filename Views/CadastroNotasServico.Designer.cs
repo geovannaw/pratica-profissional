@@ -90,13 +90,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServicos)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblDataCadastro
+            // txtCodigo
             // 
-            this.lblDataCadastro.Location = new System.Drawing.Point(9, 757);
-            // 
-            // lblDataUltAlt
-            // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(106, 757);
+            this.txtCodigo.Location = new System.Drawing.Point(743, 41);
+            this.txtCodigo.Size = new System.Drawing.Size(24, 28);
+            this.txtCodigo.Visible = false;
             // 
             // groupBox1
             // 
@@ -104,11 +102,13 @@
             this.groupBox1.Size = new System.Drawing.Size(14, 49);
             this.groupBox1.Visible = false;
             // 
-            // txtCodigo
+            // lblDataCadastro
             // 
-            this.txtCodigo.Location = new System.Drawing.Point(743, 41);
-            this.txtCodigo.Size = new System.Drawing.Size(24, 28);
-            this.txtCodigo.Visible = false;
+            this.lblDataCadastro.Location = new System.Drawing.Point(9, 757);
+            // 
+            // lblDataUltAlt
+            // 
+            this.lblDataUltAlt.Location = new System.Drawing.Point(106, 757);
             // 
             // btnSalvar
             // 
@@ -136,6 +136,14 @@
             // 
             this.lblCodigo.Location = new System.Drawing.Point(727, 41);
             this.lblCodigo.Visible = false;
+            // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(207, 773);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(204, 757);
             // 
             // txtPorcentagemDesconto
             // 
@@ -1117,6 +1125,8 @@
             this.Text = "Cadastro Notas de Serviço";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroNotasServico_FormClosed);
             this.Load += new System.EventHandler(this.CadastroNotasServico_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.lblDataCadastro, 0);
             this.Controls.SetChildIndex(this.lblDataUltAlt, 0);

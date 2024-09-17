@@ -19,6 +19,7 @@ namespace Sistema_Vendas.Models
         public int idCondPagamento { get; set; }
         public string observacao { get; set; }
         public DateTime? dataCancelamento { get; set; }
+        public string usuario { get; set; }
         public List<NotaVenda_ProdutoModel> Produtos { get; set; }
         public DateTime dataCadastro { get; set; }
         public DateTime dataUltAlt { get; set; }

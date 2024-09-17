@@ -43,7 +43,7 @@
             // 
             // lblDataUltAlt
             // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(110, 237);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(101, 237);
             // 
             // rbInativo
             // 
@@ -55,7 +55,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(276, 15);
+            this.groupBox1.Location = new System.Drawing.Point(303, 19);
             this.groupBox1.Size = new System.Drawing.Size(154, 49);
             this.groupBox1.TabIndex = 6;
             // 
@@ -66,13 +66,13 @@
             // btnSalvar
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
-            this.btnSalvar.Location = new System.Drawing.Point(274, 252);
+            this.btnSalvar.Location = new System.Drawing.Point(301, 252);
             this.btnSalvar.TabIndex = 4;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.Location = new System.Drawing.Point(355, 252);
+            this.btnSair.Location = new System.Drawing.Point(382, 252);
             this.btnSair.TabIndex = 5;
             // 
             // txtDataCadastro
@@ -82,8 +82,16 @@
             // 
             // txtDataUltAlt
             // 
-            this.txtDataUltAlt.Location = new System.Drawing.Point(113, 253);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(104, 253);
             this.txtDataUltAlt.Texts = "04/07/2024";
+            // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(192, 253);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(189, 237);
             // 
             // lblModelo
             // 
@@ -158,7 +166,7 @@
             this.txtMarca.PasswordChar = false;
             this.txtMarca.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtMarca.PlaceholderText = "";
-            this.txtMarca.Size = new System.Drawing.Size(145, 28);
+            this.txtMarca.Size = new System.Drawing.Size(172, 28);
             this.txtMarca.TabIndex = 2;
             this.txtMarca.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtMarca.Texts = "";
@@ -184,7 +192,7 @@
             this.txtObservacao.PasswordChar = false;
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
-            this.txtObservacao.Size = new System.Drawing.Size(414, 28);
+            this.txtObservacao.Size = new System.Drawing.Size(441, 28);
             this.txtObservacao.TabIndex = 3;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
@@ -193,7 +201,7 @@
             // CadastroModelos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(446, 302);
+            this.ClientSize = new System.Drawing.Size(472, 295);
             this.Controls.Add(this.txtObservacao);
             this.Controls.Add(this.txtMarca);
             this.Controls.Add(this.txtModelo);
@@ -204,6 +212,8 @@
             this.Text = "Cadastro de Modelos";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroModelos_FormClosed);
             this.Load += new System.EventHandler(this.CadastroModelos_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.txtCodigo, 0);
             this.Controls.SetChildIndex(this.btnSalvar, 0);

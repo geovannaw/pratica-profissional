@@ -29,6 +29,7 @@ namespace Sistema_Vendas.Views
                 {
                     txtCodigo.Texts = modelo.idModelo.ToString();
                     txtModelo.Texts = modelo.Modelo;
+                    txtUsuarioUltAlt.Texts = modelo.usuario;
                     txtMarca.Texts = modelo.Marca;
                     txtObservacao.Texts = modelo.Observacao;
                     txtDataCadastro.Texts = modelo.dataCadastro.ToString();
@@ -53,6 +54,7 @@ namespace Sistema_Vendas.Views
             txtObservacao.Clear();
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
+            txtUsuarioUltAlt.Clear();
             rbAtivo.Checked = true;
         }
 
@@ -87,6 +89,7 @@ namespace Sistema_Vendas.Views
                         string modelo = txtModelo.Texts;
                         string marca = txtMarca.Texts;
                         string observacao = txtObservacao.Texts;
+                        string usuario = Program.usuarioLogado;
 
                         DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                         DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -98,6 +101,7 @@ namespace Sistema_Vendas.Views
                             Observacao = observacao,
                             dataCadastro = dataCadastro,
                             dataUltAlt = dataUltAlt,
+                            usuario = usuario,
                             Ativo = isAtivo
                         };
 

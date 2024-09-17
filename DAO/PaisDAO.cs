@@ -61,7 +61,7 @@ namespace Sistema_Vendas.Models
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO pais (pais, sigla, DDI, ativo, dataCadastro, dataUltAlt) VALUES (@pais, @sigla, @DDI, @ativo, @dataCadastro, @dataUltAlt)";
+                string query = "INSERT INTO pais (pais, sigla, DDI, ativo, dataCadastro, dataUltAlt, usuario) VALUES (@pais, @sigla, @DDI, @ativo, @dataCadastro, @dataUltAlt, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -71,6 +71,7 @@ namespace Sistema_Vendas.Models
                 command.Parameters.AddWithValue("@ativo", pais.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", pais.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", pais.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", pais.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -112,7 +113,7 @@ namespace Sistema_Vendas.Models
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE pais SET Pais = @pais, Sigla = @sigla, DDI = @DDI, ativo = @ativo, dataCadastro = @dataCadastro, dataUltAlt = @dataUltAlt WHERE idPais = @id";
+                string query = "UPDATE pais SET Pais = @pais, Sigla = @sigla, DDI = @DDI, ativo = @ativo, dataCadastro = @dataCadastro, dataUltAlt = @dataUltAlt, usuario = @usuario WHERE idPais = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", pais.idPais);
@@ -122,6 +123,7 @@ namespace Sistema_Vendas.Models
                 command.Parameters.AddWithValue("@ativo", pais.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", pais.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", pais.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", pais.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -150,6 +152,7 @@ namespace Sistema_Vendas.Models
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
                         obj.dataUltAlt = DateTime.Parse(reader["dataUltAlt"].ToString());
+                        obj.usuario = reader["usuario"].ToString();
                         return obj;
                     }
                     else

@@ -43,6 +43,7 @@ namespace Sistema_Vendas.Views
                     txtEstado.Texts = estado.Estado;
                     txtUF.Texts = estado.UF;
                     txtCodPais.Texts = estado.idPais.ToString();
+                    txtUsuarioUltAlt.Texts = estado.usuario;
                     txtDataCadastro.Texts = estado.dataCadastro.ToString();
                     txtDataUltAlt.Texts = estado.dataUltAlt.ToString();
                     rbAtivo.Checked = estado.Ativo;
@@ -73,6 +74,7 @@ namespace Sistema_Vendas.Views
             txtPais.Clear();
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
+            txtUsuarioUltAlt.Clear();
             rbAtivo.Checked = true;
         }
 
@@ -114,6 +116,7 @@ namespace Sistema_Vendas.Views
                         string estado = txtEstado.Texts;
                         string UF = txtUF.Texts;
                         int idPais = int.Parse(txtCodPais.Texts);
+                        string usuario = Program.usuarioLogado;
 
                         DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                         DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -125,7 +128,8 @@ namespace Sistema_Vendas.Views
                             idPais = idPais,
                             dataCadastro = dataCadastro,
                             dataUltAlt = dataUltAlt,
-                            Ativo = isAtivo
+                            Ativo = isAtivo,
+                            usuario = usuario
                         };
 
                         if (idAlterar == -1)

@@ -33,7 +33,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE cidade SET cidade = @cidade, DDD = @DDD, idEstado = @idEstado, ativo = @ativo, dataUltAlt = @dataUltAlt WHERE idCidade = @id";
+                string query = "UPDATE cidade SET cidade = @cidade, DDD = @DDD, idEstado = @idEstado, ativo = @ativo, dataUltAlt = @dataUltAlt, usuario = @usuario WHERE idCidade = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", cidade.idCidade);
@@ -42,6 +42,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@idEstado", cidade.idEstado);
                 command.Parameters.AddWithValue("@ativo", cidade.Ativo);
                 command.Parameters.AddWithValue("@dataUltAlt", cidade.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", cidade.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -121,6 +122,7 @@ namespace Sistema_Vendas.DAO
                         dynamic obj = Activator.CreateInstance(typeof(T));
                         obj.idCidade = Convert.ToInt32(reader["idCidade"]);
                         obj.Cidade = reader["cidade"].ToString();
+                        obj.usuario = reader["usuario"].ToString();
                         obj.DDD = Convert.ToInt32(reader["DDD"]);
                         obj.idEstado = Convert.ToInt32(reader["idEstado"]);
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
@@ -167,7 +169,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO cidade (cidade, DDD, idEstado, ativo, dataCadastro, dataUltAlt) VALUES (@cidade, @DDD, @idEstado, @ativo, @dataCadastro, @dataUltAlt)";
+                string query = "INSERT INTO cidade (cidade, DDD, idEstado, ativo, dataCadastro, dataUltAlt, usuario) VALUES (@cidade, @DDD, @idEstado, @ativo, @dataCadastro, @dataUltAlt, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -177,6 +179,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@ativo", cidade.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", cidade.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", cidade.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", cidade.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();

@@ -53,6 +53,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Location = new System.Drawing.Point(305, 24);
             this.groupBox1.TabIndex = 7;
             // 
             // txtCodigo
@@ -63,11 +64,13 @@
             // btnSalvar
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
+            this.btnSalvar.Location = new System.Drawing.Point(293, 414);
             this.btnSalvar.TabIndex = 5;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.Location = new System.Drawing.Point(379, 414);
             this.btnSair.TabIndex = 6;
             // 
             // txtDataCadastro
@@ -81,7 +84,7 @@
             // lblCodEstado
             // 
             this.lblCodEstado.AutoSize = true;
-            this.lblCodEstado.Location = new System.Drawing.Point(14, 146);
+            this.lblCodEstado.Location = new System.Drawing.Point(14, 159);
             this.lblCodEstado.Name = "lblCodEstado";
             this.lblCodEstado.Size = new System.Drawing.Size(83, 13);
             this.lblCodEstado.TabIndex = 24;
@@ -90,7 +93,7 @@
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(140, 146);
+            this.lblEstado.Location = new System.Drawing.Point(140, 159);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(40, 13);
             this.lblEstado.TabIndex = 18;
@@ -99,7 +102,7 @@
             // lblDDD
             // 
             this.lblDDD.AutoSize = true;
-            this.lblDDD.Location = new System.Drawing.Point(275, 84);
+            this.lblDDD.Location = new System.Drawing.Point(351, 91);
             this.lblDDD.Name = "lblDDD";
             this.lblDDD.Size = new System.Drawing.Size(38, 13);
             this.lblDDD.TabIndex = 17;
@@ -108,7 +111,7 @@
             // lblCidade
             // 
             this.lblCidade.AutoSize = true;
-            this.lblCidade.Location = new System.Drawing.Point(13, 85);
+            this.lblCidade.Location = new System.Drawing.Point(13, 92);
             this.lblCidade.Name = "lblCidade";
             this.lblCidade.Size = new System.Drawing.Size(47, 13);
             this.lblCidade.TabIndex = 16;
@@ -126,7 +129,7 @@
             this.txtCidade.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCidade.DisabledForeColor = System.Drawing.Color.White;
             this.txtCidade.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCidade.Location = new System.Drawing.Point(16, 101);
+            this.txtCidade.Location = new System.Drawing.Point(16, 108);
             this.txtCidade.MaxLength = 100;
             this.txtCidade.Multiline = false;
             this.txtCidade.Name = "txtCidade";
@@ -134,7 +137,7 @@
             this.txtCidade.PasswordChar = false;
             this.txtCidade.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCidade.PlaceholderText = "";
-            this.txtCidade.Size = new System.Drawing.Size(246, 28);
+            this.txtCidade.Size = new System.Drawing.Size(320, 28);
             this.txtCidade.TabIndex = 1;
             this.txtCidade.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCidade.Texts = "";
@@ -153,7 +156,7 @@
             this.txtDDD.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDDD.DisabledForeColor = System.Drawing.Color.White;
             this.txtDDD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtDDD.Location = new System.Drawing.Point(278, 101);
+            this.txtDDD.Location = new System.Drawing.Point(354, 108);
             this.txtDDD.MaxLength = 5;
             this.txtDDD.Multiline = false;
             this.txtDDD.Name = "txtDDD";
@@ -180,7 +183,7 @@
             this.txtCodEstado.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtCodEstado.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodEstado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCodEstado.Location = new System.Drawing.Point(16, 162);
+            this.txtCodEstado.Location = new System.Drawing.Point(16, 175);
             this.txtCodEstado.MaxLength = 10;
             this.txtCodEstado.Multiline = false;
             this.txtCodEstado.Name = "txtCodEstado";
@@ -209,7 +212,7 @@
             this.txtEstado.DisabledForeColor = System.Drawing.Color.White;
             this.txtEstado.Enabled = false;
             this.txtEstado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtEstado.Location = new System.Drawing.Point(143, 162);
+            this.txtEstado.Location = new System.Drawing.Point(143, 175);
             this.txtEstado.MaxLength = 32767;
             this.txtEstado.Multiline = false;
             this.txtEstado.Name = "txtEstado";
@@ -217,7 +220,7 @@
             this.txtEstado.PasswordChar = false;
             this.txtEstado.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtEstado.PlaceholderText = "";
-            this.txtEstado.Size = new System.Drawing.Size(235, 28);
+            this.txtEstado.Size = new System.Drawing.Size(311, 28);
             this.txtEstado.TabIndex = 37;
             this.txtEstado.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtEstado.Texts = "";
@@ -234,7 +237,7 @@
             this.btnConsultaEstado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConsultaEstado.ForeColor = System.Drawing.Color.White;
             this.btnConsultaEstado.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultaEstado.Image")));
-            this.btnConsultaEstado.Location = new System.Drawing.Point(101, 162);
+            this.btnConsultaEstado.Location = new System.Drawing.Point(101, 175);
             this.btnConsultaEstado.Name = "btnConsultaEstado";
             this.btnConsultaEstado.Size = new System.Drawing.Size(36, 28);
             this.btnConsultaEstado.TabIndex = 4;
@@ -245,7 +248,7 @@
             // CadastroCidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(399, 454);
+            this.ClientSize = new System.Drawing.Size(472, 454);
             this.Controls.Add(this.btnConsultaEstado);
             this.Controls.Add(this.txtEstado);
             this.Controls.Add(this.txtCodEstado);
@@ -259,6 +262,8 @@
             this.Text = "Cadastro de Cidades";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroCidades_FormClosed);
             this.Load += new System.EventHandler(this.CadastroCidades_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.lblCidade, 0);
             this.Controls.SetChildIndex(this.lblDDD, 0);

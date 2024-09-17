@@ -89,6 +89,8 @@
             this.txtCPF_CNPJ = new Sistema_Vendas.GControls.GMaskedTextBox();
             this.txtIE_RG = new Sistema_Vendas.GControls.GTextBox();
             this.txtSexo = new Sistema_Vendas.GControls.GComboBox();
+            this.lblUsuarioUltAlt = new System.Windows.Forms.Label();
+            this.txtUsuarioUltAlt = new Sistema_Vendas.GControls.GTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -481,6 +483,7 @@
             this.txtDataNasc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataNasc.Texts = "  /  /";
             this.txtDataNasc.UnderlinedStyle = false;
+            this.txtDataNasc.Leave += new System.EventHandler(this.txtDataNasc_Leave);
             // 
             // txtDataCadastro
             // 
@@ -1143,12 +1146,50 @@
             this.txtSexo.TabIndex = 120;
             this.txtSexo.Texts = "";
             // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.AutoSize = true;
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(227, 479);
+            this.lblUsuarioUltAlt.Name = "lblUsuarioUltAlt";
+            this.lblUsuarioUltAlt.Size = new System.Drawing.Size(80, 13);
+            this.lblUsuarioUltAlt.TabIndex = 122;
+            this.lblUsuarioUltAlt.Text = "Usuário Últ. Alt.";
+            // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUsuarioUltAlt.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtUsuarioUltAlt.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtUsuarioUltAlt.BorderRadius = 5;
+            this.txtUsuarioUltAlt.BorderSize = 1;
+            this.txtUsuarioUltAlt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtUsuarioUltAlt.DisabledBackColor = System.Drawing.Color.White;
+            this.txtUsuarioUltAlt.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtUsuarioUltAlt.DisabledForeColor = System.Drawing.Color.White;
+            this.txtUsuarioUltAlt.Enabled = false;
+            this.txtUsuarioUltAlt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(230, 495);
+            this.txtUsuarioUltAlt.MaxLength = 32767;
+            this.txtUsuarioUltAlt.Multiline = false;
+            this.txtUsuarioUltAlt.Name = "txtUsuarioUltAlt";
+            this.txtUsuarioUltAlt.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtUsuarioUltAlt.PasswordChar = false;
+            this.txtUsuarioUltAlt.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtUsuarioUltAlt.PlaceholderText = "";
+            this.txtUsuarioUltAlt.Size = new System.Drawing.Size(82, 28);
+            this.txtUsuarioUltAlt.TabIndex = 121;
+            this.txtUsuarioUltAlt.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtUsuarioUltAlt.Texts = "";
+            this.txtUsuarioUltAlt.UnderlinedStyle = false;
+            // 
             // CadastroPessoasPai
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(789, 544);
+            this.Controls.Add(this.lblUsuarioUltAlt);
+            this.Controls.Add(this.txtUsuarioUltAlt);
             this.Controls.Add(this.txtSexo);
             this.Controls.Add(this.txtCPF_CNPJ);
             this.Controls.Add(this.txtIE_RG);
@@ -1262,5 +1303,7 @@
         protected System.Windows.Forms.Label lblEndereco;
         protected GControls.GComboBox txtSexo;
         public GControls.GTextBox txtCliente_razao_social;
+        protected System.Windows.Forms.Label lblUsuarioUltAlt;
+        protected GControls.GTextBox txtUsuarioUltAlt;
     }
 }

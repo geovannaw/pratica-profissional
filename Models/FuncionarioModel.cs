@@ -20,6 +20,7 @@ namespace Sistema_Vendas.Models
         public string sexo { get; set; }
         public string email { get; set; }
         public string telefone { get; set; }
+        public string usuario { get; set; }
         public string celular { get; set; }
         public DateTime data_nasc { get; set; }
         public string cpf { get; set; }

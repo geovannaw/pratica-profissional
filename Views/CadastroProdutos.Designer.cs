@@ -106,6 +106,14 @@
             this.txtDataUltAlt.Location = new System.Drawing.Point(105, 407);
             this.txtDataUltAlt.Texts = "04/07/2024";
             // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(193, 407);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(190, 391);
+            // 
             // lblProduto
             // 
             this.lblProduto.AutoSize = true;
@@ -650,6 +658,8 @@
             this.Text = "Cadastro de Produtos";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroProdutos_FormClosed);
             this.Load += new System.EventHandler(this.CadastroProdutos_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.txtCodigo, 0);
             this.Controls.SetChildIndex(this.btnSalvar, 0);

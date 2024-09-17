@@ -47,6 +47,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Location = new System.Drawing.Point(302, 24);
             this.groupBox1.TabIndex = 6;
             // 
             // txtCodigo
@@ -57,11 +58,13 @@
             // btnSalvar
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
+            this.btnSalvar.Location = new System.Drawing.Point(290, 414);
             this.btnSalvar.TabIndex = 4;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.Location = new System.Drawing.Point(376, 414);
             this.btnSair.TabIndex = 5;
             // 
             // txtDataCadastro
@@ -119,7 +122,7 @@
             this.txtPais.PasswordChar = false;
             this.txtPais.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtPais.PlaceholderText = "";
-            this.txtPais.Size = new System.Drawing.Size(368, 28);
+            this.txtPais.Size = new System.Drawing.Size(435, 28);
             this.txtPais.TabIndex = 1;
             this.txtPais.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtPais.Texts = "";
@@ -184,7 +187,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(399, 454);
+            this.ClientSize = new System.Drawing.Size(463, 454);
             this.Controls.Add(this.txtDDI);
             this.Controls.Add(this.txtSigla);
             this.Controls.Add(this.txtPais);
@@ -195,6 +198,8 @@
             this.Text = "Cadastro de Países";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroPaises_FormClosed);
             this.Load += new System.EventHandler(this.CadastroPaises_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.txtDataCadastro, 0);

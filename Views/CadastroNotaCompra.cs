@@ -85,6 +85,7 @@ namespace Sistema_Vendas.Views
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
             txtDataCancelamento.Clear();
+            txtUsuarioUltAlt.Clear();
 
             //limpa os DataGridViews
             dataGridViewProdutos.Rows.Clear();
@@ -125,6 +126,8 @@ namespace Sistema_Vendas.Views
             btnConsultaFornecedor.Enabled = true;
             btnSalvar.Visible = true;
             btnCancelar.Visible = false;
+            txtDataCancelamento.Visible = false;
+            lblDataCancelamento.Visible = false;
 
             dataGridViewProdutos.Enabled = true;
             dataGridViewParcelas.Enabled = true;
@@ -210,6 +213,7 @@ namespace Sistema_Vendas.Views
                 txtDataCadastro.Texts = notaCompra.dataCadastro.ToString();
                 txtDataUltAlt.Texts = notaCompra.dataUltAlt.ToString();
                 txtDataCancelamento.Texts = notaCompra.dataCancelamento.ToString();
+                txtUsuarioUltAlt.Texts = notaCompra.usuario;
 
                 FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
                 CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
@@ -298,6 +302,7 @@ namespace Sistema_Vendas.Views
                     decimal totalPagar = Convert.ToDecimal(txtTotalPagar.Texts);
                     int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
                     string observacao = txtObservacao.Texts;
+                    string usuario = Program.usuarioLogado;
                     DateTime.TryParse(txtDataEmissao.Texts, out DateTime dataEmissao);
                     DateTime.TryParse(txtDataChegada.Texts, out DateTime dataChegada);
                     dataChegada = dataChegada.Date.Add(DateTime.Now.TimeOfDay); //add a hora que está chegando
@@ -323,6 +328,7 @@ namespace Sistema_Vendas.Views
                         observacao = observacao,
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt,
+                        usuario = usuario,  
                         Produtos = obtemProdutos(valorFrete, valorSeguro, outrasDespesas, totalProdutos),
                     };
 
@@ -379,6 +385,7 @@ namespace Sistema_Vendas.Views
                                 valorPago = null,
                                 dataCancelamento = null,
                                 observacao = observacao,
+                                usuario = usuario,
                                 dataCadastro = DateTime.Now,
                                 dataUltAlt = DateTime.Now
                             };
@@ -686,6 +693,11 @@ namespace Sistema_Vendas.Views
             else
             {
                 txtDataChegada.Texts = DateTime.Now.ToString();
+            }
+            if (Program.permissaoLogado == "ATENDENTE")
+            {
+                btnConsultaFornecedor.Enabled = false;
+                txtCodFornecedor.Enabled = false;
             }
         }
         public void SetID(int numero, int modelo, int serie, int idFornecedor)

@@ -80,12 +80,13 @@
             // 
             // lblDataUltAlt
             // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(106, 501);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(90, 500);
             // 
             // groupBox1
             // 
             this.groupBox1.Location = new System.Drawing.Point(541, 31);
             this.groupBox1.Size = new System.Drawing.Size(16, 49);
+            this.groupBox1.Visible = false;
             // 
             // txtCodigo
             // 
@@ -96,29 +97,41 @@
             // btnSalvar
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
-            this.btnSalvar.Location = new System.Drawing.Point(365, 516);
+            this.btnSalvar.Location = new System.Drawing.Point(421, 516);
+            this.btnSalvar.Size = new System.Drawing.Size(65, 28);
             this.btnSalvar.TabIndex = 20;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.Location = new System.Drawing.Point(446, 516);
+            this.btnSair.Location = new System.Drawing.Point(492, 516);
+            this.btnSair.Size = new System.Drawing.Size(65, 28);
             this.btnSair.TabIndex = 21;
             // 
             // txtDataCadastro
             // 
             this.txtDataCadastro.Location = new System.Drawing.Point(12, 517);
+            this.txtDataCadastro.Size = new System.Drawing.Size(75, 27);
             this.txtDataCadastro.Texts = "13/08/2024";
             // 
             // txtDataUltAlt
             // 
-            this.txtDataUltAlt.Location = new System.Drawing.Point(109, 517);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(93, 516);
+            this.txtDataUltAlt.Size = new System.Drawing.Size(75, 27);
             this.txtDataUltAlt.Texts = "13/08/2024";
             // 
             // lblCodigo
             // 
             this.lblCodigo.Location = new System.Drawing.Point(544, 30);
             this.lblCodigo.Visible = false;
+            // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(174, 516);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(171, 500);
             // 
             // lblModelo
             // 
@@ -194,7 +207,7 @@
             this.txtFornecedor.PasswordChar = false;
             this.txtFornecedor.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtFornecedor.PlaceholderText = "";
-            this.txtFornecedor.Size = new System.Drawing.Size(345, 28);
+            this.txtFornecedor.Size = new System.Drawing.Size(388, 28);
             this.txtFornecedor.TabIndex = 72;
             this.txtFornecedor.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtFornecedor.Texts = "";
@@ -354,7 +367,7 @@
             this.txtFormaPag.PasswordChar = false;
             this.txtFormaPag.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtFormaPag.PlaceholderText = "";
-            this.txtFormaPag.Size = new System.Drawing.Size(345, 28);
+            this.txtFormaPag.Size = new System.Drawing.Size(388, 28);
             this.txtFormaPag.TabIndex = 82;
             this.txtFormaPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtFormaPag.Texts = "";
@@ -702,9 +715,9 @@
             this.btnPagar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPagar.ForeColor = System.Drawing.Color.White;
-            this.btnPagar.Location = new System.Drawing.Point(284, 516);
+            this.btnPagar.Location = new System.Drawing.Point(350, 516);
             this.btnPagar.Name = "btnPagar";
-            this.btnPagar.Size = new System.Drawing.Size(75, 28);
+            this.btnPagar.Size = new System.Drawing.Size(65, 28);
             this.btnPagar.TabIndex = 19;
             this.btnPagar.Text = "&Pagar";
             this.btnPagar.TextColor = System.Drawing.Color.White;
@@ -780,7 +793,7 @@
             this.txtObservacao.PasswordChar = false;
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
-            this.txtObservacao.Size = new System.Drawing.Size(490, 28);
+            this.txtObservacao.Size = new System.Drawing.Size(534, 28);
             this.txtObservacao.TabIndex = 18;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
@@ -833,9 +846,9 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnCancelar.Location = new System.Drawing.Point(203, 516);
+            this.btnCancelar.Location = new System.Drawing.Point(279, 516);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 28);
+            this.btnCancelar.Size = new System.Drawing.Size(65, 28);
             this.btnCancelar.TabIndex = 136;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -883,7 +896,7 @@
             // CadastroContasPagar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(533, 556);
+            this.ClientSize = new System.Drawing.Size(575, 556);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.lblTotalPagar);
             this.Controls.Add(this.txtTotalPagar);
@@ -930,6 +943,8 @@
             this.Text = "Cadastro Contas a Pagar";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroContasPagar_FormClosed);
             this.Load += new System.EventHandler(this.CadastroContasPagar_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.lblDataCadastro, 0);
             this.Controls.SetChildIndex(this.lblDataUltAlt, 0);

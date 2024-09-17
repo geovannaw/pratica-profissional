@@ -37,12 +37,13 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE formaPagamento SET formaPagamento = @formaPagamento, ativo = @ativo, dataCadastro = @dataCadastro, dataUltAlt = @dataUltAlt WHERE idFormaPagamento = @id";
+                string query = "UPDATE formaPagamento SET formaPagamento = @formaPagamento, ativo = @ativo, dataCadastro = @dataCadastro, dataUltAlt = @dataUltAlt, usuario = @usuario WHERE idFormaPagamento = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", formaPagamento.idFormaPagamento);
                 command.Parameters.AddWithValue("@formaPagamento", formaPagamento.formaPagamento);
                 command.Parameters.AddWithValue("@ativo", formaPagamento.Ativo);
+                command.Parameters.AddWithValue("@usuario", formaPagamento.usuario);
                 command.Parameters.AddWithValue("@dataCadastro", formaPagamento.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", formaPagamento.dataUltAlt);
 
@@ -121,6 +122,7 @@ namespace Sistema_Vendas.DAO
                         dynamic obj = Activator.CreateInstance(typeof(T));
                         obj.idFormaPagamento = Convert.ToInt32(reader["idFormaPagamento"]);
                         obj.formaPagamento = reader["formaPagamento"].ToString();
+                        obj.usuario = reader["usuario"].ToString();
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
                         obj.dataUltAlt = DateTime.Parse(reader["dataUltAlt"].ToString());
@@ -140,7 +142,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO formaPagamento (formaPagamento, ativo, dataCadastro, dataUltAlt) VALUES (@formaPagamento, @ativo, @dataCadastro, @dataUltAlt)";
+                string query = "INSERT INTO formaPagamento (formaPagamento, ativo, dataCadastro, dataUltAlt, usuario) VALUES (@formaPagamento, @ativo, @dataCadastro, @dataUltAlt, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -148,6 +150,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@ativo", formaPagamento.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", formaPagamento.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", formaPagamento.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", formaPagamento.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();

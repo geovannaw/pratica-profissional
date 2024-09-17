@@ -37,7 +37,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE servico SET servico = @servico, preco = @preco, ativo = @ativo, dataCadastro = @dataCadastro, dataUltAlt = @dataUltAlt WHERE idServico = @id";
+                string query = "UPDATE servico SET servico = @servico, preco = @preco, ativo = @ativo, dataCadastro = @dataCadastro, dataUltAlt = @dataUltAlt, usuario = @usuario WHERE idServico = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", servico.idServico);
@@ -46,6 +46,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@ativo", servico.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", servico.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", servico.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", servico.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -123,6 +124,7 @@ namespace Sistema_Vendas.DAO
                         dynamic obj = Activator.CreateInstance(typeof(T));
                         obj.idServico = Convert.ToInt32(reader["idServico"]);
                         obj.servico = reader["servico"].ToString();
+                        obj.usuario = reader["usuario"].ToString();
                         obj.preco = Convert.ToDecimal(reader["preco"]);
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
@@ -143,7 +145,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO servico (servico, preco, ativo, dataCadastro, dataUltAlt) VALUES (@servico, @preco, @ativo, @dataCadastro, @dataUltAlt)";
+                string query = "INSERT INTO servico (servico, preco, ativo, dataCadastro, dataUltAlt, usuario) VALUES (@servico, @preco, @ativo, @dataCadastro, @dataUltAlt, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", servico.idServico);
@@ -152,6 +154,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@ativo", servico.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", servico.dataCadastro);
                 command.Parameters.AddWithValue("@dataUltAlt", servico.dataUltAlt);
+                command.Parameters.AddWithValue("@usuario", servico.usuario);
 
                 connection.Open();
                 command.ExecuteNonQuery();

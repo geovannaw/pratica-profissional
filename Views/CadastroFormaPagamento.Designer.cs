@@ -61,13 +61,13 @@
             // btnSalvar
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
-            this.btnSalvar.Location = new System.Drawing.Point(224, 204);
+            this.btnSalvar.Location = new System.Drawing.Point(308, 206);
             this.btnSalvar.TabIndex = 2;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.Location = new System.Drawing.Point(305, 204);
+            this.btnSair.Location = new System.Drawing.Point(389, 206);
             this.btnSair.TabIndex = 3;
             // 
             // txtDataCadastro
@@ -79,6 +79,14 @@
             // 
             this.txtDataUltAlt.Location = new System.Drawing.Point(106, 207);
             this.txtDataUltAlt.Texts = "04/07/2024";
+            // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(194, 206);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(191, 190);
             // 
             // lblFormaPagamento
             // 
@@ -119,13 +127,15 @@
             // CadastroFormaPagamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(396, 249);
+            this.ClientSize = new System.Drawing.Size(476, 244);
             this.Controls.Add(this.txtFormaPagamento);
             this.Controls.Add(this.lblFormaPagamento);
             this.Name = "CadastroFormaPagamento";
             this.Text = "Cadastro Forma de Pagamento";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroFormaPagamento_FormClosed);
             this.Load += new System.EventHandler(this.CadastroFormaPagamento_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.txtCodigo, 0);
             this.Controls.SetChildIndex(this.btnSalvar, 0);

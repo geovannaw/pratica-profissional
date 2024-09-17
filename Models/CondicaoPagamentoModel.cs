@@ -13,6 +13,7 @@ namespace Sistema_Vendas.Models
         public decimal desconto { get; set; }
         public decimal juros { get; set; }
         public decimal multa { get; set; }
+        public string usuario { get; set; }
         public DateTime dataCadastro { get; set; }
         public DateTime dataUltAlt { get; set; }
         public bool Ativo { get; set; }

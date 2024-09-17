@@ -148,6 +148,14 @@
             this.lblCodigo.Location = new System.Drawing.Point(693, 468);
             this.lblCodigo.Visible = false;
             // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(209, 773);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(206, 757);
+            // 
             // lblModelo
             // 
             this.lblModelo.AutoSize = true;
@@ -1173,6 +1181,8 @@
             this.Text = "Cadastro Nota de Venda";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroNotaVenda_FormClosed);
             this.Load += new System.EventHandler(this.CadastroNotaVenda_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.txtNroNota, 0);
             this.Controls.SetChildIndex(this.txtSerie, 0);
             this.Controls.SetChildIndex(this.lblCodCliente, 0);

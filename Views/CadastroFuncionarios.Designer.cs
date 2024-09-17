@@ -130,6 +130,14 @@
             this.txtDataUltAlt.Location = new System.Drawing.Point(104, 554);
             this.txtDataUltAlt.Texts = "04/07/2024";
             // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(192, 554);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(187, 538);
+            // 
             // lblSexo
             // 
             this.lblSexo.AutoSize = true;
@@ -590,7 +598,7 @@
             this.groupBox3.Controls.Add(this.lblPis);
             this.groupBox3.Controls.Add(this.lblSalario);
             this.groupBox3.Controls.Add(this.lblCargo);
-            this.groupBox3.Location = new System.Drawing.Point(16, 414);
+            this.groupBox3.Location = new System.Drawing.Point(16, 422);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(738, 85);
             this.groupBox3.TabIndex = 18;
@@ -802,6 +810,7 @@
             this.txtDataNasc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataNasc.Texts = "  /  /";
             this.txtDataNasc.UnderlinedStyle = false;
+            this.txtDataNasc.Leave += new System.EventHandler(this.txtDataNasc_Leave);
             // 
             // txtFuncionario
             // 
@@ -1043,6 +1052,8 @@
             this.Text = "Cadastro de Funcionários";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroFuncionarios_FormClosed);
             this.Load += new System.EventHandler(this.CadastroFuncionarios_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.lblFuncionario, 0);
             this.Controls.SetChildIndex(this.lblApelido, 0);

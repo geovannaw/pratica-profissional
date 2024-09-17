@@ -60,25 +60,9 @@ namespace Sistema_Vendas.Views
                     string rg_ie = new string(txtIE_RG.Texts.Where(char.IsDigit).ToArray());
                     int idCidade = int.Parse(txtCodCidade.Texts);
                     int idCondPagamento = int.Parse(txtCodCondPag.Texts);
+                    string usuario = Program.usuarioLogado;
 
                     AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
-
-                    if (rbFisica.Checked)
-                    {
-                        if (!VerificarDataMenorOuIgualHoje(data_nasc, "nascimento"))
-                        {
-                            txtDataNasc.Focus();
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        if (!VerificarDataMenorOuIgualHoje(data_nasc, "fundação"))
-                        {
-                            txtDataNasc.Focus();
-                            return;
-                        }
-                    }
 
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -116,6 +100,7 @@ namespace Sistema_Vendas.Views
                         dataUltAlt = dataUltAlt,
                         idCidade = idCidade,
                         idCondPagamento = idCondPagamento,
+                        usuario = usuario,
                     };
 
                     if (idAlterar == -1)
@@ -168,6 +153,7 @@ namespace Sistema_Vendas.Views
                     rbAtivo.Checked = cliente.Ativo;
                     rbInativo.Checked = !cliente.Ativo;
                     txtCodCondPag.Texts = cliente.idCondPagamento.ToString();
+                    txtUsuarioUltAlt.Texts = cliente.usuario;
 
                     if (!txtSexo.Items.Contains(cliente.sexo))
                     {

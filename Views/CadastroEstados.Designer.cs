@@ -53,6 +53,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Location = new System.Drawing.Point(303, 24);
             this.groupBox1.TabIndex = 8;
             // 
             // txtCodigo
@@ -63,11 +64,13 @@
             // btnSalvar
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
+            this.btnSalvar.Location = new System.Drawing.Point(291, 414);
             this.btnSalvar.TabIndex = 6;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.Location = new System.Drawing.Point(377, 414);
             this.btnSair.TabIndex = 7;
             // 
             // txtDataCadastro
@@ -90,7 +93,7 @@
             // lblUF
             // 
             this.lblUF.AutoSize = true;
-            this.lblUF.Location = new System.Drawing.Point(275, 88);
+            this.lblUF.Location = new System.Drawing.Point(349, 88);
             this.lblUF.Name = "lblUF";
             this.lblUF.Size = new System.Drawing.Size(28, 13);
             this.lblUF.TabIndex = 8;
@@ -134,7 +137,7 @@
             this.txtEstado.PasswordChar = false;
             this.txtEstado.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtEstado.PlaceholderText = "";
-            this.txtEstado.Size = new System.Drawing.Size(246, 28);
+            this.txtEstado.Size = new System.Drawing.Size(315, 28);
             this.txtEstado.TabIndex = 2;
             this.txtEstado.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtEstado.Texts = "";
@@ -153,7 +156,7 @@
             this.txtUF.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtUF.DisabledForeColor = System.Drawing.Color.White;
             this.txtUF.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtUF.Location = new System.Drawing.Point(278, 104);
+            this.txtUF.Location = new System.Drawing.Point(352, 104);
             this.txtUF.MaxLength = 5;
             this.txtUF.Multiline = false;
             this.txtUF.Name = "txtUF";
@@ -217,7 +220,7 @@
             this.txtPais.PasswordChar = false;
             this.txtPais.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtPais.PlaceholderText = "";
-            this.txtPais.Size = new System.Drawing.Size(247, 28);
+            this.txtPais.Size = new System.Drawing.Size(321, 28);
             this.txtPais.TabIndex = 37;
             this.txtPais.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtPais.Texts = "";
@@ -246,7 +249,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(399, 454);
+            this.ClientSize = new System.Drawing.Size(468, 454);
             this.Controls.Add(this.btnConsultaPais);
             this.Controls.Add(this.txtPais);
             this.Controls.Add(this.txtCodPais);
@@ -260,6 +263,8 @@
             this.Text = "Cadastro de Estados";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroEstados_FormClosed);
             this.Load += new System.EventHandler(this.CadastroEstados_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.txtDataCadastro, 0);

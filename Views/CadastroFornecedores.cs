@@ -65,23 +65,9 @@ namespace Sistema_Vendas.Views
                     string rg_ie = new string(txtIE_RG.Texts.Where(char.IsDigit).ToArray());
                     int idCidade = Convert.ToInt32(txtCodCidade.Texts);
                     int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
+                    string usuario = Program.usuarioLogado;
 
                     AtualizarCampoComDataPadrao(txtDataNasc, out DateTime data_nasc);
-                    if (rbFisica.Checked)
-                    {
-                        if (!VerificarDataMenorOuIgualHoje(data_nasc, "nascimento"))
-                        {
-                            txtDataNasc.Focus();
-                            return;
-                        }
-                    } else
-                    {
-                        if (!VerificarDataMenorOuIgualHoje(data_nasc, "fundação"))
-                        {
-                            txtDataNasc.Focus();
-                            return;
-                        }
-                    }
 
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -118,7 +104,8 @@ namespace Sistema_Vendas.Views
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt,
                         idCidade = idCidade,
-                        idCondPagamento = idCondPagamento
+                        idCondPagamento = idCondPagamento,
+                        usuario = usuario,  
                     };
 
                     if (idAlterar == -1)
@@ -172,6 +159,7 @@ namespace Sistema_Vendas.Views
                     rbAtivo.Checked = fornecedor.Ativo;
                     rbInativo.Checked = !fornecedor.Ativo;
                     txtCodCondPag.Texts = fornecedor.idCondPagamento.ToString();
+                    txtUsuarioUltAlt.Texts = fornecedor.usuario;
 
                     if (!txtSexo.Items.Contains(fornecedor.sexo))
                     {

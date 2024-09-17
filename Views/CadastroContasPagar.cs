@@ -73,6 +73,7 @@ namespace Sistema_Vendas.Views
             txtValorPago.Clear();
             txtDataPagamento.Clear();
             txtDataCancelamento.Clear();
+            txtUsuarioUltAlt.Clear();
 
             lblDataCancelamento.Visible = false;
             txtDataCancelamento.Visible = false;
@@ -164,6 +165,7 @@ namespace Sistema_Vendas.Views
                 txtDataCancelamento.Texts = contasPagar.dataCancelamento.ToString();
                 txtDataCadastro.Texts = contasPagar.dataCadastro.ToString();
                 txtDataUltAlt.Texts = contasPagar.dataUltAlt.ToString();
+                txtUsuarioUltAlt.Texts = contasPagar.usuario;
 
                 FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
                 FormaPagamentoModel formaPagamento = formaPagamentoController.GetById(int.Parse(txtCodFormaPag.Texts));
@@ -212,6 +214,7 @@ namespace Sistema_Vendas.Views
             int serieNF = int.Parse(txtSerie.Texts);
             int idFornecedorNF = int.Parse(txtCodFornecedor.Texts);
             int parcelaNF = int.Parse(txtParcela.Texts);
+            string usuario = Program.usuarioLogado;
 
             bool incluindo = NumeroNota == -1 && Modelo == -1 && Serie == -1 && IdFornecedor == -1 && Parcela == -1;
 
@@ -259,7 +262,8 @@ namespace Sistema_Vendas.Views
                         multa = porcentagemMulta,
                         observacao = observacao,
                         dataCadastro = dataCadastro,
-                        dataUltAlt = dataUltAlt
+                        dataUltAlt = dataUltAlt,
+                        usuario = usuario,
                     };
                 if (NumeroNota != -1 && Modelo != -1 && Serie != -1 && IdFornecedor != -1 && Parcela != -1)
                 {
@@ -407,6 +411,11 @@ namespace Sistema_Vendas.Views
             {
                 btnPagar.Visible = true;
                 btnSalvar.Visible = true;
+            }
+            if (Program.permissaoLogado == "ATENDENTE")
+            {
+                btnConsultaFornecedor.Enabled = false;
+                txtCodFornecedor.Enabled = false;
             }
         }
 

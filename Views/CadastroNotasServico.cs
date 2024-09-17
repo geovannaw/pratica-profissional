@@ -80,6 +80,7 @@ namespace Sistema_Vendas.Views
             txtDataCancelamento.Clear();
             txtPorcentagemDesconto.Clear();
             txtDesconto.Clear();
+            txtUsuarioUltAlt.Clear();
 
             //limpa os DataGridViews
             dataGridViewServicos.Rows.Clear();
@@ -114,6 +115,8 @@ namespace Sistema_Vendas.Views
             btnConsultaCliente.Enabled = true;
             btnSalvar.Visible = true;
             btnCancelar.Visible = false;
+            txtDataCancelamento.Visible = false;
+            lblDataCancelamento.Visible = false;
 
             dataGridViewServicos.Enabled = true;
             dataGridViewParcelas.Enabled = true;
@@ -175,6 +178,7 @@ namespace Sistema_Vendas.Views
                 txtDataCadastro.Texts = notaServico.dataCadastro.ToString();
                 txtDataUltAlt.Texts = notaServico.dataUltAlt.ToString();
                 txtDataCancelamento.Texts = notaServico.dataCancelamento.ToString();
+                txtUsuarioUltAlt.Texts = notaServico.usuario;
 
                 ClienteModel cliente = clienteController.GetById(int.Parse(txtCodCliente.Texts));
                 CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
@@ -256,6 +260,7 @@ namespace Sistema_Vendas.Views
                     decimal porcentagemDesconto = Convert.ToDecimal(txtPorcentagemDesconto.Texts);
                     int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
                     string observacao = txtObservacao.Texts;
+                    string usuario = Program.usuarioLogado;
                     DateTime.TryParse(txtDataEmissao.Texts, out DateTime dataEmissao);
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                     DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -274,6 +279,7 @@ namespace Sistema_Vendas.Views
                         observacao = observacao,
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt,
+                        usuario = usuario,
                         Servicos = obtemServicos(totalServicos),
                     };
 
@@ -327,6 +333,7 @@ namespace Sistema_Vendas.Views
                                 valorRecebido = null,
                                 dataCancelamento = null,
                                 observacao = observacao,
+                                usuario = usuario,
                                 dataCadastro = DateTime.Now,
                                 dataUltAlt = DateTime.Now
                             };
@@ -604,9 +611,10 @@ namespace Sistema_Vendas.Views
                 }
                 VerificaCamposPreenchidosNF();
             }
-            else if (string.IsNullOrWhiteSpace(dataE) || !dataValida)
+            if (!dataValida)
             {
-                //se estiver vazio ou com a máscara inicial, sai do método sem validação
+                MessageBox.Show("Data de emissão inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDataEmissao.Focus();
                 return;
             }
         }

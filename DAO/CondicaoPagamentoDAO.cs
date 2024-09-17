@@ -43,7 +43,7 @@ namespace Sistema_Vendas.DAO
                 {
                     //comando p/ atualizar a condição de pagamento
                     string queryCondicaoPagamento = @"UPDATE condicaoPagamento 
-                                               SET condicaoPagamento = @condicaoPagamento, desconto = @desconto, juros = @juros, multa = @multa, ativo = @ativo, dataUltAlt = @dataUltAlt 
+                                               SET condicaoPagamento = @condicaoPagamento, desconto = @desconto, juros = @juros, multa = @multa, ativo = @ativo, dataUltAlt = @dataUltAlt, usuario = @usuario 
                                                WHERE idCondPagamento = @idCondPagamento";
                     SqlCommand cmdCondicaoPagamento = new SqlCommand(queryCondicaoPagamento, conn, transaction);
                     cmdCondicaoPagamento.Parameters.AddWithValue("@condicaoPagamento", obj.condicaoPagamento);
@@ -53,6 +53,7 @@ namespace Sistema_Vendas.DAO
                     cmdCondicaoPagamento.Parameters.AddWithValue("@ativo", obj.Ativo);
                     cmdCondicaoPagamento.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
                     cmdCondicaoPagamento.Parameters.AddWithValue("@idCondPagamento", obj.idCondPagamento);
+                    cmdCondicaoPagamento.Parameters.AddWithValue("@usuario", obj.usuario);
 
                     cmdCondicaoPagamento.ExecuteNonQuery(); //atualiza condição de pagamento
 
@@ -253,6 +254,7 @@ namespace Sistema_Vendas.DAO
                         condicaoPagamento = new CondicaoPagamentoModel();
                         condicaoPagamento.idCondPagamento = Convert.ToInt32(reader["idCondPagamento"]);
                         condicaoPagamento.condicaoPagamento = reader["condicaoPagamento"].ToString();
+                        condicaoPagamento.usuario = reader["usuario"].ToString();
                         condicaoPagamento.desconto = Convert.ToDecimal(reader["desconto"]);
                         condicaoPagamento.juros = Convert.ToDecimal(reader["juros"]);
                         condicaoPagamento.multa = Convert.ToDecimal(reader["multa"]);
@@ -265,7 +267,6 @@ namespace Sistema_Vendas.DAO
                     }
                 }
             }
-
             return condicaoPagamento;
         }
 
@@ -312,8 +313,8 @@ namespace Sistema_Vendas.DAO
                 {
                     //insere uma nova condicao de pagamento
                     string queryCondicaoPagamento = @"INSERT INTO condicaoPagamento 
-                                               (condicaoPagamento, desconto, juros, multa, ativo, dataCadastro, dataUltAlt) 
-                                               VALUES (@condicaoPagamento, @desconto, @juros, @multa, @ativo, @dataCadastro, @dataUltAlt);
+                                               (condicaoPagamento, desconto, juros, multa, ativo, dataCadastro, dataUltAlt, usuario) 
+                                               VALUES (@condicaoPagamento, @desconto, @juros, @multa, @ativo, @dataCadastro, @dataUltAlt, @usuario);
                                                SELECT SCOPE_IDENTITY();";
                     SqlCommand cmdCondicaoPagamento = new SqlCommand(queryCondicaoPagamento, conn, transaction); //novo comando para transacao e conexao
                     cmdCondicaoPagamento.Parameters.AddWithValue("@condicaoPagamento", obj.condicaoPagamento);
@@ -323,6 +324,7 @@ namespace Sistema_Vendas.DAO
                     cmdCondicaoPagamento.Parameters.AddWithValue("@ativo", obj.Ativo);
                     cmdCondicaoPagamento.Parameters.AddWithValue("@dataCadastro", obj.dataCadastro);
                     cmdCondicaoPagamento.Parameters.AddWithValue("@dataUltAlt", obj.dataUltAlt);
+                    cmdCondicaoPagamento.Parameters.AddWithValue("@usuario", obj.usuario);
 
                     int idCondPagamento = Convert.ToInt32(cmdCondicaoPagamento.ExecuteScalar()); //retorna o último valor da identidade gerada(SCOPE_IDENTITY)
 

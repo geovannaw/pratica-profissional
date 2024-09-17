@@ -80,7 +80,7 @@
             // 
             // lblDataUltAlt
             // 
-            this.lblDataUltAlt.Location = new System.Drawing.Point(106, 501);
+            this.lblDataUltAlt.Location = new System.Drawing.Point(90, 500);
             // 
             // rbInativo
             // 
@@ -106,27 +106,39 @@
             // btnSalvar
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
-            this.btnSalvar.Location = new System.Drawing.Point(360, 517);
+            this.btnSalvar.Location = new System.Drawing.Point(417, 516);
+            this.btnSalvar.Size = new System.Drawing.Size(65, 28);
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.Location = new System.Drawing.Point(446, 517);
+            this.btnSair.Location = new System.Drawing.Point(488, 516);
+            this.btnSair.Size = new System.Drawing.Size(65, 28);
             // 
             // txtDataCadastro
             // 
             this.txtDataCadastro.Location = new System.Drawing.Point(12, 517);
+            this.txtDataCadastro.Size = new System.Drawing.Size(75, 28);
             this.txtDataCadastro.Texts = "27/08/2024";
             // 
             // txtDataUltAlt
             // 
-            this.txtDataUltAlt.Location = new System.Drawing.Point(109, 517);
+            this.txtDataUltAlt.Location = new System.Drawing.Point(93, 516);
+            this.txtDataUltAlt.Size = new System.Drawing.Size(75, 28);
             this.txtDataUltAlt.Texts = "27/08/2024";
             // 
             // lblCodigo
             // 
             this.lblCodigo.Location = new System.Drawing.Point(501, 15);
             this.lblCodigo.Visible = false;
+            // 
+            // txtUsuarioUltAlt
+            // 
+            this.txtUsuarioUltAlt.Location = new System.Drawing.Point(174, 516);
+            // 
+            // lblUsuarioUltAlt
+            // 
+            this.lblUsuarioUltAlt.Location = new System.Drawing.Point(171, 500);
             // 
             // lblTotalReceber
             // 
@@ -193,7 +205,7 @@
             this.txtObservacao.PasswordChar = false;
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
-            this.txtObservacao.Size = new System.Drawing.Size(490, 28);
+            this.txtObservacao.Size = new System.Drawing.Size(530, 28);
             this.txtObservacao.TabIndex = 153;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
@@ -545,7 +557,7 @@
             this.txtFormaPag.PasswordChar = false;
             this.txtFormaPag.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtFormaPag.PlaceholderText = "";
-            this.txtFormaPag.Size = new System.Drawing.Size(345, 28);
+            this.txtFormaPag.Size = new System.Drawing.Size(385, 28);
             this.txtFormaPag.TabIndex = 163;
             this.txtFormaPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtFormaPag.Texts = "";
@@ -705,7 +717,7 @@
             this.txtCliente.PasswordChar = false;
             this.txtCliente.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCliente.PlaceholderText = "";
-            this.txtCliente.Size = new System.Drawing.Size(345, 28);
+            this.txtCliente.Size = new System.Drawing.Size(385, 28);
             this.txtCliente.TabIndex = 156;
             this.txtCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCliente.Texts = "";
@@ -858,9 +870,9 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnCancelar.Location = new System.Drawing.Point(198, 516);
+            this.btnCancelar.Location = new System.Drawing.Point(275, 515);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 28);
+            this.btnCancelar.Size = new System.Drawing.Size(65, 28);
             this.btnCancelar.TabIndex = 177;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -878,9 +890,9 @@
             this.btnReceber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReceber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReceber.ForeColor = System.Drawing.Color.White;
-            this.btnReceber.Location = new System.Drawing.Point(279, 516);
+            this.btnReceber.Location = new System.Drawing.Point(346, 516);
             this.btnReceber.Name = "btnReceber";
-            this.btnReceber.Size = new System.Drawing.Size(75, 28);
+            this.btnReceber.Size = new System.Drawing.Size(65, 28);
             this.btnReceber.TabIndex = 176;
             this.btnReceber.Text = "&Receber";
             this.btnReceber.TextColor = System.Drawing.Color.White;
@@ -891,7 +903,7 @@
             // CadastroContasReceber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(533, 556);
+            this.ClientSize = new System.Drawing.Size(575, 556);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnReceber);
             this.Controls.Add(this.lblTotalReceber);
@@ -938,6 +950,8 @@
             this.Text = "Cadastro Contas a Receber";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CadastroContasReceber_FormClosed);
             this.Load += new System.EventHandler(this.CadastroContasReceber_Load);
+            this.Controls.SetChildIndex(this.txtUsuarioUltAlt, 0);
+            this.Controls.SetChildIndex(this.lblUsuarioUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);
             this.Controls.SetChildIndex(this.lblDataCadastro, 0);
             this.Controls.SetChildIndex(this.lblDataUltAlt, 0);

@@ -35,6 +35,7 @@ namespace Sistema_Vendas.Views
                     txtDDD.Texts = cidade.DDD.ToString();
                     txtCodEstado.Texts = cidade.idEstado.ToString();
                     txtDataCadastro.Texts = cidade.dataCadastro.ToString();
+                    txtUsuarioUltAlt.Texts = cidade.usuario;
                     txtDataUltAlt.Texts = cidade.dataUltAlt.ToString();
                     rbAtivo.Checked = cidade.Ativo;
                     rbInativo.Checked = !cidade.Ativo;
@@ -86,6 +87,7 @@ namespace Sistema_Vendas.Views
                         string cidade = txtCidade.Texts;
                         int DDD = int.Parse(txtDDD.Texts);
                         int idEstado = int.Parse(txtCodEstado.Texts);
+                        string usuario = Program.usuarioLogado;
 
                         DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                         DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
@@ -97,7 +99,8 @@ namespace Sistema_Vendas.Views
                             idEstado = idEstado,
                             dataCadastro = dataCadastro,
                             dataUltAlt = dataUltAlt,
-                            Ativo = isAtivo
+                            Ativo = isAtivo,
+                            usuario = usuario
                         };
 
                         if (idAlterar == -1)

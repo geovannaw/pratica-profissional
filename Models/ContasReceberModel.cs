@@ -23,6 +23,7 @@ namespace Sistema_Vendas.Models
         public decimal? desconto { get; set; }
         public int idFormaPagamento { get; set; }
         public string observacao { get; set; }
+        public string usuario { get; set; }
         public DateTime? dataCancelamento { get; set; }
         public DateTime dataCadastro { get; set; }
         public DateTime dataUltAlt { get; set; }

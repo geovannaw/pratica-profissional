@@ -96,6 +96,9 @@ namespace Sistema_Vendas.Views
             txtValorRetirada.Clear();
             txtValorPendente.Clear();
             txtDataPrevista.Clear();
+            txtUsuarioUltAlt.Clear();
+            txtCodCondPag.Clear();
+            txtCondPag.Clear();
             
             txtValorRetirada.Enabled = false;
             txtDataCancelamento.Visible = false;
@@ -289,6 +292,7 @@ namespace Sistema_Vendas.Views
                     decimal valorEntrada = Convert.ToDecimal(txtValorEntrada.Texts);
                     string observacao = txtObservacao.Texts;
                     int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
+                    string usuario = Program.usuarioLogado;
                     DateTime.TryParse(txtDataOS.Texts, out DateTime dataOS);
 
                     DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
@@ -317,6 +321,7 @@ namespace Sistema_Vendas.Views
                         Ativo = isAtivo,
                         dataCadastro = dataCadastro,
                         dataUltAlt = dataUltAlt,
+                        usuario = usuario,
                         Produtos = obtemProdutos(),
                         Servicos = obtemServicos(),
                     };
@@ -352,7 +357,7 @@ namespace Sistema_Vendas.Views
                                 idCliente = codCliente,
                                 dataEmissao = dataOS,
                                 idFormaPagamento = idFormaPag,
-                                parcela = 0,
+                                parcela = 1,
                                 valorParcela = valorEntrada,
                                 dataVencimento = dataOS,
                                 dataRecebimento = dataOS,
@@ -360,6 +365,7 @@ namespace Sistema_Vendas.Views
                                 multa = multa,
                                 desconto = descontos,
                                 valorRecebido = valorEntrada,
+                                usuario = usuario,
                                 dataCancelamento = null,
                                 observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts,
                                 dataCadastro = DateTime.Now,
@@ -434,6 +440,7 @@ namespace Sistema_Vendas.Views
                 txtDataUltAlt.Texts = ordemServico.dataUltAlt.ToString();
                 txtCodCondPag.Texts = ordemServico.idCondPagamento.ToString();
                 rbAtivo.Checked = ordemServico.Ativo;
+                txtUsuarioUltAlt.Texts = ordemServico.usuario;
 
                 if (!cbSituacao.Items.Contains(ordemServico.status))
                 {
@@ -812,6 +819,7 @@ namespace Sistema_Vendas.Views
             }
             //quando o pedido for retirado, ele gera uma nota de venda e/ou serviço, de acordo com o que está na OS e uma conta a receber, com o valor pendente
             //para acertar na retirada
+            string usuario = Program.usuarioLogado;
             if (cbSituacao.SelectedItem.ToString() == "RETIRADO" && statusOS != "RETIRADO") //ver status os tbm para não fazer a operação 2x caso precise voltar ao status (por ex, ao colocar NAO para cancelar)
             {
                 if (MessageBox.Show("Confirmar retirada?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -822,18 +830,19 @@ namespace Sistema_Vendas.Views
                         {
                             txtDataEntrega.Texts = DateTime.Now.ToString();
                             cbSituacao.Enabled = false;
+                            int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
+                            string observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts;
+                            int idCliente = Convert.ToInt32(txtCodCliente.Texts);
+                            DateTime.TryParse(txtDataOS.Texts, out DateTime dataEmissao);
+                            DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                            DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
+
                             try
                             {
                                 int modelo = 21;
                                 int serie = 1;
-                                int idCliente = Convert.ToInt32(txtCodCliente.Texts);
                                 decimal totalServicos = Convert.ToDecimal(txtSubtotalServicos.Texts);
                                 decimal totalPagar = Convert.ToDecimal(txtSubtotalServicos.Texts);
-                                int idCondPag = Convert.ToInt32(txtCodCondPag.Texts);
-                                string obs = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts;
-                                DateTime.TryParse(txtDataOS.Texts, out DateTime dataEmissao);
-                                DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
-                                DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
                                 NotaServicoModel notaServico = new NotaServicoModel
                                 {
@@ -843,11 +852,12 @@ namespace Sistema_Vendas.Views
                                     totalServicos = totalServicos,
                                     totalPagar = totalPagar,
                                     porcentagemDesconto = 0,
-                                    idCondPagamento = idCondPag,
+                                    idCondPagamento = idCondPagamento,
                                     dataEmissao = dataEmissao,
-                                    observacao = obs,
+                                    observacao = observacao,
                                     dataCadastro = dataCadastro,
                                     dataUltAlt = dataUltAlt,
+                                    usuario = usuario,
                                     Servicos = obtemServicosNota(totalServicos),
                                 };
 
@@ -863,15 +873,8 @@ namespace Sistema_Vendas.Views
                                 {
                                     int modelo = 65;
                                     int serie = 1;
-                                    int idCliente = Convert.ToInt32(txtCodCliente.Texts);
                                     decimal totalProdutos = Convert.ToDecimal(txtSubtotalProdutos.Texts);
                                     decimal totalPagar = Convert.ToDecimal(txtSubtotalProdutos.Texts);
-                                    int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
-                                    string observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts;
-                                    DateTime.TryParse(txtDataOS.Texts, out DateTime dataEmissao);
-                                    DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
-                                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
-
                                     NotaVendaModel notaVenda = new NotaVendaModel
                                     {
                                         modelo = modelo,
@@ -885,6 +888,7 @@ namespace Sistema_Vendas.Views
                                         observacao = observacao,
                                         dataCadastro = dataCadastro,
                                         dataUltAlt = dataUltAlt,
+                                        usuario = usuario,
                                         Produtos = obtemProdutosNota(totalProdutos),
                                     };
 
@@ -942,7 +946,7 @@ namespace Sistema_Vendas.Views
                                     idCliente = idCliente,
                                     dataEmissao = dataOS,
                                     idFormaPagamento = idFormaPag,
-                                    parcela = 1,
+                                    parcela = 2,
                                     valorParcela = valorRetirada,
                                     dataVencimento = dataEntrega,
                                     dataRecebimento = dataEntrega,
@@ -951,6 +955,7 @@ namespace Sistema_Vendas.Views
                                     desconto = descontos,
                                     valorRecebido = valorRetirada,
                                     dataCancelamento = null,
+                                    usuario = usuario,
                                     observacao = "REFERENTE A ORDEM DE SERVIÇO CÓDIGO " + txtCodigo.Texts,
                                     dataCadastro = DateTime.Now,
                                     dataUltAlt = DateTime.Now
@@ -982,6 +987,7 @@ namespace Sistema_Vendas.Views
                                 observacao = observacao,
                                 dataCadastro = dataCadastro,
                                 dataUltAlt = dataUltAlt,
+                                usuario = usuario,
                                 Servicos = obtemServicosNota(totalServicos),
                             };
 
@@ -1012,6 +1018,7 @@ namespace Sistema_Vendas.Views
                                     observacao = observacao,
                                     dataCadastro = dataCadastro,
                                     dataUltAlt = dataUltAlt,
+                                    usuario = usuario,
                                     Produtos = obtemProdutosNota(totalProdutos),
                                 };
 

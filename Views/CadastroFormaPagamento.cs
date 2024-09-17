@@ -28,6 +28,7 @@ namespace Sistema_Vendas.Views
                 {
                     txtCodigo.Texts = formaPag.idFormaPagamento.ToString();
                     txtFormaPagamento.Texts = formaPag.formaPagamento;
+                    txtUsuarioUltAlt.Texts = formaPag.usuario;
                     txtDataCadastro.Texts = formaPag.dataCadastro.ToString();
                     txtDataUltAlt.Texts = formaPag.dataUltAlt.ToString();
                     rbAtivo.Checked = formaPag.Ativo;
@@ -61,6 +62,7 @@ namespace Sistema_Vendas.Views
                     try
                     {
                         string formaPagamento = txtFormaPagamento.Texts;
+                        string usuario = Program.usuarioLogado;
                         DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
                         DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
@@ -69,6 +71,7 @@ namespace Sistema_Vendas.Views
                             formaPagamento = formaPagamento,
                             dataCadastro = dataCadastro,
                             dataUltAlt = dataUltAlt,
+                            usuario = usuario,
                             Ativo = isAtivo
                         };
 
@@ -100,6 +103,7 @@ namespace Sistema_Vendas.Views
             txtFormaPagamento.Clear();
             txtDataCadastro.Clear();
             txtDataUltAlt.Clear();
+            txtUsuarioUltAlt.Clear();
             rbAtivo.Checked = true;
         }
 

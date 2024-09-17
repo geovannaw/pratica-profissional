@@ -59,6 +59,7 @@ namespace Sistema_Vendas.Views
             txtDataUltAlt.Clear();
             txtCodCondPag.Clear();
             txtCondPag.Clear();
+            txtUsuarioUltAlt.Clear();   
             rbFisica.Checked = true;
             rbAtivo.Checked = true;
             rbFisica.Enabled = true;
@@ -347,6 +348,47 @@ namespace Sistema_Vendas.Views
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void txtDataNasc_Leave(object sender, EventArgs e)
+        {
+            DateTime dataNasc;
+            string dataN = new string(txtDataNasc.Texts.Where(char.IsDigit).ToArray());
+            bool dataValida = DateTime.TryParse(txtDataNasc.Texts, out dataNasc);
+
+            if (!string.IsNullOrEmpty(dataN))
+            {
+                if (!dataValida)
+                {
+                    if (rbFisica.Checked)
+                    {
+                        MessageBox.Show("Data de Nascimento inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtDataNasc.Focus();
+                        return;
+                    } else
+                    {
+                        MessageBox.Show("Data de Fundação inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtDataNasc.Focus();
+                        return;
+                    }
+                }
+                if (rbFisica.Checked)
+                {
+                    if (!VerificarDataMenorOuIgualHoje(dataNasc, "nascimento"))
+                    {
+                        txtDataNasc.Focus();
+                        return;
+                    }
+                }
+                else
+                {
+                    if (!VerificarDataMenorOuIgualHoje(dataNasc, "fundação"))
+                    {
+                        txtDataNasc.Focus();
+                        return;
+                    }
+                }
             }
         }
     }

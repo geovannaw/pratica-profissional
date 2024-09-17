@@ -39,7 +39,7 @@ namespace Sistema_Vendas.DAO
                 string query = "UPDATE fornecedor SET tipo_pessoa = @tipo_pessoa, fornecedor_razao_social = @fornecedor_razao_social, apelido_nome_fantasia = @apelido_nome_fantasia, " +
                                "endereco = @endereco, bairro = @bairro, numero = @numero, cep = @cep, complemento = @complemento, sexo = @sexo, email = @email, " +
                                "telefone = @telefone, celular = @celular, nome_contato = @nome_contato, data_nasc = @data_nasc, cpf_cnpj = @cpf_cnpj, rg_ie = @rg_ie, ativo = @ativo, " +
-                               "dataUltAlt = @dataUltAlt, idCidade = @idCidade, idCondPagamento = @idCondPagamento WHERE idFornecedor = @id";
+                               "dataUltAlt = @dataUltAlt, idCidade = @idCidade, idCondPagamento = @idCondPagamento, usuario = @usuario WHERE idFornecedor = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -64,6 +64,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataUltAlt", fornecedor.dataUltAlt);
                 command.Parameters.AddWithValue("@idCidade", fornecedor.idCidade);
                 command.Parameters.AddWithValue("@idCondPagamento", fornecedor.idCondPagamento);
+                command.Parameters.AddWithValue("@usuario", fornecedor.usuario);
 
                 try
                 {
@@ -166,6 +167,7 @@ namespace Sistema_Vendas.DAO
                         obj.data_nasc = DateTime.Parse(reader["data_nasc"].ToString());
                         obj.cpf_cnpj = reader["cpf_cnpj"].ToString();
                         obj.rg_ie = reader["rg_ie"].ToString();
+                        obj.usuario = reader["usuario"].ToString();
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
                         obj.dataUltAlt = DateTime.Parse(reader["dataUltAlt"].ToString());
@@ -256,8 +258,8 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO fornecedor (tipo_pessoa, fornecedor_razao_social, apelido_nome_fantasia, endereco, bairro, numero, cep, complemento, sexo, email, telefone, celular, nome_contato, data_nasc, cpf_cnpj, rg_ie, ativo, dataCadastro, dataUltAlt, idCidade, idCondPagamento) " +
-                               "VALUES (@tipo_pessoa, @fornecedor_razao_social, @apelido_nome_fantasia, @endereco, @bairro, @numero, @cep, @complemento, @sexo, @email, @telefone, @celular, @nome_contato, @data_nasc, @cpf_cnpj, @rg_ie, @ativo, @dataCadastro, @dataUltAlt, @idCidade, @idCondPagamento)";
+                string query = "INSERT INTO fornecedor (tipo_pessoa, fornecedor_razao_social, apelido_nome_fantasia, endereco, bairro, numero, cep, complemento, sexo, email, telefone, celular, nome_contato, data_nasc, cpf_cnpj, rg_ie, ativo, dataCadastro, dataUltAlt, idCidade, idCondPagamento, usuario) " +
+                               "VALUES (@tipo_pessoa, @fornecedor_razao_social, @apelido_nome_fantasia, @endereco, @bairro, @numero, @cep, @complemento, @sexo, @email, @telefone, @celular, @nome_contato, @data_nasc, @cpf_cnpj, @rg_ie, @ativo, @dataCadastro, @dataUltAlt, @idCidade, @idCondPagamento, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -282,6 +284,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@dataUltAlt", fornecedor.dataUltAlt);
                 command.Parameters.AddWithValue("@idCidade", fornecedor.idCidade);
                 command.Parameters.AddWithValue("@idCondPagamento", fornecedor.idCondPagamento);
+                command.Parameters.AddWithValue("@usuario", fornecedor.usuario);
 
                 try
                 {
