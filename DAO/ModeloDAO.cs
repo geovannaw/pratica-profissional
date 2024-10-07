@@ -18,7 +18,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT IDENT_CURRENT('modelo')";
+                string query = "SELECT MAX(idModelo) FROM modelo";
                 SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
                 var result = command.ExecuteScalar();

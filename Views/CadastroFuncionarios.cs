@@ -493,10 +493,10 @@ namespace Sistema_Vendas.Views
                 {
                     txtSalario.Texts = FormataPreco(txtSalario.Texts);
 
-                    // Verifica se o valor é maior que zero
+                    //verifica se o valor é maior que zero
                     if (decimal.TryParse(txtSalario.Texts, out decimal preco) && preco > 0)
                     {
-                        // Valor é válido e maior que zero
+                        //valor é válido e maior que zero
                     }
                     else
                     {

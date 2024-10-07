@@ -101,18 +101,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewParcelas)).BeginInit();
             this.SuspendLayout();
             // 
-            // txtCodigo
-            // 
-            this.txtCodigo.Location = new System.Drawing.Point(284, 116);
-            this.txtCodigo.Size = new System.Drawing.Size(21, 28);
-            this.txtCodigo.Visible = false;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Location = new System.Drawing.Point(299, 95);
-            this.groupBox1.Size = new System.Drawing.Size(42, 49);
-            this.groupBox1.Visible = false;
-            // 
             // lblDataCadastro
             // 
             this.lblDataCadastro.Location = new System.Drawing.Point(13, 800);
@@ -130,6 +118,18 @@
             // 
             this.rbAtivo.Location = new System.Drawing.Point(-15, 12);
             this.rbAtivo.Visible = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(299, 95);
+            this.groupBox1.Size = new System.Drawing.Size(42, 49);
+            this.groupBox1.Visible = false;
+            // 
+            // txtCodigo
+            // 
+            this.txtCodigo.Location = new System.Drawing.Point(284, 116);
+            this.txtCodigo.Size = new System.Drawing.Size(21, 28);
+            this.txtCodigo.Visible = false;
             // 
             // btnSalvar
             // 
@@ -460,6 +460,7 @@
             this.txtQtdeProduto.Texts = "";
             this.txtQtdeProduto.UnderlinedStyle = false;
             this.txtQtdeProduto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeProduto_KeyPress);
+            this.txtQtdeProduto.Leave += new System.EventHandler(this.txtQtdeProduto_Leave);
             // 
             // txtProduto
             // 

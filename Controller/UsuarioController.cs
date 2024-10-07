@@ -65,7 +65,6 @@ namespace Sistema_Vendas.Controller
             {
                 Console.WriteLine("Aviso: O tipo genérico T não é compatível.");
             }
-
             return false;
         }
     }

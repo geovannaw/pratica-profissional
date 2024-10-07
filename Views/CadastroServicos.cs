@@ -135,10 +135,10 @@ namespace Sistema_Vendas.Views
                 {
                     txtPreco.Texts = FormataPreco(txtPreco.Texts);
 
-                    // Verifica se o valor é maior que zero
+                    //verifica se o valor é maior que zero
                     if (decimal.TryParse(txtPreco.Texts, out decimal preco) && preco > 0)
                     {
-                        // Valor é válido e maior que zero
+                        //valor é válido e maior que zero
                     }
                     else
                     {

@@ -17,7 +17,7 @@ namespace Sistema_Vendas.Models
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT IDENT_CURRENT('estado')";
+                string query = "SELECT MAX(idEstado) FROM estado";
                 SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
                 var result = command.ExecuteScalar();

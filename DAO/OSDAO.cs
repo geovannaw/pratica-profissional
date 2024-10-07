@@ -17,7 +17,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT IDENT_CURRENT('ordemServico')";
+                string query = "SELECT MAX(idOrdemServico) FROM ordemServico";
                 SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
                 var result = command.ExecuteScalar();
@@ -325,7 +325,7 @@ namespace Sistema_Vendas.DAO
                         break;
                     }
                 }
-                if (!existe)
+                if (!existe) //se o produto nao existe na OS, ele adiciona
                 {
                     string queryInsertProduto = @"INSERT INTO OS_Produto 
                                           (quantidadeProduto, precoProduto, idOrdemServico, idProduto) 
@@ -350,7 +350,7 @@ namespace Sistema_Vendas.DAO
                         break;
                     }
                 }
-                if (!existe)
+                if (!existe) //se existia mas foi deletado, faz o delete para alterar
                 {
                     string queryDeleteProduto = "DELETE FROM OS_Produto WHERE idOrdemServico = @idOrdemServico AND idProduto = @idProduto";
                     SqlCommand cmdDeleteProduto = new SqlCommand(queryDeleteProduto, conn, transaction);

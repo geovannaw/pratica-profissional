@@ -422,16 +422,16 @@ namespace Sistema_Vendas.Views
                 decimal quantidadeProduto = Convert.ToDecimal(row.Cells["quantidadeProduto"].Value);
                 decimal precoTotalProd = precoUN * quantidadeProduto;
 
-                // Calcular o Rateio e arredondar para 4 casas decimais
+                //calcular o rateio e arredondar para 4 casas decimais
                 decimal rateio = Math.Round(precoTotalProd / totalProdutos, 4);
 
-                // Calcular o Custo do Produto e arredondar para 4 casas decimais
+                //calcular o custo do produto e arredondar para 4 casas decimais
                 decimal custoProd = Math.Round((valorFrete + valorSeguro + outrasDespesas) * rateio, 4);
 
-                // Calcular o Custo Médio do Produto e arredondar para 4 casas decimais
+                //calcular o custo médio do produto e arredondar para 4 casas decimais
                 decimal custoMedio = Math.Round((precoTotalProd + custoProd) / quantidadeProduto, 4);
 
-                // Se custo médio for igual ao preço unitário, considerar apenas o preço unitário
+                //se custo médio for igual ao preço unitário, considerar apenas o preço unitário
                 if (custoProd == 0)
                 {
                     custoMedio = Math.Round(precoUN, 4);
@@ -778,20 +778,58 @@ namespace Sistema_Vendas.Views
 
         private void txtNroNota_Leave(object sender, EventArgs e)
         {
-            VerificaNotaExistente();
-            VerificaCamposPreenchidosNF();
+            if (string.IsNullOrWhiteSpace(txtNroNota.Texts))
+            {
+                return;
+            }
+            //remove os zeros à esquerda e verifica se o valor é 0 ou se foi digitado apenas zeros
+            if (string.IsNullOrWhiteSpace(txtNroNota.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("O número da nota não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNroNota.Focus();
+            } else
+            {
+                VerificaNotaExistente();
+                VerificaCamposPreenchidosNF();
+            }
         }
 
         private void txtModelo_Leave(object sender, EventArgs e)
         {
-            VerificaNotaExistente();
-            VerificaCamposPreenchidosNF();
+            if (string.IsNullOrWhiteSpace(txtModelo.Texts))
+            {
+                return;
+            }
+            //remove os zeros à esquerda e verifica se o valor é 0 ou se foi digitado apenas zeros
+            if (string.IsNullOrWhiteSpace(txtModelo.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("O modelo da nota não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtModelo.Focus();
+            }
+            else
+            {
+                VerificaNotaExistente();
+                VerificaCamposPreenchidosNF();
+            }
         }
 
         private void txtSerie_Leave(object sender, EventArgs e)
         {
-            VerificaNotaExistente();
-            VerificaCamposPreenchidosNF();
+            if (string.IsNullOrWhiteSpace(txtSerie.Texts))
+            {
+                return;
+            }
+            //remove os zeros à esquerda e verifica se o valor é 0 ou se foi digitado apenas zeros
+            if (string.IsNullOrWhiteSpace(txtSerie.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("A série da nota não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSerie.Focus();
+            }
+            else
+            {
+                VerificaNotaExistente();
+                VerificaCamposPreenchidosNF();
+            }
         }
 
         private void txtDataEmissao_Leave(object sender, EventArgs e)
@@ -1057,7 +1095,29 @@ namespace Sistema_Vendas.Views
 
         private void txtPrecoProd_Leave(object sender, EventArgs e)
         {
-            txtPrecoProd.Texts = FormataPreco(txtPrecoProd.Texts);
+            if (!string.IsNullOrEmpty(txtPrecoProd.Texts))
+            {
+                try
+                {
+                    txtPrecoProd.Texts = FormataPreco(txtPrecoProd.Texts);
+
+                    //verifica se o valor é maior que zero
+                    if (decimal.TryParse(txtPrecoProd.Texts, out decimal preco) && preco > 0)
+                    {
+                        //valor é válido e maior que zero
+                    }
+                    else
+                    {
+                        MessageBox.Show("O preço deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtPrecoProd.Focus();
+                    }
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPrecoProd.Focus();
+                }
+            }
         }
 
         private void txtNroNota_KeyPress(object sender, KeyPressEventArgs e)
@@ -1121,6 +1181,20 @@ namespace Sistema_Vendas.Views
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
                 e.Handled = true;
+            }
+        }
+
+        private void txtQtdeProduto_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtQtdeProduto.Texts))
+            {
+                return;
+            }
+            //remove os zeros à esquerda e verifica se o valor é 0 ou se foi digitado apenas zeros
+            if (string.IsNullOrWhiteSpace(txtQtdeProduto.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("A quantidade não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtQtdeProduto.Focus();
             }
         }
     }

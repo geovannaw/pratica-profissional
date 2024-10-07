@@ -63,9 +63,9 @@ namespace Sistema_Vendas.Views
 
         public override void Pesquisar()
         {
-            string pesquisa = txtPesquisa.Texts.Trim(); // Obtém a pesquisa do txt
+            string pesquisa = txtPesquisa.Texts.Trim(); //obtém a pesquisa do txt
 
-            // Verifica se há um termo de pesquisa
+            //verifica se há um termo de pesquisa
             if (!string.IsNullOrEmpty(pesquisa))
             {
                 try
@@ -75,14 +75,14 @@ namespace Sistema_Vendas.Views
 
                     if (rbNome.Checked)
                     {
-                        // Pesquisa por Nome
+                        //pesquisa por Nome
                         resultadosPesquisa = paisController.GetAll(buscaInativos)
                                                            .Where(p => p.Pais.Contains(pesquisa))
                                                            .ToList();
                     }
                     else if (rbCodigo.Checked)
                     {
-                        // Pesquisa por Código
+                        //pesquisa por Código
                         if (int.TryParse(pesquisa, out int codigoPesquisa))
                         {
                             resultadosPesquisa = paisController.GetAll(buscaInativos)
@@ -96,8 +96,8 @@ namespace Sistema_Vendas.Views
                         }
                     }
 
-                    dataGridViewPaises.DataSource = resultadosPesquisa; // Atualiza o DataSource do DataGridView com os resultados da pesquisa
-                    txtPesquisa.Texts = string.Empty; // Limpa o txt pesquisa
+                    dataGridViewPaises.DataSource = resultadosPesquisa; //atualiza o DataSource do DataGridView com os resultados da pesquisa
+                    txtPesquisa.Texts = string.Empty; //limpa o txt pesquisa
                 }
                 catch (Exception ex)
                 {
@@ -106,7 +106,7 @@ namespace Sistema_Vendas.Views
             }
             else
             {
-                // Se não houver nada no txt, atualiza a consulta de países normalmente
+                //se não houver nada no txt, atualiza a consulta de países normalmente
                 AtualizarConsultaPaises(cbBuscaInativos.Checked);
             }
         }
@@ -175,11 +175,10 @@ namespace Sistema_Vendas.Views
             {
                 if (dataGridViewPaises.SelectedRows.Count > 0)
                 {
-                    // Capturar o ID e o nome do país selecionado
                     int paisID = Convert.ToInt32(dataGridViewPaises.SelectedRows[0].Cells["Código"].Value);
                     string paisNome = dataGridViewPaises.SelectedRows[0].Cells["País"].Value.ToString();
 
-                    // Passar os detalhes do país selecionado de volta para a tela principal
+                    //passar os detalhes do país selecionado de volta para a tela principal
                     this.Tag = new Tuple<int, string>(paisID, paisNome);
                     this.DialogResult = DialogResult.OK;
                     this.Close();

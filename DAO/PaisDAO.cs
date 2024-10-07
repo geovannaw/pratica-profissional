@@ -18,7 +18,7 @@ namespace Sistema_Vendas.Models
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT IDENT_CURRENT('pais')";
+                string query = "SELECT MAX(idPais) FROM pais";
                 SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
                 var result = command.ExecuteScalar();
@@ -157,7 +157,7 @@ namespace Sistema_Vendas.Models
                     }
                     else
                     {
-                        return default(T); // retorna default se o país não for encontrado
+                        return default(T); //retorna default se o país não for encontrado
                     }
                 }
             }

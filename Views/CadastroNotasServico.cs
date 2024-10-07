@@ -96,7 +96,6 @@ namespace Sistema_Vendas.Views
             txtSerie.Enabled = true;
             txtCodCliente.Enabled = true;
             txtObservacao.Enabled = true;
-            txtDataEmissao.Enabled = true;
 
             txtCodServico.Enabled = false;
             txtServico.Enabled = false;
@@ -130,7 +129,6 @@ namespace Sistema_Vendas.Views
             txtNroNota.Enabled = false;
             txtModelo.Enabled = false;
             txtSerie.Enabled = false;
-            txtDataEmissao.Enabled = false;
             txtCodCliente.Enabled = false;
             txtCliente.Enabled = false;
             txtCodServico.Enabled = false;
@@ -462,6 +460,7 @@ namespace Sistema_Vendas.Views
             {
                 txtDataEmissao.Texts = DateTime.Now.ToString();
                 txtPorcentagemDesconto.Texts = "0";
+                txtSerie.Texts = "1";
                 int novoCodigo = notaServicoController.GetUltimoNumeroNota() + 1;
                 txtNroNota.Texts = novoCodigo.ToString();
             }
@@ -512,7 +511,6 @@ namespace Sistema_Vendas.Views
               //  txtNroNota.Enabled = !habilitar;
                 txtModelo.Enabled = !habilitar;
                 txtSerie.Enabled = !habilitar;
-                txtDataEmissao.Enabled = !habilitar;
                 txtCodCliente.Enabled = !habilitar;
                 btnConsultaCliente.Enabled = !habilitar;
 
@@ -547,22 +545,38 @@ namespace Sistema_Vendas.Views
 
         private void txtModelo_Leave(object sender, EventArgs e)
         {
-            if (txtModelo.Texts != "22" && txtModelo.Texts != "21")
+            if (!string.IsNullOrEmpty(txtModelo.Texts))
             {
-                MessageBox.Show("O modelo da nota de serviço deve ser 21 ou 22. Verifique legislação.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtModelo.Focus();
+                if (txtModelo.Texts != "22" && txtModelo.Texts != "21")
+                {
+                    MessageBox.Show("O modelo da nota de serviço deve ser 21 ou 22. Verifique legislação.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtModelo.Focus();
+                }
+                else
+                {
+                    VerificaNotaExistente();
+                    VerificaCamposPreenchidosNF();
+                }
+            }
+        }
+
+        private void txtSerie_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSerie.Texts))
+            {
+                return;
+            }
+            //remove os zeros à esquerda e verifica se o valor é 0 ou se foi digitado apenas zeros
+            if (string.IsNullOrWhiteSpace(txtSerie.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("A série da nota não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSerie.Focus();
             }
             else
             {
                 VerificaNotaExistente();
                 VerificaCamposPreenchidosNF();
             }
-        }
-
-        private void txtSerie_Leave(object sender, EventArgs e)
-        {
-            VerificaNotaExistente();
-            VerificaCamposPreenchidosNF();
         }
 
         private void txtCodCliente_Leave(object sender, EventArgs e)
@@ -980,6 +994,20 @@ namespace Sistema_Vendas.Views
         private void txtPorcentagemDesconto_Leave(object sender, EventArgs e)
         {
             atualizaDesconto();
+        }
+
+        private void txtQtdeServico_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtQtdeServico.Texts))
+            {
+                return;
+            }
+            //remove os zeros à esquerda e verifica se o valor é 0 ou se foi digitado apenas zeros
+            if (string.IsNullOrWhiteSpace(txtQtdeServico.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("A quantidade não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtQtdeServico.Focus();
+            }
         }
     }
 }

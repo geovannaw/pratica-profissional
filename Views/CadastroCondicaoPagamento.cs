@@ -395,5 +395,19 @@ namespace Sistema_Vendas.Views
                 e.Handled = true;
             }
         }
+
+        private void txtParcela_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtParcela.Texts))
+            {
+                return;
+            }
+            //remove os zeros à esquerda e verifica se o valor é 0 ou se foi digitado apenas zeros
+            if (string.IsNullOrWhiteSpace(txtParcela.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("O número da parcela não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtParcela.Focus();
+            }
+        }
     }
 }

@@ -424,7 +424,7 @@ CREATE TABLE notaServico_Servico (
 CREATE TABLE usuarios (
     idUsuario INT IDENTITY(1,1) NOT NULL,
     usuario VARCHAR(50) NOT NULL,
-    senha VARCHAR(50) NOT NULL,
+    senha VARCHAR(64) NOT NULL,
     permissao VARCHAR(50) NOT NULL,
     ativo BIT NOT NULL,
     dataCadastro DATE NOT NULL,
@@ -433,9 +433,20 @@ CREATE TABLE usuarios (
     PRIMARY KEY(idUsuario)
 );
 
-INSERT INTO Usuarios (usuario, senha, permissao, ativo, DataCadastro, DataUltAlt, usuarioUltAlt)
-VALUES ('SYSDBA', 'MASTERKEY', 'ADMIN', 1, GETDATE(), GETDATE(), 'SYSDBA');
+INSERT INTO usuarios (usuario, senha, permissao, ativo, dataCadastro, dataUltAlt, usuarioUltAlt)
+VALUES (
+    'GE', 
+    CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', '123'), 2), 
+    'ADMIN', 
+    1,  
+    GETDATE(),  
+    GETDATE(),  
+    'GE'  
+);
 
+DROP TABLE IF EXISTS dadosEmpresa;
+DROP TABLE IF EXISTS contasReceber;
+DROP TABLE IF EXISTS contasPagar;
 DROP TABLE IF EXISTS notaCompra_Produto;
 DROP TABLE IF EXISTS notaCompra;
 DROP TABLE IF EXISTS notaVenda_Produto;
@@ -444,6 +455,7 @@ DROP TABLE IF EXISTS notaServico_Servico;
 DROP TABLE IF EXISTS notaServico;
 DROP TABLE IF EXISTS OS_Servico;
 DROP TABLE IF EXISTS OS_Produto;
+DROP TABLE IF EXISTS ordemServico;
 DROP TABLE IF EXISTS fornecedor;
 DROP TABLE IF EXISTS cliente;
 DROP TABLE IF EXISTS funcionario;
@@ -453,10 +465,6 @@ DROP TABLE IF EXISTS pais;
 DROP TABLE IF EXISTS condicaoPagamento;
 DROP TABLE IF EXISTS parcela;
 DROP TABLE IF EXISTS formaPagamento;
-DROP TABLE IF EXISTS dadosEmpresa;
-DROP TABLE IF EXISTS contasReceber;
-DROP TABLE IF EXISTS contasPagar;
-DROP TABLE IF EXISTS ordemServico;
 DROP TABLE IF EXISTS servico;
 DROP TABLE IF EXISTS produto;
 DROP TABLE IF EXISTS modelo;

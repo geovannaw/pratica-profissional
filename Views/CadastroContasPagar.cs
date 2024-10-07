@@ -365,14 +365,20 @@ namespace Sistema_Vendas.Views
                 DateTime dataVencimento = DateTime.Parse(txtDataVencimento.Texts);
                 DateTime dataAtual = DateTime.Now;
 
-                int diasAtraso = (dataAtual - dataVencimento).Days;
-                decimal valorMulta = 0;
-
-                if (diasAtraso > 0 && porcentagemJuros.HasValue)
+                //verifica se a data de vencimento menor que data atual
+                if (dataVencimento < dataAtual && porcentagemMulta.HasValue)
                 {
-                    valorMulta = (diasAtraso * porcentagemMulta.Value / 100) * Convert.ToDecimal(txtValorParcela.Texts);
+                    //aplica a porcentagem da multa ao valor da parcela
+                    decimal valorParcela = Convert.ToDecimal(txtValorParcela.Texts);
+                    decimal valorMulta = (porcentagemMulta.Value / 100) * valorParcela;
+
+                    txtMulta.Texts = valorMulta.ToString("N2");
                 }
-                txtMulta.Texts = valorMulta.ToString("N2");
+                else
+                {
+                    //se não houver atraso, a multa é zero
+                    txtMulta.Texts = "0.00";
+                }
             }
         }
         private void calcularDesconto()

@@ -127,6 +127,7 @@
     <Compile Include="DAO\CondicaoPagamentoDAO.cs" />
     <Compile Include="DAO\ContasReceberDAO.cs" />
     <Compile Include="DAO\ContasPagarDAO.cs" />
+    <Compile Include="DAO\Criptografia.cs" />
     <Compile Include="DAO\FormaPagamentoDAO.cs" />
     <Compile Include="DAO\FornecedorDAO.cs" />
     <Compile Include="DAO\FuncionarioDAO.cs" />

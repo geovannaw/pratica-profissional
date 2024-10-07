@@ -218,7 +218,7 @@ namespace Sistema_Vendas.Views
 
             if (consultaEstados.ShowDialog() == DialogResult.OK)
             {
-                // Receber os detalhes do estado selecionado
+                //receber os detalhes do estado selecionado
                 var estadoDetalhes = consultaEstados.Tag as Tuple<int, string>;
 
                 if (estadoDetalhes != null)

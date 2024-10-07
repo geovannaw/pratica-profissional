@@ -46,6 +46,10 @@
             // 
             this.rbFisica.CheckedChanged += new System.EventHandler(this.rbFisica_CheckedChanged);
             // 
+            // rbJuridica
+            // 
+            this.rbJuridica.CheckedChanged += new System.EventHandler(this.rbJuridica_CheckedChanged);
+            // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
@@ -72,7 +76,7 @@
             // 
             this.txtDataUltAlt.Texts = "04/07/2024";
             // 
-            // groupBox1
+            // groupBox3
             // 
             this.groupBox3.TabIndex = 11;
             // 
@@ -80,7 +84,7 @@
             // 
             this.txtCPF_CNPJ.TabIndex = 19;
             // 
-            // groupBox3
+            // groupBox1
             // 
             this.groupBox1.TabIndex = 27;
             // 
@@ -91,11 +95,6 @@
             // txtApelido_nome_fantasia
             // 
             this.txtApelido_nome_fantasia.TabIndex = 5;
-            // 
-            // txtCliente_razao_social
-            // 
-            this.txtCliente_razao_social.TabIndex = 4;
-            this.txtCliente_razao_social.Leave += new System.EventHandler(this.txtCliente_razao_social_Leave);
             // 
             // txtEmail
             // 
@@ -162,6 +161,11 @@
             // txtSexo
             // 
             this.txtSexo.TabIndex = 6;
+            // 
+            // txtCliente_razao_social
+            // 
+            this.txtCliente_razao_social.TabIndex = 4;
+            this.txtCliente_razao_social.Leave += new System.EventHandler(this.txtCliente_razao_social_Leave);
             // 
             // CadastroFornecedores
             // 

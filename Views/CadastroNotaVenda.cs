@@ -101,7 +101,6 @@ namespace Sistema_Vendas.Views
             txtSerie.Enabled = true;
             txtCodCliente.Enabled = true;
             txtObservacao.Enabled = true;
-            txtDataEmissao.Enabled = true;
 
             txtCodProduto.Enabled = false;
             txtProduto.Enabled = false;
@@ -136,7 +135,6 @@ namespace Sistema_Vendas.Views
             txtNroNota.Enabled = false;
             txtModelo.Enabled = false;
             txtSerie.Enabled = false;
-            txtDataEmissao.Enabled = false;
             txtCodCliente.Enabled = false;
             txtCliente.Enabled = false;
             txtCodProduto.Enabled = false;
@@ -471,6 +469,7 @@ namespace Sistema_Vendas.Views
             {
                 txtDataEmissao.Texts = DateTime.Now.ToString();
                 txtPorcentagemDesconto.Texts = "0";
+                txtSerie.Texts = "1";
                 int novoCodigo = notaVendaController.GetUltimoNumeroNota() + 1;
                 txtNroNota.Texts = novoCodigo.ToString();
             }
@@ -520,7 +519,6 @@ namespace Sistema_Vendas.Views
                // txtNroNota.Enabled = !habilitar;
                 txtModelo.Enabled = !habilitar;
                 txtSerie.Enabled = !habilitar;
-                txtDataEmissao.Enabled = !habilitar;
                 txtCodCliente.Enabled = !habilitar;
                 btnConsultaCliente.Enabled = !habilitar;
 
@@ -548,22 +546,38 @@ namespace Sistema_Vendas.Views
 
         private void txtModelo_Leave(object sender, EventArgs e)
         {
-            if (txtModelo.Texts != "55" && txtModelo.Texts != "65")
+            if (!string.IsNullOrEmpty(txtModelo.Texts))
             {
-                MessageBox.Show("O modelo da nota de venda deve ser 55 ou 65. Verifique.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtModelo.Focus();
+                if (txtModelo.Texts != "55" && txtModelo.Texts != "65")
+                {
+                    MessageBox.Show("O modelo da nota de venda deve ser 55 ou 65. Verifique.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtModelo.Focus();
+                }
+                else
+                {
+                    VerificaNotaExistente();
+                    VerificaCamposPreenchidosNF();
+                }
+            }            
+        }
+
+        private void txtSerie_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSerie.Texts))
+            {
+                return;
+            }
+            //remove os zeros à esquerda e verifica se o valor é 0 ou se foi digitado apenas zeros
+            if (string.IsNullOrWhiteSpace(txtSerie.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("A série da nota não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSerie.Focus();
             }
             else
             {
                 VerificaNotaExistente();
                 VerificaCamposPreenchidosNF();
             }
-        }
-
-        private void txtSerie_Leave(object sender, EventArgs e)
-        {
-            VerificaNotaExistente();
-            VerificaCamposPreenchidosNF();
         }
 
         private void txtCodCliente_Leave(object sender, EventArgs e)
@@ -656,7 +670,7 @@ namespace Sistema_Vendas.Views
                     decimal precoUN = Convert.ToDecimal(txtPrecoProd.Texts);
                     decimal precoTotal = Convert.ToDecimal(txtPrecoProd.Texts) * Convert.ToInt32(txtQtdeProduto.Texts);
 
-                    // Verificar saldo do produto
+                    //verificar saldo do produto
                     ProdutoModel produtoDetalhes = produtoController.GetById(idProduto);
                     if (produtoDetalhes != null)
                     {
@@ -1013,6 +1027,20 @@ namespace Sistema_Vendas.Views
         private void txtPorcentagemDesconto_Leave(object sender, EventArgs e)
         {
             atualizaDesconto();
+        }
+
+        private void txtQtdeProduto_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtQtdeProduto.Texts))
+            {
+                return;
+            }
+            //remove os zeros à esquerda e verifica se o valor é 0 ou se foi digitado apenas zeros
+            if (string.IsNullOrWhiteSpace(txtQtdeProduto.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("A quantidade não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtQtdeProduto.Focus();
+            }
         }
     }
 }

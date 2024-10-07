@@ -390,6 +390,7 @@
             this.txtParcela.Texts = "";
             this.txtParcela.UnderlinedStyle = false;
             this.txtParcela.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtParcela_KeyPress);
+            this.txtParcela.Leave += new System.EventHandler(this.txtParcela_Leave);
             // 
             // txtDias
             // 
@@ -561,7 +562,7 @@
             this.btnAddParcela.Location = new System.Drawing.Point(585, 159);
             this.btnAddParcela.Name = "btnAddParcela";
             this.btnAddParcela.Size = new System.Drawing.Size(69, 28);
-            this.btnAddParcela.TabIndex = 1;
+            this.btnAddParcela.TabIndex = 11;
             this.btnAddParcela.Text = "Adicionar";
             this.btnAddParcela.TextColor = System.Drawing.Color.White;
             this.btnAddParcela.UseVisualStyleBackColor = false;

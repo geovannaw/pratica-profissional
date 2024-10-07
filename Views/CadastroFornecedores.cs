@@ -323,5 +323,10 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+
+        private void rbJuridica_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

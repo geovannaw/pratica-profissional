@@ -116,11 +116,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT * FROM notaVenda_Produto 
-                         WHERE numeroNota = @numeroNota 
-                         AND modelo = @modelo 
-                         AND serie = @serie 
-                         AND idCliente = @idCliente";
+                string query = @"SELECT * FROM notaVenda_Produto WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idCliente = @idCliente";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@numeroNota", numeroNota);
                 cmd.Parameters.AddWithValue("@modelo", modelo);
@@ -225,8 +221,6 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
-
-
         public ProdutoModel GetProdutoPorId(int idProduto)
         {
             ProdutoModel produto = null;
@@ -265,9 +259,7 @@ namespace Sistema_Vendas.DAO
                 {
                     foreach (var produto in obj.Produtos)
                     {
-                        string queryUpdateProduto = @"UPDATE produto SET 
-                                    saldo = saldo - @quantidadeProduto
-                                    WHERE idProduto = @idProduto";
+                        string queryUpdateProduto = @"UPDATE produto SET saldo = saldo - @quantidadeProduto WHERE idProduto = @idProduto";
                         SqlCommand cmdUpdateProduto = new SqlCommand(queryUpdateProduto, conn, transaction);
 
                         cmdUpdateProduto.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);

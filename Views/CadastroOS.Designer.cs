@@ -388,6 +388,7 @@
             this.txtDataOS.DisabledBackColor = System.Drawing.Color.White;
             this.txtDataOS.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataOS.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDataOS.Enabled = false;
             this.txtDataOS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtDataOS.Location = new System.Drawing.Point(130, 28);
             this.txtDataOS.Mask = "00/00/0000";
@@ -421,6 +422,7 @@
             this.cbSituacao.BorderRadius = 5;
             this.cbSituacao.BorderSize = 1;
             this.cbSituacao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cbSituacao.Enabled = false;
             this.cbSituacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.cbSituacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.cbSituacao.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
@@ -740,6 +742,7 @@
             this.txtQtdeServico.Texts = "";
             this.txtQtdeServico.UnderlinedStyle = false;
             this.txtQtdeServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeServico_KeyPress);
+            this.txtQtdeServico.Leave += new System.EventHandler(this.txtQtdeServico_Leave);
             // 
             // btnConsultaServico
             // 
@@ -977,6 +980,7 @@
             this.txtQtdeProduto.Texts = "";
             this.txtQtdeProduto.UnderlinedStyle = false;
             this.txtQtdeProduto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeProduto_KeyPress);
+            this.txtQtdeProduto.Leave += new System.EventHandler(this.txtQtdeProduto_Leave);
             // 
             // btnConsultaProduto
             // 

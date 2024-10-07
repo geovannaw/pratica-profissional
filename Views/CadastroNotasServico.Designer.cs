@@ -90,18 +90,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServicos)).BeginInit();
             this.SuspendLayout();
             // 
-            // txtCodigo
-            // 
-            this.txtCodigo.Location = new System.Drawing.Point(743, 41);
-            this.txtCodigo.Size = new System.Drawing.Size(24, 28);
-            this.txtCodigo.Visible = false;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Location = new System.Drawing.Point(773, 32);
-            this.groupBox1.Size = new System.Drawing.Size(14, 49);
-            this.groupBox1.Visible = false;
-            // 
             // lblDataCadastro
             // 
             this.lblDataCadastro.Location = new System.Drawing.Point(9, 757);
@@ -109,6 +97,18 @@
             // lblDataUltAlt
             // 
             this.lblDataUltAlt.Location = new System.Drawing.Point(106, 757);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(773, 32);
+            this.groupBox1.Size = new System.Drawing.Size(14, 49);
+            this.groupBox1.Visible = false;
+            // 
+            // txtCodigo
+            // 
+            this.txtCodigo.Location = new System.Drawing.Point(743, 41);
+            this.txtCodigo.Size = new System.Drawing.Size(24, 28);
+            this.txtCodigo.Visible = false;
             // 
             // btnSalvar
             // 
@@ -646,6 +646,7 @@
             this.txtQtdeServico.Texts = "";
             this.txtQtdeServico.UnderlinedStyle = false;
             this.txtQtdeServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeServico_KeyPress);
+            this.txtQtdeServico.Leave += new System.EventHandler(this.txtQtdeServico_Leave);
             // 
             // btnConsultaServico
             // 
@@ -829,6 +830,7 @@
             this.txtDataEmissao.DisabledBackColor = System.Drawing.Color.White;
             this.txtDataEmissao.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataEmissao.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDataEmissao.Enabled = false;
             this.txtDataEmissao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtDataEmissao.Location = new System.Drawing.Point(12, 32);
             this.txtDataEmissao.Mask = "00/00/0000";
@@ -1016,7 +1018,7 @@
             this.txtSerie.Size = new System.Drawing.Size(83, 28);
             this.txtSerie.TabIndex = 4;
             this.txtSerie.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtSerie.Texts = "";
+            this.txtSerie.Texts = "1";
             this.txtSerie.UnderlinedStyle = false;
             this.txtSerie.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerie_KeyPress);
             this.txtSerie.Leave += new System.EventHandler(this.txtSerie_Leave);

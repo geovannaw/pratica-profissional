@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,7 +18,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT IDENT_CURRENT('usuarios')";
+                string query = "SELECT MAX(idUsuario) FROM usuarios";
                 SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
                 var result = command.ExecuteScalar();
@@ -39,7 +40,11 @@ namespace Sistema_Vendas.DAO
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id", usuario.idUsuario);
                 command.Parameters.AddWithValue("@usuario", usuario.usuario);
-                command.Parameters.AddWithValue("@senha", usuario.senha);
+
+                //criptografar a senha antes de armazená-la
+                string senhaCriptografada = Criptografia.GerarHashSenha(usuario.senha);
+                command.Parameters.AddWithValue("@senha", senhaCriptografada);
+
                 command.Parameters.AddWithValue("@permissao", usuario.permissao);
                 command.Parameters.AddWithValue("@ativo", usuario.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", usuario.dataCadastro);
@@ -123,7 +128,7 @@ namespace Sistema_Vendas.DAO
                         dynamic obj = Activator.CreateInstance(typeof(T));
                         obj.idUsuario = Convert.ToInt32(reader["idUsuario"]);
                         obj.usuario = reader["usuario"].ToString();
-                        obj.senha = reader["senha"].ToString();
+                        obj.senha = reader["senha"].ToString(); 
                         obj.permissao = reader["permissao"].ToString();
                         obj.usuarioUltAlt = reader["usuarioUltAlt"].ToString();
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
@@ -139,6 +144,7 @@ namespace Sistema_Vendas.DAO
             }
         }
 
+
         public override void Salvar(T obj)
         {
             dynamic usuario = obj;
@@ -150,7 +156,7 @@ namespace Sistema_Vendas.DAO
                 SqlCommand command = new SqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("@usuario", usuario.usuario);
-                command.Parameters.AddWithValue("@senha", usuario.senha);
+                command.Parameters.AddWithValue("@senha", Criptografia.GerarHashSenha(usuario.senha));
                 command.Parameters.AddWithValue("@permissao", usuario.permissao);
                 command.Parameters.AddWithValue("@ativo", usuario.Ativo);
                 command.Parameters.AddWithValue("@dataCadastro", usuario.dataCadastro);

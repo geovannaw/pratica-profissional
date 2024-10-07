@@ -20,6 +20,9 @@ namespace Sistema_Vendas.DAO
         {
             string permissao = "";
 
+            // Gera o hash da senha fornecida
+            string senhaHash = Criptografia.GerarHashSenha(senha);
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -28,19 +31,19 @@ namespace Sistema_Vendas.DAO
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@usuario", usuario);
-                    cmd.Parameters.AddWithValue("@senha", senha);
+                    cmd.Parameters.AddWithValue("@senha", senhaHash); // compara o hash da senha
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())  //ve resultado
+                        if (reader.Read())
                         {
-                            bool isAtivo = reader.GetBoolean(reader.GetOrdinal("ativo"));  //valor de 'ativo'
-                            if (!isAtivo)  //se o usuário não está ativo
+                            bool isAtivo = reader.GetBoolean(reader.GetOrdinal("ativo"));
+                            if (!isAtivo)
                             {
-                                return "inativo";  //retorna "inativo"
+                                return "inativo";
                             }
 
-                            permissao = reader["permissao"].ToString();  //obtém a permissão
+                            permissao = reader["permissao"].ToString();
                         }
                     }
                 }

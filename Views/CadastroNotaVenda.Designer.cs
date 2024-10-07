@@ -307,7 +307,7 @@
             this.txtSerie.Size = new System.Drawing.Size(83, 28);
             this.txtSerie.TabIndex = 4;
             this.txtSerie.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtSerie.Texts = "";
+            this.txtSerie.Texts = "1";
             this.txtSerie.UnderlinedStyle = false;
             this.txtSerie.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerie_KeyPress);
             this.txtSerie.Leave += new System.EventHandler(this.txtSerie_Leave);
@@ -379,6 +379,7 @@
             this.txtDataEmissao.DisabledBackColor = System.Drawing.Color.White;
             this.txtDataEmissao.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataEmissao.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDataEmissao.Enabled = false;
             this.txtDataEmissao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtDataEmissao.Location = new System.Drawing.Point(12, 33);
             this.txtDataEmissao.Mask = "00/00/0000";
@@ -787,6 +788,7 @@
             this.txtQtdeProduto.Texts = "";
             this.txtQtdeProduto.UnderlinedStyle = false;
             this.txtQtdeProduto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeProduto_KeyPress);
+            this.txtQtdeProduto.Leave += new System.EventHandler(this.txtQtdeProduto_Leave);
             // 
             // btnConsultaProduto
             // 

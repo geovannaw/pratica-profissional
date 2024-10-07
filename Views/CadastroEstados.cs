@@ -225,17 +225,18 @@ namespace Sistema_Vendas.Views
         private void btnConsultaPais_Click(object sender, EventArgs e)
         {
             consultaPaises.btnSair.Text = "Selecionar";
+            consultaPaises.cbBuscaInativos.Visible = false;
 
             if (consultaPaises.ShowDialog() == DialogResult.OK)
             {
-                // Receber os detalhes do país selecionado
+                //receber os detalhes do país selecionado
                 var paisDetalhes = consultaPaises.Tag as Tuple<int, string>;
                 if (paisDetalhes != null)
                 {
                     int paisID = paisDetalhes.Item1;
                     string paisNome = paisDetalhes.Item2;
 
-                    // Atualizar o campo txtPais com o nome do país selecionado
+                    //atualizar o campo txtPais com o nome do país selecionado
                     txtCodPais.Texts = paisID.ToString();
                     txtPais.Texts = paisNome;
                 }

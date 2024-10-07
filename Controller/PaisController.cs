@@ -53,7 +53,7 @@ namespace Sistema_Vendas.Controller
 
                 foreach (var pais in Model)
                 {
-                    // Verifica se o nome já existe e não é o país atual que está sendo alterado
+                    //verifica se o nome já existe e não é o país atual que está sendo alterado
                     if (pais.Pais.Equals(nome, StringComparison.OrdinalIgnoreCase) && pais.idPais != idAtual)
                     {
                         return true;

@@ -18,7 +18,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT IDENT_CURRENT('produto')";
+                string query = "SELECT MAX(idProduto) FROM produto";
                 SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
                 var result = command.ExecuteScalar();
@@ -95,20 +95,20 @@ namespace Sistema_Vendas.DAO
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                //verifica se o produto está sendo usado em notaVenda_Produto ou OS_Produto
+                //verifica se o produto está sendo usado em notaVenda_Produto ou OS_Produto / se encontra o registro, retorna 1
                 string queryCheckUsage = @"
-            IF EXISTS (SELECT 1 FROM notaVenda_Produto WHERE idProduto = @id)
-            BEGIN
-                SELECT 1
-            END
-            ELSE IF EXISTS (SELECT 1 FROM OS_Produto WHERE idProduto = @id)
-            BEGIN
-                SELECT 1
-            END
-            ELSE
-            BEGIN
-                SELECT 0
-            END";
+                                            IF EXISTS (SELECT 1 FROM notaVenda_Produto WHERE idProduto = @id)
+                                            BEGIN
+                                                SELECT 1 
+                                            END
+                                            ELSE IF EXISTS (SELECT 1 FROM OS_Produto WHERE idProduto = @id)
+                                            BEGIN
+                                                SELECT 1
+                                            END
+                                            ELSE
+                                            BEGIN
+                                                SELECT 0
+                                            END";
 
                 SqlCommand commandCheckUsage = new SqlCommand(queryCheckUsage, connection);
                 commandCheckUsage.Parameters.AddWithValue("@id", id);
@@ -141,7 +141,7 @@ namespace Sistema_Vendas.DAO
                         }
                     }
 
-                    // Se o saldo for 0 e o produto não estiver em uso, continua a exclusão
+                    //se o saldo for 0 e o produto não estiver em uso, continua a exclusão
                     string queryDelete = "DELETE FROM produto WHERE idProduto = @id";
                     SqlCommand commandDelete = new SqlCommand(queryDelete, connection);
                     commandDelete.Parameters.AddWithValue("@id", id);

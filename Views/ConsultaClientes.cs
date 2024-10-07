@@ -169,7 +169,7 @@ namespace Sistema_Vendas.Views
         {
             if (e.ColumnIndex == dataGridViewClientes.Columns["Celular"].Index && e.Value != null)
             {
-                // Formata o número de celular
+                //formata o número de celular
                 string celular = e.Value.ToString();
                 if (celular.Length == 11)
                 {
@@ -179,7 +179,7 @@ namespace Sistema_Vendas.Views
             }
             else if (e.ColumnIndex == dataGridViewClientes.Columns["Tipo"].Index && e.Value != null)
             {
-                // Converte o valor bool em uma string "Físico" ou "Jurídico"
+                //converte o valor bool em uma string "Físico" ou "Jurídico"
                 bool tipoPessoa = (bool)e.Value;
                 e.Value = tipoPessoa ? "FÍSICO" : "JURÍDICO";
                 e.FormattingApplied = true;
