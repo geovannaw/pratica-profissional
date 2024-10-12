@@ -1234,23 +1234,37 @@ namespace Sistema_Vendas.Views
                     ProdutoModel produtoDetalhes = produtoController.GetById(codigoProduto);
                     if (produtoDetalhes != null)
                     {
-                        if (produtoDetalhes.Saldo >= quantidadeProd)
-                        {
-                            bool produtoExistente = false;
+                        bool produtoExistente = false;
+                        int quantidadeAtualNoGrid = 0;
 
-                            foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
+                        foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
+                        {
+                            if (Convert.ToInt32(row.Cells["idProduto"].Value) == codigoProduto)
                             {
-                                if (Convert.ToInt32(row.Cells["idProduto"].Value) == codigoProduto)
+                                quantidadeAtualNoGrid = Convert.ToInt32(row.Cells["quantidadeProduto"].Value);
+                                produtoExistente = true;
+                                break;
+                            }
+                        }
+                        int quantidadeTotal = quantidadeAtualNoGrid + quantidadeProd;
+
+                        if (produtoDetalhes.Saldo >= quantidadeTotal)
+                        {
+                            if (produtoExistente)
+                            {
+                                foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
                                 {
-                                    int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeProduto"].Value);
-                                    row.Cells["quantidadeProduto"].Value = quantidadeAtual + quantidadeProd;
-                                    row.Cells["precoProduto"].Value = (quantidadeAtual + quantidadeProd) * pUNProd;
-                                    produtoExistente = true;
-                                    break;
+                                    if (Convert.ToInt32(row.Cells["idProduto"].Value) == codigoProduto)
+                                    {
+                                        int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeProduto"].Value);
+                                        row.Cells["quantidadeProduto"].Value = quantidadeAtual + quantidadeProd;
+                                        row.Cells["PrecoUNProd"].Value = pUNProd;
+                                        row.Cells["precoProduto"].Value = (quantidadeAtual + quantidadeProd) * pUNProd;
+                                        break;
+                                    }
                                 }
                             }
-
-                            if (!produtoExistente)
+                            else
                             {
                                 dataGridViewProdutos.Rows.Add(codigoProduto, produto, pUNProd, quantidadeProd, precoTotalProd);
                             }
@@ -1267,7 +1281,7 @@ namespace Sistema_Vendas.Views
                     }
                     else
                     {
-                        MessageBox.Show("Produto não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Saldo insuficiente para o produto selecionado. Saldo disponível: " + produtoDetalhes.Saldo, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)

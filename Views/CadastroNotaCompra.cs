@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static Sistema_Vendas.DAO.NotaCompraDAO;
 
 namespace Sistema_Vendas.Views
 {
@@ -86,6 +87,7 @@ namespace Sistema_Vendas.Views
             txtDataUltAlt.Clear();
             txtDataCancelamento.Clear();
             txtUsuarioUltAlt.Clear();
+            txtDescontoProd.Clear();
 
             //limpa os DataGridViews
             dataGridViewProdutos.Rows.Clear();
@@ -111,6 +113,7 @@ namespace Sistema_Vendas.Views
             txtUN.Enabled = false;
             txtQtdeProduto.Enabled = false;
             txtPrecoProd.Enabled = false;
+            txtDescontoProd.Enabled = false;
             txtValorFrete.Enabled = false;
             txtValorSeguro.Enabled = false;
             txtOutrasDespesas.Enabled = false;
@@ -157,6 +160,7 @@ namespace Sistema_Vendas.Views
             txtUN.Enabled = false;
             txtQtdeProduto.Enabled = false;
             txtPrecoProd.Enabled = false;
+            txtDescontoProd.Enabled = false;
             txtValorFrete.Enabled = false;
             txtValorSeguro.Enabled = false;
             txtOutrasDespesas.Enabled = false;
@@ -289,126 +293,136 @@ namespace Sistema_Vendas.Views
             }
             else
             {
-                try
+                int.TryParse(txtNroNota.Texts, out int nroNota);
+                int.TryParse(txtCodFornecedor.Texts, out int CodFornecedor);
+                if (notaCompraController.ExisteNota(nroNota, txtModelo.Texts, txtSerie.Texts, CodFornecedor))
                 {
-                    int numeroNota = Convert.ToInt32(txtNroNota.Texts);
-                    int modelo = Convert.ToInt32(txtModelo.Texts);
-                    int serie = Convert.ToInt32(txtSerie.Texts);
-                    int idFornecedor = Convert.ToInt32(txtCodFornecedor.Texts);
-                    decimal valorFrete = Convert.ToDecimal(txtValorFrete.Texts);
-                    decimal valorSeguro = Convert.ToDecimal(txtValorSeguro.Texts);
-                    decimal outrasDespesas = Convert.ToDecimal(txtOutrasDespesas.Texts);
-                    decimal totalProdutos = Convert.ToDecimal(txtTotalProdutos.Texts);
-                    decimal totalPagar = Convert.ToDecimal(txtTotalPagar.Texts);
-                    int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
-                    string observacao = txtObservacao.Texts;
-                    string usuario = Program.usuarioLogado;
-                    DateTime.TryParse(txtDataEmissao.Texts, out DateTime dataEmissao);
-                    DateTime.TryParse(txtDataChegada.Texts, out DateTime dataChegada);
-                    dataChegada = dataChegada.Date.Add(DateTime.Now.TimeOfDay); //add a hora que está chegando
-
-                    DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
-                    DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
-
-                    NotaCompraModel notaCompra = new NotaCompraModel
+                    MessageBox.Show("Nota já cadastrada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNroNota.Focus();
+                }
+                else
+                {
+                    try
                     {
-                        numeroNota = numeroNota,
-                        modelo = modelo,
-                        serie = serie,
-                        idFornecedor = idFornecedor,
-                        tipoFrete = isCIF,
-                        valorFrete = valorFrete,
-                        valorSeguro = valorSeguro,
-                        outrasDespesas = outrasDespesas,
-                        totalProdutos = totalProdutos,
-                        totalPagar = totalPagar,
-                        idCondPagamento = idCondPagamento,
-                        dataEmissao = dataEmissao,
-                        dataChegada = dataChegada,
-                        observacao = observacao,
-                        dataCadastro = dataCadastro,
-                        dataUltAlt = dataUltAlt,
-                        usuario = usuario,  
-                        Produtos = obtemProdutos(valorFrete, valorSeguro, outrasDespesas, totalProdutos),
-                    };
+                        int numeroNota = Convert.ToInt32(txtNroNota.Texts);
+                        int modelo = Convert.ToInt32(txtModelo.Texts);
+                        int serie = Convert.ToInt32(txtSerie.Texts);
+                        int idFornecedor = Convert.ToInt32(txtCodFornecedor.Texts);
+                        decimal valorFrete = Convert.ToDecimal(txtValorFrete.Texts);
+                        decimal valorSeguro = Convert.ToDecimal(txtValorSeguro.Texts);
+                        decimal outrasDespesas = Convert.ToDecimal(txtOutrasDespesas.Texts);
+                        decimal totalProdutos = Convert.ToDecimal(txtTotalProdutos.Texts);
+                        decimal totalPagar = Convert.ToDecimal(txtTotalPagar.Texts);
+                        int idCondPagamento = Convert.ToInt32(txtCodCondPag.Texts);
+                        string observacao = txtObservacao.Texts;
+                        string usuario = Program.usuarioLogado;
+                        DateTime.TryParse(txtDataEmissao.Texts, out DateTime dataEmissao);
+                        DateTime.TryParse(txtDataChegada.Texts, out DateTime dataChegada);
+                        dataChegada = dataChegada.Date.Add(DateTime.Now.TimeOfDay); //add a hora que está chegando
 
-                    notaCompraController.Salvar(notaCompra);
-                    notaCompraController.AtualizarProdutosNotaCompra(notaCompra);
+                        DateTime.TryParse(txtDataCadastro.Texts, out DateTime dataCadastro);
+                        DateTime dataUltAlt = idAlterar != -1 ? DateTime.Now : DateTime.TryParse(txtDataUltAlt.Texts, out DateTime result) ? result : DateTime.MinValue;
 
-
-                    try //salvar contas a pagar
-                    {
-                        foreach (DataGridViewRow row in dataGridViewParcelas.Rows)
+                        NotaCompraModel notaCompra = new NotaCompraModel
                         {
-                            if (row.IsNewRow) continue;
+                            numeroNota = numeroNota,
+                            modelo = modelo,
+                            serie = serie,
+                            idFornecedor = idFornecedor,
+                            tipoFrete = isCIF,
+                            valorFrete = valorFrete,
+                            valorSeguro = valorSeguro,
+                            outrasDespesas = outrasDespesas,
+                            totalProdutos = totalProdutos,
+                            totalPagar = totalPagar,
+                            idCondPagamento = idCondPagamento,
+                            dataEmissao = dataEmissao,
+                            dataChegada = dataChegada,
+                            observacao = observacao,
+                            dataCadastro = dataCadastro,
+                            dataUltAlt = dataUltAlt,
+                            usuario = usuario,
+                            Produtos = obtemProdutos(valorFrete, valorSeguro, outrasDespesas, totalProdutos),
+                        };
 
-                            //validação do que está no datagrid
-                            if (row.Cells["idFormaPagamento"].Value == null || !int.TryParse(row.Cells["idFormaPagamento"].Value.ToString(), out int idFormaPagamento))
+                        notaCompraController.Salvar(notaCompra);
+                        notaCompraController.AtualizarProdutosNotaCompra(notaCompra);
+
+
+                        try //salvar contas a pagar
+                        {
+                            foreach (DataGridViewRow row in dataGridViewParcelas.Rows)
                             {
-                                MessageBox.Show("Forma de pagamento inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
+                                if (row.IsNewRow) continue;
+
+                                //validação do que está no datagrid
+                                if (row.Cells["idFormaPagamento"].Value == null || !int.TryParse(row.Cells["idFormaPagamento"].Value.ToString(), out int idFormaPagamento))
+                                {
+                                    MessageBox.Show("Forma de pagamento inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                if (row.Cells["numeroParcela"].Value == null || !int.TryParse(row.Cells["numeroParcela"].Value.ToString(), out int parcela))
+                                {
+                                    MessageBox.Show("Número de parcela inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                if (row.Cells["valorParcela"].Value == null || !decimal.TryParse(row.Cells["valorParcela"].Value.ToString(), out decimal valorParcela))
+                                {
+                                    MessageBox.Show("Valor da parcela inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                if (row.Cells["dataVencimento"].Value == null || !DateTime.TryParse(row.Cells["dataVencimento"].Value.ToString(), out DateTime dataVencimento))
+                                {
+                                    MessageBox.Show("Data de vencimento inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                ContasPagarModel contaPagar = new ContasPagarModel
+                                {
+                                    numeroNota = numeroNota,
+                                    modelo = modelo,
+                                    serie = serie,
+                                    idFornecedor = idFornecedor,
+                                    dataEmissao = dataEmissao,
+                                    idFormaPagamento = idFormaPagamento,
+                                    parcela = parcela,
+                                    valorParcela = valorParcela,
+                                    dataVencimento = dataVencimento,
+                                    dataPagamento = null,
+                                    juros = juros,
+                                    multa = multa,
+                                    desconto = descontos,
+                                    valorPago = null,
+                                    dataCancelamento = null,
+                                    observacao = observacao,
+                                    usuario = usuario,
+                                    dataCadastro = DateTime.Now,
+                                    dataUltAlt = DateTime.Now
+                                };
+
+                                contasPagarController.Salvar(contaPagar);
                             }
-
-                            if (row.Cells["numeroParcela"].Value == null || !int.TryParse(row.Cells["numeroParcela"].Value.ToString(), out int parcela))
-                            {
-                                MessageBox.Show("Número de parcela inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-
-                            if (row.Cells["valorParcela"].Value == null || !decimal.TryParse(row.Cells["valorParcela"].Value.ToString(), out decimal valorParcela))
-                            {
-                                MessageBox.Show("Valor da parcela inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-
-                            if (row.Cells["dataVencimento"].Value == null || !DateTime.TryParse(row.Cells["dataVencimento"].Value.ToString(), out DateTime dataVencimento))
-                            {
-                                MessageBox.Show("Data de vencimento inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-
-                            ContasPagarModel contaPagar = new ContasPagarModel
-                            {
-                                numeroNota = numeroNota,
-                                modelo = modelo,
-                                serie = serie,
-                                idFornecedor = idFornecedor,
-                                dataEmissao = dataEmissao,
-                                idFormaPagamento = idFormaPagamento,
-                                parcela = parcela,
-                                valorParcela = valorParcela,
-                                dataVencimento = dataVencimento,
-                                dataPagamento = null,
-                                juros = juros,
-                                multa = multa,
-                                desconto = descontos,
-                                valorPago = null,
-                                dataCancelamento = null,
-                                observacao = observacao,
-                                usuario = usuario,
-                                dataCadastro = DateTime.Now,
-                                dataUltAlt = DateTime.Now
-                            };
-
-                            contasPagarController.Salvar(contaPagar);
                         }
-                    }
-                    catch (FormatException fe)
-                    {
-                        MessageBox.Show("Erro ao converter valores: " + fe.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        catch (FormatException fe)
+                        {
+                            MessageBox.Show("Erro ao converter valores: " + fe.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Ocorreu um erro ao salvar as Contas a Pagar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+
+                        this.DialogResult = DialogResult.OK;
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Ocorreu um erro ao salvar as Contas a Pagar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ocorreu um erro ao salvar a Nota de Compra: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
-
-                    this.DialogResult = DialogResult.OK;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ocorreu um erro ao salvar a Nota de Compra: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                }                
             }
         }
 
@@ -441,6 +455,7 @@ namespace Sistema_Vendas.Views
                 {
                     quantidadeProduto = Convert.ToInt32(row.Cells["quantidadeProduto"].Value),
                     precoProduto = Math.Round(precoUN, 4),
+                    descontoProd = Convert.ToDecimal(row.Cells["DescontoProd"].Value),
                     idProduto = Convert.ToInt32(row.Cells["idProduto"].Value),
                     rateio = rateio,
                     custoMedio = custoMedio,
@@ -608,6 +623,12 @@ namespace Sistema_Vendas.Views
                     txtCodCondPag.Clear();
                     txtCondPag.Clear();
                 }
+            } else
+            {
+                txtCodCondPag.Clear();
+                txtCondPag.Clear();
+                dataGridViewParcelas.Rows.Clear();
+
             }
             VerificaCamposPreenchidosCondPagamento();
         }
@@ -628,6 +649,7 @@ namespace Sistema_Vendas.Views
                         produtoDetalhes.Unidade,
                         produto.quantidadeProduto,
                         produto.precoProduto,
+                        produto.descontoProd,
                         (produto.quantidadeProduto * produto.precoProduto)
                     );
                 }
@@ -721,6 +743,7 @@ namespace Sistema_Vendas.Views
             txtCodProduto.Enabled = camposPreenchidos;
             txtQtdeProduto.Enabled = camposPreenchidos;
             txtPrecoProd.Enabled = camposPreenchidos;
+            txtDescontoProd.Enabled = camposPreenchidos;
             btnConsultaProduto.Enabled = camposPreenchidos;
           //  btnExcluirProduto.Enabled= camposPreenchidos;
             dataGridViewProdutos.Enabled = camposPreenchidos;
@@ -760,6 +783,7 @@ namespace Sistema_Vendas.Views
             txtCodProduto.Enabled = !camposPreenchidos;
             txtQtdeProduto.Enabled = !camposPreenchidos;
             txtPrecoProd.Enabled = !camposPreenchidos;
+            txtDescontoProd.Enabled = !camposPreenchidos;
             dataGridViewProdutos.Enabled = !camposPreenchidos;
             btnConsultaProduto.Enabled = !camposPreenchidos;
         }
@@ -910,13 +934,47 @@ namespace Sistema_Vendas.Views
                     int qtdeProduto = Convert.ToInt32(txtQtdeProduto.Texts);
                     string unidade = txtUN.Texts;
                     decimal precoUN = Convert.ToDecimal(txtPrecoProd.Texts);
-                    decimal precoTotal = Convert.ToDecimal(txtPrecoProd.Texts) * Convert.ToInt32(txtQtdeProduto.Texts);
+                    decimal precoTotal = precoUN * qtdeProduto;
+                    decimal descontoProd = Convert.ToDecimal(txtDescontoProd.Texts);
 
-                    dataGridViewProdutos.Rows.Add(idProduto, produto, unidade, qtdeProduto, precoUN, precoTotal); //add nova linha com os valores 
+                    bool produtoJaAdicionado = false;
+
+                    //percorre as linhas da DataGridView para verificar se o produto já foi adicionado
+                    foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
+                    {
+                        if (row.Cells["idProduto"].Value != null && (int)row.Cells["idProduto"].Value == idProduto)
+                        {
+                            decimal precoExistente = (decimal)row.Cells["PrecoUN"].Value;
+
+                            if (precoExistente == precoUN)
+                            {
+                                //soma a quantidade se o preço for o mesmo
+                                int qtdeExistente = (int)row.Cells["quantidadeProduto"].Value;
+                                row.Cells["quantidadeProduto"].Value = qtdeExistente + qtdeProduto;
+                                row.Cells["precoTotal"].Value = (qtdeExistente + qtdeProduto) * precoUN;
+                                produtoJaAdicionado = true;
+                                break;
+                            }
+                            else
+                            {
+                                //bloqueia a inserção se o preço for diferente
+                                MessageBox.Show("Este produto já foi adicionado com um preço diferente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                produtoJaAdicionado = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    //se o produto não foi adicionado ainda, insere uma nova linha
+                    if (!produtoJaAdicionado)
+                    {
+                        dataGridViewProdutos.Rows.Add(idProduto, produto, unidade, qtdeProduto, precoUN, descontoProd, precoTotal);
+                        limpaCamposProdutos();
+                    }
+
                     atualizaTotalProdutos();
                     atualizaTotalPagar();
                     dataGridViewProdutos.Sort(dataGridViewProdutos.Columns["idProduto"], ListSortDirection.Ascending);
-                    limpaCamposProdutos();
                 }
                 catch (Exception ex)
                 {
@@ -1007,6 +1065,7 @@ namespace Sistema_Vendas.Views
             isCIF = rbCIF.Checked;
             txtValorFrete.Enabled = false;
             txtValorFrete.Texts = "0";
+            atualizaTotalPagar();
         }
 
         private void rbFOB_CheckedChanged(object sender, EventArgs e)
@@ -1017,6 +1076,7 @@ namespace Sistema_Vendas.Views
             else
                 txtValorFrete.Enabled = true;
             txtValorFrete.Texts = "0";
+            atualizaTotalPagar();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -1027,18 +1087,28 @@ namespace Sistema_Vendas.Views
             {
                 if (string.IsNullOrEmpty(dataCancelamento))
                 {
-                    bool sucesso = notaCompraController.CancelarNotaCompra(NumeroNota, Modelo, Serie, IdFornecedor);
+                    try
+                    {
+                        bool sucesso = notaCompraController.CancelarNotaCompra(NumeroNota, Modelo, Serie, IdFornecedor);
 
-                    if (sucesso)
-                    {
-                        MessageBox.Show("Nota cancelada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
+                        if (sucesso)
+                        {
+                            MessageBox.Show("Nota cancelada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
                     }
-                    else
+                    catch (ParcelaPagaException ex)
                     {
-                        MessageBox.Show("Erro ao cancelar a nota.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //mensagem para parcelas pagas
+                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                } else
+                    catch (Exception ex)
+                    {
+                        //tratamento de outros erros
+                        MessageBox.Show("Erro ao cancelar a nota: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
                 {
                     MessageBox.Show("Esta nota já foi cancelada anteriormente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -1195,6 +1265,38 @@ namespace Sistema_Vendas.Views
             {
                 MessageBox.Show("A quantidade não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtQtdeProduto.Focus();
+            }
+        }
+
+        private void txtDescontoProd_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                //verifica se os campos não estão vazios
+                if (!string.IsNullOrEmpty(txtPrecoProd.Texts) && !string.IsNullOrEmpty(txtDescontoProd.Texts))
+                {
+                    //converte os valores dos campos para decimal
+                    decimal precoProd = Convert.ToDecimal(txtPrecoProd.Texts);
+                    decimal descontoProd = Convert.ToDecimal(txtDescontoProd.Texts);
+
+                    //calcula o preço com desconto
+                    decimal valorComDesconto = precoProd - (precoProd * (descontoProd / 100));
+
+                    //atualiza o campo de preço com o valor descontado
+                    txtPrecoProd.Texts = valorComDesconto.ToString("F4");
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Insira um valor válido para o preço e o desconto.", "Erro de Formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtDescontoProd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
             }
         }
     }

@@ -668,31 +668,50 @@ namespace Sistema_Vendas.Views
                     int qtdeProduto = Convert.ToInt32(txtQtdeProduto.Texts);
                     string unidade = txtUN.Texts;
                     decimal precoUN = Convert.ToDecimal(txtPrecoProd.Texts);
-                    decimal precoTotal = Convert.ToDecimal(txtPrecoProd.Texts) * Convert.ToInt32(txtQtdeProduto.Texts);
+                    decimal precoTotal = precoUN * qtdeProduto;
 
                     //verificar saldo do produto
                     ProdutoModel produtoDetalhes = produtoController.GetById(idProduto);
                     if (produtoDetalhes != null)
                     {
-                        if (produtoDetalhes.Saldo >= qtdeProduto)
-                        {
-                            bool produtoExistente = false;
+                        bool produtoExistente = false;
+                        int quantidadeAtualNoGrid = 0;
 
-                            foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
+                        foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
+                        {
+                            if (Convert.ToInt32(row.Cells["idProduto"].Value) == idProduto)
                             {
-                                if (Convert.ToInt32(row.Cells["idProduto"].Value) == idProduto)
+                                quantidadeAtualNoGrid = Convert.ToInt32(row.Cells["quantidadeProduto"].Value);
+                                produtoExistente = true;
+                                break;
+                            }
+                        }
+
+                        int quantidadeTotal = quantidadeAtualNoGrid + qtdeProduto;
+
+                        if (produtoDetalhes.Saldo >= quantidadeTotal)
+                        {
+                            if (produtoExistente)
+                            {
+                                //atualiza a quantidade e o preço total
+                                foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
                                 {
-                                    int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeProduto"].Value);
-                                    row.Cells["quantidadeProduto"].Value = quantidadeAtual + qtdeProduto;
-                                    row.Cells["precoProduto"].Value = (quantidadeAtual + qtdeProduto) * precoUN;
-                                    produtoExistente = true;
-                                    break;
+                                    if (Convert.ToInt32(row.Cells["idProduto"].Value) == idProduto)
+                                    {
+                                        int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeProduto"].Value);
+                                        row.Cells["quantidadeProduto"].Value = quantidadeAtual + qtdeProduto;
+                                        row.Cells["PrecoUN"].Value = precoUN;
+                                        row.Cells["precoTotal"].Value = (quantidadeAtual + qtdeProduto) * precoUN;
+                                        break;
+                                    }
                                 }
                             }
-                            if (!produtoExistente)
+                            else
                             {
-                                dataGridViewProdutos.Rows.Add(idProduto, produto, unidade, qtdeProduto, precoUN, precoTotal); //add nova linha com os valores 
+                                //adiciona nova linha
+                                dataGridViewProdutos.Rows.Add(idProduto, produto, unidade, qtdeProduto, precoUN, precoTotal);
                             }
+
                             atualizaTotalProdutos();
                             atualizaTotalPagar();
                             dataGridViewProdutos.Sort(dataGridViewProdutos.Columns["idProduto"], ListSortDirection.Ascending);
@@ -700,7 +719,7 @@ namespace Sistema_Vendas.Views
                         }
                         else
                         {
-                            MessageBox.Show("Saldo insuficiente para o produto selecionado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Saldo insuficiente para o produto selecionado. Saldo disponível: " + produtoDetalhes.Saldo, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }

@@ -125,6 +125,7 @@ namespace Sistema_Vendas.DAO
                         NotaCompra_ProdutoModel produto = new NotaCompra_ProdutoModel();
                         produto.idProduto = Convert.ToInt32(reader["idProduto"]);
                         produto.precoProduto = Convert.ToDecimal(reader["precoProduto"]);
+                        produto.descontoProd = Convert.ToDecimal(reader["desconto"]);
                         produto.quantidadeProduto = Convert.ToInt32(reader["quantidadeProduto"]);
 
                         produtos.Add(produto);
@@ -142,7 +143,7 @@ namespace Sistema_Vendas.DAO
 
         public bool ExisteNota(int numeroNota, string modelo, string serie, int idFornecedor) //verificar se a nota existe no banco antes de liberar os campos
         {
-            string query = "SELECT COUNT(*) FROM notaCompra WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
+            string query = "SELECT COUNT(*) FROM notaCompra WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor AND dataCancelamento IS NULL";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -199,8 +200,8 @@ namespace Sistema_Vendas.DAO
                     foreach (var produto in obj.Produtos)
                     {
                         string queryProduto = @"INSERT INTO notaCompra_Produto 
-                                        (numeroNota, modelo, serie, idFornecedor, quantidadeProduto, precoProduto, custoMedio, rateio, idProduto) 
-                                        VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @quantidadeProduto, @precoProduto, @custoMedio, @rateio, @idProduto)";
+                                        (numeroNota, modelo, serie, idFornecedor, quantidadeProduto, precoProduto, custoMedio, rateio, idProduto, desconto) 
+                                        VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @quantidadeProduto, @precoProduto, @custoMedio, @rateio, @idProduto, @desconto)";
                         SqlCommand cmdProduto = new SqlCommand(queryProduto, conn, transaction);
 
                         cmdProduto.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
@@ -211,6 +212,7 @@ namespace Sistema_Vendas.DAO
                         cmdProduto.Parameters.AddWithValue("@precoProduto", produto.precoProduto);
                         cmdProduto.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
                         cmdProduto.Parameters.AddWithValue("@rateio", produto.rateio.HasValue ? (object)produto.rateio.Value : DBNull.Value);
+                        cmdProduto.Parameters.AddWithValue("@desconto", produto.descontoProd.HasValue ? (object)produto.descontoProd.Value : DBNull.Value);
                         cmdProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
 
                         cmdProduto.ExecuteNonQuery();
@@ -289,6 +291,10 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+        public class ParcelaPagaException : Exception
+        {
+            public ParcelaPagaException(string message) : base(message) { }
+        }
         public bool CancelarNotaCompra(int numeroNota, int modelo, int serie, int idFornecedor)
         {
             try
@@ -300,11 +306,36 @@ namespace Sistema_Vendas.DAO
 
                     try
                     {
-                        //add dataCancelamento na nota de compra
+                        //verifica se há alguma parcela paga
+                        string queryVerificarParcelaPaga = @"
+                    SELECT COUNT(*) 
+                    FROM contasPagar 
+                    WHERE numeroNota = @numeroNota 
+                        AND modelo = @modelo 
+                        AND serie = @serie 
+                        AND idFornecedor = @idFornecedor
+                        AND dataPagamento IS NOT NULL";
+
+                        using (SqlCommand cmd = new SqlCommand(queryVerificarParcelaPaga, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@numeroNota", numeroNota);
+                            cmd.Parameters.AddWithValue("@modelo", modelo);
+                            cmd.Parameters.AddWithValue("@serie", serie);
+                            cmd.Parameters.AddWithValue("@idFornecedor", idFornecedor);
+
+                            int parcelasPagas = (int)cmd.ExecuteScalar();
+
+                            if (parcelasPagas > 0)
+                            {
+                                throw new ParcelaPagaException("Não é possível cancelar! Existem parcelas já pagas para esta nota.");
+                            }
+                        }
+
+                        //adiciona a data de cancelamento na nota de compra
                         string queryCancelarNota = @"
-                    UPDATE notaCompra
-                    SET dataCancelamento = @dataCancelamento
-                    WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
+                UPDATE notaCompra
+                SET dataCancelamento = @dataCancelamento
+                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
 
                         using (SqlCommand cmd = new SqlCommand(queryCancelarNota, conn, transaction))
                         {
@@ -316,11 +347,11 @@ namespace Sistema_Vendas.DAO
                             cmd.ExecuteNonQuery();
                         }
 
-                        //puxa os produtos da nota para atualizar o estoque
+                        //busca os produtos da nota para atualizar o estoque
                         string queryProdutosNota = @"
-                    SELECT idProduto, quantidadeProduto
-                    FROM notaCompra_Produto
-                    WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
+                SELECT idProduto, quantidadeProduto
+                FROM notaCompra_Produto
+                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
 
                         List<(int idProduto, int quantidadeProduto)> produtos = new List<(int, int)>();
 
@@ -341,16 +372,16 @@ namespace Sistema_Vendas.DAO
                             }
                         }
 
-                        //att o estoque
+                        //atualiza o estoque
                         foreach (var produto in produtos)
                         {
-                            //tenta encontrar uma nota de compra anterior válida (sem dataCancelamento) para atualizar os custos/preço/data
+                            //tenta encontrar uma nota de compra anterior válida (sem dataCancelamento)
                             string queryNotaAnterior = @"
-                        SELECT TOP 1 nc.dataChegada, ncp.precoProduto, ncp.custoMedio
-                        FROM notaCompra nc
-                        JOIN notaCompra_Produto ncp ON nc.numeroNota = ncp.numeroNota AND nc.modelo = ncp.modelo AND nc.serie = ncp.serie AND nc.idFornecedor = ncp.idFornecedor
-                        WHERE ncp.idProduto = @idProduto AND nc.dataCancelamento IS NULL
-                        ORDER BY nc.dataChegada DESC";
+                    SELECT TOP 1 nc.dataChegada, ncp.precoProduto, ncp.custoMedio
+                    FROM notaCompra nc
+                    JOIN notaCompra_Produto ncp ON nc.numeroNota = ncp.numeroNota AND nc.modelo = ncp.modelo AND nc.serie = ncp.serie AND nc.idFornecedor = ncp.idFornecedor
+                    WHERE ncp.idProduto = @idProduto AND nc.dataCancelamento IS NULL
+                    ORDER BY nc.dataChegada DESC";
 
                             DateTime? dataUltCompra = null;
                             decimal precoUltCompra = 0;
@@ -372,11 +403,11 @@ namespace Sistema_Vendas.DAO
                                 }
                             }
 
-                            //att o saldo do produto e, se houver uma nota válida anterior, atualiza os atributos do produto do produto
+                            //atualiza o saldo do produto e, se houver uma nota válida anterior, atualiza os atributos do produto
                             string queryAtualizarEstoque = @"
-                        UPDATE produto
-                        SET saldo = saldo - @quantidadeProduto, custoMedio = @custoMedio, dataUltCompra = @dataUltCompra, precoUltCompra = @precoUltCompra
-                        WHERE idProduto = @idProduto";
+                    UPDATE produto
+                    SET saldo = saldo - @quantidadeProduto, custoMedio = @custoMedio, dataUltCompra = @dataUltCompra, precoUltCompra = @precoUltCompra
+                    WHERE idProduto = @idProduto";
 
                             using (SqlCommand cmd = new SqlCommand(queryAtualizarEstoque, conn, transaction))
                             {
@@ -389,11 +420,11 @@ namespace Sistema_Vendas.DAO
                             }
                         }
 
-                        //cancela as contas a pagar associadas a nota
+                        //cancela as contas a pagar associadas à nota
                         string queryCancelarContasPagar = @"
-                    UPDATE contasPagar
-                    SET dataCancelamento = @dataCancelamento
-                    WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
+                UPDATE contasPagar
+                SET dataCancelamento = @dataCancelamento
+                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
 
                         using (SqlCommand cmd = new SqlCommand(queryCancelarContasPagar, conn, transaction))
                         {
@@ -408,6 +439,11 @@ namespace Sistema_Vendas.DAO
                         transaction.Commit();
                         return true;
                     }
+                    catch (ParcelaPagaException)
+                    {
+                        transaction.Rollback();
+                        throw; //lançar novamente a exceção de parcela paga sem alterar a mensagem
+                    }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
@@ -415,11 +451,16 @@ namespace Sistema_Vendas.DAO
                     }
                 }
             }
+            catch (ParcelaPagaException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw new Exception("Erro na conexão com o banco de dados: " + ex.Message);
             }
         }
+
     }
 }
 

@@ -651,10 +651,9 @@ namespace Sistema_Vendas.Views
                 {
                     int codigoServico = Convert.ToInt32(txtCodServico.Texts);
                     string servico = txtServico.Texts;
-                    decimal pUNServ = Convert.ToDecimal(txtPrecoServico.Texts); ;
-                    int quantidadeServ = Convert.ToInt32(txtQtdeServico.Texts);
-                    decimal sTotal = quantidadeServ * pUNServ;
-                    decimal precoTotalServ = sTotal;
+                    decimal precoUNServ = Convert.ToDecimal(txtPrecoServico.Texts); //preço unitário
+                    int quantidadeServ = Convert.ToInt32(txtQtdeServico.Texts); //quantidade
+                    decimal precoTotalServ = quantidadeServ * precoUNServ; //preço total
 
                     bool servicoExistente = false;
 
@@ -663,8 +662,11 @@ namespace Sistema_Vendas.Views
                         if (Convert.ToInt32(row.Cells["idServico"].Value) == codigoServico)
                         {
                             int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeServico"].Value);
-                            row.Cells["quantidadeServico"].Value = quantidadeAtual + quantidadeServ;
-                            row.Cells["precoServico"].Value = (quantidadeAtual + quantidadeServ) * pUNServ;
+                            int novaQuantidade = quantidadeAtual + quantidadeServ;
+
+                            row.Cells["quantidadeServico"].Value = novaQuantidade;
+                            row.Cells["precoTotal"].Value = novaQuantidade * precoUNServ; 
+
                             servicoExistente = true;
                             break;
                         }
@@ -672,7 +674,7 @@ namespace Sistema_Vendas.Views
 
                     if (!servicoExistente)
                     {
-                        dataGridViewServicos.Rows.Add(codigoServico, servico, pUNServ, quantidadeServ, precoTotalServ);
+                        dataGridViewServicos.Rows.Add(codigoServico, servico, quantidadeServ, precoUNServ, precoTotalServ);
                     }
 
                     atualizaTotalServicos();
