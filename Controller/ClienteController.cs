@@ -17,6 +17,10 @@ namespace Sistema_Vendas.Controller
         {
             clienteDAO = new ClienteDAO<T>();
         }
+        public string getCliente(int id)
+        {
+            return clienteDAO.getCliente(id);
+        }
         public int GetUltimoCodigo()
         {
             return clienteDAO.GetUltimoCodigo();

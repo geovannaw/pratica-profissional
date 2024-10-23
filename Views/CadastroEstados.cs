@@ -198,10 +198,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodPais.Texts))
             {
-                 PaisModel pais = paisController.GetById(int.Parse(txtCodPais.Texts));
+                 string pais = paisController.getPais(int.Parse(txtCodPais.Texts));
                  if (pais != null)
                  {
-                     txtPais.Texts = pais.Pais;
+                     txtPais.Texts = pais;
                  }
                  else
                  {

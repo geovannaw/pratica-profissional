@@ -30,6 +30,30 @@ namespace Sistema_Vendas.DAO
             }
             return ultimoCodigo;
         }
+        public string getFornecedor(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT fornecedor_razao_social FROM fornecedor WHERE idFornecedor = @id AND Ativo = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader["fornecedor_razao_social"].ToString();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
         public override void Alterar(T obj)
         {
             dynamic fornecedor = obj;
@@ -226,7 +250,7 @@ namespace Sistema_Vendas.DAO
                 JOIN 
                     pais ON estado.idPais = pais.idPais
                 WHERE 
-                    cidade.idCidade = @idCidade";
+                    cidade.idCidade = @idCidade AND cidade.Ativo = 1";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@idCidade", idCidade);
 

@@ -139,6 +139,30 @@ namespace Sistema_Vendas.Models
             }
         }
 
+        public string getEstado(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT Estado FROM estado WHERE idEstado = @id AND Ativo = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader["Estado"].ToString();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
         public string GetNomePaisByEstadoId(int idEstado)
         {
             string nomePais = null;

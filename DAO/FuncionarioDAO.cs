@@ -185,6 +185,29 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+        public string getFuncionario(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT funcionario FROM funcionario WHERE idFuncionario = @id AND Ativo = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader["funcionario"].ToString();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
         public List<string> GetCEPByIdCidade(int idCidade)
         {
             List<string> cidadeInfos = new List<string>();
@@ -202,7 +225,7 @@ namespace Sistema_Vendas.DAO
                 JOIN 
                     pais ON estado.idPais = pais.idPais
                 WHERE 
-                    cidade.idCidade = @idCidade";
+                    cidade.idCidade = @idCidade AND cidade.Ativo = 1";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@idCidade", idCidade);
 

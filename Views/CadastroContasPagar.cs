@@ -428,6 +428,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaFornecedor_Click(object sender, EventArgs e)
         {
             consultaFornecedores.btnSair.Text = "Selecionar";
+            consultaFornecedores.cbBuscaInativos.Visible = false;
 
             if (consultaFornecedores.ShowDialog() == DialogResult.OK)
             {
@@ -448,10 +449,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodFornecedor.Texts))
             {
-                FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
+                string fornecedor = fornecedorController.getFornecedor(int.Parse(txtCodFornecedor.Texts));
                 if (fornecedor != null)
                 {
-                    txtFornecedor.Texts = fornecedor.fornecedor_razao_social;
+                    txtFornecedor.Texts = fornecedor;
                 }
                 else
                 {
@@ -466,6 +467,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaFormaPag_Click(object sender, EventArgs e)
         {
             consultaFormasPagamento.btnSair.Text = "Selecionar";
+            consultaFormasPagamento.cbBuscaInativos.Visible = false;
 
             if (consultaFormasPagamento.ShowDialog() == DialogResult.OK)
             {
@@ -485,10 +487,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodFormaPag.Texts))
             {
-                FormaPagamentoModel formaPag = formaPagamentoController.GetById(int.Parse(txtCodFormaPag.Texts));
+                string formaPag = formaPagamentoController.getFormaPag(int.Parse(txtCodFormaPag.Texts));
                 if (formaPag != null)
                 {
-                    txtFormaPag.Texts = formaPag.formaPagamento;
+                    txtFormaPag.Texts = formaPag;
                 }
                 else
                 {

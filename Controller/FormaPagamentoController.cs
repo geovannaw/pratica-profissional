@@ -15,6 +15,10 @@ namespace Sistema_Vendas.Controller
         {
             formaPagamentoDAO = new FormaPagamentoDAO<T>();
         }
+        public string getFormaPag(int id)
+        {
+            return formaPagamentoDAO.getFormaPag(id);
+        }
         public int GetUltimoCodigo()
         {
             return formaPagamentoDAO.GetUltimoCodigo();

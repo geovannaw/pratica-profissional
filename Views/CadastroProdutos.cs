@@ -51,6 +51,7 @@ namespace Sistema_Vendas.Views
                     decimal precoVenda = decimal.Parse(FormataPreco(txtPrecoVenda.Texts));
 
                     decimal custoMedio = decimal.Parse(txtCustoMedio.Texts);
+                    decimal custoUltCompra = decimal.Parse(txtCustoUltCompra.Texts);
                     decimal precoUltCompra = decimal.Parse(txtPrecoUltCompra.Texts);
 
                     string observacao = txtObservacao.Texts;
@@ -70,6 +71,7 @@ namespace Sistema_Vendas.Views
                         Unidade = unidade,
                         Saldo = saldo,
                         custoMedio = custoMedio,
+                        custoUltCompra = custoUltCompra,
                         precoVenda = precoVenda,
                         precoUltCompra = precoUltCompra,
                         dataUltCompra = dataUltCompra,
@@ -115,6 +117,7 @@ namespace Sistema_Vendas.Views
             txtFornecedor.Clear();
             txtSaldo.Clear();
             txtCustoMedio.Clear();
+            txtCustoUltCompra.Clear();
             txtPrecoVenda.Clear();
             txtPrecoUltCompra.Clear();
             txtDataUltCompra.Clear();
@@ -180,6 +183,7 @@ namespace Sistema_Vendas.Views
                     txtSaldo.Texts = produto.Saldo.ToString();
                     txtUN.Texts = produto.Unidade.ToString();
                     txtCustoMedio.Texts = produto.custoMedio.ToString();
+                    txtCustoUltCompra.Texts = produto.custoUltCompra.ToString();
                     txtPrecoVenda.Texts = produto.precoVenda.ToString("N2");
                     txtPrecoUltCompra.Texts = produto.precoUltCompra.ToString();
                     txtObservacao.Texts = produto.Observacao;   
@@ -225,6 +229,7 @@ namespace Sistema_Vendas.Views
                 txtSaldo.Texts = "0";
                 txtPrecoUltCompra.Texts = "0";
                 txtCustoMedio.Texts = "0";
+                txtCustoUltCompra.Texts = "0";
             }
             if (Program.permissaoLogado == "ATENDENTE")
             {
@@ -246,15 +251,16 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodModelo.Texts))
             {
-                ModeloModel modelo = modeloController.GetById(int.Parse(txtCodModelo.Texts));
-                if (modelo != null)
+                var modelo = modeloController.getModelo(int.Parse(txtCodModelo.Texts));
+
+                if (modelo.HasValue)
                 {
-                    txtModelo.Texts = modelo.Modelo;
-                    txtMarca.Texts = modelo.Marca;
+                    txtModelo.Texts = modelo.Value.Modelo;
+                    txtMarca.Texts = modelo.Value.Marca;
                 }
                 else
                 {
-                    MessageBox.Show("Modelo não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Modelo não encontrado ou inativo.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCodModelo.Focus();
                     txtCodModelo.Clear();
                     txtModelo.Clear();
@@ -275,6 +281,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaModelos_Click(object sender, EventArgs e)
         {
             consultaModelos.btnSair.Text = "Selecionar";
+            consultaModelos.cbBuscaInativos.Visible = false;
 
             if (consultaModelos.ShowDialog() == DialogResult.OK)
             {
@@ -296,6 +303,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaFornecedor_Click(object sender, EventArgs e)
         {
             consultaFornecedores.btnSair.Text = "Selecionar";
+            consultaFornecedores.cbBuscaInativos.Visible = false;
 
             if (consultaFornecedores.ShowDialog() == DialogResult.OK)
             {
@@ -314,21 +322,17 @@ namespace Sistema_Vendas.Views
 
         private void txtCodFornecedor_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //permitir apenas números
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
+
         }
 
         private void txtCodFornecedor_Leave(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtCodFornecedor.Texts))
             {
-                FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
+                string fornecedor = fornecedorController.getFornecedor(int.Parse(txtCodFornecedor.Texts));
                 if (fornecedor != null)
                 {
-                    txtFornecedor.Texts = fornecedor.fornecedor_razao_social;
+                    txtFornecedor.Texts = fornecedor;
                 }
                 else
                 {

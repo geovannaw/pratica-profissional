@@ -221,6 +221,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaFormaPag_Click(object sender, EventArgs e)
         {
             consultaFormasPagamento.btnSair.Text = "Selecionar";
+            consultaFormasPagamento.cbBuscaInativos.Visible = false;
 
             if (consultaFormasPagamento.ShowDialog() == DialogResult.OK)
             {
@@ -240,10 +241,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodFormaPag.Texts))
             {
-                FormaPagamentoModel formaPag = formaPagamentoController.GetById(int.Parse(txtCodFormaPag.Texts));
+                string formaPag = formaPagamentoController.getFormaPag(int.Parse(txtCodFormaPag.Texts));
                 if (formaPag != null)
                 {
-                    txtFormaPag.Texts = formaPag.formaPagamento;
+                    txtFormaPag.Texts = formaPag;
                 }
                 else
                 {

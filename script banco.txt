@@ -196,6 +196,7 @@ CREATE TABLE produto (
     unidade VARCHAR(5) NOT NULL,
     saldo INT NOT NULL,
     custoMedio DECIMAL(10,4),
+    custoUltAlt DECIMAL(10, 4) NOT NULL,
     precoVenda DECIMAL(10,2),
     precoUltCompra DECIMAL(10,4),
     dataUltCompra DATE,
@@ -302,7 +303,9 @@ CREATE TABLE notaCompra_Produto (
     quantidadeProduto INT NOT NULL,
     precoProduto DECIMAL(10, 4) NOT NULL,
     custoMedio DECIMAL(10, 4) NOT NULL,
+    custoUltAlt DECIMAL(10, 4) NOT NULL,
     rateio DECIMAL (10, 4),
+    desconto DECIMAL(10, 2),
     PRIMARY KEY (numeroNota, modelo, serie, idFornecedor, idProduto),
     CONSTRAINT FK_idNotaCompra FOREIGN KEY (numeroNota, modelo, serie, idFornecedor) REFERENCES notaCompra(numeroNota, modelo, serie, idFornecedor),
     CONSTRAINT FK_notaCompraProduto_idProduto FOREIGN KEY (idProduto) REFERENCES produto(idProduto)

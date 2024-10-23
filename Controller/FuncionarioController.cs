@@ -19,6 +19,10 @@ namespace Sistema_Vendas.Controller
         {
             return funcionarioDAO.GetUltimoCodigo();
         }
+        public string getFuncionario(int id)
+        {
+            return funcionarioDAO.getFuncionario(id);
+        }
         public override void Alterar(T obj)
         {
             funcionarioDAO.Alterar(obj);

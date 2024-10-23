@@ -432,9 +432,9 @@ namespace Sistema_Vendas.Views
 
             foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
             {
-                decimal precoUN = Convert.ToDecimal(row.Cells["PrecoUN"].Value);
+                decimal precoLiquido = Convert.ToDecimal(row.Cells["PrecoLiquido"].Value);
                 decimal quantidadeProduto = Convert.ToDecimal(row.Cells["quantidadeProduto"].Value);
-                decimal precoTotalProd = precoUN * quantidadeProduto;
+                decimal precoTotalProd = precoLiquido * quantidadeProduto;
 
                 //calcular o rateio e arredondar para 4 casas decimais
                 decimal rateio = Math.Round(precoTotalProd / totalProdutos, 4);
@@ -448,17 +448,18 @@ namespace Sistema_Vendas.Views
                 //se custo médio for igual ao preço unitário, considerar apenas o preço unitário
                 if (custoProd == 0)
                 {
-                    custoMedio = Math.Round(precoUN, 4);
+                    custoMedio = Math.Round(precoLiquido, 4);
                 }
 
                 NotaCompra_ProdutoModel produto = new NotaCompra_ProdutoModel
                 {
                     quantidadeProduto = Convert.ToInt32(row.Cells["quantidadeProduto"].Value),
-                    precoProduto = Math.Round(precoUN, 4),
+                    precoProduto = Math.Round(precoLiquido, 4),
                     descontoProd = Convert.ToDecimal(row.Cells["DescontoProd"].Value),
                     idProduto = Convert.ToInt32(row.Cells["idProduto"].Value),
                     rateio = rateio,
                     custoMedio = custoMedio,
+                    custoUltCompra = custoMedio 
                 };
 
                 produtos.Add(produto);
@@ -467,10 +468,10 @@ namespace Sistema_Vendas.Views
             return produtos;
         }
 
-
         private void btnConsultaFornecedor_Click(object sender, EventArgs e)
         {
             consultaFornecedores.btnSair.Text = "Selecionar";
+            consultaFornecedores.cbBuscaInativos.Visible = false;
 
             if (consultaFornecedores.ShowDialog() == DialogResult.OK)
             {
@@ -498,10 +499,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodFornecedor.Texts))
             {
-                FornecedorModel fornecedor = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
+                string fornecedor = fornecedorController.getFornecedor(int.Parse(txtCodFornecedor.Texts));
                 if (fornecedor != null)
                 {
-                    txtFornecedor.Texts = fornecedor.fornecedor_razao_social;
+                    txtFornecedor.Texts = fornecedor;
 
                     FornecedorModel fornecedorDetalhes = fornecedorController.GetById(int.Parse(txtCodFornecedor.Texts));
                     if (fornecedorDetalhes != null)
@@ -516,6 +517,8 @@ namespace Sistema_Vendas.Views
                     txtCodFornecedor.Focus();
                     txtCodFornecedor.Clear();
                     txtFornecedor.Clear();
+                    txtCodCondPag.Clear();
+                    txtCondPag.Clear();
                 }
             }
             VerificaNotaExistente();
@@ -525,6 +528,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaProduto_Click(object sender, EventArgs e)
         {
             consultaProdutos.btnSair.Text = "Selecionar";
+            consultaProdutos.cbBuscaInativos.Visible = false;
 
             if (consultaProdutos.ShowDialog() == DialogResult.OK)
             {
@@ -547,21 +551,19 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodProduto.Texts))
             {
-                ProdutoModel produto = produtoController.GetById(int.Parse(txtCodProduto.Texts));
-                if (produto != null)
+                var produto = produtoController.getProduto(int.Parse(txtCodProduto.Texts));
+                if (produto.HasValue)
                 {
-                    txtProduto.Texts = produto.Produto;
-                    precoUNProduto = produto.precoVenda;
-                    txtUN.Texts = produto.Unidade;
+                    txtProduto.Texts = produto.Value.Produto;
+                    txtUN.Texts = produto.Value.Unidade;
                 }
                 else
                 {
-                    MessageBox.Show("Produto não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Produto não encontrado ou inativo.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCodProduto.Focus();
                     txtCodProduto.Clear();
                     txtProduto.Clear();
                     txtUN.Clear();
-
                 }
             }
         }
@@ -593,6 +595,8 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCondPag_Click(object sender, EventArgs e)
         {
             consultaCondicaoPagamento.btnSair.Text = "Selecionar";
+            consultaCondicaoPagamento.cbBuscaInativos.Visible = false;
+
             if (consultaCondicaoPagamento.ShowDialog() == DialogResult.OK)
             {
                 var condPagamento = consultaCondicaoPagamento.Tag as Tuple<int, string>;
@@ -611,10 +615,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
             {
-                CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
+                string condPagamento = condicaoPagamentoController.getCondicaoPag(int.Parse(txtCodCondPag.Texts));
                 if (condPagamento != null)
                 {
-                    txtCondPag.Texts = condPagamento.condicaoPagamento;
+                    txtCondPag.Texts = condPagamento;
                 }
                 else
                 {
@@ -643,14 +647,18 @@ namespace Sistema_Vendas.Views
 
                 if (produtoDetalhes != null)
                 {
+                    decimal descontoProd = produto.descontoProd ?? 0;
+                    decimal precoLiquido = produto.precoProduto; 
+
                     dataGridViewProdutos.Rows.Add(
                         produto.idProduto,
                         produtoDetalhes.Produto,
                         produtoDetalhes.Unidade,
                         produto.quantidadeProduto,
-                        produto.precoProduto,
-                        produto.descontoProd,
-                        (produto.quantidadeProduto * produto.precoProduto)
+                        produto.precoProduto, 
+                        descontoProd,         
+                        precoLiquido,     
+                        (produto.quantidadeProduto * precoLiquido) 
                     );
                 }
             }
@@ -888,6 +896,7 @@ namespace Sistema_Vendas.Views
             txtUN.Clear();
             txtQtdeProduto.Clear();
             txtPrecoProd.Clear();
+            txtDescontoProd.Clear();
         }
         private void VerificaNotaExistente()
         {
@@ -934,12 +943,14 @@ namespace Sistema_Vendas.Views
                     int qtdeProduto = Convert.ToInt32(txtQtdeProduto.Texts);
                     string unidade = txtUN.Texts;
                     decimal precoUN = Convert.ToDecimal(txtPrecoProd.Texts);
-                    decimal precoTotal = precoUN * qtdeProduto;
-                    decimal descontoProd = Convert.ToDecimal(txtDescontoProd.Texts);
+
+                    // Verificação para desconto, assumindo 0 se estiver vazio ou nulo
+                    decimal descontoProd = string.IsNullOrEmpty(txtDescontoProd.Texts) ? 0 : Convert.ToDecimal(txtDescontoProd.Texts);
+                    decimal precoLiquido = precoUN - descontoProd;
 
                     bool produtoJaAdicionado = false;
 
-                    //percorre as linhas da DataGridView para verificar se o produto já foi adicionado
+                    // Verifica se o produto já foi adicionado
                     foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
                     {
                         if (row.Cells["idProduto"].Value != null && (int)row.Cells["idProduto"].Value == idProduto)
@@ -948,16 +959,16 @@ namespace Sistema_Vendas.Views
 
                             if (precoExistente == precoUN)
                             {
-                                //soma a quantidade se o preço for o mesmo
+                                // Atualiza a quantidade se o preço for o mesmo
                                 int qtdeExistente = (int)row.Cells["quantidadeProduto"].Value;
                                 row.Cells["quantidadeProduto"].Value = qtdeExistente + qtdeProduto;
-                                row.Cells["precoTotal"].Value = (qtdeExistente + qtdeProduto) * precoUN;
+                                row.Cells["precoTotal"].Value = (qtdeExistente + qtdeProduto) * precoLiquido;
                                 produtoJaAdicionado = true;
                                 break;
                             }
                             else
                             {
-                                //bloqueia a inserção se o preço for diferente
+                                // Bloqueia se o preço for diferente
                                 MessageBox.Show("Este produto já foi adicionado com um preço diferente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 produtoJaAdicionado = true;
                                 break;
@@ -965,10 +976,11 @@ namespace Sistema_Vendas.Views
                         }
                     }
 
-                    //se o produto não foi adicionado ainda, insere uma nova linha
+                    // Adiciona uma nova linha se o produto não foi encontrado
                     if (!produtoJaAdicionado)
                     {
-                        dataGridViewProdutos.Rows.Add(idProduto, produto, unidade, qtdeProduto, precoUN, descontoProd, precoTotal);
+                        decimal precoTotal = qtdeProduto * precoLiquido;
+                        dataGridViewProdutos.Rows.Add(idProduto, produto, unidade, qtdeProduto, precoUN, descontoProd, precoLiquido, precoTotal);
                         limpaCamposProdutos();
                     }
 
@@ -1270,25 +1282,17 @@ namespace Sistema_Vendas.Views
 
         private void txtDescontoProd_Leave(object sender, EventArgs e)
         {
-            try
+            if (!string.IsNullOrEmpty(txtDescontoProd.Texts))
             {
-                //verifica se os campos não estão vazios
-                if (!string.IsNullOrEmpty(txtPrecoProd.Texts) && !string.IsNullOrEmpty(txtDescontoProd.Texts))
+                try
                 {
-                    //converte os valores dos campos para decimal
-                    decimal precoProd = Convert.ToDecimal(txtPrecoProd.Texts);
-                    decimal descontoProd = Convert.ToDecimal(txtDescontoProd.Texts);
-
-                    //calcula o preço com desconto
-                    decimal valorComDesconto = precoProd - (precoProd * (descontoProd / 100));
-
-                    //atualiza o campo de preço com o valor descontado
-                    txtPrecoProd.Texts = valorComDesconto.ToString("F4");
+                    txtDescontoProd.Texts = FormataPreco(txtDescontoProd.Texts);
                 }
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Insira um valor válido para o preço e o desconto.", "Erro de Formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDescontoProd.Focus();
+                }
             }
         }
 

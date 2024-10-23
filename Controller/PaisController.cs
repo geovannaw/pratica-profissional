@@ -18,6 +18,10 @@ namespace Sistema_Vendas.Controller
         {
             return paisDAO.GetUltimoCodigo();
         }
+        public string getPais(int id)
+        {
+            return paisDAO.getPais(id);
+        }
         public override void Alterar(T obj)
         {
             paisDAO.Alterar(obj);

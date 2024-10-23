@@ -17,6 +17,7 @@ namespace Sistema_Vendas.Models
         public int quantidadeProduto { get; set; }
         public decimal? descontoProd { get; set; }
         public decimal custoMedio { get; set; }
+        public decimal custoUltCompra { get; set; }
         public decimal? rateio { get; set; }
     }
 }

@@ -19,6 +19,10 @@ namespace Sistema_Vendas.Controller
         {
             return fornecedorDAO.GetUltimoCodigo();
         }
+        public string getFornecedor(int id)
+        {
+            return fornecedorDAO.getFornecedor(id);
+        }
         public override void Alterar(T obj)
         {
             fornecedorDAO.Alterar(obj);

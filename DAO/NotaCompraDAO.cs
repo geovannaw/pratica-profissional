@@ -254,6 +254,16 @@ namespace Sistema_Vendas.DAO
             }
             return produto;
         }
+        private decimal calcularNovoCustoMedio(int saldoAtual, decimal custoMedioAtual, int quantidadeComprada, decimal custoNovaCompra)
+        {
+            if (saldoAtual == 0)
+            {
+                return Math.Round(custoNovaCompra, 4); 
+            }
+            decimal novoCustoMedio = ((saldoAtual * custoMedioAtual) + (quantidadeComprada * custoNovaCompra)) / (saldoAtual + quantidadeComprada);
+            return Math.Round(novoCustoMedio, 4);
+        }
+
         public void AtualizarProdutosNotaCompra(NotaCompraModel obj)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -265,21 +275,41 @@ namespace Sistema_Vendas.DAO
                 {
                     foreach (var produto in obj.Produtos)
                     {
-                        string queryUpdateProduto = @"UPDATE produto SET 
-                                    saldo = saldo + @quantidadeProduto,
-                                    custoMedio = @custoMedio,
-                                    dataUltCompra = @dataUltCompra,
-                                    precoUltCompra = @precoUltCompra
-                                    WHERE idProduto = @idProduto";
-                        SqlCommand cmdUpdateProduto = new SqlCommand(queryUpdateProduto, conn, transaction);
+                        string querySelectProduto = "SELECT saldo, custoMedio FROM produto WHERE idProduto = @idProduto";
+                        SqlCommand cmdSelectProduto = new SqlCommand(querySelectProduto, conn, transaction);
+                        cmdSelectProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
 
-                        cmdUpdateProduto.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);
-                        cmdUpdateProduto.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
-                        cmdUpdateProduto.Parameters.AddWithValue("@dataUltCompra", obj.dataEmissao);
-                        cmdUpdateProduto.Parameters.AddWithValue("@precoUltCompra", produto.precoProduto);
-                        cmdUpdateProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
+                        using (SqlDataReader reader = cmdSelectProduto.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int saldoAtual = Convert.ToInt32(reader["saldo"]);
+                                decimal custoMedioAtual = Convert.ToDecimal(reader["custoMedio"]);
 
-                        cmdUpdateProduto.ExecuteNonQuery();
+                                decimal novoCustoMedio = calcularNovoCustoMedio(saldoAtual, custoMedioAtual, produto.quantidadeProduto, produto.custoUltCompra);
+
+                                reader.Close();
+
+                                string queryUpdateProduto = @"UPDATE produto SET 
+                            saldo = saldo + @quantidadeProduto,
+                            custoMedio = @novoCustoMedio,
+                            custoUltCompra = @custoUltCompra,  -- Agora atualizando o custo médio da última compra
+                            dataUltCompra = @dataUltCompra,
+                            precoUltCompra = @precoUltCompra  -- O preço unitário da nova compra
+                            WHERE idProduto = @idProduto";
+
+                                SqlCommand cmdUpdateProduto = new SqlCommand(queryUpdateProduto, conn, transaction);
+
+                                cmdUpdateProduto.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);
+                                cmdUpdateProduto.Parameters.AddWithValue("@novoCustoMedio", novoCustoMedio);
+                                cmdUpdateProduto.Parameters.AddWithValue("@custoUltCompra", produto.custoUltCompra);
+                                cmdUpdateProduto.Parameters.AddWithValue("@dataUltCompra", obj.dataEmissao);
+                                cmdUpdateProduto.Parameters.AddWithValue("@precoUltCompra", produto.precoProduto); 
+                                cmdUpdateProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
+
+                                cmdUpdateProduto.ExecuteNonQuery();
+                            }
+                        }
                     }
 
                     transaction.Commit();
@@ -291,6 +321,7 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+
         public class ParcelaPagaException : Exception
         {
             public ParcelaPagaException(string message) : base(message) { }

@@ -197,10 +197,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodEstado.Texts))
             {
-                EstadoModel estado = estadoController.GetById(int.Parse(txtCodEstado.Texts));
+                string estado = estadoController.getEstado(int.Parse(txtCodEstado.Texts));
                 if (estado != null)
                 {
-                    txtEstado.Texts = estado.Estado;
+                    txtEstado.Texts = estado;
                 }
                 else
                 {
@@ -215,6 +215,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaEstado_Click(object sender, EventArgs e)
         {
             consultaEstados.btnSair.Text = "Selecionar";
+            consultaEstados.cbBuscaInativos.Visible = false;
 
             if (consultaEstados.ShowDialog() == DialogResult.OK)
             {

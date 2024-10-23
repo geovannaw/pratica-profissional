@@ -31,6 +31,31 @@ namespace Sistema_Vendas.DAO
             }
             return ultimoCodigo;
         }
+
+        public string getFormaPag(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT formaPagamento FROM formaPagamento WHERE idFormaPagamento = @id AND Ativo = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader["formaPagamento"].ToString();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
         public override void Alterar(T obj)
         {
             dynamic formaPagamento = obj;

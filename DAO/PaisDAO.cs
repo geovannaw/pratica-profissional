@@ -29,6 +29,29 @@ namespace Sistema_Vendas.Models
             }
             return proximoCodigo;
         }
+        public string getPais(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT pais FROM pais WHERE idPais = @id AND Ativo = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader["pais"].ToString();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
         public override List<T> GetAll(bool incluiInativos)
         {
             List<T> paises = new List<T>();

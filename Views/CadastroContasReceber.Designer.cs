@@ -118,13 +118,13 @@
             // txtDataCadastro
             // 
             this.txtDataCadastro.Location = new System.Drawing.Point(12, 517);
-            this.txtDataCadastro.Size = new System.Drawing.Size(75, 28);
+            this.txtDataCadastro.Size = new System.Drawing.Size(75, 27);
             this.txtDataCadastro.Texts = "27/08/2024";
             // 
             // txtDataUltAlt
             // 
             this.txtDataUltAlt.Location = new System.Drawing.Point(93, 516);
-            this.txtDataUltAlt.Size = new System.Drawing.Size(75, 28);
+            this.txtDataUltAlt.Size = new System.Drawing.Size(75, 27);
             this.txtDataUltAlt.Texts = "27/08/2024";
             // 
             // lblCodigo
@@ -588,6 +588,7 @@
             this.txtCodFormaPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodFormaPag.Texts = "";
             this.txtCodFormaPag.UnderlinedStyle = false;
+            this.txtCodFormaPag.Leave += new System.EventHandler(this.txtCodFormaPag_Leave);
             // 
             // lblFormaPag
             // 

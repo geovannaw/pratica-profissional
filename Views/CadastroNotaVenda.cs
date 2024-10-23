@@ -584,10 +584,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodCliente.Texts))
             {
-                ClienteModel cliente = clienteController.GetById(int.Parse(txtCodCliente.Texts));
+                string cliente = clienteController.getCliente(int.Parse(txtCodCliente.Texts));
                 if (cliente != null)
                 {
-                    txtCliente.Texts = cliente.cliente_razao_social;
+                    txtCliente.Texts = cliente;
 
                     ClienteModel clienteDetalhes = clienteController.GetById(int.Parse(txtCodCliente.Texts));
                     if (clienteDetalhes != null)
@@ -602,6 +602,8 @@ namespace Sistema_Vendas.Views
                     txtCodCliente.Focus();
                     txtCodCliente.Clear();
                     txtCliente.Clear();
+                    txtCodCondPag.Clear();
+                    txtCondPag.Clear();
                 }
             }
             VerificaNotaExistente();
@@ -908,10 +910,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
             {
-                CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
+                string condPagamento = condicaoPagamentoController.getCondicaoPag(int.Parse(txtCodCondPag.Texts));
                 if (condPagamento != null)
                 {
-                    txtCondPag.Texts = condPagamento.condicaoPagamento;
+                    txtCondPag.Texts = condPagamento;
                 }
                 else
                 {
@@ -927,6 +929,8 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCondPag_Click(object sender, EventArgs e)
         {
             consultaCondicaoPagamento.btnSair.Text = "Selecionar";
+            consultaCondicaoPagamento.cbBuscaInativos.Visible = false;
+
             if (consultaCondicaoPagamento.ShowDialog() == DialogResult.OK)
             {
                 var condPagamento = consultaCondicaoPagamento.Tag as Tuple<int, string>;
@@ -944,6 +948,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCliente_Click(object sender, EventArgs e)
         {
             consultaClientes.btnSair.Text = "Selecionar";
+            consultaClientes.cbBuscaInativos.Visible = false;
 
             if (consultaClientes.ShowDialog() == DialogResult.OK)
             {
@@ -969,6 +974,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaProduto_Click(object sender, EventArgs e)
         {
             consultaProdutos.btnSair.Text = "Selecionar";
+            consultaProdutos.cbBuscaInativos.Visible = false;
 
             if (consultaProdutos.ShowDialog() == DialogResult.OK)
             {
@@ -992,21 +998,21 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodProduto.Texts))
             {
-                ProdutoModel produto = produtoController.GetById(int.Parse(txtCodProduto.Texts));
-                if (produto != null)
+                var produto = produtoController.getProduto(int.Parse(txtCodProduto.Texts));
+                if (produto.HasValue)
                 {
-                    txtProduto.Texts = produto.Produto;
-                    txtPrecoProd.Texts = produto.precoVenda.ToString();
-                    txtUN.Texts = produto.Unidade;
+                    txtProduto.Texts = produto.Value.Produto;
+                    txtUN.Texts = produto.Value.Unidade;
+                    txtPrecoProd.Texts = produto.Value.PrecoVenda.ToString();
                 }
                 else
                 {
-                    MessageBox.Show("Produto não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Produto não encontrado ou inativo.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCodProduto.Focus();
                     txtCodProduto.Clear();
                     txtProduto.Clear();
                     txtUN.Clear();
-
+                    txtPrecoProd.Clear();
                 }
             }
         }

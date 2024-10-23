@@ -138,6 +138,29 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+        public (string servico, decimal preco)? getServico(int idServico)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"SELECT servico, preco FROM servico WHERE idServico = @idServico AND Ativo = 1";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@idServico", idServico);
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string servicoNome = reader["servico"].ToString();
+                        decimal precoServico = Convert.ToDecimal(reader["preco"]);
+                        return (servicoNome, precoServico); 
+                    }
+                }
+            }
+            return null; 
+        }
 
         public override void Salvar(T obj)
         {

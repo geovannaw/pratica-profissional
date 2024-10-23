@@ -232,6 +232,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCidades_Click(object sender, EventArgs e)
         {
             consultaCidades.btnSair.Text = "Selecionar";
+            consultaCidades.cbBuscaInativos.Visible = false;
 
             if (consultaCidades.ShowDialog() == DialogResult.OK)
             {
@@ -292,10 +293,10 @@ namespace Sistema_Vendas.Views
         {
                 if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
                 {
-                    CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
+                    string condPagamento = condicaoPagamentoController.getCondicaoPag(int.Parse(txtCodCondPag.Texts));
                     if (condPagamento != null)
                     {
-                        txtCondPag.Texts = condPagamento.condicaoPagamento;
+                        txtCondPag.Texts = condPagamento;
                     }
                     else
                     {
@@ -310,6 +311,8 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCondPag_Click(object sender, EventArgs e)
         {
             consultaCondicaoPagamento.btnSair.Text = "Selecionar";
+            consultaCondicaoPagamento.cbBuscaInativos.Visible = false;
+
             if (consultaCondicaoPagamento.ShowDialog() == DialogResult.OK)
             {
                 var condPagamento = consultaCondicaoPagamento.Tag as Tuple<int, string>;

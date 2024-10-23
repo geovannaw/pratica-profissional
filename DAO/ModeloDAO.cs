@@ -29,6 +29,29 @@ namespace Sistema_Vendas.DAO
             }
             return ultimoCodigo;
         }
+        public (string Modelo, string Marca)? getModelo(int idModelo)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT Modelo, Marca FROM modelo WHERE idModelo = @idModelo AND Ativo = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@idModelo", idModelo);
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string modelo = reader["Modelo"].ToString();
+                        string marca = reader["Marca"].ToString();
+                        return (modelo, marca);
+                    }
+                }
+            }
+            return null;
+        }
+
         public override void Alterar(T obj)
         {
             dynamic modelo = obj;

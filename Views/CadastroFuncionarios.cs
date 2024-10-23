@@ -344,6 +344,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCidades_Click(object sender, EventArgs e)
         {
             consultaCidades.btnSair.Text = "Selecionar";
+            consultaCidades.cbBuscaInativos.Visible = false;
 
             if (consultaCidades.ShowDialog() == DialogResult.OK)
             {

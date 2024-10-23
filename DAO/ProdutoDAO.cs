@@ -29,6 +29,32 @@ namespace Sistema_Vendas.DAO
             }
             return ultimoCodigo;
         }
+        public (string Produto, string Unidade, decimal PrecoVenda)? getProduto(int idProduto)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT produto, unidade, precoVenda FROM produto WHERE idProduto = @idProduto AND Ativo = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@idProduto", idProduto);
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string produto = reader["produto"].ToString();
+                        string unidade = reader["unidade"].ToString();
+                        decimal precoVenda = Convert.ToDecimal(reader["precoVenda"]);
+
+                        return (produto, unidade, precoVenda);
+                    }
+                }
+            }
+
+            return null; 
+        }
+
         public override void Alterar(T obj)
         {
             dynamic produto = obj;
@@ -36,7 +62,7 @@ namespace Sistema_Vendas.DAO
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "UPDATE produto SET produto = @produto, unidade = @unidade, saldo = @saldo, " +
-                               "custoMedio = @custoMedio, precoVenda = @precoVenda, precoUltCompra = @precoUltCompra, " +
+                               "custoUltCompra = @custoUltCompra, custoMedio = @custoMedio, precoVenda = @precoVenda, precoUltCompra = @precoUltCompra, " +
                                "dataUltCompra = @dataUltCompra, observacao = @observacao, ativo = @ativo, " +
                                "dataUltAlt = @dataUltAlt, idFornecedor = @idFornecedor, idModelo = @idModelo, usuario = @usuario WHERE idProduto = @id";
 
@@ -47,6 +73,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@unidade", produto.Unidade);
                 command.Parameters.AddWithValue("@saldo", produto.Saldo);
                 command.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
+                command.Parameters.AddWithValue("@custoUltCompra", produto.custoUltCompra);
                 command.Parameters.AddWithValue("@precoVenda", produto.precoVenda);
                 command.Parameters.AddWithValue("@precoUltCompra", produto.precoUltCompra);
                 command.Parameters.AddWithValue("@dataUltCompra", (object)produto.dataUltCompra ?? DBNull.Value);
@@ -213,6 +240,7 @@ namespace Sistema_Vendas.DAO
                         obj.precoVenda = Convert.ToDecimal(reader["precoVenda"]);
                         obj.precoUltCompra = Convert.ToDecimal(reader["precoUltCompra"]);
                         obj.custoMedio = Convert.ToDecimal(reader["custoMedio"]);
+                        obj.custoUltCompra = Convert.ToDecimal(reader["custoUltCompra"]);
                         obj.Observacao = reader["observacao"].ToString();
                         obj.Ativo = Convert.ToBoolean(reader["Ativo"]);
                         obj.dataCadastro = DateTime.Parse(reader["dataCadastro"].ToString());
@@ -237,8 +265,8 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO produto (produto, unidade, saldo, custoMedio, precoVenda, precoUltCompra, dataUltCompra, observacao, ativo, dataCadastro, dataUltAlt, idFornecedor, idModelo, usuario) " +
-                               "VALUES (@produto, @unidade, @saldo, @custoMedio, @precoVenda, @precoUltCompra, @dataUltCompra, @observacao, @ativo, @dataCadastro, @dataUltAlt, @idFornecedor, @idModelo, @usuario)";
+                string query = "INSERT INTO produto (produto, unidade, saldo, custoMedio, custoUltCompra, precoVenda, precoUltCompra, dataUltCompra, observacao, ativo, dataCadastro, dataUltAlt, idFornecedor, idModelo, usuario) " +
+                               "VALUES (@produto, @unidade, @saldo, @custoMedio, @custoUltCompra, @precoVenda, @precoUltCompra, @dataUltCompra, @observacao, @ativo, @dataCadastro, @dataUltAlt, @idFornecedor, @idModelo, @usuario)";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -247,6 +275,7 @@ namespace Sistema_Vendas.DAO
                 command.Parameters.AddWithValue("@unidade", produto.Unidade);
                 command.Parameters.AddWithValue("@saldo", produto.Saldo);
                 command.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
+                command.Parameters.AddWithValue("@custoUltCompra", produto.custoUltCompra);
                 command.Parameters.AddWithValue("@precoVenda", produto.precoVenda);
                 command.Parameters.AddWithValue("@precoUltCompra", produto.precoUltCompra);
                 command.Parameters.AddWithValue("@dataUltCompra", produto.dataUltCompra ?? (object)DBNull.Value);

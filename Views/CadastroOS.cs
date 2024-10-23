@@ -621,6 +621,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCliente_Click(object sender, EventArgs e)
         {
             consultaClientes.btnSair.Text = "Selecionar";
+            consultaClientes.cbBuscaInativos.Visible = false;
 
             if (consultaClientes.ShowDialog() == DialogResult.OK)
             {
@@ -649,6 +650,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaFuncionario_Click(object sender, EventArgs e)
         {
             consultaFuncionarios.btnSair.Text = "Selecionar";
+            consultaFuncionarios.cbBuscaInativos.Visible = false;
 
             if (consultaFuncionarios.ShowDialog() == DialogResult.OK)
             {
@@ -686,10 +688,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodFuncionario.Texts))
             {
-                FuncionarioModel funcionario = funcionarioController.GetById(int.Parse(txtCodFuncionario.Texts));
+                string funcionario = funcionarioController.getFuncionario(int.Parse(txtCodFuncionario.Texts));
                 if (funcionario != null)
                 {
-                    txtFuncionario.Texts = funcionario.funcionario;
+                    txtFuncionario.Texts = funcionario;
                 }
                 else
                 {
@@ -1368,6 +1370,8 @@ namespace Sistema_Vendas.Views
                     txtCodCliente.Clear();
                     txtCliente.Clear();
                     txtCelular.Clear();
+                    txtCodCondPag.Clear();
+                    txtCondPag.Clear();
                 }
             }
         }
@@ -1417,6 +1421,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaProduto_Click(object sender, EventArgs e)
         {
             consultaProdutos.btnSair.Text = "Selecionar";
+            consultaProdutos.cbBuscaInativos.Visible = false;
 
             if (consultaProdutos.ShowDialog() == DialogResult.OK)
             {
@@ -1436,6 +1441,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaServico_Click(object sender, EventArgs e)
         {
             consultaServicos.btnSair.Text = "Selecionar";
+            consultaServicos.cbBuscaInativos.Visible = false;
 
             if (consultaServicos.ShowDialog() == DialogResult.OK)
             {

@@ -426,6 +426,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaFormaPag_Click(object sender, EventArgs e)
         {
             consultaFormasPagamento.btnSair.Text = "Selecionar";
+            consultaFormasPagamento.cbBuscaInativos.Visible = false;
 
             if (consultaFormasPagamento.ShowDialog() == DialogResult.OK)
             {
@@ -463,6 +464,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCliente_Click(object sender, EventArgs e)
         {
             consultaClientes.btnSair.Text = "Selecionar";
+            consultaClientes.cbBuscaInativos.Visible = false;
 
             if (consultaClientes.ShowDialog() == DialogResult.OK)
             {
@@ -482,10 +484,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodCliente.Texts))
             {
-                ClienteModel cliente = clienteController.GetById(int.Parse(txtCodCliente.Texts));
+                string cliente = clienteController.getCliente(int.Parse(txtCodCliente.Texts));
                 if (cliente != null)
                 {
-                    txtCliente.Texts = cliente.cliente_razao_social;
+                    txtCliente.Texts = cliente;
                 }
                 else
                 {
@@ -654,6 +656,25 @@ namespace Sistema_Vendas.Views
                     MessageBox.Show("Data de emissão inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtDataEmissao.Focus();
                     return;
+                }
+            }
+        }
+
+        private void txtCodFormaPag_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtCodFormaPag.Texts))
+            {
+                string formaPag = formaPagamentoController.getFormaPag(int.Parse(txtCodFormaPag.Texts));
+                if (formaPag != null)
+                {
+                    txtFormaPag.Texts = formaPag;
+                }
+                else
+                {
+                    MessageBox.Show("Forma de Pagamento não encontrada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCodFormaPag.Focus();
+                    txtCodFormaPag.Clear();
+                    txtFormaPag.Clear();
                 }
             }
         }

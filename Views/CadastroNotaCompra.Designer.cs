@@ -55,13 +55,6 @@
             this.lblPrecoProd = new System.Windows.Forms.Label();
             this.txtPrecoProd = new Sistema_Vendas.GControls.GTextBox();
             this.dataGridViewProdutos = new System.Windows.Forms.DataGridView();
-            this.idProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.produto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UNProd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecoUN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescontoProd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rbFOB = new System.Windows.Forms.RadioButton();
             this.rbCIF = new System.Windows.Forms.RadioButton();
@@ -98,6 +91,14 @@
             this.btnAddCondPag = new Sistema_Vendas.GButtons();
             this.lblDescontoProd = new System.Windows.Forms.Label();
             this.txtDescontoProd = new Sistema_Vendas.GControls.GTextBox();
+            this.idProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.produto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UNProd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoUN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescontoProd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoLiquido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -648,6 +649,7 @@
             this.quantidadeProduto,
             this.PrecoUN,
             this.DescontoProd,
+            this.PrecoLiquido,
             this.precoTotal});
             this.dataGridViewProdutos.Enabled = false;
             this.dataGridViewProdutos.GridColor = System.Drawing.SystemColors.ControlLight;
@@ -658,52 +660,6 @@
             this.dataGridViewProdutos.TabIndex = 97;
             this.dataGridViewProdutos.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewProdutos_RowsAdded);
             this.dataGridViewProdutos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewProdutos_RowsRemoved);
-            // 
-            // idProduto
-            // 
-            this.idProduto.HeaderText = "Código";
-            this.idProduto.Name = "idProduto";
-            this.idProduto.ReadOnly = true;
-            this.idProduto.Width = 80;
-            // 
-            // produto
-            // 
-            this.produto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.produto.HeaderText = "Produto";
-            this.produto.Name = "produto";
-            this.produto.ReadOnly = true;
-            // 
-            // UNProd
-            // 
-            this.UNProd.HeaderText = "Unidade";
-            this.UNProd.Name = "UNProd";
-            this.UNProd.ReadOnly = true;
-            // 
-            // quantidadeProduto
-            // 
-            this.quantidadeProduto.HeaderText = "Quantidade";
-            this.quantidadeProduto.Name = "quantidadeProduto";
-            this.quantidadeProduto.ReadOnly = true;
-            this.quantidadeProduto.Width = 80;
-            // 
-            // PrecoUN
-            // 
-            this.PrecoUN.HeaderText = "Preço UN";
-            this.PrecoUN.Name = "PrecoUN";
-            this.PrecoUN.ReadOnly = true;
-            // 
-            // DescontoProd
-            // 
-            this.DescontoProd.HeaderText = "Desconto";
-            this.DescontoProd.Name = "DescontoProd";
-            this.DescontoProd.ReadOnly = true;
-            this.DescontoProd.Width = 60;
-            // 
-            // precoTotal
-            // 
-            this.precoTotal.HeaderText = "Preço Total";
-            this.precoTotal.Name = "precoTotal";
-            this.precoTotal.ReadOnly = true;
             // 
             // groupBox2
             // 
@@ -1270,9 +1226,9 @@
             this.lblDescontoProd.AutoSize = true;
             this.lblDescontoProd.Location = new System.Drawing.Point(613, 160);
             this.lblDescontoProd.Name = "lblDescontoProd";
-            this.lblDescontoProd.Size = new System.Drawing.Size(64, 13);
+            this.lblDescontoProd.Size = new System.Drawing.Size(70, 13);
             this.lblDescontoProd.TabIndex = 129;
-            this.lblDescontoProd.Text = "% Desconto";
+            this.lblDescontoProd.Text = "R$ Desconto";
             // 
             // txtDescontoProd
             // 
@@ -1301,6 +1257,58 @@
             this.txtDescontoProd.UnderlinedStyle = false;
             this.txtDescontoProd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescontoProd_KeyPress);
             this.txtDescontoProd.Leave += new System.EventHandler(this.txtDescontoProd_Leave);
+            // 
+            // idProduto
+            // 
+            this.idProduto.HeaderText = "Código";
+            this.idProduto.Name = "idProduto";
+            this.idProduto.ReadOnly = true;
+            this.idProduto.Width = 80;
+            // 
+            // produto
+            // 
+            this.produto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.produto.HeaderText = "Produto";
+            this.produto.Name = "produto";
+            this.produto.ReadOnly = true;
+            // 
+            // UNProd
+            // 
+            this.UNProd.HeaderText = "Unidade";
+            this.UNProd.Name = "UNProd";
+            this.UNProd.ReadOnly = true;
+            // 
+            // quantidadeProduto
+            // 
+            this.quantidadeProduto.HeaderText = "Quantidade";
+            this.quantidadeProduto.Name = "quantidadeProduto";
+            this.quantidadeProduto.ReadOnly = true;
+            this.quantidadeProduto.Width = 80;
+            // 
+            // PrecoUN
+            // 
+            this.PrecoUN.HeaderText = "Preço UN";
+            this.PrecoUN.Name = "PrecoUN";
+            this.PrecoUN.ReadOnly = true;
+            // 
+            // DescontoProd
+            // 
+            this.DescontoProd.HeaderText = "R$ Desconto";
+            this.DescontoProd.Name = "DescontoProd";
+            this.DescontoProd.ReadOnly = true;
+            this.DescontoProd.Width = 60;
+            // 
+            // PrecoLiquido
+            // 
+            this.PrecoLiquido.HeaderText = "Preço Líquido";
+            this.PrecoLiquido.Name = "PrecoLiquido";
+            this.PrecoLiquido.ReadOnly = true;
+            // 
+            // precoTotal
+            // 
+            this.precoTotal.HeaderText = "Preço Total";
+            this.precoTotal.Name = "precoTotal";
+            this.precoTotal.ReadOnly = true;
             // 
             // CadastroNotaCompra
             // 
@@ -1511,6 +1519,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeProduto;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecoUN;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescontoProd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecoLiquido;
         private System.Windows.Forms.DataGridViewTextBoxColumn precoTotal;
     }
 }

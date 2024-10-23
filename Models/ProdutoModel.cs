@@ -13,6 +13,7 @@ namespace Sistema_Vendas.Models
         public string Unidade { get; set; }
         public int Saldo { get; set; }
         public decimal custoMedio { get; set; }
+        public decimal custoUltCompra { get; set; }
         public decimal precoVenda { get; set; }
         public decimal precoUltCompra { get; set; }
         public DateTime? dataUltCompra { get; set; }

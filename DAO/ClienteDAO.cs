@@ -31,6 +31,29 @@ namespace Sistema_Vendas.DAO
             }
             return ultimoCodigo;
         }
+        public string getCliente(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT cliente_razao_social FROM cliente WHERE idCliente = @id AND Ativo = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader["cliente_razao_social"].ToString();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
         public override void Alterar(T obj)
         {
             dynamic cliente = obj;
@@ -216,18 +239,19 @@ namespace Sistema_Vendas.DAO
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"
-                SELECT 
-                    cidade.cidade AS cidade,
-                    estado.UF AS UF,
-                    pais.pais AS pais
-                FROM 
-                    cidade
-                JOIN 
-                    estado ON cidade.idEstado = estado.idEstado
-                JOIN 
-                    pais ON estado.idPais = pais.idPais
-                WHERE 
-                    cidade.idCidade = @idCidade";
+        SELECT 
+            cidade.cidade AS cidade,
+            estado.UF AS UF,
+            pais.pais AS pais
+        FROM 
+            cidade
+        JOIN 
+            estado ON cidade.idEstado = estado.idEstado
+        JOIN 
+            pais ON estado.idPais = pais.idPais
+        WHERE 
+            cidade.idCidade = @idCidade
+            AND cidade.Ativo = 1"; 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@idCidade", idCidade);
 

@@ -583,10 +583,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodCliente.Texts))
             {
-                ClienteModel cliente = clienteController.GetById(int.Parse(txtCodCliente.Texts));
+                string cliente = clienteController.getCliente(int.Parse(txtCodCliente.Texts));
                 if (cliente != null)
                 {
-                    txtCliente.Texts = cliente.cliente_razao_social;
+                    txtCliente.Texts = cliente;
 
                     ClienteModel clienteDetalhes = clienteController.GetById(int.Parse(txtCodCliente.Texts));
                     if (clienteDetalhes != null)
@@ -601,6 +601,8 @@ namespace Sistema_Vendas.Views
                     txtCodCliente.Focus();
                     txtCodCliente.Clear();
                     txtCliente.Clear();
+                    txtCondPag.Clear();
+                    txtCodCondPag.Clear();
                 }
             }
             VerificaNotaExistente();
@@ -862,10 +864,10 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodCondPag.Texts))
             {
-                CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
+                string condPagamento = condicaoPagamentoController.getCondicaoPag(int.Parse(txtCodCondPag.Texts));
                 if (condPagamento != null)
                 {
-                    txtCondPag.Texts = condPagamento.condicaoPagamento;
+                    txtCondPag.Texts = condPagamento;
                 }
                 else
                 {
@@ -881,6 +883,8 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCondPag_Click(object sender, EventArgs e)
         {
             consultaCondicaoPagamento.btnSair.Text = "Selecionar";
+            consultaCondicaoPagamento.cbBuscaInativos.Visible = false;
+
             if (consultaCondicaoPagamento.ShowDialog() == DialogResult.OK)
             {
                 var condPagamento = consultaCondicaoPagamento.Tag as Tuple<int, string>;
@@ -898,6 +902,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaCliente_Click(object sender, EventArgs e)
         {
             consultaClientes.btnSair.Text = "Selecionar";
+            consultaClientes.cbBuscaInativos.Visible = false;
 
             if (consultaClientes.ShowDialog() == DialogResult.OK)
             {
@@ -924,19 +929,19 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtCodServico.Texts))
             {
-                ServicoModel servico = servicoController.GetById(int.Parse(txtCodServico.Texts));
-                if (servico != null)
+                var servico = servicoController.getServico(int.Parse(txtCodServico.Texts));
+                if (servico.HasValue)
                 {
-                    txtServico.Texts = servico.servico;
-                    txtPrecoServico.Texts = servico.preco.ToString();
+                    txtServico.Texts = servico.Value.servico;
+                    txtPrecoServico.Texts = servico.Value.preco.ToString();
                 }
                 else
                 {
-                    MessageBox.Show("Serviço não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Serviço não encontrado ou inativo.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCodServico.Focus();
                     txtCodServico.Clear();
                     txtServico.Clear();
-                    txtQtdeServico.Clear();
+                    txtPrecoServico.Clear();
                 }
             }
         }
@@ -944,6 +949,7 @@ namespace Sistema_Vendas.Views
         private void btnConsultaServico_Click(object sender, EventArgs e)
         {
             consultaServicos.btnSair.Text = "Selecionar";
+            consultaServicos.cbBuscaInativos.Visible = false;
 
             if (consultaServicos.ShowDialog() == DialogResult.OK)
             {

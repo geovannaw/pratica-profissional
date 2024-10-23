@@ -57,6 +57,8 @@
             this.txtSaldo = new Sistema_Vendas.GControls.GTextBox();
             this.txtPrecoUltCompra = new Sistema_Vendas.GControls.GTextBox();
             this.txtDataUltCompra = new Sistema_Vendas.GControls.GMaskedTextBox();
+            this.txtCustoUltCompra = new Sistema_Vendas.GControls.GTextBox();
+            this.lblCustoUltCompra = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,7 +191,7 @@
             // lblCustoMedio
             // 
             this.lblCustoMedio.AutoSize = true;
-            this.lblCustoMedio.Location = new System.Drawing.Point(136, 259);
+            this.lblCustoMedio.Location = new System.Drawing.Point(107, 259);
             this.lblCustoMedio.Name = "lblCustoMedio";
             this.lblCustoMedio.Size = new System.Drawing.Size(66, 13);
             this.lblCustoMedio.TabIndex = 38;
@@ -198,7 +200,7 @@
             // lblPrecoVenda
             // 
             this.lblPrecoVenda.AutoSize = true;
-            this.lblPrecoVenda.Location = new System.Drawing.Point(257, 259);
+            this.lblPrecoVenda.Location = new System.Drawing.Point(301, 259);
             this.lblPrecoVenda.Name = "lblPrecoVenda";
             this.lblPrecoVenda.Size = new System.Drawing.Size(76, 13);
             this.lblPrecoVenda.TabIndex = 39;
@@ -207,7 +209,7 @@
             // lblPrecoUltCompra
             // 
             this.lblPrecoUltCompra.AutoSize = true;
-            this.lblPrecoUltCompra.Location = new System.Drawing.Point(377, 259);
+            this.lblPrecoUltCompra.Location = new System.Drawing.Point(396, 259);
             this.lblPrecoUltCompra.Name = "lblPrecoUltCompra";
             this.lblPrecoUltCompra.Size = new System.Drawing.Size(93, 13);
             this.lblPrecoUltCompra.TabIndex = 41;
@@ -497,7 +499,7 @@
             this.txtPrecoVenda.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtPrecoVenda.DisabledForeColor = System.Drawing.Color.White;
             this.txtPrecoVenda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtPrecoVenda.Location = new System.Drawing.Point(260, 275);
+            this.txtPrecoVenda.Location = new System.Drawing.Point(304, 275);
             this.txtPrecoVenda.MaxLength = 32767;
             this.txtPrecoVenda.Multiline = false;
             this.txtPrecoVenda.Name = "txtPrecoVenda";
@@ -505,7 +507,7 @@
             this.txtPrecoVenda.PasswordChar = false;
             this.txtPrecoVenda.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtPrecoVenda.PlaceholderText = "";
-            this.txtPrecoVenda.Size = new System.Drawing.Size(100, 28);
+            this.txtPrecoVenda.Size = new System.Drawing.Size(83, 28);
             this.txtPrecoVenda.TabIndex = 7;
             this.txtPrecoVenda.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecoVenda.Texts = "";
@@ -526,7 +528,7 @@
             this.txtCustoMedio.DisabledForeColor = System.Drawing.Color.White;
             this.txtCustoMedio.Enabled = false;
             this.txtCustoMedio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtCustoMedio.Location = new System.Drawing.Point(139, 275);
+            this.txtCustoMedio.Location = new System.Drawing.Point(110, 275);
             this.txtCustoMedio.MaxLength = 32767;
             this.txtCustoMedio.Multiline = false;
             this.txtCustoMedio.Name = "txtCustoMedio";
@@ -534,7 +536,7 @@
             this.txtCustoMedio.PasswordChar = false;
             this.txtCustoMedio.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCustoMedio.PlaceholderText = "";
-            this.txtCustoMedio.Size = new System.Drawing.Size(100, 28);
+            this.txtCustoMedio.Size = new System.Drawing.Size(83, 28);
             this.txtCustoMedio.TabIndex = 57;
             this.txtCustoMedio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCustoMedio.Texts = "";
@@ -561,7 +563,7 @@
             this.txtSaldo.PasswordChar = false;
             this.txtSaldo.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtSaldo.PlaceholderText = "";
-            this.txtSaldo.Size = new System.Drawing.Size(100, 28);
+            this.txtSaldo.Size = new System.Drawing.Size(83, 28);
             this.txtSaldo.TabIndex = 58;
             this.txtSaldo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtSaldo.Texts = "";
@@ -580,7 +582,7 @@
             this.txtPrecoUltCompra.DisabledForeColor = System.Drawing.Color.White;
             this.txtPrecoUltCompra.Enabled = false;
             this.txtPrecoUltCompra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtPrecoUltCompra.Location = new System.Drawing.Point(380, 275);
+            this.txtPrecoUltCompra.Location = new System.Drawing.Point(399, 275);
             this.txtPrecoUltCompra.MaxLength = 32767;
             this.txtPrecoUltCompra.Multiline = false;
             this.txtPrecoUltCompra.Name = "txtPrecoUltCompra";
@@ -588,7 +590,7 @@
             this.txtPrecoUltCompra.PasswordChar = false;
             this.txtPrecoUltCompra.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtPrecoUltCompra.PlaceholderText = "";
-            this.txtPrecoUltCompra.Size = new System.Drawing.Size(100, 28);
+            this.txtPrecoUltCompra.Size = new System.Drawing.Size(90, 28);
             this.txtPrecoUltCompra.TabIndex = 59;
             this.txtPrecoUltCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecoUltCompra.Texts = "";
@@ -621,11 +623,49 @@
             this.txtDataUltCompra.Texts = "  /  /";
             this.txtDataUltCompra.UnderlinedStyle = false;
             // 
+            // txtCustoUltCompra
+            // 
+            this.txtCustoUltCompra.BackColor = System.Drawing.SystemColors.Window;
+            this.txtCustoUltCompra.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtCustoUltCompra.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtCustoUltCompra.BorderRadius = 5;
+            this.txtCustoUltCompra.BorderSize = 1;
+            this.txtCustoUltCompra.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtCustoUltCompra.DisabledBackColor = System.Drawing.Color.White;
+            this.txtCustoUltCompra.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtCustoUltCompra.DisabledForeColor = System.Drawing.Color.White;
+            this.txtCustoUltCompra.Enabled = false;
+            this.txtCustoUltCompra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtCustoUltCompra.Location = new System.Drawing.Point(204, 275);
+            this.txtCustoUltCompra.MaxLength = 32767;
+            this.txtCustoUltCompra.Multiline = false;
+            this.txtCustoUltCompra.Name = "txtCustoUltCompra";
+            this.txtCustoUltCompra.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtCustoUltCompra.PasswordChar = false;
+            this.txtCustoUltCompra.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtCustoUltCompra.PlaceholderText = "";
+            this.txtCustoUltCompra.Size = new System.Drawing.Size(89, 28);
+            this.txtCustoUltCompra.TabIndex = 62;
+            this.txtCustoUltCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCustoUltCompra.Texts = "";
+            this.txtCustoUltCompra.UnderlinedStyle = false;
+            // 
+            // lblCustoUltCompra
+            // 
+            this.lblCustoUltCompra.AutoSize = true;
+            this.lblCustoUltCompra.Location = new System.Drawing.Point(201, 259);
+            this.lblCustoUltCompra.Name = "lblCustoUltCompra";
+            this.lblCustoUltCompra.Size = new System.Drawing.Size(92, 13);
+            this.lblCustoUltCompra.TabIndex = 61;
+            this.lblCustoUltCompra.Text = "Custo Últ. Compra";
+            // 
             // CadastroProdutos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(608, 454);
+            this.Controls.Add(this.txtCustoUltCompra);
+            this.Controls.Add(this.lblCustoUltCompra);
             this.Controls.Add(this.txtDataUltCompra);
             this.Controls.Add(this.txtPrecoUltCompra);
             this.Controls.Add(this.txtSaldo);
@@ -697,6 +737,8 @@
             this.Controls.SetChildIndex(this.txtSaldo, 0);
             this.Controls.SetChildIndex(this.txtPrecoUltCompra, 0);
             this.Controls.SetChildIndex(this.txtDataUltCompra, 0);
+            this.Controls.SetChildIndex(this.lblCustoUltCompra, 0);
+            this.Controls.SetChildIndex(this.txtCustoUltCompra, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -733,5 +775,7 @@
         private GControls.GTextBox txtPrecoUltCompra;
         protected GControls.GMaskedTextBox txtDataUltCompra;
         public GControls.GTextBox txtProduto;
+        private GControls.GTextBox txtCustoUltCompra;
+        private System.Windows.Forms.Label lblCustoUltCompra;
     }
 }

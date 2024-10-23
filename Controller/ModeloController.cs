@@ -24,6 +24,10 @@ namespace Sistema_Vendas.Controller
         {
             modeloDAO.Alterar(obj);
         }
+        public (string Modelo, string Marca)? getModelo(int id)
+        {
+            return modeloDAO.getModelo(id);
+        }
 
         public override void Delete(int idObj)
         {

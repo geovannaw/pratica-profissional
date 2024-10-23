@@ -16,6 +16,11 @@ namespace Sistema_Vendas.Controller
         { 
             estadoDAO = new EstadoDAO<T>();
         }
+
+        public string getEstado(int id)
+        {
+            return estadoDAO.getEstado(id);
+        }
         public int GetUltimoCodigo()
         {
             return estadoDAO.GetUltimoCodigo();

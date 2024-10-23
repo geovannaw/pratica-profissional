@@ -19,6 +19,10 @@ namespace Sistema_Vendas.Controller
         {
             return produtoDAO.GetUltimoCodigo();
         }
+        public (string Produto, string Unidade, decimal PrecoVenda)? getProduto(int id)
+        {
+            return produtoDAO.getProduto(id);
+        }
         public override void Alterar(T obj)
         {
             produtoDAO.Alterar(obj);

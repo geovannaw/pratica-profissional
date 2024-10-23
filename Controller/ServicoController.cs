@@ -16,6 +16,10 @@ namespace Sistema_Vendas.Controller
         {
             servicoDAO = new ServicoDAO<T>();
         }
+        public (string servico, decimal preco)? getServico(int id)
+        {
+            return servicoDAO.getServico(id);
+        }
         public int GetUltimoCodigo()
         {
             return servicoDAO.GetUltimoCodigo();

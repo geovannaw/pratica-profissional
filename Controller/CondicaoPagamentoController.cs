@@ -12,6 +12,11 @@ namespace Sistema_Vendas.Controller
         {
             condicaoPagamentoDAO = new CondicaoPagamentoDAO();
         }
+
+        public string getCondicaoPag(int id)
+        {
+            return condicaoPagamentoDAO.getCondicaoPag(id);
+        }
         public int GetUltimoCodigo()
         {
             return condicaoPagamentoDAO.GetUltimoCodigo();

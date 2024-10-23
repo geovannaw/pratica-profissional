@@ -547,7 +547,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT cliente_razao_social, celular FROM cliente WHERE idCliente = @idCliente";
+                string query = "SELECT cliente_razao_social, celular FROM cliente WHERE idCliente = @idCliente and Ativo = 1";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@idCliente", idCliente);
 
