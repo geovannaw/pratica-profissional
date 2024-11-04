@@ -81,6 +81,11 @@
             this.lblCondPag = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridViewParcelas = new System.Windows.Forms.DataGridView();
+            this.numeroParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idFormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblObservacao = new System.Windows.Forms.Label();
             this.txtObservacao = new Sistema_Vendas.GControls.GTextBox();
             this.btnCancelar = new Sistema_Vendas.GButtons();
@@ -96,11 +101,6 @@
             this.txtDescontoProd = new Sistema_Vendas.GControls.GTextBox();
             this.txtPrecoProdTotal = new Sistema_Vendas.GControls.GTextBox();
             this.lblPrecoProdTotal = new System.Windows.Forms.Label();
-            this.numeroParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idFormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorParcela = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdutos)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -141,13 +141,13 @@
             // 
             this.btnSalvar.FlatAppearance.BorderSize = 0;
             this.btnSalvar.Location = new System.Drawing.Point(632, 815);
-            this.btnSalvar.TabIndex = 23;
+            this.btnSalvar.TabIndex = 20;
             // 
             // btnSair
             // 
             this.btnSair.FlatAppearance.BorderSize = 0;
             this.btnSair.Location = new System.Drawing.Point(718, 815);
-            this.btnSair.TabIndex = 24;
+            this.btnSair.TabIndex = 21;
             // 
             // txtDataCadastro
             // 
@@ -351,7 +351,7 @@
             this.txtDataEmissao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDataEmissao.PlaceholderText = "";
             this.txtDataEmissao.Size = new System.Drawing.Size(92, 27);
-            this.txtDataEmissao.TabIndex = 5;
+            this.txtDataEmissao.TabIndex = 6;
             this.txtDataEmissao.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataEmissao.Texts = "  /  /";
             this.txtDataEmissao.UnderlinedStyle = false;
@@ -424,7 +424,7 @@
             this.txtDataChegada.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDataChegada.PlaceholderText = "";
             this.txtDataChegada.Size = new System.Drawing.Size(92, 27);
-            this.txtDataChegada.TabIndex = 6;
+            this.txtDataChegada.TabIndex = 7;
             this.txtDataChegada.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDataChegada.Texts = "  /  /";
             this.txtDataChegada.UnderlinedStyle = false;
@@ -522,6 +522,7 @@
             this.txtCodProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodProduto.Texts = "";
             this.txtCodProduto.UnderlinedStyle = false;
+            this.txtCodProduto._TextChanged += new System.EventHandler(this.txtCodProduto__TextChanged);
             this.txtCodProduto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodProduto_KeyPress);
             this.txtCodProduto.Leave += new System.EventHandler(this.txtCodProduto_Leave);
             // 
@@ -557,7 +558,7 @@
             this.btnAddProdutos.Location = new System.Drawing.Point(728, 176);
             this.btnAddProdutos.Name = "btnAddProdutos";
             this.btnAddProdutos.Size = new System.Drawing.Size(65, 28);
-            this.btnAddProdutos.TabIndex = 12;
+            this.btnAddProdutos.TabIndex = 13;
             this.btnAddProdutos.Text = "&Adicionar";
             this.btnAddProdutos.TextColor = System.Drawing.Color.White;
             this.btnAddProdutos.UseVisualStyleBackColor = false;
@@ -729,7 +730,7 @@
             this.groupBox2.Location = new System.Drawing.Point(16, 432);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(149, 49);
-            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabIndex = 102;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tipo Frete";
             // 
@@ -740,7 +741,7 @@
             this.rbFOB.Location = new System.Drawing.Point(80, 20);
             this.rbFOB.Name = "rbFOB";
             this.rbFOB.Size = new System.Drawing.Size(46, 17);
-            this.rbFOB.TabIndex = 15;
+            this.rbFOB.TabIndex = 104;
             this.rbFOB.TabStop = true;
             this.rbFOB.Text = "FOB";
             this.rbFOB.UseVisualStyleBackColor = true;
@@ -754,7 +755,7 @@
             this.rbCIF.Location = new System.Drawing.Point(16, 20);
             this.rbCIF.Name = "rbCIF";
             this.rbCIF.Size = new System.Drawing.Size(41, 17);
-            this.rbCIF.TabIndex = 14;
+            this.rbCIF.TabIndex = 140;
             this.rbCIF.TabStop = true;
             this.rbCIF.Text = "CIF";
             this.rbCIF.UseVisualStyleBackColor = true;
@@ -791,10 +792,11 @@
             this.txtValorSeguro.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtValorSeguro.PlaceholderText = "";
             this.txtValorSeguro.Size = new System.Drawing.Size(85, 28);
-            this.txtValorSeguro.TabIndex = 17;
+            this.txtValorSeguro.TabIndex = 15;
             this.txtValorSeguro.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorSeguro.Texts = "0";
             this.txtValorSeguro.UnderlinedStyle = false;
+            this.txtValorSeguro._TextChanged += new System.EventHandler(this.txtValorSeguro__TextChanged);
             this.txtValorSeguro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorSeguro_KeyPress);
             this.txtValorSeguro.Leave += new System.EventHandler(this.txtValorSeguro_Leave);
             // 
@@ -829,10 +831,11 @@
             this.txtValorFrete.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtValorFrete.PlaceholderText = "";
             this.txtValorFrete.Size = new System.Drawing.Size(85, 28);
-            this.txtValorFrete.TabIndex = 16;
+            this.txtValorFrete.TabIndex = 14;
             this.txtValorFrete.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorFrete.Texts = "0";
             this.txtValorFrete.UnderlinedStyle = false;
+            this.txtValorFrete._TextChanged += new System.EventHandler(this.txtValorFrete__TextChanged);
             this.txtValorFrete.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorFrete_KeyPress);
             this.txtValorFrete.Leave += new System.EventHandler(this.txtValorFrete_Leave);
             // 
@@ -867,10 +870,11 @@
             this.txtOutrasDespesas.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtOutrasDespesas.PlaceholderText = "";
             this.txtOutrasDespesas.Size = new System.Drawing.Size(85, 28);
-            this.txtOutrasDespesas.TabIndex = 18;
+            this.txtOutrasDespesas.TabIndex = 16;
             this.txtOutrasDespesas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtOutrasDespesas.Texts = "0";
             this.txtOutrasDespesas.UnderlinedStyle = false;
+            this.txtOutrasDespesas._TextChanged += new System.EventHandler(this.txtOutrasDespesas__TextChanged);
             this.txtOutrasDespesas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtOutrasDespesas_KeyPress);
             this.txtOutrasDespesas.Leave += new System.EventHandler(this.txtOutrasDespesas_Leave);
             // 
@@ -995,7 +999,7 @@
             this.txtCodCondPag.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCodCondPag.PlaceholderText = "";
             this.txtCodCondPag.Size = new System.Drawing.Size(83, 28);
-            this.txtCodCondPag.TabIndex = 19;
+            this.txtCodCondPag.TabIndex = 17;
             this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCondPag.Texts = "";
             this.txtCodCondPag.UnderlinedStyle = false;
@@ -1041,6 +1045,41 @@
             this.dataGridViewParcelas.ReadOnly = true;
             this.dataGridViewParcelas.Size = new System.Drawing.Size(777, 150);
             this.dataGridViewParcelas.TabIndex = 122;
+            // 
+            // numeroParcela
+            // 
+            this.numeroParcela.HeaderText = "Parcela";
+            this.numeroParcela.Name = "numeroParcela";
+            this.numeroParcela.ReadOnly = true;
+            this.numeroParcela.Width = 65;
+            // 
+            // idFormaPagamento
+            // 
+            this.idFormaPagamento.HeaderText = "Cód. Forma Pagamento";
+            this.idFormaPagamento.Name = "idFormaPagamento";
+            this.idFormaPagamento.ReadOnly = true;
+            this.idFormaPagamento.Width = 150;
+            // 
+            // FormaPagamento
+            // 
+            this.FormaPagamento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FormaPagamento.HeaderText = "Forma de Pagamento";
+            this.FormaPagamento.Name = "FormaPagamento";
+            this.FormaPagamento.ReadOnly = true;
+            // 
+            // dataVencimento
+            // 
+            this.dataVencimento.HeaderText = "Data Vencimento";
+            this.dataVencimento.Name = "dataVencimento";
+            this.dataVencimento.ReadOnly = true;
+            this.dataVencimento.Width = 150;
+            // 
+            // valorParcela
+            // 
+            this.valorParcela.HeaderText = "Valor Parcela";
+            this.valorParcela.Name = "valorParcela";
+            this.valorParcela.ReadOnly = true;
+            this.valorParcela.Width = 153;
             // 
             // lblObservacao
             // 
@@ -1113,7 +1152,7 @@
             this.btnConsultaCondPag.Location = new System.Drawing.Point(105, 515);
             this.btnConsultaCondPag.Name = "btnConsultaCondPag";
             this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaCondPag.TabIndex = 20;
+            this.btnConsultaCondPag.TabIndex = 18;
             this.btnConsultaCondPag.TextColor = System.Drawing.Color.White;
             this.btnConsultaCondPag.UseVisualStyleBackColor = false;
             this.btnConsultaCondPag.Click += new System.EventHandler(this.btnConsultaCondPag_Click);
@@ -1133,7 +1172,7 @@
             this.btnConsultaProduto.Location = new System.Drawing.Point(84, 176);
             this.btnConsultaProduto.Name = "btnConsultaProduto";
             this.btnConsultaProduto.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaProduto.TabIndex = 26;
+            this.btnConsultaProduto.TabIndex = 9;
             this.btnConsultaProduto.TextColor = System.Drawing.Color.White;
             this.btnConsultaProduto.UseVisualStyleBackColor = false;
             this.btnConsultaProduto.Click += new System.EventHandler(this.btnConsultaProduto_Click);
@@ -1152,7 +1191,7 @@
             this.btnConsultaFornecedor.Location = new System.Drawing.Point(416, 42);
             this.btnConsultaFornecedor.Name = "btnConsultaFornecedor";
             this.btnConsultaFornecedor.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaFornecedor.TabIndex = 25;
+            this.btnConsultaFornecedor.TabIndex = 5;
             this.btnConsultaFornecedor.TextColor = System.Drawing.Color.White;
             this.btnConsultaFornecedor.UseVisualStyleBackColor = false;
             this.btnConsultaFornecedor.Click += new System.EventHandler(this.btnConsultaFornecedor_Click);
@@ -1220,7 +1259,7 @@
             this.btnExcluirProduto.Location = new System.Drawing.Point(16, 385);
             this.btnExcluirProduto.Name = "btnExcluirProduto";
             this.btnExcluirProduto.Size = new System.Drawing.Size(86, 28);
-            this.btnExcluirProduto.TabIndex = 127;
+            this.btnExcluirProduto.TabIndex = 166;
             this.btnExcluirProduto.Text = "Excluir Produto";
             this.btnExcluirProduto.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
             this.btnExcluirProduto.UseVisualStyleBackColor = false;
@@ -1240,7 +1279,7 @@
             this.btnAddCondPag.Location = new System.Drawing.Point(422, 515);
             this.btnAddCondPag.Name = "btnAddCondPag";
             this.btnAddCondPag.Size = new System.Drawing.Size(75, 28);
-            this.btnAddCondPag.TabIndex = 21;
+            this.btnAddCondPag.TabIndex = 19;
             this.btnAddCondPag.Text = "&Adicionar";
             this.btnAddCondPag.TextColor = System.Drawing.Color.White;
             this.btnAddCondPag.UseVisualStyleBackColor = false;
@@ -1276,7 +1315,7 @@
             this.txtDescontoProd.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDescontoProd.PlaceholderText = "";
             this.txtDescontoProd.Size = new System.Drawing.Size(67, 28);
-            this.txtDescontoProd.TabIndex = 128;
+            this.txtDescontoProd.TabIndex = 12;
             this.txtDescontoProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDescontoProd.Texts = "";
             this.txtDescontoProd.UnderlinedStyle = false;
@@ -1319,41 +1358,6 @@
             this.lblPrecoProdTotal.Size = new System.Drawing.Size(31, 13);
             this.lblPrecoProdTotal.TabIndex = 131;
             this.lblPrecoProdTotal.Text = "Total";
-            // 
-            // numeroParcela
-            // 
-            this.numeroParcela.HeaderText = "Parcela";
-            this.numeroParcela.Name = "numeroParcela";
-            this.numeroParcela.ReadOnly = true;
-            this.numeroParcela.Width = 65;
-            // 
-            // idFormaPagamento
-            // 
-            this.idFormaPagamento.HeaderText = "Cód. Forma Pagamento";
-            this.idFormaPagamento.Name = "idFormaPagamento";
-            this.idFormaPagamento.ReadOnly = true;
-            this.idFormaPagamento.Width = 150;
-            // 
-            // FormaPagamento
-            // 
-            this.FormaPagamento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.FormaPagamento.HeaderText = "Forma de Pagamento";
-            this.FormaPagamento.Name = "FormaPagamento";
-            this.FormaPagamento.ReadOnly = true;
-            // 
-            // dataVencimento
-            // 
-            this.dataVencimento.HeaderText = "Data Vencimento";
-            this.dataVencimento.Name = "dataVencimento";
-            this.dataVencimento.ReadOnly = true;
-            this.dataVencimento.Width = 150;
-            // 
-            // valorParcela
-            // 
-            this.valorParcela.HeaderText = "Valor Parcela";
-            this.valorParcela.Name = "valorParcela";
-            this.valorParcela.ReadOnly = true;
-            this.valorParcela.Width = 153;
             // 
             // CadastroNotaCompra
             // 

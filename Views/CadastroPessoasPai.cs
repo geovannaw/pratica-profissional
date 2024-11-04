@@ -353,41 +353,38 @@ namespace Sistema_Vendas.Views
 
         private void txtDataNasc_Leave(object sender, EventArgs e)
         {
-            DateTime dataNasc;
-            string dataN = new string(txtDataNasc.Texts.Where(char.IsDigit).ToArray());
-            bool dataValida = DateTime.TryParse(txtDataNasc.Texts, out dataNasc);
+            DateTime data;
+            string dataTexto = new string(txtDataNasc.Texts.Where(char.IsDigit).ToArray());
+            bool dataValida = DateTime.TryParse(txtDataNasc.Texts, out data);
 
-            if (!string.IsNullOrEmpty(dataN))
+            if (!string.IsNullOrEmpty(dataTexto))
             {
                 if (!dataValida)
                 {
-                    if (rbFisica.Checked)
-                    {
-                        MessageBox.Show("Data de Nascimento inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtDataNasc.Focus();
-                        return;
-                    } else
-                    {
-                        MessageBox.Show("Data de Fundação inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtDataNasc.Focus();
-                        return;
-                    }
+                    string mensagemErro = rbFisica.Checked ? "Data de Nascimento inválida!" : "Data de Fundação inválida!";
+                    MessageBox.Show(mensagemErro, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDataNasc.Focus();
+                    return;
                 }
-                if (rbFisica.Checked)
+
+                //ve se a data é menor ou igual à data de hoje
+                if (!VerificarDataMenorOuIgualHoje(data, rbFisica.Checked ? "nascimento" : "fundação"))
                 {
-                    if (!VerificarDataMenorOuIgualHoje(dataNasc, "nascimento"))
-                    {
-                        txtDataNasc.Focus();
-                        return;
-                    }
+                    txtDataNasc.Focus();
+                    return;
                 }
-                else
+
+                //ve idade máxima de 120 anos para Pessoa Física e 200 anos para Pessoa Jurídica
+                DateTime dataLimite = rbFisica.Checked ? DateTime.Today.AddYears(-120) : DateTime.Today.AddYears(-200);
+
+                if (data < dataLimite)
                 {
-                    if (!VerificarDataMenorOuIgualHoje(dataNasc, "fundação"))
-                    {
-                        txtDataNasc.Focus();
-                        return;
-                    }
+                    string mensagemErro = rbFisica.Checked
+                        ? "A idade não pode ser superior a 120 anos!"
+                        : "A data de fundação não pode ser superior a 200 anos!";
+                    MessageBox.Show(mensagemErro, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDataNasc.Focus();
+                    return;
                 }
             }
         }

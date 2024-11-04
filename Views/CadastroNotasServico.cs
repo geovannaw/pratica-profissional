@@ -401,10 +401,10 @@ namespace Sistema_Vendas.Views
                         servico.idServico,
                         servicoDetalhes.servico,
                         servico.quantidadeServico,
-                        servico.precoServico,
-                        descontoServ,
-                        precoLiquido,
-                        (servico.quantidadeServico * precoLiquido)
+                        servico.precoServico.ToString("F2"),
+                        descontoServ.ToString("F2"),
+                        precoLiquido.ToString("F2"),
+                        (servico.quantidadeServico * precoLiquido).ToString("F2")
                     );
                 }
             }
@@ -474,6 +474,16 @@ namespace Sistema_Vendas.Views
                 int novoCodigo = notaServicoController.GetUltimoNumeroNota() + 1;
                 txtNroNota.Texts = novoCodigo.ToString();
             }
+            dataGridViewParcelas.Columns["numeroParcela"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewParcelas.Columns["idFormaPagamento"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewParcelas.Columns["valorParcela"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridViewServicos.Columns["idServico"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewServicos.Columns["quantidadeServico"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewServicos.Columns["PrecoUN"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewServicos.Columns["DescontoServ"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewServicos.Columns["PrecoLiquido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewServicos.Columns["precoTotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
         private void VerificaNotaExistente()
         {
@@ -1096,6 +1106,7 @@ namespace Sistema_Vendas.Views
         private void txtQtdeServico__TextChanged(object sender, EventArgs e)
         {
             CalcularPrecoTotalServ();
+            dataGridViewParcelas.Rows.Clear();
         }
 
         private void txtPrecoServico__TextChanged(object sender, EventArgs e)
@@ -1106,6 +1117,7 @@ namespace Sistema_Vendas.Views
         private void txtDescontoProd__TextChanged(object sender, EventArgs e)
         {
             CalcularPrecoTotalServ();
+            dataGridViewParcelas.Rows.Clear();
         }
         private void CalcularPrecoTotalServ()
         {
@@ -1121,6 +1133,11 @@ namespace Sistema_Vendas.Views
             {
                 txtPrecoServTotal.Texts = "0.00";
             }
+        }
+
+        private void txtCodServico__TextChanged(object sender, EventArgs e)
+        {
+            dataGridViewParcelas.Rows.Clear();
         }
     }
 }

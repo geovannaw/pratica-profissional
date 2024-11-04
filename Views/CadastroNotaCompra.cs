@@ -656,10 +656,10 @@ namespace Sistema_Vendas.Views
                         produtoDetalhes.Produto,
                         produtoDetalhes.Unidade,
                         produto.quantidadeProduto,
-                        (produto.precoProduto + descontoProd), 
-                        descontoProd,         
-                        precoLiquido,     
-                        (produto.quantidadeProduto * precoLiquido) 
+                        (produto.precoProduto + descontoProd).ToString("F2"), 
+                        descontoProd.ToString("F2"),         
+                        precoLiquido.ToString("F2"),     
+                        (produto.quantidadeProduto * precoLiquido).ToString("F2")
                     );
                 }
             }
@@ -732,6 +732,16 @@ namespace Sistema_Vendas.Views
                 btnConsultaFornecedor.Enabled = false;
                 txtCodFornecedor.Enabled = false;
             }
+            dataGridViewParcelas.Columns["numeroParcela"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewParcelas.Columns["idFormaPagamento"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewParcelas.Columns["valorParcela"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridViewProdutos.Columns["idProduto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["quantidadeProduto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["PrecoUN"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["DescontoProd"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["PrecoLiquido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["precoTotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
         public void SetID(int numero, int modelo, int serie, int idFornecedor)
         {
@@ -800,7 +810,7 @@ namespace Sistema_Vendas.Views
         }
         private void VerificaCamposPreenchidosCondPagamento()
         {
-            bool camposPreenchidos = !string.IsNullOrEmpty(txtCodCondPag.Texts);
+            bool camposPreenchidos = (!string.IsNullOrEmpty(txtCodCondPag.Texts) || dataGridViewParcelas.Rows.Count > 0);
 
             groupBox2.Enabled = !camposPreenchidos;
             rbCIF.Enabled = !camposPreenchidos;
@@ -889,8 +899,18 @@ namespace Sistema_Vendas.Views
                     txtDataEmissao.Focus();
                     return;
                 }
+
                 if (!VerificarDataMenorOuIgualHoje(dataEmissao, "Emissão"))
                 {
+                    txtDataEmissao.Focus();
+                    return;
+                }
+
+                //ver se a data de emissão não ultrapassa 5 anos no passado
+                DateTime dataLimite = DateTime.Today.AddYears(-5);
+                if (dataEmissao < dataLimite)
+                {
+                    MessageBox.Show("A data de emissão não pode ser superior a 5 anos no passado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtDataEmissao.Focus();
                     return;
                 }
@@ -1095,11 +1115,17 @@ namespace Sistema_Vendas.Views
 
         private void btnAddCondPag_Click(object sender, EventArgs e)
         {
-            CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
-            juros = condPagamento.juros;
-            multa = condPagamento.multa;
-            descontos = condPagamento.desconto;
-            exibirParcelasDGV(condPagamento.Parcelas);
+            if (!string.IsNullOrWhiteSpace(txtCodCondPag.Texts))
+            {
+                CondicaoPagamentoModel condPagamento = condicaoPagamentoController.GetById(int.Parse(txtCodCondPag.Texts));
+                if (condPagamento != null)
+                {
+                    juros = condPagamento.juros;
+                    multa = condPagamento.multa;
+                    descontos = condPagamento.desconto;
+                    exibirParcelasDGV(condPagamento.Parcelas);
+                }
+            }
         }
 
         private void rbCIF_CheckedChanged(object sender, EventArgs e)
@@ -1364,16 +1390,39 @@ namespace Sistema_Vendas.Views
         private void txtQtdeProduto__TextChanged(object sender, EventArgs e)
         {
             CalcularPrecoTotalProd();
+            dataGridViewParcelas.Rows.Clear();
         }
 
         private void txtPrecoProd__TextChanged(object sender, EventArgs e)
         {
             CalcularPrecoTotalProd();
+            dataGridViewParcelas.Rows.Clear();
         }
 
         private void txtDescontoProd__TextChanged(object sender, EventArgs e)
         {
             CalcularPrecoTotalProd();
+            dataGridViewParcelas.Rows.Clear();
+        }
+
+        private void txtValorFrete__TextChanged(object sender, EventArgs e)
+        {
+            dataGridViewParcelas.Rows.Clear();
+        }
+
+        private void txtValorSeguro__TextChanged(object sender, EventArgs e)
+        {
+            dataGridViewParcelas.Rows.Clear();
+        }
+
+        private void txtOutrasDespesas__TextChanged(object sender, EventArgs e)
+        {
+            dataGridViewParcelas.Rows.Clear();
+        }
+
+        private void txtCodProduto__TextChanged(object sender, EventArgs e)
+        {
+            dataGridViewParcelas.Rows.Clear();
         }
     }
 }

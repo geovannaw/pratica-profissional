@@ -53,6 +53,13 @@
             this.lblTotalProdutos = new System.Windows.Forms.Label();
             this.txtTotalServicos = new Sistema_Vendas.GControls.GTextBox();
             this.dataGridViewServicos = new System.Windows.Forms.DataGridView();
+            this.idServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.servico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoUN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescontoServ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoLiquido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblPrecoServico = new System.Windows.Forms.Label();
             this.txtPrecoServico = new Sistema_Vendas.GControls.GTextBox();
             this.lblQtdeServico = new System.Windows.Forms.Label();
@@ -84,13 +91,6 @@
             this.txtPrecoServTotal = new Sistema_Vendas.GControls.GTextBox();
             this.lblDescontoProd = new System.Windows.Forms.Label();
             this.txtDescontoServ = new Sistema_Vendas.GControls.GTextBox();
-            this.idServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.servico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecoUN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescontoServ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecoLiquido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewParcelas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServicos)).BeginInit();
@@ -295,7 +295,7 @@
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
             this.txtObservacao.Size = new System.Drawing.Size(785, 43);
-            this.txtObservacao.TabIndex = 15;
+            this.txtObservacao.TabIndex = 16;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
             this.txtObservacao.UnderlinedStyle = false;
@@ -371,7 +371,7 @@
             this.btnAddCondPag.Location = new System.Drawing.Point(409, 458);
             this.btnAddCondPag.Name = "btnAddCondPag";
             this.btnAddCondPag.Size = new System.Drawing.Size(75, 28);
-            this.btnAddCondPag.TabIndex = 14;
+            this.btnAddCondPag.TabIndex = 15;
             this.btnAddCondPag.Text = "&Adicionar";
             this.btnAddCondPag.TextColor = System.Drawing.Color.White;
             this.btnAddCondPag.UseVisualStyleBackColor = false;
@@ -391,7 +391,7 @@
             this.btnExcluirServico.Location = new System.Drawing.Point(12, 384);
             this.btnExcluirServico.Name = "btnExcluirServico";
             this.btnExcluirServico.Size = new System.Drawing.Size(86, 28);
-            this.btnExcluirServico.TabIndex = 213;
+            this.btnExcluirServico.TabIndex = 12;
             this.btnExcluirServico.Text = "Excluir Serviço";
             this.btnExcluirServico.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
             this.btnExcluirServico.UseVisualStyleBackColor = false;
@@ -412,7 +412,7 @@
             this.btnConsultaCondPag.Location = new System.Drawing.Point(112, 457);
             this.btnConsultaCondPag.Name = "btnConsultaCondPag";
             this.btnConsultaCondPag.Size = new System.Drawing.Size(36, 28);
-            this.btnConsultaCondPag.TabIndex = 13;
+            this.btnConsultaCondPag.TabIndex = 14;
             this.btnConsultaCondPag.TextColor = System.Drawing.Color.White;
             this.btnConsultaCondPag.UseVisualStyleBackColor = false;
             this.btnConsultaCondPag.Click += new System.EventHandler(this.btnConsultaCondPag_Click);
@@ -466,7 +466,7 @@
             this.txtCodCondPag.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtCodCondPag.PlaceholderText = "";
             this.txtCodCondPag.Size = new System.Drawing.Size(92, 28);
-            this.txtCodCondPag.TabIndex = 12;
+            this.txtCodCondPag.TabIndex = 13;
             this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCondPag.Texts = "";
             this.txtCodCondPag.UnderlinedStyle = false;
@@ -552,6 +552,55 @@
             this.dataGridViewServicos.TabIndex = 207;
             this.dataGridViewServicos.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewServicos_RowsAdded);
             this.dataGridViewServicos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewServicos_RowsRemoved);
+            // 
+            // idServico
+            // 
+            this.idServico.HeaderText = "Código";
+            this.idServico.Name = "idServico";
+            this.idServico.ReadOnly = true;
+            this.idServico.Width = 60;
+            // 
+            // servico
+            // 
+            this.servico.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.servico.HeaderText = "Serviço";
+            this.servico.Name = "servico";
+            this.servico.ReadOnly = true;
+            // 
+            // quantidadeServico
+            // 
+            this.quantidadeServico.HeaderText = "Quantidade";
+            this.quantidadeServico.Name = "quantidadeServico";
+            this.quantidadeServico.ReadOnly = true;
+            this.quantidadeServico.Width = 65;
+            // 
+            // PrecoUN
+            // 
+            this.PrecoUN.HeaderText = "Preço UN";
+            this.PrecoUN.Name = "PrecoUN";
+            this.PrecoUN.ReadOnly = true;
+            this.PrecoUN.Width = 80;
+            // 
+            // DescontoServ
+            // 
+            this.DescontoServ.HeaderText = "R$ Desconto UN";
+            this.DescontoServ.Name = "DescontoServ";
+            this.DescontoServ.ReadOnly = true;
+            this.DescontoServ.Width = 150;
+            // 
+            // PrecoLiquido
+            // 
+            this.PrecoLiquido.HeaderText = "Preço Líquido UN";
+            this.PrecoLiquido.Name = "PrecoLiquido";
+            this.PrecoLiquido.ReadOnly = true;
+            this.PrecoLiquido.Width = 150;
+            // 
+            // precoTotal
+            // 
+            this.precoTotal.HeaderText = "Preço Total";
+            this.precoTotal.Name = "precoTotal";
+            this.precoTotal.ReadOnly = true;
+            this.precoTotal.Width = 85;
             // 
             // lblPrecoServico
             // 
@@ -702,6 +751,7 @@
             this.txtCodServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodServico.Texts = "";
             this.txtCodServico.UnderlinedStyle = false;
+            this.txtCodServico._TextChanged += new System.EventHandler(this.txtCodServico__TextChanged);
             this.txtCodServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodServico_KeyPress);
             this.txtCodServico.Leave += new System.EventHandler(this.txtCodServico_Leave);
             // 
@@ -737,7 +787,7 @@
             this.btnAddServico.Location = new System.Drawing.Point(722, 175);
             this.btnAddServico.Name = "btnAddServico";
             this.btnAddServico.Size = new System.Drawing.Size(75, 28);
-            this.btnAddServico.TabIndex = 10;
+            this.btnAddServico.TabIndex = 11;
             this.btnAddServico.Text = "&Adicionar";
             this.btnAddServico.TextColor = System.Drawing.Color.White;
             this.btnAddServico.UseVisualStyleBackColor = false;
@@ -1120,62 +1170,13 @@
             this.txtDescontoServ.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDescontoServ.PlaceholderText = "";
             this.txtDescontoServ.Size = new System.Drawing.Size(67, 28);
-            this.txtDescontoServ.TabIndex = 221;
+            this.txtDescontoServ.TabIndex = 10;
             this.txtDescontoServ.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDescontoServ.Texts = "";
             this.txtDescontoServ.UnderlinedStyle = false;
             this.txtDescontoServ._TextChanged += new System.EventHandler(this.txtDescontoProd__TextChanged);
             this.txtDescontoServ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescontoProd_KeyPress);
             this.txtDescontoServ.Leave += new System.EventHandler(this.txtDescontoProd_Leave);
-            // 
-            // idServico
-            // 
-            this.idServico.HeaderText = "Código";
-            this.idServico.Name = "idServico";
-            this.idServico.ReadOnly = true;
-            this.idServico.Width = 60;
-            // 
-            // servico
-            // 
-            this.servico.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.servico.HeaderText = "Serviço";
-            this.servico.Name = "servico";
-            this.servico.ReadOnly = true;
-            // 
-            // quantidadeServico
-            // 
-            this.quantidadeServico.HeaderText = "Quantidade";
-            this.quantidadeServico.Name = "quantidadeServico";
-            this.quantidadeServico.ReadOnly = true;
-            this.quantidadeServico.Width = 65;
-            // 
-            // PrecoUN
-            // 
-            this.PrecoUN.HeaderText = "Preço UN";
-            this.PrecoUN.Name = "PrecoUN";
-            this.PrecoUN.ReadOnly = true;
-            this.PrecoUN.Width = 80;
-            // 
-            // DescontoServ
-            // 
-            this.DescontoServ.HeaderText = "R$ Desconto UN";
-            this.DescontoServ.Name = "DescontoServ";
-            this.DescontoServ.ReadOnly = true;
-            this.DescontoServ.Width = 150;
-            // 
-            // PrecoLiquido
-            // 
-            this.PrecoLiquido.HeaderText = "Preço Líquido UN";
-            this.PrecoLiquido.Name = "PrecoLiquido";
-            this.PrecoLiquido.ReadOnly = true;
-            this.PrecoLiquido.Width = 150;
-            // 
-            // precoTotal
-            // 
-            this.precoTotal.HeaderText = "Preço Total";
-            this.precoTotal.Name = "precoTotal";
-            this.precoTotal.ReadOnly = true;
-            this.precoTotal.Width = 85;
             // 
             // CadastroNotasServico
             // 

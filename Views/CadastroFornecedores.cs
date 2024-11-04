@@ -343,5 +343,10 @@ namespace Sistema_Vendas.Views
                 txtCPF_CNPJ.Focus();
             }
         }
+
+        private void txtDataNasc_Leave(object sender, EventArgs e)
+        {
+
+        }
     }
 }

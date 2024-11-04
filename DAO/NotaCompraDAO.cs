@@ -143,7 +143,7 @@ namespace Sistema_Vendas.DAO
 
         public bool ExisteNota(int numeroNota, string modelo, string serie, int idFornecedor) //verificar se a nota existe no banco antes de liberar os campos
         {
-            string query = "SELECT COUNT(*) FROM notaCompra WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor AND dataCancelamento IS NULL";
+            string query = "SELECT COUNT(*) FROM notaCompra WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idFornecedor = @idFornecedor";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -338,15 +338,15 @@ namespace Sistema_Vendas.DAO
 
                     try
                     {
-                        //verifica se há alguma parcela paga
+                        //ver se tem alguma parcela paga
                         string queryVerificarParcelaPaga = @"
-                    SELECT COUNT(*) 
-                    FROM contasPagar 
-                    WHERE numeroNota = @numeroNota 
-                        AND modelo = @modelo 
-                        AND serie = @serie 
-                        AND idFornecedor = @idFornecedor
-                        AND dataPagamento IS NOT NULL";
+                SELECT COUNT(*) 
+                FROM contasPagar 
+                WHERE numeroNota = @numeroNota 
+                    AND modelo = @modelo 
+                    AND serie = @serie 
+                    AND idFornecedor = @idFornecedor
+                    AND dataPagamento IS NOT NULL";
 
                         using (SqlCommand cmd = new SqlCommand(queryVerificarParcelaPaga, conn, transaction))
                         {
@@ -363,7 +363,7 @@ namespace Sistema_Vendas.DAO
                             }
                         }
 
-                        //adiciona a data de cancelamento na nota de compra
+                        //add a data de cancelamento na nota de compra
                         string queryCancelarNota = @"
                 UPDATE notaCompra
                 SET dataCancelamento = @dataCancelamento
@@ -404,12 +404,12 @@ namespace Sistema_Vendas.DAO
                             }
                         }
 
-                        //atualiza o estoque
+                        //atualiza o estoque e o custo médio dos produtos
                         foreach (var produto in produtos)
                         {
                             //tenta encontrar uma nota de compra anterior válida (sem dataCancelamento)
                             string queryNotaAnterior = @"
-                    SELECT TOP 1 nc.dataChegada, ncp.precoProduto, ncp.custoMedio
+                    SELECT TOP 1 nc.dataChegada, ncp.precoProduto, ncp.custoMedio, ncp.custoUltCompra
                     FROM notaCompra nc
                     JOIN notaCompra_Produto ncp ON nc.numeroNota = ncp.numeroNota AND nc.modelo = ncp.modelo AND nc.serie = ncp.serie AND nc.idFornecedor = ncp.idFornecedor
                     WHERE ncp.idProduto = @idProduto AND nc.dataCancelamento IS NULL
@@ -418,6 +418,7 @@ namespace Sistema_Vendas.DAO
                             DateTime? dataUltCompra = null;
                             decimal precoUltCompra = 0;
                             decimal custoMedio = 0;
+                            decimal custoUltCompra = 0;
                             bool notaAnteriorEncontrada = false;
 
                             using (SqlCommand cmd = new SqlCommand(queryNotaAnterior, conn, transaction))
@@ -430,6 +431,7 @@ namespace Sistema_Vendas.DAO
                                         dataUltCompra = reader.GetDateTime(reader.GetOrdinal("dataChegada"));
                                         precoUltCompra = reader.GetDecimal(reader.GetOrdinal("precoProduto"));
                                         custoMedio = reader.GetDecimal(reader.GetOrdinal("custoMedio"));
+                                        custoUltCompra = reader.GetDecimal(reader.GetOrdinal("custoUltCompra"));
                                         notaAnteriorEncontrada = true;
                                     }
                                 }
@@ -438,7 +440,11 @@ namespace Sistema_Vendas.DAO
                             //atualiza o saldo do produto e, se houver uma nota válida anterior, atualiza os atributos do produto
                             string queryAtualizarEstoque = @"
                     UPDATE produto
-                    SET saldo = saldo - @quantidadeProduto, custoMedio = @custoMedio, dataUltCompra = @dataUltCompra, precoUltCompra = @precoUltCompra
+                    SET saldo = saldo - @quantidadeProduto,
+                        custoMedio = @custoMedio,
+                        dataUltCompra = @dataUltCompra,
+                        precoUltCompra = @precoUltCompra,
+                        custoUltCompra = @custoUltCompra
                     WHERE idProduto = @idProduto";
 
                             using (SqlCommand cmd = new SqlCommand(queryAtualizarEstoque, conn, transaction))
@@ -448,6 +454,7 @@ namespace Sistema_Vendas.DAO
                                 cmd.Parameters.AddWithValue("@custoMedio", notaAnteriorEncontrada ? custoMedio : 0);
                                 cmd.Parameters.AddWithValue("@dataUltCompra", (object)dataUltCompra ?? DBNull.Value);
                                 cmd.Parameters.AddWithValue("@precoUltCompra", notaAnteriorEncontrada ? precoUltCompra : 0);
+                                cmd.Parameters.AddWithValue("@custoUltCompra", notaAnteriorEncontrada ? custoUltCompra : 0);
                                 cmd.ExecuteNonQuery();
                             }
                         }
@@ -474,7 +481,7 @@ namespace Sistema_Vendas.DAO
                     catch (ParcelaPagaException)
                     {
                         transaction.Rollback();
-                        throw; //lançar novamente a exceção de parcela paga sem alterar a mensagem
+                        throw; 
                     }
                     catch (Exception ex)
                     {

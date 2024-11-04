@@ -142,6 +142,8 @@ namespace Sistema_Vendas.Views
 
             dataGridViewProdutos.Enabled = true;
             dataGridViewServicos.Enabled = true;
+
+            btnCancelar.Visible = false;
         }
 
         public override void Bloqueia()
@@ -168,6 +170,22 @@ namespace Sistema_Vendas.Views
 
             dataGridViewProdutos.Enabled = false;
             dataGridViewServicos.Enabled = false;
+
+            if (statusOS == "CANCELADO")
+            {
+                btnCancelar.Visible = false;
+            }
+            else
+            {
+                btnCancelar.Visible = true;
+            }
+            if (statusOS == "RETIRADO")
+            {
+                cbSituacao.Enabled = false;
+            } else
+            {
+                cbSituacao.Enabled = true;
+            }
         }
 
         private List<OS_ProdutoModel> obtemProdutos()
@@ -353,6 +371,7 @@ namespace Sistema_Vendas.Views
                         consultaFormasPagamento.btnSair.Text = "Selecionar";
                         consultaFormasPagamento.Text = "Selecione a Forma de Pagamento do Valor de Entrada";
                         consultaFormasPagamento.ControlBox = false;
+                        consultaFormasPagamento.cbBuscaInativos.Visible = false;
 
                         if (consultaFormasPagamento.ShowDialog() == DialogResult.OK)
                         {
@@ -482,22 +501,21 @@ namespace Sistema_Vendas.Views
                 {
                     cbSituacao.Items.Clear();
                     cbSituacao.Items.Add("EM ANDAMENTO");
-                    cbSituacao.Items.Add("CANCELADO");
                 }
                 if (statusOS == "EM ANDAMENTO")
                 {
                     cbSituacao.Items.Clear();
                     cbSituacao.Items.Add("PRONTO");
-                    cbSituacao.Items.Add("CANCELADO");
                 }
                 if (statusOS == "PRONTO")
                 {
                     cbSituacao.Items.Clear();
                     cbSituacao.Items.Add("RETIRADO");
-                    cbSituacao.Items.Add("CANCELADO");
                     txtValorRetirada.Enabled = true;
                 }
+                
                 cbSituacao.SelectedItem = statusOS;
+
                 if (statusOS == "CANCELADO")
                 {
                     Bloqueia();
@@ -815,77 +833,6 @@ namespace Sistema_Vendas.Views
         {
             if (carregando) return;
             if (cbSituacao.SelectedIndex == -1) return;
-            if (cbSituacao.SelectedItem.ToString() == "CANCELADO")
-            {
-                if(statusOS == "PENDENTE")
-                {
-                    if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço? Ao cancelar, os produtos presentes voltarão ao estoque.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        txtCodProduto.Enabled = false;
-                        btnConsultaProduto.Enabled = false;
-                        txtQtdeProduto.Enabled = false;
-                        txtDescontoProd.Enabled = false;
-                        dataGridViewProdutos.Enabled = false;
-
-                        txtDataCancelamento.Visible = true;
-                        lblDataCancelamento.Visible = true;
-                        txtDataCancelamento.Texts = DateTime.Now.ToString();
-
-                        Salvar();
-
-                        int idOS;
-                        if (int.TryParse(txtCodigo.Texts, out idOS))
-                        {
-                            //busca os produtos da OS
-                            List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
-
-                            //volta o estoque dos produtos
-                            foreach (var produto in produtos)
-                            {
-                                produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
-                            }
-
-                            MessageBox.Show("Ordem de Serviço cancelada e estoque atualizado.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Código da Ordem de Serviço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    else
-                    {
-                        cbSituacao.Items.Add("PENDENTE");
-                        cbSituacao.SelectedItem = statusOS;
-                        Salvar();
-                    }
-                } else
-                {
-                    if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        txtCodProduto.Enabled = false;
-                        txtDescontoProd.Enabled = false;
-                        btnConsultaProduto.Enabled = false;
-                        txtQtdeProduto.Enabled = false;
-                        dataGridViewProdutos.Enabled = false;
-
-                        txtDataCancelamento.Visible = true;
-                        lblDataCancelamento.Visible = true;
-                        txtDataCancelamento.Texts = DateTime.Now.ToString();
-
-                        Salvar();
-                    }
-                    else
-                    {
-                        cbSituacao.Items.Clear();
-                        cbSituacao.Items.Add("EM ANDAMENTO");
-                        cbSituacao.Items.Add("PRONTO");
-                        cbSituacao.Items.Add("RETIRADO");
-                        cbSituacao.Texts = statusOS;
-                        cbSituacao.SelectedItem = statusOS;
-                        Salvar();
-                    }
-                }       
-            }
             if (cbSituacao.Texts == "EM ANDAMENTO" && statusOS != "EM ANDAMENTO")
             {
 
@@ -925,7 +872,7 @@ namespace Sistema_Vendas.Views
                         MessageBox.Show("Valor pendente detectado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         cbSituacao.Items.Add("PRONTO");
                         cbSituacao.SelectedItem = statusOS;
-                        Salvar();
+                        txtValorRetirada.Focus();
                     }
                     //    {
                     //        txtDataEntrega.Texts = DateTime.Now.ToString();
@@ -1024,6 +971,7 @@ namespace Sistema_Vendas.Views
                             consultaFormasPagamento.btnSair.Text = "Selecionar";
                             consultaFormasPagamento.Text = "Selecione a Forma de Pagamento do Valor de Entrada";
                             consultaFormasPagamento.ControlBox = false;
+                            consultaFormasPagamento.cbBuscaInativos.Visible = false;
 
                             if (consultaFormasPagamento.ShowDialog() == DialogResult.OK)
                             {
@@ -1886,6 +1834,106 @@ namespace Sistema_Vendas.Views
             else
             {
                 txtPrecoServTotal.Texts = "0.00";
+            }
+        }
+        private void CancelarContaReceber(string codigoOS)
+        {
+            try
+            {
+                int numeroOS = int.Parse(codigoOS);
+                int codCliente = int.Parse(txtCodCliente.Texts);
+                //busca a Conta a Receber associada à OS e cancela se existir
+                ContasReceberModel contaReceber = contasReceberController.GetContaById(numeroOS, 0, 0, codCliente, 1);
+                if (contaReceber != null)
+                {
+                    contaReceber.dataCancelamento = DateTime.Now;
+                    contasReceberController.Alterar(contaReceber);
+                    MessageBox.Show("Conta a Receber cancelada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao cancelar Conta a Receber: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            if (statusOS == "PENDENTE")
+            {
+                if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço? Ao cancelar, os produtos presentes voltarão ao estoque.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    CancelarContaReceber(txtCodigo.Texts);
+
+                    txtCodProduto.Enabled = false;
+                    btnConsultaProduto.Enabled = false;
+                    txtQtdeProduto.Enabled = false;
+                    txtDescontoProd.Enabled = false;
+                    dataGridViewProdutos.Enabled = false;
+
+                    txtDataCancelamento.Visible = true;
+                    lblDataCancelamento.Visible = true;
+                    txtDataCancelamento.Texts = DateTime.Now.ToString();
+
+                    cbSituacao.Items.Add("CANCELADO");
+                    cbSituacao.Texts = "CANCELADO";
+
+                    Salvar();
+
+                    int idOS;
+                    if (int.TryParse(txtCodigo.Texts, out idOS))
+                    {
+                        //busca os produtos da OS
+                        List<ProdutoModel> produtos = ordemServicoController.GetProdutosByOS(idOS);
+
+                        //volta o estoque dos produtos
+                        foreach (var produto in produtos)
+                        {
+                            produtoController.AtualizarSaldo(produto.idProduto, produto.Saldo);
+                        }
+
+                        MessageBox.Show("Ordem de Serviço cancelada e estoque atualizado.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Código da Ordem de Serviço inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                   // cbSituacao.Items.Add("PENDENTE");
+                   // cbSituacao.SelectedItem = statusOS;
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("Tem certeza que deseja cancelar a Ordem de Serviço?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    txtCodProduto.Enabled = false;
+                    txtDescontoProd.Enabled = false;
+                    btnConsultaProduto.Enabled = false;
+                    txtQtdeProduto.Enabled = false;
+                    dataGridViewProdutos.Enabled = false;
+
+                    txtDataCancelamento.Visible = true;
+                    lblDataCancelamento.Visible = true;
+                    txtDataCancelamento.Texts = DateTime.Now.ToString();
+
+                    cbSituacao.Items.Add("CANCELADO");
+                    cbSituacao.Texts = "CANCELADO";
+
+                    Salvar();
+                }
+                else
+                {
+                    cbSituacao.Items.Clear();
+                    cbSituacao.Items.Add("EM ANDAMENTO");
+                    cbSituacao.Items.Add("PRONTO");
+                    cbSituacao.Items.Add("RETIRADO");
+                    cbSituacao.Texts = statusOS;
+                    cbSituacao.SelectedItem = statusOS;
+                  //  Salvar();
+                }
             }
         }
     }

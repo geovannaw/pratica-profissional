@@ -224,6 +224,7 @@
             this.dataGridViewParcelas.ReadOnly = true;
             this.dataGridViewParcelas.Size = new System.Drawing.Size(638, 189);
             this.dataGridViewParcelas.TabIndex = 12;
+            this.dataGridViewParcelas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewParcelas_CellContentClick);
             // 
             // numeroParcela
             // 

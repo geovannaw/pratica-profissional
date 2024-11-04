@@ -412,10 +412,10 @@ namespace Sistema_Vendas.Views
                         produtoDetalhes.Produto,
                         produtoDetalhes.Unidade,
                         produto.quantidadeProduto,
-                        produto.precoProduto,
-                        descontoProd,
-                        precoLiquido,
-                        (produto.quantidadeProduto * precoLiquido)
+                        produto.precoProduto.ToString("F2"),
+                        descontoProd.ToString("F2"),
+                        precoLiquido.ToString("F2"),
+                        (produto.quantidadeProduto * precoLiquido).ToString("F2")
                     );
                 }
             }
@@ -485,6 +485,16 @@ namespace Sistema_Vendas.Views
                 int novoCodigo = notaVendaController.GetUltimoNumeroNota() + 1;
                 txtNroNota.Texts = novoCodigo.ToString();
             }
+            dataGridViewParcelas.Columns["numeroParcela"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewParcelas.Columns["idFormaPagamento"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewParcelas.Columns["valorParcela"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridViewProdutos.Columns["idProduto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["quantidadeProduto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["PrecoUN"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["DescontoProd"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["PrecoLiquido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewProdutos.Columns["precoTotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
         private void VerificaNotaExistente()
         {
@@ -1168,11 +1178,18 @@ namespace Sistema_Vendas.Views
         private void txtDescontoProd__TextChanged(object sender, EventArgs e)
         {
             CalcularPrecoTotalProd();
+            dataGridViewParcelas.Rows.Clear();
         }
 
         private void txtQtdeProduto__TextChanged(object sender, EventArgs e)
         {
             CalcularPrecoTotalProd();
+            dataGridViewParcelas.Rows.Clear(); 
+        }
+
+        private void txtCodProduto__TextChanged(object sender, EventArgs e)
+        {
+            dataGridViewParcelas.Rows.Clear();
         }
     }
 }

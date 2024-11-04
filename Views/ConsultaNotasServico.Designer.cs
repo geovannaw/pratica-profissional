@@ -128,6 +128,7 @@
             this.dataGridViewNFServico.ReadOnly = true;
             this.dataGridViewNFServico.Size = new System.Drawing.Size(641, 339);
             this.dataGridViewNFServico.TabIndex = 21;
+            this.dataGridViewNFServico.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewNFServico_CellContentClick);
             this.dataGridViewNFServico.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewNFVenda_CellDoubleClick);
             this.dataGridViewNFServico.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewNFVenda_CellFormatting);
             // 

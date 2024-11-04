@@ -702,7 +702,7 @@ namespace Sistema_Vendas.Views
 
         private void txtParcela_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtParcela.Texts.TrimStart('0')))
+            if (!string.IsNullOrWhiteSpace(txtParcela.Texts) && txtParcela.Texts.TrimStart('0') == "")
             {
                 MessageBox.Show("A Parcela não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtParcela.Focus();

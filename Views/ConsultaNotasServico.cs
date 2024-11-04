@@ -180,5 +180,10 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+
+        private void dataGridViewNFServico_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

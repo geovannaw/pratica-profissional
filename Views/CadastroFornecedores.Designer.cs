@@ -67,6 +67,7 @@
             // txtDataNasc
             // 
             this.txtDataNasc.TabIndex = 21;
+            this.txtDataNasc.Leave += new System.EventHandler(this.txtDataNasc_Leave);
             // 
             // txtDataCadastro
             // 

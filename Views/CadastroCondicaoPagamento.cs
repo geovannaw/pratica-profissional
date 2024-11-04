@@ -216,6 +216,10 @@ namespace Sistema_Vendas.Views
                 txtMulta.Texts = "0";
                 txtDesconto.Texts = "0";
             }
+            dataGridViewParcelas.Columns["numeroParcela"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewParcelas.Columns["dias"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewParcelas.Columns["porcentagem"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewParcelas.Columns["CódFormaPag"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
 
         private void btnConsultaFormaPag_Click(object sender, EventArgs e)
@@ -482,6 +486,11 @@ namespace Sistema_Vendas.Views
                     txtDesconto.Focus();
                 }
             }
+        }
+
+        private void dataGridViewParcelas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

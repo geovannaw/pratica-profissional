@@ -553,8 +553,18 @@ namespace Sistema_Vendas.Views
                     txtDataNasc.Focus();
                     return;
                 }
+
                 if (!VerificarDataMenorOuIgualHoje(dataNasc, "nascimento"))
                 {
+                    txtDataNasc.Focus();
+                    return;
+                }
+
+                //ve se a idade é no máximo 120 anos
+                DateTime dataMaxima = DateTime.Today.AddYears(-120);
+                if (dataNasc < dataMaxima)
+                {
+                    MessageBox.Show("A idade não pode ser superior a 120 anos!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtDataNasc.Focus();
                     return;
                 }
