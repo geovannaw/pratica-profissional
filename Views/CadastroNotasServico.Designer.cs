@@ -53,11 +53,6 @@
             this.lblTotalProdutos = new System.Windows.Forms.Label();
             this.txtTotalServicos = new Sistema_Vendas.GControls.GTextBox();
             this.dataGridViewServicos = new System.Windows.Forms.DataGridView();
-            this.idServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.servico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecoUN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblPrecoServico = new System.Windows.Forms.Label();
             this.txtPrecoServico = new Sistema_Vendas.GControls.GTextBox();
             this.lblQtdeServico = new System.Windows.Forms.Label();
@@ -85,6 +80,17 @@
             this.txtSerie = new Sistema_Vendas.GControls.GTextBox();
             this.txtNroNota = new Sistema_Vendas.GControls.GTextBox();
             this.btnCancelar = new Sistema_Vendas.GButtons();
+            this.lblPrecoProdTotal = new System.Windows.Forms.Label();
+            this.txtPrecoServTotal = new Sistema_Vendas.GControls.GTextBox();
+            this.lblDescontoProd = new System.Windows.Forms.Label();
+            this.txtDescontoServ = new Sistema_Vendas.GControls.GTextBox();
+            this.idServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.servico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidadeServico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoUN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescontoServ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecoLiquido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewParcelas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServicos)).BeginInit();
@@ -158,19 +164,20 @@
             this.txtPorcentagemDesconto.DisabledForeColor = System.Drawing.Color.White;
             this.txtPorcentagemDesconto.Enabled = false;
             this.txtPorcentagemDesconto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtPorcentagemDesconto.Location = new System.Drawing.Point(512, 399);
-            this.txtPorcentagemDesconto.MaxLength = 32767;
+            this.txtPorcentagemDesconto.Location = new System.Drawing.Point(743, 456);
+            this.txtPorcentagemDesconto.MaxLength = 13;
             this.txtPorcentagemDesconto.Multiline = false;
             this.txtPorcentagemDesconto.Name = "txtPorcentagemDesconto";
             this.txtPorcentagemDesconto.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
             this.txtPorcentagemDesconto.PasswordChar = false;
             this.txtPorcentagemDesconto.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtPorcentagemDesconto.PlaceholderText = "";
-            this.txtPorcentagemDesconto.Size = new System.Drawing.Size(66, 28);
+            this.txtPorcentagemDesconto.Size = new System.Drawing.Size(10, 28);
             this.txtPorcentagemDesconto.TabIndex = 11;
             this.txtPorcentagemDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPorcentagemDesconto.Texts = "0";
             this.txtPorcentagemDesconto.UnderlinedStyle = false;
+            this.txtPorcentagemDesconto.Visible = false;
             this.txtPorcentagemDesconto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentagemDesconto_KeyPress);
             this.txtPorcentagemDesconto.Leave += new System.EventHandler(this.txtPorcentagemDesconto_Leave);
             // 
@@ -187,7 +194,7 @@
             this.txtTotalPagar.DisabledForeColor = System.Drawing.Color.White;
             this.txtTotalPagar.Enabled = false;
             this.txtTotalPagar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtTotalPagar.Location = new System.Drawing.Point(673, 399);
+            this.txtTotalPagar.Location = new System.Drawing.Point(712, 396);
             this.txtTotalPagar.MaxLength = 32767;
             this.txtTotalPagar.Multiline = false;
             this.txtTotalPagar.Name = "txtTotalPagar";
@@ -214,7 +221,7 @@
             this.txtDesconto.DisabledForeColor = System.Drawing.Color.White;
             this.txtDesconto.Enabled = false;
             this.txtDesconto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtDesconto.Location = new System.Drawing.Point(593, 399);
+            this.txtDesconto.Location = new System.Drawing.Point(735, 457);
             this.txtDesconto.MaxLength = 32767;
             this.txtDesconto.Multiline = false;
             this.txtDesconto.Name = "txtDesconto";
@@ -222,16 +229,17 @@
             this.txtDesconto.PasswordChar = false;
             this.txtDesconto.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtDesconto.PlaceholderText = "";
-            this.txtDesconto.Size = new System.Drawing.Size(66, 28);
+            this.txtDesconto.Size = new System.Drawing.Size(10, 28);
             this.txtDesconto.TabIndex = 220;
             this.txtDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDesconto.Texts = "";
             this.txtDesconto.UnderlinedStyle = false;
+            this.txtDesconto.Visible = false;
             // 
             // lblTotalPagar
             // 
             this.lblTotalPagar.AutoSize = true;
-            this.lblTotalPagar.Location = new System.Drawing.Point(669, 383);
+            this.lblTotalPagar.Location = new System.Drawing.Point(708, 380);
             this.lblTotalPagar.Name = "lblTotalPagar";
             this.lblTotalPagar.Size = new System.Drawing.Size(74, 13);
             this.lblTotalPagar.TabIndex = 217;
@@ -240,20 +248,22 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(509, 384);
+            this.label1.Location = new System.Drawing.Point(684, 441);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.Size = new System.Drawing.Size(37, 13);
             this.label1.TabIndex = 219;
-            this.label1.Text = "% Desconto";
+            this.label1.Text = "% Des";
+            this.label1.Visible = false;
             // 
             // lblDesconto
             // 
             this.lblDesconto.AutoSize = true;
-            this.lblDesconto.Location = new System.Drawing.Point(595, 384);
+            this.lblDesconto.Location = new System.Drawing.Point(681, 442);
             this.lblDesconto.Name = "lblDesconto";
             this.lblDesconto.Size = new System.Drawing.Size(52, 13);
             this.lblDesconto.TabIndex = 218;
             this.lblDesconto.Text = "R$ Desc.";
+            this.lblDesconto.Visible = false;
             // 
             // lblObservacao
             // 
@@ -284,7 +294,7 @@
             this.txtObservacao.PasswordChar = false;
             this.txtObservacao.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtObservacao.PlaceholderText = "";
-            this.txtObservacao.Size = new System.Drawing.Size(746, 43);
+            this.txtObservacao.Size = new System.Drawing.Size(785, 43);
             this.txtObservacao.TabIndex = 15;
             this.txtObservacao.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtObservacao.Texts = "";
@@ -309,7 +319,7 @@
             this.dataGridViewParcelas.Location = new System.Drawing.Point(12, 506);
             this.dataGridViewParcelas.Name = "dataGridViewParcelas";
             this.dataGridViewParcelas.ReadOnly = true;
-            this.dataGridViewParcelas.Size = new System.Drawing.Size(746, 146);
+            this.dataGridViewParcelas.Size = new System.Drawing.Size(785, 146);
             this.dataGridViewParcelas.TabIndex = 214;
             // 
             // numeroParcela
@@ -317,14 +327,14 @@
             this.numeroParcela.HeaderText = "Parcela";
             this.numeroParcela.Name = "numeroParcela";
             this.numeroParcela.ReadOnly = true;
-            this.numeroParcela.Width = 120;
+            this.numeroParcela.Width = 60;
             // 
             // idFormaPagamento
             // 
             this.idFormaPagamento.HeaderText = "Cód. Forma Pagamento";
             this.idFormaPagamento.Name = "idFormaPagamento";
             this.idFormaPagamento.ReadOnly = true;
-            this.idFormaPagamento.Width = 80;
+            this.idFormaPagamento.Width = 150;
             // 
             // FormaPagamento
             // 
@@ -448,7 +458,7 @@
             this.txtCodCondPag.Enabled = false;
             this.txtCodCondPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtCodCondPag.Location = new System.Drawing.Point(12, 458);
-            this.txtCodCondPag.MaxLength = 14;
+            this.txtCodCondPag.MaxLength = 5;
             this.txtCodCondPag.Multiline = false;
             this.txtCodCondPag.Name = "txtCodCondPag";
             this.txtCodCondPag.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -484,7 +494,7 @@
             // lblTotalProdutos
             // 
             this.lblTotalProdutos.AutoSize = true;
-            this.lblTotalProdutos.Location = new System.Drawing.Point(404, 384);
+            this.lblTotalProdutos.Location = new System.Drawing.Point(604, 381);
             this.lblTotalProdutos.Name = "lblTotalProdutos";
             this.lblTotalProdutos.Size = new System.Drawing.Size(75, 13);
             this.lblTotalProdutos.TabIndex = 209;
@@ -503,7 +513,7 @@
             this.txtTotalServicos.DisabledForeColor = System.Drawing.Color.White;
             this.txtTotalServicos.Enabled = false;
             this.txtTotalServicos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtTotalServicos.Location = new System.Drawing.Point(408, 399);
+            this.txtTotalServicos.Location = new System.Drawing.Point(608, 396);
             this.txtTotalServicos.MaxLength = 32767;
             this.txtTotalServicos.Multiline = false;
             this.txtTotalServicos.Name = "txtTotalServicos";
@@ -530,54 +540,23 @@
             this.servico,
             this.quantidadeServico,
             this.PrecoUN,
+            this.DescontoServ,
+            this.PrecoLiquido,
             this.precoTotal});
             this.dataGridViewServicos.Enabled = false;
             this.dataGridViewServicos.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewServicos.Location = new System.Drawing.Point(12, 229);
             this.dataGridViewServicos.Name = "dataGridViewServicos";
             this.dataGridViewServicos.ReadOnly = true;
-            this.dataGridViewServicos.Size = new System.Drawing.Size(746, 141);
+            this.dataGridViewServicos.Size = new System.Drawing.Size(785, 141);
             this.dataGridViewServicos.TabIndex = 207;
             this.dataGridViewServicos.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewServicos_RowsAdded);
             this.dataGridViewServicos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewServicos_RowsRemoved);
             // 
-            // idServico
-            // 
-            this.idServico.HeaderText = "Código";
-            this.idServico.Name = "idServico";
-            this.idServico.ReadOnly = true;
-            this.idServico.Width = 80;
-            // 
-            // servico
-            // 
-            this.servico.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.servico.HeaderText = "Serviço";
-            this.servico.Name = "servico";
-            this.servico.ReadOnly = true;
-            // 
-            // quantidadeServico
-            // 
-            this.quantidadeServico.HeaderText = "Quantidade";
-            this.quantidadeServico.Name = "quantidadeServico";
-            this.quantidadeServico.ReadOnly = true;
-            this.quantidadeServico.Width = 80;
-            // 
-            // PrecoUN
-            // 
-            this.PrecoUN.HeaderText = "Preço UN";
-            this.PrecoUN.Name = "PrecoUN";
-            this.PrecoUN.ReadOnly = true;
-            // 
-            // precoTotal
-            // 
-            this.precoTotal.HeaderText = "Preço Total";
-            this.precoTotal.Name = "precoTotal";
-            this.precoTotal.ReadOnly = true;
-            // 
             // lblPrecoServico
             // 
             this.lblPrecoServico.AutoSize = true;
-            this.lblPrecoServico.Location = new System.Drawing.Point(509, 159);
+            this.lblPrecoServico.Location = new System.Drawing.Point(494, 159);
             this.lblPrecoServico.Name = "lblPrecoServico";
             this.lblPrecoServico.Size = new System.Drawing.Size(35, 13);
             this.lblPrecoServico.TabIndex = 206;
@@ -596,7 +575,7 @@
             this.txtPrecoServico.DisabledForeColor = System.Drawing.Color.White;
             this.txtPrecoServico.Enabled = false;
             this.txtPrecoServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtPrecoServico.Location = new System.Drawing.Point(512, 175);
+            this.txtPrecoServico.Location = new System.Drawing.Point(497, 175);
             this.txtPrecoServico.MaxLength = 32767;
             this.txtPrecoServico.Multiline = false;
             this.txtPrecoServico.Name = "txtPrecoServico";
@@ -609,11 +588,12 @@
             this.txtPrecoServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecoServico.Texts = "";
             this.txtPrecoServico.UnderlinedStyle = false;
+            this.txtPrecoServico._TextChanged += new System.EventHandler(this.txtPrecoServico__TextChanged);
             // 
             // lblQtdeServico
             // 
             this.lblQtdeServico.AutoSize = true;
-            this.lblQtdeServico.Location = new System.Drawing.Point(595, 159);
+            this.lblQtdeServico.Location = new System.Drawing.Point(415, 159);
             this.lblQtdeServico.Name = "lblQtdeServico";
             this.lblQtdeServico.Size = new System.Drawing.Size(69, 13);
             this.lblQtdeServico.TabIndex = 203;
@@ -632,8 +612,8 @@
             this.txtQtdeServico.DisabledForeColor = System.Drawing.Color.White;
             this.txtQtdeServico.Enabled = false;
             this.txtQtdeServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtQtdeServico.Location = new System.Drawing.Point(598, 175);
-            this.txtQtdeServico.MaxLength = 32767;
+            this.txtQtdeServico.Location = new System.Drawing.Point(418, 175);
+            this.txtQtdeServico.MaxLength = 5;
             this.txtQtdeServico.Multiline = false;
             this.txtQtdeServico.Name = "txtQtdeServico";
             this.txtQtdeServico.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -645,6 +625,7 @@
             this.txtQtdeServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtQtdeServico.Texts = "";
             this.txtQtdeServico.UnderlinedStyle = false;
+            this.txtQtdeServico._TextChanged += new System.EventHandler(this.txtQtdeServico__TextChanged);
             this.txtQtdeServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdeServico_KeyPress);
             this.txtQtdeServico.Leave += new System.EventHandler(this.txtQtdeServico_Leave);
             // 
@@ -689,7 +670,7 @@
             this.txtServico.PasswordChar = false;
             this.txtServico.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtServico.PlaceholderText = "";
-            this.txtServico.Size = new System.Drawing.Size(336, 28);
+            this.txtServico.Size = new System.Drawing.Size(251, 28);
             this.txtServico.TabIndex = 202;
             this.txtServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtServico.Texts = "";
@@ -709,7 +690,7 @@
             this.txtCodServico.Enabled = false;
             this.txtCodServico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtCodServico.Location = new System.Drawing.Point(12, 175);
-            this.txtCodServico.MaxLength = 32767;
+            this.txtCodServico.MaxLength = 5;
             this.txtCodServico.Multiline = false;
             this.txtCodServico.Name = "txtCodServico";
             this.txtCodServico.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -753,7 +734,7 @@
             this.btnAddServico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddServico.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddServico.ForeColor = System.Drawing.Color.White;
-            this.btnAddServico.Location = new System.Drawing.Point(683, 175);
+            this.btnAddServico.Location = new System.Drawing.Point(722, 175);
             this.btnAddServico.Name = "btnAddServico";
             this.btnAddServico.Size = new System.Drawing.Size(75, 28);
             this.btnAddServico.TabIndex = 10;
@@ -766,7 +747,7 @@
             // 
             this.lblDataCancelamento.AutoSize = true;
             this.lblDataCancelamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblDataCancelamento.Location = new System.Drawing.Point(615, 55);
+            this.lblDataCancelamento.Location = new System.Drawing.Point(696, 55);
             this.lblDataCancelamento.Name = "lblDataCancelamento";
             this.lblDataCancelamento.Size = new System.Drawing.Size(101, 13);
             this.lblDataCancelamento.TabIndex = 198;
@@ -784,7 +765,7 @@
             this.txtDataCancelamento.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtDataCancelamento.DisabledForeColor = System.Drawing.Color.White;
             this.txtDataCancelamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.txtDataCancelamento.Location = new System.Drawing.Point(618, 71);
+            this.txtDataCancelamento.Location = new System.Drawing.Point(699, 71);
             this.txtDataCancelamento.Mask = "00/00/0000";
             this.txtDataCancelamento.MaxLength = 32767;
             this.txtDataCancelamento.Multiline = false;
@@ -804,7 +785,7 @@
             // 
             this.lblCancelada.AutoSize = true;
             this.lblCancelada.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblCancelada.Location = new System.Drawing.Point(482, 80);
+            this.lblCancelada.Location = new System.Drawing.Point(563, 80);
             this.lblCancelada.Name = "lblCancelada";
             this.lblCancelada.Size = new System.Drawing.Size(112, 13);
             this.lblCancelada.TabIndex = 197;
@@ -888,7 +869,7 @@
             this.txtModelo.DisabledForeColor = System.Drawing.Color.White;
             this.txtModelo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtModelo.Location = new System.Drawing.Point(228, 32);
-            this.txtModelo.MaxLength = 32767;
+            this.txtModelo.MaxLength = 5;
             this.txtModelo.Multiline = false;
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -1008,7 +989,7 @@
             this.txtSerie.DisabledForeColor = System.Drawing.Color.White;
             this.txtSerie.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtSerie.Location = new System.Drawing.Point(325, 32);
-            this.txtSerie.MaxLength = 32767;
+            this.txtSerie.MaxLength = 5;
             this.txtSerie.Multiline = false;
             this.txtSerie.Name = "txtSerie";
             this.txtSerie.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -1037,7 +1018,7 @@
             this.txtNroNota.Enabled = false;
             this.txtNroNota.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtNroNota.Location = new System.Drawing.Point(121, 32);
-            this.txtNroNota.MaxLength = 32767;
+            this.txtNroNota.MaxLength = 9;
             this.txtNroNota.Multiline = false;
             this.txtNroNota.Name = "txtNroNota";
             this.txtNroNota.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -1073,10 +1054,137 @@
             this.btnCancelar.Visible = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // lblPrecoProdTotal
+            // 
+            this.lblPrecoProdTotal.AutoSize = true;
+            this.lblPrecoProdTotal.Location = new System.Drawing.Point(647, 159);
+            this.lblPrecoProdTotal.Name = "lblPrecoProdTotal";
+            this.lblPrecoProdTotal.Size = new System.Drawing.Size(31, 13);
+            this.lblPrecoProdTotal.TabIndex = 224;
+            this.lblPrecoProdTotal.Text = "Total";
+            // 
+            // txtPrecoServTotal
+            // 
+            this.txtPrecoServTotal.BackColor = System.Drawing.SystemColors.Window;
+            this.txtPrecoServTotal.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtPrecoServTotal.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtPrecoServTotal.BorderRadius = 5;
+            this.txtPrecoServTotal.BorderSize = 1;
+            this.txtPrecoServTotal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtPrecoServTotal.DisabledBackColor = System.Drawing.Color.White;
+            this.txtPrecoServTotal.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtPrecoServTotal.DisabledForeColor = System.Drawing.Color.White;
+            this.txtPrecoServTotal.Enabled = false;
+            this.txtPrecoServTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtPrecoServTotal.Location = new System.Drawing.Point(650, 175);
+            this.txtPrecoServTotal.MaxLength = 32767;
+            this.txtPrecoServTotal.Multiline = false;
+            this.txtPrecoServTotal.Name = "txtPrecoServTotal";
+            this.txtPrecoServTotal.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtPrecoServTotal.PasswordChar = false;
+            this.txtPrecoServTotal.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtPrecoServTotal.PlaceholderText = "";
+            this.txtPrecoServTotal.Size = new System.Drawing.Size(66, 28);
+            this.txtPrecoServTotal.TabIndex = 223;
+            this.txtPrecoServTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPrecoServTotal.Texts = "";
+            this.txtPrecoServTotal.UnderlinedStyle = false;
+            // 
+            // lblDescontoProd
+            // 
+            this.lblDescontoProd.AutoSize = true;
+            this.lblDescontoProd.Location = new System.Drawing.Point(572, 159);
+            this.lblDescontoProd.Name = "lblDescontoProd";
+            this.lblDescontoProd.Size = new System.Drawing.Size(70, 13);
+            this.lblDescontoProd.TabIndex = 222;
+            this.lblDescontoProd.Text = "R$ Desconto";
+            // 
+            // txtDescontoServ
+            // 
+            this.txtDescontoServ.BackColor = System.Drawing.SystemColors.Window;
+            this.txtDescontoServ.BorderColor = System.Drawing.Color.DarkGray;
+            this.txtDescontoServ.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.txtDescontoServ.BorderRadius = 5;
+            this.txtDescontoServ.BorderSize = 1;
+            this.txtDescontoServ.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDescontoServ.DisabledBackColor = System.Drawing.Color.White;
+            this.txtDescontoServ.DisabledBorderColor = System.Drawing.Color.Gainsboro;
+            this.txtDescontoServ.DisabledForeColor = System.Drawing.Color.White;
+            this.txtDescontoServ.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.txtDescontoServ.Location = new System.Drawing.Point(575, 175);
+            this.txtDescontoServ.MaxLength = 13;
+            this.txtDescontoServ.Multiline = false;
+            this.txtDescontoServ.Name = "txtDescontoServ";
+            this.txtDescontoServ.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
+            this.txtDescontoServ.PasswordChar = false;
+            this.txtDescontoServ.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtDescontoServ.PlaceholderText = "";
+            this.txtDescontoServ.Size = new System.Drawing.Size(67, 28);
+            this.txtDescontoServ.TabIndex = 221;
+            this.txtDescontoServ.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDescontoServ.Texts = "";
+            this.txtDescontoServ.UnderlinedStyle = false;
+            this.txtDescontoServ._TextChanged += new System.EventHandler(this.txtDescontoProd__TextChanged);
+            this.txtDescontoServ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescontoProd_KeyPress);
+            this.txtDescontoServ.Leave += new System.EventHandler(this.txtDescontoProd_Leave);
+            // 
+            // idServico
+            // 
+            this.idServico.HeaderText = "Código";
+            this.idServico.Name = "idServico";
+            this.idServico.ReadOnly = true;
+            this.idServico.Width = 60;
+            // 
+            // servico
+            // 
+            this.servico.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.servico.HeaderText = "Serviço";
+            this.servico.Name = "servico";
+            this.servico.ReadOnly = true;
+            // 
+            // quantidadeServico
+            // 
+            this.quantidadeServico.HeaderText = "Quantidade";
+            this.quantidadeServico.Name = "quantidadeServico";
+            this.quantidadeServico.ReadOnly = true;
+            this.quantidadeServico.Width = 65;
+            // 
+            // PrecoUN
+            // 
+            this.PrecoUN.HeaderText = "Preço UN";
+            this.PrecoUN.Name = "PrecoUN";
+            this.PrecoUN.ReadOnly = true;
+            this.PrecoUN.Width = 80;
+            // 
+            // DescontoServ
+            // 
+            this.DescontoServ.HeaderText = "R$ Desconto UN";
+            this.DescontoServ.Name = "DescontoServ";
+            this.DescontoServ.ReadOnly = true;
+            this.DescontoServ.Width = 150;
+            // 
+            // PrecoLiquido
+            // 
+            this.PrecoLiquido.HeaderText = "Preço Líquido UN";
+            this.PrecoLiquido.Name = "PrecoLiquido";
+            this.PrecoLiquido.ReadOnly = true;
+            this.PrecoLiquido.Width = 150;
+            // 
+            // precoTotal
+            // 
+            this.precoTotal.HeaderText = "Preço Total";
+            this.precoTotal.Name = "precoTotal";
+            this.precoTotal.ReadOnly = true;
+            this.precoTotal.Width = 85;
+            // 
             // CadastroNotasServico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(774, 813);
+            this.ClientSize = new System.Drawing.Size(811, 813);
+            this.Controls.Add(this.lblPrecoProdTotal);
+            this.Controls.Add(this.txtPrecoServTotal);
+            this.Controls.Add(this.lblDescontoProd);
+            this.Controls.Add(this.txtDescontoServ);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.txtPorcentagemDesconto);
             this.Controls.Add(this.txtTotalPagar);
@@ -1184,6 +1292,10 @@
             this.Controls.SetChildIndex(this.txtTotalPagar, 0);
             this.Controls.SetChildIndex(this.txtPorcentagemDesconto, 0);
             this.Controls.SetChildIndex(this.btnCancelar, 0);
+            this.Controls.SetChildIndex(this.txtDescontoServ, 0);
+            this.Controls.SetChildIndex(this.lblDescontoProd, 0);
+            this.Controls.SetChildIndex(this.txtPrecoServTotal, 0);
+            this.Controls.SetChildIndex(this.lblPrecoProdTotal, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewParcelas)).EndInit();
@@ -1204,11 +1316,6 @@
         protected System.Windows.Forms.Label lblObservacao;
         private GControls.GTextBox txtObservacao;
         private System.Windows.Forms.DataGridView dataGridViewParcelas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numeroParcela;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idFormaPagamento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FormaPagamento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataVencimento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorParcela;
         protected GButtons btnAddCondPag;
         public GButtons btnExcluirServico;
         protected GButtons btnConsultaCondPag;
@@ -1245,11 +1352,22 @@
         private System.Windows.Forms.Label lblCodCliente;
         private GControls.GTextBox txtSerie;
         public GControls.GTextBox txtNroNota;
+        protected GButtons btnCancelar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numeroParcela;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idFormaPagamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FormaPagamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataVencimento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorParcela;
+        protected System.Windows.Forms.Label lblPrecoProdTotal;
+        private GControls.GTextBox txtPrecoServTotal;
+        protected System.Windows.Forms.Label lblDescontoProd;
+        private GControls.GTextBox txtDescontoServ;
         private System.Windows.Forms.DataGridViewTextBoxColumn idServico;
         private System.Windows.Forms.DataGridViewTextBoxColumn servico;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeServico;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecoUN;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DescontoServ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecoLiquido;
         private System.Windows.Forms.DataGridViewTextBoxColumn precoTotal;
-        protected GButtons btnCancelar;
     }
 }

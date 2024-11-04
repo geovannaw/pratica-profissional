@@ -455,7 +455,7 @@ namespace Sistema_Vendas.Views
                 {
                     quantidadeProduto = Convert.ToInt32(row.Cells["quantidadeProduto"].Value),
                     precoProduto = Math.Round(precoLiquido, 4),
-                    descontoProd = Convert.ToDecimal(row.Cells["DescontoProd"].Value),
+                    descontoProd = row.Cells["DescontoProd"].Value != null ? Convert.ToDecimal(row.Cells["DescontoProd"].Value) : (decimal?)null,
                     idProduto = Convert.ToInt32(row.Cells["idProduto"].Value),
                     rateio = rateio,
                     custoMedio = custoMedio,
@@ -626,6 +626,7 @@ namespace Sistema_Vendas.Views
                     txtCodCondPag.Focus();
                     txtCodCondPag.Clear();
                     txtCondPag.Clear();
+                    dataGridViewParcelas.Rows.Clear();
                 }
             } else
             {
@@ -655,7 +656,7 @@ namespace Sistema_Vendas.Views
                         produtoDetalhes.Produto,
                         produtoDetalhes.Unidade,
                         produto.quantidadeProduto,
-                        produto.precoProduto, 
+                        (produto.precoProduto + descontoProd), 
                         descontoProd,         
                         precoLiquido,     
                         (produto.quantidadeProduto * precoLiquido) 
@@ -723,6 +724,8 @@ namespace Sistema_Vendas.Views
             else
             {
                 txtDataChegada.Texts = DateTime.Now.ToString();
+                txtModelo.Texts = "55";
+                txtSerie.Texts = "1";
             }
             if (Program.permissaoLogado == "ATENDENTE")
             {
@@ -806,6 +809,14 @@ namespace Sistema_Vendas.Views
             txtValorSeguro.Enabled = !camposPreenchidos;
             txtOutrasDespesas.Enabled = !camposPreenchidos;
 
+            txtCodProduto.Enabled = !camposPreenchidos;
+            txtQtdeProduto.Enabled = !camposPreenchidos;
+            txtPrecoProd.Enabled = !camposPreenchidos;
+            txtDescontoProd.Enabled = !camposPreenchidos;
+            dataGridViewProdutos.Enabled = !camposPreenchidos;
+            btnConsultaProduto.Enabled = !camposPreenchidos;
+            btnExcluirProduto.Enabled = !camposPreenchidos;
+
         }
 
         private void txtNroNota_Leave(object sender, EventArgs e)
@@ -867,25 +878,22 @@ namespace Sistema_Vendas.Views
         private void txtDataEmissao_Leave(object sender, EventArgs e)
         {
             DateTime dataEmissao;
-            DateTime dataHoje = DateTime.Now;
+            string dataE = new string(txtDataEmissao.Texts.Where(char.IsDigit).ToArray());
             bool dataValida = DateTime.TryParse(txtDataEmissao.Texts, out dataEmissao);
 
-            string dataE = new string(txtDataEmissao.Texts.Where(char.IsDigit).ToArray());
-
-            if (!string.IsNullOrWhiteSpace(dataE) && dataValida)
+            if (!string.IsNullOrEmpty(dataE))
             {
-                if (dataEmissao > dataHoje)
+                if (!dataValida)
                 {
-                    MessageBox.Show("Data de emissão inválida! A data deve ser menor ou igual a hoje.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Data de Emissão inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtDataEmissao.Focus();
                     return;
                 }
-                VerificaCamposPreenchidosNF();
-            }
-            else if (string.IsNullOrWhiteSpace(dataE) || !dataValida)
-            {
-                //se estiver vazio ou com a máscara inicial, sai do método sem validação
-                return;
+                if (!VerificarDataMenorOuIgualHoje(dataEmissao, "Emissão"))
+                {
+                    txtDataEmissao.Focus();
+                    return;
+                }
             }
         }
 
@@ -944,22 +952,23 @@ namespace Sistema_Vendas.Views
                     string unidade = txtUN.Texts;
                     decimal precoUN = Convert.ToDecimal(txtPrecoProd.Texts);
 
-                    // Verificação para desconto, assumindo 0 se estiver vazio ou nulo
+                    //verificação para desconto, assumindo 0 se estiver vazio ou nulo
                     decimal descontoProd = string.IsNullOrEmpty(txtDescontoProd.Texts) ? 0 : Convert.ToDecimal(txtDescontoProd.Texts);
                     decimal precoLiquido = precoUN - descontoProd;
 
                     bool produtoJaAdicionado = false;
 
-                    // Verifica se o produto já foi adicionado
+                    //verifica se o produto já foi adicionado
                     foreach (DataGridViewRow row in dataGridViewProdutos.Rows)
                     {
                         if (row.Cells["idProduto"].Value != null && (int)row.Cells["idProduto"].Value == idProduto)
                         {
                             decimal precoExistente = (decimal)row.Cells["PrecoUN"].Value;
+                            decimal descontoExistente = (decimal)row.Cells["DescontoProd"].Value; // Supondo que o desconto está em uma coluna chamada "desconto"
 
-                            if (precoExistente == precoUN)
+                            if (precoExistente == precoUN && descontoExistente == descontoProd)
                             {
-                                // Atualiza a quantidade se o preço for o mesmo
+                                //atualiza a quantidade se o preço e desconto forem os mesmos
                                 int qtdeExistente = (int)row.Cells["quantidadeProduto"].Value;
                                 row.Cells["quantidadeProduto"].Value = qtdeExistente + qtdeProduto;
                                 row.Cells["precoTotal"].Value = (qtdeExistente + qtdeProduto) * precoLiquido;
@@ -968,24 +977,31 @@ namespace Sistema_Vendas.Views
                             }
                             else
                             {
-                                // Bloqueia se o preço for diferente
-                                MessageBox.Show("Este produto já foi adicionado com um preço diferente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                //bloqueia se o preço ou desconto forem diferentes
+                                if (precoExistente != precoUN)
+                                {
+                                    MessageBox.Show("Este produto já foi adicionado com um preço diferente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                if (descontoExistente != descontoProd)
+                                {
+                                    MessageBox.Show("Este produto já foi adicionado com um desconto diferente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                                 produtoJaAdicionado = true;
                                 break;
                             }
                         }
                     }
 
-                    // Adiciona uma nova linha se o produto não foi encontrado
+                    //adiciona uma nova linha se o produto não foi encontrado
                     if (!produtoJaAdicionado)
                     {
                         decimal precoTotal = qtdeProduto * precoLiquido;
                         dataGridViewProdutos.Rows.Add(idProduto, produto, unidade, qtdeProduto, precoUN, descontoProd, precoLiquido, precoTotal);
-                        limpaCamposProdutos();
                     }
 
                     atualizaTotalProdutos();
                     atualizaTotalPagar();
+                    limpaCamposProdutos();
                     dataGridViewProdutos.Sort(dataGridViewProdutos.Columns["idProduto"], ListSortDirection.Ascending);
                 }
                 catch (Exception ex)
@@ -1021,6 +1037,12 @@ namespace Sistema_Vendas.Views
         private void txtValorFrete_Leave(object sender, EventArgs e)
         {
             txtValorFrete.Texts = FormataPreco(txtValorFrete.Texts);
+            
+            if (string.IsNullOrEmpty(txtValorFrete.Texts))
+            {
+                txtValorFrete.Texts = "0,00";
+            }
+
             VerificaCamposPreenchidosFrete();
             atualizaTotalPagar();
         }
@@ -1028,6 +1050,10 @@ namespace Sistema_Vendas.Views
         private void txtValorSeguro_Leave(object sender, EventArgs e)
         {
             txtValorSeguro.Texts = FormataPreco(txtValorSeguro.Texts);
+            if (string.IsNullOrEmpty(txtValorSeguro.Texts))
+            {
+                txtValorSeguro.Texts = "0,00";
+            }
             VerificaCamposPreenchidosFrete();
             atualizaTotalPagar();
         }
@@ -1035,6 +1061,10 @@ namespace Sistema_Vendas.Views
         private void txtOutrasDespesas_Leave(object sender, EventArgs e)
         {
             txtOutrasDespesas.Texts = FormataPreco(txtOutrasDespesas.Texts);
+            if (string.IsNullOrEmpty(txtOutrasDespesas.Texts))
+            {
+                txtOutrasDespesas.Texts = "0,00";
+            }
             VerificaCamposPreenchidosFrete();
             atualizaTotalPagar();
         }
@@ -1287,6 +1317,18 @@ namespace Sistema_Vendas.Views
                 try
                 {
                     txtDescontoProd.Texts = FormataPreco(txtDescontoProd.Texts);
+
+                    if (decimal.TryParse(txtDescontoProd.Texts, out decimal desconto) &&
+                        decimal.TryParse(txtPrecoProd.Texts, out decimal preco))
+                    {
+                        if (desconto >= preco)
+                        {
+                            MessageBox.Show("O desconto não pode ser maior ou igual ao preço do produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtDescontoProd.Focus();
+                            txtDescontoProd.Clear();
+                            return;
+                        }
+                    }
                 }
                 catch (FormatException ex)
                 {
@@ -1302,6 +1344,36 @@ namespace Sistema_Vendas.Views
             {
                 e.Handled = true;
             }
+        }
+        private void CalcularPrecoTotalProd()
+        {
+            if (decimal.TryParse(txtQtdeProduto.Texts, out decimal quantidade) &&
+        decimal.TryParse(txtPrecoProd.Texts, out decimal preco))
+            {
+                decimal desconto = decimal.TryParse(txtDescontoProd.Texts, out decimal descontoVal) ? descontoVal : 0;
+
+                decimal precoTotal = quantidade * (preco - desconto);
+                txtPrecoProdTotal.Texts = precoTotal.ToString("F2"); 
+            }
+            else
+            {
+                txtPrecoProdTotal.Texts = "0.00"; 
+            }
+        }
+
+        private void txtQtdeProduto__TextChanged(object sender, EventArgs e)
+        {
+            CalcularPrecoTotalProd();
+        }
+
+        private void txtPrecoProd__TextChanged(object sender, EventArgs e)
+        {
+            CalcularPrecoTotalProd();
+        }
+
+        private void txtDescontoProd__TextChanged(object sender, EventArgs e)
+        {
+            CalcularPrecoTotalProd();
         }
     }
 }

@@ -368,7 +368,7 @@
             this.txtCodCondPag.PlaceholderText = "";
             this.txtCodCondPag.Size = new System.Drawing.Size(62, 28);
             this.txtCodCondPag.TabIndex = 116;
-            this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCondPag.Texts = "";
             this.txtCodCondPag.UnderlinedStyle = false;
             this.txtCodCondPag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCondPag_KeyPress);
@@ -850,7 +850,7 @@
             this.txtCodCidade.PlaceholderText = "";
             this.txtCodCidade.Size = new System.Drawing.Size(62, 28);
             this.txtCodCidade.TabIndex = 111;
-            this.txtCodCidade.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtCodCidade.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCidade.Texts = "";
             this.txtCodCidade.UnderlinedStyle = false;
             this.txtCodCidade.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCidade_KeyPress);

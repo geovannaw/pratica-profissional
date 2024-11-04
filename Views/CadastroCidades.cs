@@ -58,17 +58,17 @@ namespace Sistema_Vendas.Views
         {
             if (!CampoObrigatorio(txtCidade.Texts))
             {
-                MessageBox.Show("Campo Cidade é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Cidade é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCidade.Focus();
             }
             else if (!CampoObrigatorio(txtDDD.Texts))
             {
-                MessageBox.Show("Campo DDD é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo DDD é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDDD.Focus();
             }
             else if (!CampoObrigatorio(txtCodEstado.Texts))
             {
-                MessageBox.Show("Campo Código Estado é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Código Estado é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCodEstado.Focus();
             }
             else

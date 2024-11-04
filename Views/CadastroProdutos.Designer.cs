@@ -500,7 +500,7 @@
             this.txtPrecoVenda.DisabledForeColor = System.Drawing.Color.White;
             this.txtPrecoVenda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtPrecoVenda.Location = new System.Drawing.Point(304, 275);
-            this.txtPrecoVenda.MaxLength = 32767;
+            this.txtPrecoVenda.MaxLength = 13;
             this.txtPrecoVenda.Multiline = false;
             this.txtPrecoVenda.Name = "txtPrecoVenda";
             this.txtPrecoVenda.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);

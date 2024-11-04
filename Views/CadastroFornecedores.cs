@@ -176,7 +176,7 @@ namespace Sistema_Vendas.Views
 
                     AtualizarCampoData(fornecedor.data_nasc, txtDataNasc);
 
-                    List<string> cidadeEstadoPais = fornecedorController.GetCEPByIdCidade(fornecedor.idCidade);
+                    List<string> cidadeEstadoPais = fornecedorController.carregaCEP(fornecedor.idCidade);
 
                     if (cidadeEstadoPais.Count > 0)
                     {
@@ -330,6 +330,18 @@ namespace Sistema_Vendas.Views
         private void rbJuridica_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtCPF_CNPJ_Leave(object sender, EventArgs e)
+        {
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+            string cpf_cnpj = new string(txtCPF_CNPJ.Texts.Where(char.IsDigit).ToArray());
+
+            if (fornecedorController.JaCadastrado(cpf_cnpj, idAtual))
+            {
+                MessageBox.Show("Fornecedor já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCPF_CNPJ.Focus();
+            }
         }
     }
 }

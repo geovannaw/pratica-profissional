@@ -52,6 +52,10 @@ namespace Sistema_Vendas.Controller
         {
             return fornecedorDAO.GetCEPByIdCidade(idCidade);
         }
+        public List<string> carregaCEP(int idCidade)
+        {
+            return fornecedorDAO.carregaCEP(idCidade);
+        }
 
         public override void Salvar(T obj)
         {

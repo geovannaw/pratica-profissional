@@ -15,6 +15,10 @@ namespace Sistema_Vendas.Views
     {
         private FormaPagamentoController<FormaPagamentoModel> formaPagamentoController;
         private CadastroFormaPagamento cadastroFormaPagamento;
+
+        public bool isFromOS { get; set; }
+        private bool fechamentoPermitido = false;
+
         public ConsultaFormasPagamento()
         {
             InitializeComponent();
@@ -184,7 +188,26 @@ namespace Sistema_Vendas.Views
             }
             else
             {
+                this.DialogResult = DialogResult.Cancel;
                 Close();
+            }
+        }
+
+        private void ConsultaFormasPagamento_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //if (isFromOS && e.CloseReason == CloseReason.UserClosing && !fechamentoPermitido)
+            //{
+            //    MessageBox.Show("Por favor, selecione uma forma de pagamento antes de sair.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    e.Cancel = true; // Cancela o fechamento do formulário
+            //}
+        }
+
+        private void ConsultaFormasPagamento_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (isFromOS && e.KeyCode == Keys.Escape)
+            {
+                e.SuppressKeyPress = true; //impede o fechamento pelo ESC
+                MessageBox.Show("Por favor, selecione uma forma de pagamento antes de sair.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

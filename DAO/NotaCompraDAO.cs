@@ -125,7 +125,7 @@ namespace Sistema_Vendas.DAO
                         NotaCompra_ProdutoModel produto = new NotaCompra_ProdutoModel();
                         produto.idProduto = Convert.ToInt32(reader["idProduto"]);
                         produto.precoProduto = Convert.ToDecimal(reader["precoProduto"]);
-                        produto.descontoProd = Convert.ToDecimal(reader["desconto"]);
+                        produto.descontoProd = reader["desconto"] != DBNull.Value ? Convert.ToDecimal(reader["desconto"]) : (decimal?)null;
                         produto.quantidadeProduto = Convert.ToInt32(reader["quantidadeProduto"]);
 
                         produtos.Add(produto);
@@ -200,8 +200,8 @@ namespace Sistema_Vendas.DAO
                     foreach (var produto in obj.Produtos)
                     {
                         string queryProduto = @"INSERT INTO notaCompra_Produto 
-                                        (numeroNota, modelo, serie, idFornecedor, quantidadeProduto, precoProduto, custoMedio, rateio, idProduto, desconto) 
-                                        VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @quantidadeProduto, @precoProduto, @custoMedio, @rateio, @idProduto, @desconto)";
+                                        (numeroNota, modelo, serie, idFornecedor, quantidadeProduto, precoProduto, custoMedio, custoUltCompra, rateio, idProduto, desconto) 
+                                        VALUES (@numeroNota, @modelo, @serie, @idFornecedor, @quantidadeProduto, @precoProduto, @custoMedio, @custoUltCompra, @rateio, @idProduto, @desconto)";
                         SqlCommand cmdProduto = new SqlCommand(queryProduto, conn, transaction);
 
                         cmdProduto.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
@@ -211,6 +211,7 @@ namespace Sistema_Vendas.DAO
                         cmdProduto.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);
                         cmdProduto.Parameters.AddWithValue("@precoProduto", produto.precoProduto);
                         cmdProduto.Parameters.AddWithValue("@custoMedio", produto.custoMedio);
+                        cmdProduto.Parameters.AddWithValue("@custoUltCompra", produto.custoUltCompra);
                         cmdProduto.Parameters.AddWithValue("@rateio", produto.rateio.HasValue ? (object)produto.rateio.Value : DBNull.Value);
                         cmdProduto.Parameters.AddWithValue("@desconto", produto.descontoProd.HasValue ? (object)produto.descontoProd.Value : DBNull.Value);
                         cmdProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
@@ -293,9 +294,9 @@ namespace Sistema_Vendas.DAO
                                 string queryUpdateProduto = @"UPDATE produto SET 
                             saldo = saldo + @quantidadeProduto,
                             custoMedio = @novoCustoMedio,
-                            custoUltCompra = @custoUltCompra,  -- Agora atualizando o custo médio da última compra
+                            custoUltCompra = @custoUltCompra,  
                             dataUltCompra = @dataUltCompra,
-                            precoUltCompra = @precoUltCompra  -- O preço unitário da nova compra
+                            precoUltCompra = @precoUltCompra  
                             WHERE idProduto = @idProduto";
 
                                 SqlCommand cmdUpdateProduto = new SqlCommand(queryUpdateProduto, conn, transaction);

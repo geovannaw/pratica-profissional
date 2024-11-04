@@ -188,26 +188,39 @@ namespace Sistema_Vendas.DAO
 
                 try
                 {
-                    //verifica se a conta a receber está associada a alguma nota de venda
-                    string verificaQuery = @"
+                    // Verifica se a conta a receber está associada a alguma nota de venda
+                    string verificaVendaQuery = @"
                 SELECT COUNT(*) FROM notaVenda
                 WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idCliente = @idCliente";
 
-                    SqlCommand verificaCommand = new SqlCommand(verificaQuery, connection, transaction);
-                    verificaCommand.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
-                    verificaCommand.Parameters.AddWithValue("@modelo", obj.modelo);
-                    verificaCommand.Parameters.AddWithValue("@serie", obj.serie);
-                    verificaCommand.Parameters.AddWithValue("@idCliente", obj.idCliente);
+                    SqlCommand verificaVendaCommand = new SqlCommand(verificaVendaQuery, connection, transaction);
+                    verificaVendaCommand.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
+                    verificaVendaCommand.Parameters.AddWithValue("@modelo", obj.modelo);
+                    verificaVendaCommand.Parameters.AddWithValue("@serie", obj.serie);
+                    verificaVendaCommand.Parameters.AddWithValue("@idCliente", obj.idCliente);
 
-                    int count = (int)verificaCommand.ExecuteScalar();
+                    int vendaCount = (int)verificaVendaCommand.ExecuteScalar();
 
-                    if (count > 0)
+                    // Verifica se a conta a receber está associada a alguma nota de serviço
+                    string verificaServicoQuery = @"
+                SELECT COUNT(*) FROM notaServico
+                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idCliente = @idCliente";
+
+                    SqlCommand verificaServicoCommand = new SqlCommand(verificaServicoQuery, connection, transaction);
+                    verificaServicoCommand.Parameters.AddWithValue("@numeroNota", obj.numeroNota);
+                    verificaServicoCommand.Parameters.AddWithValue("@modelo", obj.modelo);
+                    verificaServicoCommand.Parameters.AddWithValue("@serie", obj.serie);
+                    verificaServicoCommand.Parameters.AddWithValue("@idCliente", obj.idCliente);
+
+                    int servicoCount = (int)verificaServicoCommand.ExecuteScalar();
+
+                    // Se existe uma nota associada, não cancelar
+                    if (vendaCount > 0 || servicoCount > 0)
                     {
-                        //se existe uma nota associada, não cancelar
                         return false;
                     }
 
-                    //se nao existe, atualizar a data de cancelamento
+                    // Se não existe, atualizar a data de cancelamento
                     string cancelarQuery = @"
                 UPDATE contasReceber
                 SET dataCancelamento = @dataCancelamento
@@ -233,6 +246,7 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+
         public bool VerificarParcelasNaoPagas(string numeroNota, string modelo, string serie, int idCliente, int parcelaAtual)
         {
             string query = @"

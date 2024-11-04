@@ -83,6 +83,7 @@
             // txtCPF_CNPJ
             // 
             this.txtCPF_CNPJ.TabIndex = 19;
+            this.txtCPF_CNPJ.Leave += new System.EventHandler(this.txtCPF_CNPJ_Leave);
             // 
             // groupBox1
             // 

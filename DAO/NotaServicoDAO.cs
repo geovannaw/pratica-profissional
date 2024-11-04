@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Sistema_Vendas.DAO.NotaCompraDAO;
 
 namespace Sistema_Vendas.DAO
 {
@@ -136,6 +137,7 @@ namespace Sistema_Vendas.DAO
                         NotaServico_ServicoModel servico = new NotaServico_ServicoModel();
                         servico.idServico = Convert.ToInt32(reader["idServico"]);
                         servico.precoServico = Convert.ToDecimal(reader["precoServico"]);
+                        servico.descontoServ = reader["desconto"] != DBNull.Value ? Convert.ToDecimal(reader["desconto"]) : (decimal?)null;
                         servico.quantidadeServico = Convert.ToInt32(reader["quantidadeServico"]);
 
                         servicos.Add(servico);
@@ -202,14 +204,15 @@ namespace Sistema_Vendas.DAO
                     foreach (var servico in obj.Servicos)
                     {
                         string queryProduto = @"INSERT INTO notaServico_Servico 
-                                        (numeroNota, modelo, serie, idCliente, quantidadeServico, precoServico, idServico) 
-                                        VALUES (@numeroNota, @modelo, @serie, @idCliente, @quantidadeServico, @precoServico, @idServico)";
+                                        (numeroNota, modelo, serie, idCliente, desconto, quantidadeServico, precoServico, idServico) 
+                                        VALUES (@numeroNota, @modelo, @serie, @idCliente, @desconto, @quantidadeServico, @precoServico, @idServico)";
                         SqlCommand cmdProduto = new SqlCommand(queryProduto, conn, transaction);
 
                         cmdProduto.Parameters.AddWithValue("@numeroNota", numeroNota);
                         cmdProduto.Parameters.AddWithValue("@modelo", obj.modelo);
                         cmdProduto.Parameters.AddWithValue("@serie", obj.serie);
                         cmdProduto.Parameters.AddWithValue("@idCliente", obj.idCliente);
+                        cmdProduto.Parameters.AddWithValue("@desconto", servico.descontoServ.HasValue ? (object)servico.descontoServ.Value : DBNull.Value);
                         cmdProduto.Parameters.AddWithValue("@quantidadeServico", servico.quantidadeServico);
                         cmdProduto.Parameters.AddWithValue("@precoServico", servico.precoServico);
                         cmdProduto.Parameters.AddWithValue("@idServico", servico.idServico);
@@ -253,8 +256,12 @@ namespace Sistema_Vendas.DAO
             }
             return servico;
         }
+        public class ParcelaPagaException : Exception
+        {
+            public ParcelaPagaException(string message) : base(message) { }
+        }
 
-        public bool CancelarNotaServico(int numeroNota, int modelo, int serie, int idCliente) //ARRUMAR
+        public bool CancelarNotaServico(int numeroNota, int modelo, int serie, int idCliente)
         {
             try
             {
@@ -265,11 +272,36 @@ namespace Sistema_Vendas.DAO
 
                     try
                     {
-                        //add dataCancelamento na nota de servico
+                        // Verificar se existe alguma parcela já paga
+                        string queryVerificaParcelasPagas = @"
+                SELECT COUNT(*) 
+                FROM contasReceber 
+                WHERE numeroNota = @numeroNota 
+                AND modelo = @modelo 
+                AND serie = @serie 
+                AND idCliente = @idCliente 
+                AND dataRecebimento IS NOT NULL"; // Verifique se o valor pago é maior que zero
+
+                        using (SqlCommand cmd = new SqlCommand(queryVerificaParcelasPagas, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@numeroNota", numeroNota);
+                            cmd.Parameters.AddWithValue("@modelo", modelo);
+                            cmd.Parameters.AddWithValue("@serie", serie);
+                            cmd.Parameters.AddWithValue("@idCliente", idCliente);
+
+                            int parcelasPagas = (int)cmd.ExecuteScalar();
+
+                            if (parcelasPagas > 0)
+                            {
+                                throw new ParcelaPagaException("Não é possível cancelar! Existem parcelas já pagas para esta nota.");
+                            }
+                        }
+
+                        // Adicionar dataCancelamento na nota de serviço
                         string queryCancelarNota = @"
-                    UPDATE notaServico
-                    SET dataCancelamento = @dataCancelamento
-                    WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idCliente = @idCliente";
+                UPDATE notaServico
+                SET dataCancelamento = @dataCancelamento
+                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idCliente = @idCliente";
 
                         using (SqlCommand cmd = new SqlCommand(queryCancelarNota, conn, transaction))
                         {
@@ -281,12 +313,11 @@ namespace Sistema_Vendas.DAO
                             cmd.ExecuteNonQuery();
                         }
 
-                        
-                        //cancela as contas a receber associadas a nota
+                        // Cancela as contas a receber associadas à nota
                         string queryCancelarContasReceber = @"
-                    UPDATE contasReceber
-                    SET dataCancelamento = @dataCancelamento
-                    WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idCliente = @idCliente";
+                UPDATE contasReceber
+                SET dataCancelamento = @dataCancelamento
+                WHERE numeroNota = @numeroNota AND modelo = @modelo AND serie = @serie AND idCliente = @idCliente";
 
                         using (SqlCommand cmd = new SqlCommand(queryCancelarContasReceber, conn, transaction))
                         {
@@ -294,12 +325,17 @@ namespace Sistema_Vendas.DAO
                             cmd.Parameters.AddWithValue("@numeroNota", numeroNota);
                             cmd.Parameters.AddWithValue("@modelo", modelo);
                             cmd.Parameters.AddWithValue("@serie", serie);
-                            cmd.Parameters.AddWithValue("@idCliente", idCliente); 
+                            cmd.Parameters.AddWithValue("@idCliente", idCliente);
                             cmd.ExecuteNonQuery();
                         }
 
                         transaction.Commit();
                         return true;
+                    }
+                    catch (ParcelaPagaException)
+                    {
+                        transaction.Rollback();
+                        throw; //lançar novamente a exceção de parcela paga sem alterar a mensagem
                     }
                     catch (Exception ex)
                     {
@@ -308,10 +344,15 @@ namespace Sistema_Vendas.DAO
                     }
                 }
             }
+            catch (ParcelaPagaException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw new Exception("Erro na conexão com o banco de dados: " + ex.Message);
             }
         }
+
     }
 }

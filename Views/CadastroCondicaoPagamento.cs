@@ -66,18 +66,18 @@ namespace Sistema_Vendas.Views
                 decimal porcentagem = Convert.ToDecimal(txtPorcentagemTotal.Texts);
                 if (porcentagem != 100)
                 {
-                    MessageBox.Show("A porcentagem total deve ser igual a 100%.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("A porcentagem total deve ser igual a 100%.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
             if (!CampoObrigatorio(txtCondPag.Texts))
             {
-                MessageBox.Show("Campo Condição de Pagamento é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Condição de Pagamento é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCondPag.Focus();
             }
             else if (dataGridViewParcelas.Rows.Count == 0) //verifica se tem pelo menos uma parcela
             {
-                MessageBox.Show("É necessário adicionar pelo menos uma parcela.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("É necessário adicionar pelo menos uma parcela.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -260,9 +260,22 @@ namespace Sistema_Vendas.Views
         {
             if (!string.IsNullOrEmpty(txtPorcentagem.Texts) && decimal.Parse(txtPorcentagem.Texts) == 0)
             {
-                MessageBox.Show("A porcentagem deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("A porcentagem deve ser maior que zero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPorcentagem.Focus();
             }
+            else
+            {
+                try
+                {
+                    txtPorcentagem.Texts = FormataPreco(txtPorcentagem.Texts);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Formato inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPorcentagem.Focus();
+                }
+            }
+            
         }
 
         private void txtCodFormaPag_KeyPress(object sender, KeyPressEventArgs e)
@@ -278,22 +291,22 @@ namespace Sistema_Vendas.Views
         {
             if (!CampoObrigatorio(txtParcela.Texts))
             {
-                MessageBox.Show("Campo Nº Parcela é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Nº Parcela é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtParcela.Focus();
             }
             else if (!CampoObrigatorio(txtDias.Texts))
             {
-                MessageBox.Show("Campo Dias é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Dias é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDias.Focus();
             }
             else if (!CampoObrigatorio(txtPorcentagem.Texts))
             {
-                MessageBox.Show("Campo % é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo % é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPorcentagem.Focus();
             }
             else if (!CampoObrigatorio(txtCodFormaPag.Texts))
             {
-                MessageBox.Show("Campo Código Forma Pagamento é obrigatório.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo Código Forma Pagamento é obrigatório.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCodFormaPag.Focus();
             }
             else
@@ -303,7 +316,7 @@ namespace Sistema_Vendas.Views
                     int numeroParcela = Convert.ToInt32(txtParcela.Texts);
                     if (verificaNumeroParcela(numeroParcela))
                     {
-                        MessageBox.Show("Número de parcela já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Número de parcela já existe.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         txtParcela.Focus();
                         return;
                     }
@@ -408,6 +421,66 @@ namespace Sistema_Vendas.Views
             {
                 MessageBox.Show("O número da parcela não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtParcela.Focus();
+            }
+        }
+
+        private void txtJuros_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtJuros.Texts))
+            {
+                txtJuros.Texts = "0,00";
+            }
+            else
+            {
+                try
+                {
+                    txtJuros.Texts = FormataPreco(txtJuros.Texts);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Formato inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtJuros.Focus();
+                }
+            }
+        }
+
+        private void txtMulta_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtMulta.Texts))
+            {
+                txtMulta.Texts = "0,00";
+            }
+            else
+            {
+                try
+                {
+                    txtMulta.Texts = FormataPreco(txtMulta.Texts);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Formato inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtMulta.Focus();
+                }
+            }
+        }
+
+        private void txtDesconto_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtDesconto.Texts))
+            {
+                txtDesconto.Texts = "0,00";
+            }
+            else
+            {
+                try
+                {
+                    txtDesconto.Texts = FormataPreco(txtDesconto.Texts);
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Formato inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDesconto.Focus();
+                }
             }
         }
     }

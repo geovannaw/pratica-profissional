@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Sistema_Vendas.DAO
 {
@@ -132,6 +133,7 @@ namespace Sistema_Vendas.DAO
                         NotaVenda_ProdutoModel produto = new NotaVenda_ProdutoModel();
                         produto.idProduto = Convert.ToInt32(reader["idProduto"]);
                         produto.precoProduto = Convert.ToDecimal(reader["precoProduto"]);
+                        produto.descontoProd = reader["desconto"] != DBNull.Value ? Convert.ToDecimal(reader["desconto"]) : (decimal?)null;
                         produto.quantidadeProduto = Convert.ToInt32(reader["quantidadeProduto"]);
 
                         produtos.Add(produto);
@@ -197,8 +199,8 @@ namespace Sistema_Vendas.DAO
                     foreach (var produto in obj.Produtos)
                     {
                         string queryProduto = @"INSERT INTO notaVenda_Produto 
-                    (numeroNota, modelo, serie, idCliente, quantidadeProduto, precoProduto, idProduto) 
-                    VALUES (@numeroNota, @modelo, @serie, @idCliente, @quantidadeProduto, @precoProduto, @idProduto)";
+                    (numeroNota, modelo, serie, idCliente, quantidadeProduto, desconto, precoProduto, idProduto) 
+                    VALUES (@numeroNota, @modelo, @serie, @idCliente, @quantidadeProduto, @desconto, @precoProduto, @idProduto)";
                         SqlCommand cmdProduto = new SqlCommand(queryProduto, conn, transaction);
 
                         cmdProduto.Parameters.AddWithValue("@numeroNota", numeroNota);
@@ -206,6 +208,7 @@ namespace Sistema_Vendas.DAO
                         cmdProduto.Parameters.AddWithValue("@serie", obj.serie);
                         cmdProduto.Parameters.AddWithValue("@idCliente", obj.idCliente);
                         cmdProduto.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);
+                        cmdProduto.Parameters.AddWithValue("@desconto", produto.descontoProd.HasValue ? (object)produto.descontoProd.Value : DBNull.Value);
                         cmdProduto.Parameters.AddWithValue("@precoProduto", produto.precoProduto);
                         cmdProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
 
@@ -279,6 +282,10 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+        public class ParcelaPagaException : Exception
+        {
+            public ParcelaPagaException(string message) : base(message) { }
+        }
         public bool CancelarNotaVenda(int numeroNota, int modelo, int serie, int idCliente)
         {
             try
@@ -290,6 +297,30 @@ namespace Sistema_Vendas.DAO
 
                     try
                     {
+                        string queryVerificaParcelasPagas = @"
+                SELECT COUNT(*) 
+                FROM contasReceber 
+                WHERE numeroNota = @numeroNota 
+                AND modelo = @modelo 
+                AND serie = @serie 
+                AND idCliente = @idCliente 
+                AND dataRecebimento IS NOT NULL"; // Verifique se o valor pago é maior que zero
+
+                        using (SqlCommand cmd = new SqlCommand(queryVerificaParcelasPagas, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@numeroNota", numeroNota);
+                            cmd.Parameters.AddWithValue("@modelo", modelo);
+                            cmd.Parameters.AddWithValue("@serie", serie);
+                            cmd.Parameters.AddWithValue("@idCliente", idCliente);
+
+                            int parcelasPagas = (int)cmd.ExecuteScalar();
+
+                            if (parcelasPagas > 0)
+                            {
+                                throw new ParcelaPagaException("Não é possível cancelar! Existem parcelas já pagas para esta nota.");
+                            }
+                        }
+
                         //add dataCancelamento na nota de compra
                         string queryCancelarNota = @"
                     UPDATE notaVenda
@@ -366,12 +397,21 @@ namespace Sistema_Vendas.DAO
                         transaction.Commit();
                         return true;
                     }
+                    catch (ParcelaPagaException)
+                    {
+                        transaction.Rollback();
+                        throw; //lançar novamente a exceção de parcela paga sem alterar a mensagem
+                    }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
                         throw new Exception("Erro ao cancelar a Nota de Venda: " + ex.Message);
                     }
                 }
+            }
+            catch (ParcelaPagaException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {

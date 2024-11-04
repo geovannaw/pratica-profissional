@@ -72,15 +72,16 @@
             // 
             this.txtDataUltAlt.Texts = "04/07/2024";
             // 
-            // groupBox1
+            // groupBox3
             // 
             this.groupBox3.TabIndex = 11;
             // 
             // txtCPF_CNPJ
             // 
             this.txtCPF_CNPJ.TabIndex = 19;
+            this.txtCPF_CNPJ.Leave += new System.EventHandler(this.txtCPF_CNPJ_Leave);
             // 
-            // groupBox3
+            // groupBox1
             // 
             this.groupBox1.TabIndex = 27;
             // 
@@ -91,11 +92,6 @@
             // txtApelido_nome_fantasia
             // 
             this.txtApelido_nome_fantasia.TabIndex = 5;
-            // 
-            // txtCliente_razao_social
-            // 
-            this.txtCliente_razao_social.TabIndex = 4;
-            this.txtCliente_razao_social.Leave += new System.EventHandler(this.txtCliente_razao_social_Leave);
             // 
             // txtEmail
             // 
@@ -163,6 +159,11 @@
             // txtSexo
             // 
             this.txtSexo.TabIndex = 6;
+            // 
+            // txtCliente_razao_social
+            // 
+            this.txtCliente_razao_social.TabIndex = 4;
+            this.txtCliente_razao_social.Leave += new System.EventHandler(this.txtCliente_razao_social_Leave);
             // 
             // CadastroClientes
             // 

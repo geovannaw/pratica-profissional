@@ -13,6 +13,7 @@ namespace Sistema_Vendas.Models
         public int serie { get; set; }
         public int idCliente { get; set; }
         public int idServico { get; set; }
+        public decimal? descontoServ { get; set; }
         public decimal precoServico { get; set; }
         public int quantidadeServico { get; set; }
     }

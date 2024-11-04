@@ -153,7 +153,7 @@
             this.cbPermissao.BorderColor = System.Drawing.Color.DarkGray;
             this.cbPermissao.BorderRadius = 5;
             this.cbPermissao.BorderSize = 1;
-            this.cbPermissao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cbPermissao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPermissao.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.cbPermissao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.cbPermissao.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));

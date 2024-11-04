@@ -102,7 +102,9 @@
             this.Controls.Add(this.dataGridViewFormaPag);
             this.Name = "ConsultaFormasPagamento";
             this.Text = "Consulta Formas de Pagamento";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConsultaFormasPagamento_FormClosing);
             this.Load += new System.EventHandler(this.ConsultaFormasPagamento_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConsultaFormasPagamento_KeyDown);
             this.Controls.SetChildIndex(this.txtPesquisa, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);

@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static Sistema_Vendas.DAO.NotaServicoDAO;
 
 namespace Sistema_Vendas.Views
 {
@@ -81,6 +82,8 @@ namespace Sistema_Vendas.Views
             txtPorcentagemDesconto.Clear();
             txtDesconto.Clear();
             txtUsuarioUltAlt.Clear();
+            txtDescontoServ.Clear();
+            txtPrecoServTotal.Clear();
 
             //limpa os DataGridViews
             dataGridViewServicos.Rows.Clear();
@@ -101,6 +104,7 @@ namespace Sistema_Vendas.Views
             txtServico.Enabled = false;
             txtQtdeServico.Enabled = false;
             txtPrecoServico.Enabled = false;
+            txtDescontoServ.Enabled = false;
             txtCodCondPag.Enabled = false;
             txtCondPag.Enabled = false;
             txtTotalServicos.Enabled = false;
@@ -135,6 +139,7 @@ namespace Sistema_Vendas.Views
             txtServico.Enabled = false;
             txtQtdeServico.Enabled = false;
             txtPrecoServico.Enabled = false;
+            txtDescontoServ.Enabled = false;
             txtCodCondPag.Enabled = false;
             txtCondPag.Enabled = false;
             txtTotalServicos.Enabled = false;
@@ -371,6 +376,7 @@ namespace Sistema_Vendas.Views
                 {
                     quantidadeServico = Convert.ToInt32(row.Cells["quantidadeServico"].Value),
                     precoServico = Math.Round(precoUN, 4),
+                    descontoServ = row.Cells["DescontoServ"].Value != null ? Convert.ToDecimal(row.Cells["DescontoServ"].Value) : (decimal?)null,
                     idServico = Convert.ToInt32(row.Cells["idServico"].Value),
                 };
 
@@ -386,6 +392,8 @@ namespace Sistema_Vendas.Views
             foreach (var servico in servicos)
             {
                 ServicoModel servicoDetalhes = notaServicoController.GetServicoPorId(servico.idServico);
+                decimal descontoServ = servico.descontoServ ?? 0;
+                decimal precoLiquido = servico.precoServico - descontoServ;
 
                 if (servicoDetalhes != null)
                 {
@@ -394,7 +402,9 @@ namespace Sistema_Vendas.Views
                         servicoDetalhes.servico,
                         servico.quantidadeServico,
                         servico.precoServico,
-                        (servico.quantidadeServico * servico.precoServico)
+                        descontoServ,
+                        precoLiquido,
+                        (servico.quantidadeServico * precoLiquido)
                     );
                 }
             }
@@ -479,7 +489,8 @@ namespace Sistema_Vendas.Views
                     MessageBox.Show("Nota de Venda já existe! Verifique os dados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtCodServico.Enabled = !notaExiste;
                     txtQtdeServico.Enabled = !notaExiste;
-                    txtPrecoServico.Enabled = !notaExiste;
+                    txtPrecoServico.Enabled = !notaExiste; 
+                    txtDescontoServ.Enabled = !notaExiste;
                     btnConsultaServico.Enabled = !notaExiste;
                     dataGridViewServicos.Enabled = !notaExiste;
                     txtPorcentagemDesconto.Enabled = !notaExiste;
@@ -497,6 +508,7 @@ namespace Sistema_Vendas.Views
 
             txtCodServico.Enabled = camposPreenchidos;
             txtQtdeServico.Enabled = camposPreenchidos;
+            txtDescontoServ.Enabled = camposPreenchidos;
             btnConsultaServico.Enabled = camposPreenchidos;
             dataGridViewServicos.Enabled = camposPreenchidos;
             txtPorcentagemDesconto.Enabled = camposPreenchidos;
@@ -525,6 +537,7 @@ namespace Sistema_Vendas.Views
 
             txtCodServico.Enabled = !camposPreenchidos;
             txtQtdeServico.Enabled = !camposPreenchidos;
+            txtDescontoServ.Enabled = !camposPreenchidos;
             dataGridViewServicos.Enabled = !camposPreenchidos;
             txtPorcentagemDesconto.Enabled = !camposPreenchidos;
             btnConsultaServico.Enabled = !camposPreenchidos;
@@ -535,6 +548,8 @@ namespace Sistema_Vendas.Views
             txtServico.Clear();
             txtQtdeServico.Clear();
             txtPrecoServico.Clear();
+            txtDescontoServ.Clear();
+            txtPrecoServTotal.Clear();
         }
 
         private void txtNroNota_Leave(object sender, EventArgs e)
@@ -653,9 +668,12 @@ namespace Sistema_Vendas.Views
                 {
                     int codigoServico = Convert.ToInt32(txtCodServico.Texts);
                     string servico = txtServico.Texts;
-                    decimal precoUNServ = Convert.ToDecimal(txtPrecoServico.Texts); //preço unitário
-                    int quantidadeServ = Convert.ToInt32(txtQtdeServico.Texts); //quantidade
-                    decimal precoTotalServ = quantidadeServ * precoUNServ; //preço total
+                    decimal precoUNServ = Convert.ToDecimal(txtPrecoServico.Texts); // preço unitário
+                    int quantidadeServ = Convert.ToInt32(txtQtdeServico.Texts); // quantidade
+
+                    decimal descontoServ = string.IsNullOrEmpty(txtDescontoServ.Texts) ? 0 : Convert.ToDecimal(txtDescontoServ.Texts);
+                    decimal precoLiquido = precoUNServ - descontoServ;
+                    decimal precoTotal = precoLiquido * quantidadeServ;
 
                     bool servicoExistente = false;
 
@@ -664,10 +682,18 @@ namespace Sistema_Vendas.Views
                         if (Convert.ToInt32(row.Cells["idServico"].Value) == codigoServico)
                         {
                             int quantidadeAtual = Convert.ToInt32(row.Cells["quantidadeServico"].Value);
+                            decimal descontoAtual = Convert.ToDecimal(row.Cells["DescontoServ"].Value);
+
+                            if (descontoAtual != descontoServ)
+                            {
+                                MessageBox.Show("Desconto do serviço atual não corresponde ao desconto do serviço já adicionado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return; 
+                            }
+
                             int novaQuantidade = quantidadeAtual + quantidadeServ;
 
                             row.Cells["quantidadeServico"].Value = novaQuantidade;
-                            row.Cells["precoTotal"].Value = novaQuantidade * precoUNServ; 
+                            row.Cells["precoTotal"].Value = (precoLiquido * novaQuantidade).ToString("N2");
 
                             servicoExistente = true;
                             break;
@@ -676,7 +702,7 @@ namespace Sistema_Vendas.Views
 
                     if (!servicoExistente)
                     {
-                        dataGridViewServicos.Rows.Add(codigoServico, servico, quantidadeServ, precoUNServ, precoTotalServ);
+                        dataGridViewServicos.Rows.Add(codigoServico, servico, quantidadeServ, precoUNServ, descontoServ, precoLiquido, precoTotal);
                     }
 
                     atualizaTotalServicos();
@@ -757,21 +783,34 @@ namespace Sistema_Vendas.Views
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Tem certeza que deseja cancelar esta nota?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            string dataCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
+
             if (result == DialogResult.Yes)
             {
+                string dataCancelamento = new string(txtDataCancelamento.Texts.Where(char.IsDigit).ToArray());
+
                 if (string.IsNullOrEmpty(dataCancelamento))
                 {
-                    bool sucesso = notaServicoController.CancelarNotaServico(NumeroNota, Modelo, Serie, IdCliente);
+                    try
+                    {
+                        bool sucesso = notaServicoController.CancelarNotaServico(NumeroNota, Modelo, Serie, IdCliente);
 
-                    if (sucesso)
-                    {
-                        MessageBox.Show("Nota cancelada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
+                        if (sucesso)
+                        {
+                            MessageBox.Show("Nota cancelada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erro ao cancelar a nota.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    else
+                    catch (ParcelaPagaException ex)
                     {
-                        MessageBox.Show("Erro ao cancelar a nota.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ocorreu um erro ao tentar cancelar a nota: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
@@ -1015,6 +1054,72 @@ namespace Sistema_Vendas.Views
             {
                 MessageBox.Show("A quantidade não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtQtdeServico.Focus();
+            }
+        }
+
+        private void txtDescontoProd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDescontoProd_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtDescontoServ.Texts))
+            {
+                try
+                {
+                    txtDescontoServ.Texts = FormataPreco(txtDescontoServ.Texts);
+
+                    if (decimal.TryParse(txtDescontoServ.Texts, out decimal desconto) &&
+                        decimal.TryParse(txtPrecoServico.Texts, out decimal preco))
+                    {
+                        if (desconto >= preco)
+                        {
+                            MessageBox.Show("O desconto não pode ser maior ou igual ao preço do serviço.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtDescontoServ.Focus();
+                            txtDescontoServ.Clear();
+                            return;
+                        }
+                    }
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDescontoServ.Focus();
+                }
+            }
+        }
+
+        private void txtQtdeServico__TextChanged(object sender, EventArgs e)
+        {
+            CalcularPrecoTotalServ();
+        }
+
+        private void txtPrecoServico__TextChanged(object sender, EventArgs e)
+        {
+            CalcularPrecoTotalServ();
+        }
+
+        private void txtDescontoProd__TextChanged(object sender, EventArgs e)
+        {
+            CalcularPrecoTotalServ();
+        }
+        private void CalcularPrecoTotalServ()
+        {
+            if (decimal.TryParse(txtQtdeServico.Texts, out decimal quantidade) &&
+        decimal.TryParse(txtPrecoServico.Texts, out decimal preco))
+            {
+                decimal desconto = decimal.TryParse(txtDescontoServ.Texts, out decimal descontoVal) ? descontoVal : 0;
+
+                decimal precoTotal = quantidade * (preco - desconto);
+                txtPrecoServTotal.Texts = precoTotal.ToString("F2");
+            }
+            else
+            {
+                txtPrecoServTotal.Texts = "0.00";
             }
         }
     }

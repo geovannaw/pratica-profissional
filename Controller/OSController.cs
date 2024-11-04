@@ -77,9 +77,14 @@ namespace Sistema_Vendas.Controller
         {
             return osDAO.GetProdutoPorId(idProduto);
         }
+
         public ClienteModel GetClientePorId(int idCliente)
         {
             return osDAO.GetClientePorId(idCliente);
+        }
+        public ClienteModel getCliente(int idCliente)
+        {
+            return osDAO.getCliente(idCliente);
         }
         public string GetClienteByOSid(int idOS)
         {

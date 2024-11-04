@@ -275,6 +275,48 @@ namespace Sistema_Vendas.DAO
             }
             return cidadeInfos;
         }
+        public List<string> carregaCEP(int idCidade)
+        {
+            List<string> cidadeInfos = new List<string>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+                SELECT 
+                    cidade.cidade AS cidade,
+                    estado.UF AS UF,
+                    pais.pais AS pais
+                FROM 
+                    cidade
+                JOIN 
+                    estado ON cidade.idEstado = estado.idEstado
+                JOIN 
+                    pais ON estado.idPais = pais.idPais
+                WHERE 
+                    cidade.idCidade = @idCidade";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@idCidade", idCidade);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string cidadeInfo = string.Format("{0}, {1}, {2}",
+                            reader["cidade"],
+                            reader["UF"],
+                            reader["pais"]);
+                        cidadeInfos.Add(cidadeInfo);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ocorreu um erro ao obter informações da cidade: " + ex.Message);
+                }
+            }
+            return cidadeInfos;
+        }
 
         public override void Salvar(T obj)
         {

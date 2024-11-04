@@ -27,6 +27,10 @@ namespace Sistema_Vendas.Controller
         {
             funcionarioDAO.Alterar(obj);
         }
+        public List<string> carregaCEP(int idCidade)
+        {
+            return funcionarioDAO.carregaCEP(idCidade);
+        }
 
         public override void Delete(int idObj)
         {

@@ -138,6 +138,7 @@ namespace Sistema_Vendas.DAO
                 }
             }
         }
+        
         public (string servico, decimal preco)? getServico(int idServico)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

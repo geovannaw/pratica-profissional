@@ -170,7 +170,7 @@ namespace Sistema_Vendas.Views
 
                     AtualizarCampoData(cliente.data_nasc, txtDataNasc);
 
-                    List<string> cidadeEstadoPais = clienteController.GetCEPByIdCidade(cliente.idCidade);
+                    List<string> cidadeEstadoPais = clienteController.CarregaCEP(cliente.idCidade);
 
                     if (cidadeEstadoPais.Count > 0)
                     {
@@ -312,6 +312,18 @@ namespace Sistema_Vendas.Views
                     txtCodCondPag.Texts = idCondPag.ToString();
                     txtCondPag.Texts = condicaoPagamento;
                 }
+            }
+        }
+
+        private void txtCPF_CNPJ_Leave(object sender, EventArgs e)
+        {
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+            string cpf_cnpj = new string(txtCPF_CNPJ.Texts.Where(char.IsDigit).ToArray());
+
+            if (clienteController.JaCadastrado(cpf_cnpj, idAtual))
+            {
+                MessageBox.Show("Cliente já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCPF_CNPJ.Focus();
             }
         }
     }

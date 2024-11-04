@@ -65,12 +65,14 @@
             // btnIncluir
             // 
             this.btnIncluir.FlatAppearance.BorderSize = 0;
-            this.btnIncluir.Location = new System.Drawing.Point(648, 422);
+            this.btnIncluir.Location = new System.Drawing.Point(93, 422);
+            this.btnIncluir.Visible = false;
             // 
             // btnAlterar
             // 
             this.btnAlterar.FlatAppearance.BorderSize = 0;
             this.btnAlterar.Location = new System.Drawing.Point(729, 422);
+            this.btnAlterar.Text = "&Visualizar";
             // 
             // btnExcluir
             // 

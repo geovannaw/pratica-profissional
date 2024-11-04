@@ -28,7 +28,7 @@ namespace Sistema_Vendas.Views
                 {
                     txtCodigo.Texts = usuario.idUsuario.ToString();
                     txtUsuario.Texts = usuario.usuario;
-                    txtSenha.Texts = usuario.senha;
+                   // txtSenha.Texts = usuario.senha;
                     txtDataCadastro.Texts = usuario.dataCadastro.ToString();
                     txtDataUltAlt.Texts = usuario.dataUltAlt.ToString();
                     rbAtivo.Checked = usuario.Ativo;

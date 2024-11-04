@@ -153,7 +153,7 @@
             this.txtPreco.DisabledForeColor = System.Drawing.Color.White;
             this.txtPreco.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtPreco.Location = new System.Drawing.Point(16, 168);
-            this.txtPreco.MaxLength = 32767;
+            this.txtPreco.MaxLength = 13;
             this.txtPreco.Multiline = false;
             this.txtPreco.Name = "txtPreco";
             this.txtPreco.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);

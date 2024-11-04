@@ -322,7 +322,10 @@ namespace Sistema_Vendas.Views
 
         private void txtCodFornecedor_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
         private void txtCodFornecedor_Leave(object sender, EventArgs e)

@@ -174,7 +174,7 @@ namespace Sistema_Vendas.Views
                 {
                     int idServico = Convert.ToInt32(dataGridViewServicos.SelectedRows[0].Cells["Código"].Value);
                     string servico = dataGridViewServicos.SelectedRows[0].Cells["Serviço"].Value.ToString();
-                    decimal preco = Convert.ToInt32(dataGridViewServicos.SelectedRows[0].Cells["Preço"].Value);
+                    decimal preco = Convert.ToDecimal(dataGridViewServicos.SelectedRows[0].Cells["Preço"].Value); // Manter o valor decimal
 
                     this.Tag = new Tuple<int, string, decimal>(idServico, servico, preco);
                     this.DialogResult = DialogResult.OK;

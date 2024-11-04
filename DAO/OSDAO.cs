@@ -73,12 +73,13 @@ namespace Sistema_Vendas.DAO
                     foreach (var produto in obj.Produtos)
                     {
                         string queryProduto = @"INSERT INTO OS_Produto 
-                                        (quantidadeProduto, precoProduto, idOrdemServico, idProduto) 
-                                        VALUES (@quantidadeProduto, @precoProduto, @idOrdemServico, @idProduto)";
+                                        (quantidadeProduto, precoProduto, idOrdemServico, desconto, idProduto) 
+                                        VALUES (@quantidadeProduto, @precoProduto, @idOrdemServico, @desconto, @idProduto)";
                         SqlCommand cmdProduto = new SqlCommand(queryProduto, conn, transaction);
                         cmdProduto.Parameters.AddWithValue("@quantidadeProduto", produto.quantidadeProduto);
                         cmdProduto.Parameters.AddWithValue("@precoProduto", produto.precoProduto);
                         cmdProduto.Parameters.AddWithValue("@idOrdemServico", produto.idOrdemServico);
+                        cmdProduto.Parameters.AddWithValue("@desconto", produto.descontoProd.HasValue ? (object)produto.descontoProd.Value : DBNull.Value);
                         cmdProduto.Parameters.AddWithValue("@idProduto", produto.idProduto);
 
                         cmdProduto.ExecuteNonQuery();
@@ -86,12 +87,13 @@ namespace Sistema_Vendas.DAO
                     foreach (var servico in obj.Servicos)
                     {
                         string queryServico = @"INSERT INTO OS_Servico 
-                                        (quantidadeServico, precoServico, idOrdemServico, idServico) 
-                                        VALUES (@quantidadeServico, @precoServico, @idOrdemServico, @idServico)";
+                                        (quantidadeServico, precoServico, idOrdemServico, desconto, idServico) 
+                                        VALUES (@quantidadeServico, @precoServico, @idOrdemServico, @desconto, @idServico)";
                         SqlCommand cmdServico = new SqlCommand(queryServico, conn, transaction);
                         cmdServico.Parameters.AddWithValue("@quantidadeServico", servico.quantidadeServico);
                         cmdServico.Parameters.AddWithValue("@precoServico", servico.precoServico);
                         cmdServico.Parameters.AddWithValue("@idOrdemServico", servico.idOrdemServico);
+                        cmdServico.Parameters.AddWithValue("@desconto", servico.descontoServ.HasValue ? (object)servico.descontoServ.Value : DBNull.Value);
                         cmdServico.Parameters.AddWithValue("@idServico", servico.idServico);
 
                         cmdServico.ExecuteNonQuery();
@@ -172,6 +174,7 @@ namespace Sistema_Vendas.DAO
                         produto.precoProduto = Convert.ToDecimal(reader["precoProduto"]);
                         produto.quantidadeProduto = Convert.ToInt32(reader["quantidadeProduto"]);
                         produto.idProduto = Convert.ToInt32(reader["idProduto"]);
+                        produto.descontoProd = reader["desconto"] != DBNull.Value ? Convert.ToDecimal(reader["desconto"]) : (decimal?)null;
                         produto.idOrdemServico = Convert.ToInt32(reader["idOrdemServico"]);
 
                         produtos.Add(produto);
@@ -201,6 +204,7 @@ namespace Sistema_Vendas.DAO
                         servico.precoServico = Convert.ToDecimal(reader["precoServico"]);
                         servico.quantidadeServico = Convert.ToInt32(reader["quantidadeServico"]);
                         servico.idServico = Convert.ToInt32(reader["idServico"]);
+                        servico.descontoServ = reader["desconto"] != DBNull.Value ? Convert.ToDecimal(reader["desconto"]) : (decimal?)null;
                         servico.idOrdemServico = Convert.ToInt32(reader["idOrdemServico"]);
 
                         servicos.Add(servico);
@@ -492,7 +496,7 @@ namespace Sistema_Vendas.DAO
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT produto, precoVenda FROM produto WHERE idProduto = @idProduto";
+                string query = "SELECT produto, precoVenda, unidade FROM produto WHERE idProduto = @idProduto";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@idProduto", idProduto);
 
@@ -506,7 +510,8 @@ namespace Sistema_Vendas.DAO
                         {
                             idProduto = idProduto,
                             Produto = reader["produto"].ToString(),
-                            precoVenda = Convert.ToDecimal(reader["precoVenda"])
+                            precoVenda = Convert.ToDecimal(reader["precoVenda"]),
+                            Unidade = reader["unidade"].ToString()
                         };
                     }
                 }
@@ -542,6 +547,33 @@ namespace Sistema_Vendas.DAO
             return servico;
         }
         public ClienteModel GetClientePorId(int idCliente)
+        {
+            ClienteModel cliente = null;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT cliente_razao_social, celular FROM cliente WHERE idCliente = @idCliente";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@idCliente", idCliente);
+
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        cliente = new ClienteModel
+                        {
+                            idCliente = idCliente,
+                            cliente_razao_social = reader["cliente_razao_social"].ToString(),
+                            celular = reader["celular"].ToString()
+                        };
+                    }
+                }
+            }
+            return cliente;
+        }
+        public ClienteModel getCliente(int idCliente)
         {
             ClienteModel cliente = null;
 

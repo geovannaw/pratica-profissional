@@ -96,6 +96,7 @@ namespace Sistema_Vendas.Views
             txtCodFormaPag.Enabled = false;
             txtParcela.Enabled = false;
             txtValorParcela.Enabled = false;
+            txtDataVencimento.Enabled = false;
 
             btnConsultaFormaPag.Enabled = false;
             btnConsultaCliente.Enabled = false;
@@ -116,7 +117,6 @@ namespace Sistema_Vendas.Views
             txtMulta.Enabled = true;
             txtDesconto.Enabled = true;
             txtValorRecebido.Enabled = true;
-            txtDataVencimento.Enabled = true;
         }
         public override void Desbloqueia()
         {
@@ -137,7 +137,7 @@ namespace Sistema_Vendas.Views
             txtJuros.Enabled = true;
             txtMulta.Enabled = true;
             txtDesconto.Enabled = true;
-            txtValorRecebido.Enabled = true;
+         //   txtValorRecebido.Enabled = true;
             txtDataVencimento.Enabled = true;
 
             btnConsultaFormaPag.Enabled = true;
@@ -189,7 +189,7 @@ namespace Sistema_Vendas.Views
                     lblDataCancelamento.Visible = false;
                     txtDataCancelamento.Visible = false;
                     btnCancelar.Visible = true;
-                    DesbloqueiaTudo();
+                 //   DesbloqueiaTudo();
                 }
                 if (contasReceber.dataRecebimento == null)
                 {
@@ -362,11 +362,11 @@ namespace Sistema_Vendas.Views
         {
             if (DataValida(txtDataVencimento.Texts))
             {
-                DateTime dataVencimento = DateTime.Parse(txtDataVencimento.Texts);
-                DateTime dataAtual = DateTime.Now;
+                DateTime dataVencimento = Convert.ToDateTime(txtDataVencimento.Texts).Date;
+                DateTime dataAtual = DateTime.Now.Date;
 
-                //verifica se a data de vencimento menor que data atual
-                if (dataVencimento < dataAtual && porcentagemMulta.HasValue)
+                //verifica se a data atual é posterior à data de vencimento
+                if (dataAtual > dataVencimento && porcentagemMulta.HasValue)
                 {
                     //aplica a porcentagem da multa ao valor da parcela
                     decimal valorParcela = Convert.ToDecimal(txtValorParcela.Texts);
@@ -385,15 +385,27 @@ namespace Sistema_Vendas.Views
         {
             if (DataValida(txtDataVencimento.Texts))
             {
-                if (porcentagemDesconto.HasValue && !string.IsNullOrWhiteSpace(txtValorParcela.Texts))
-                {
-                    decimal valorParcela = Convert.ToDecimal(txtValorParcela.Texts);
-                    decimal valorDesconto = (porcentagemDesconto.Value / 100) * valorParcela;
+                DateTime dataVencimento = Convert.ToDateTime(txtDataVencimento.Texts).Date;
+                DateTime dataAtual = DateTime.Now.Date;
 
-                    txtDesconto.Texts = valorDesconto.ToString("N2");
+                //verificar se a data atual é menor ou igual à data de vencimento.
+                if (dataAtual <= dataVencimento)
+                {
+                    if (porcentagemDesconto.HasValue && !string.IsNullOrWhiteSpace(txtValorParcela.Texts))
+                    {
+                        decimal valorParcela = Convert.ToDecimal(txtValorParcela.Texts);
+                        decimal valorDesconto = (porcentagemDesconto.Value / 100) * valorParcela;
+
+                        txtDesconto.Texts = valorDesconto.ToString("N2");
+                    }
+                    else
+                    {
+                        txtDesconto.Texts = "0.00";
+                    }
                 }
                 else
                 {
+                    //se a data de vencimento já passou, o desconto deve ser zero.
                     txtDesconto.Texts = "0.00";
                 }
             }
@@ -571,7 +583,7 @@ namespace Sistema_Vendas.Views
                         }
                         else
                         {
-                            MessageBox.Show("Não foi possível cancelar a conta, pois ela está associada a uma nota de venda.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Não foi possível cancelar a conta, pois ela está associada a uma nota de venda ou serviço.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     catch (Exception ex)
@@ -675,6 +687,94 @@ namespace Sistema_Vendas.Views
                     txtCodFormaPag.Focus();
                     txtCodFormaPag.Clear();
                     txtFormaPag.Clear();
+                }
+            }
+        }
+
+        private void txtNroNota_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtValorParcela_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtValorParcela_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtValorParcela.Texts))
+            {
+                try
+                {
+                    txtValorParcela.Texts = FormataPreco(txtValorParcela.Texts);
+
+                    //verifica se o valor é maior que zero
+                    if (decimal.TryParse(txtValorParcela.Texts, out decimal preco) && preco > 0)
+                    {
+                        //valor é válido e maior que zero
+                    }
+                    else
+                    {
+                        MessageBox.Show("O Valor da Parcela deve ser maior que zero.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtValorParcela.Focus();
+                    }
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtValorParcela.Focus();
+                }
+            }
+        }
+
+        private void txtParcela_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtParcela.Texts.TrimStart('0')))
+            {
+                MessageBox.Show("A Parcela não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtParcela.Focus();
+            }
+        }
+
+        private void txtNroNota_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtNroNota.Texts.Trim()))
+            {
+                if (txtNroNota.Texts.TrimStart('0') == "")
+                {
+                    MessageBox.Show("O Número não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtNroNota.Focus();
+                }
+            }
+        }
+
+        private void txtModelo_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtModelo.Texts.Trim()))
+            {
+                if (txtModelo.Texts.TrimStart('0') == "")
+                {
+                    MessageBox.Show("O Modelo não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtModelo.Focus();
+                }
+            }
+        }
+
+        private void txtSerie_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtSerie.Texts.Trim()))
+            {
+                if (txtSerie.Texts.TrimStart('0') == "")
+                {
+                    MessageBox.Show("A Série não pode ser 0.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtSerie.Focus();
                 }
             }
         }

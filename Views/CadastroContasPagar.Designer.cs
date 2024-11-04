@@ -173,7 +173,7 @@
             this.txtModelo.DisabledForeColor = System.Drawing.Color.White;
             this.txtModelo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtModelo.Location = new System.Drawing.Point(295, 41);
-            this.txtModelo.MaxLength = 32767;
+            this.txtModelo.MaxLength = 5;
             this.txtModelo.Multiline = false;
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -185,6 +185,8 @@
             this.txtModelo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtModelo.Texts = "";
             this.txtModelo.UnderlinedStyle = false;
+            this.txtModelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNroNota_KeyPress);
+            this.txtModelo.Leave += new System.EventHandler(this.txtModelo_Leave);
             // 
             // txtFornecedor
             // 
@@ -238,6 +240,7 @@
             this.txtCodFornecedor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodFornecedor.Texts = "";
             this.txtCodFornecedor.UnderlinedStyle = false;
+            this.txtCodFornecedor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNroNota_KeyPress);
             this.txtCodFornecedor.Leave += new System.EventHandler(this.txtCodFornecedor_Leave);
             // 
             // lblFornecedor
@@ -271,7 +274,7 @@
             this.txtSerie.DisabledForeColor = System.Drawing.Color.White;
             this.txtSerie.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtSerie.Location = new System.Drawing.Point(393, 40);
-            this.txtSerie.MaxLength = 32767;
+            this.txtSerie.MaxLength = 5;
             this.txtSerie.Multiline = false;
             this.txtSerie.Name = "txtSerie";
             this.txtSerie.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -283,6 +286,8 @@
             this.txtSerie.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtSerie.Texts = "";
             this.txtSerie.UnderlinedStyle = false;
+            this.txtSerie.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNroNota_KeyPress);
+            this.txtSerie.Leave += new System.EventHandler(this.txtSerie_Leave);
             // 
             // txtNroNota
             // 
@@ -297,7 +302,7 @@
             this.txtNroNota.DisabledForeColor = System.Drawing.Color.White;
             this.txtNroNota.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtNroNota.Location = new System.Drawing.Point(140, 41);
-            this.txtNroNota.MaxLength = 32767;
+            this.txtNroNota.MaxLength = 9;
             this.txtNroNota.Multiline = false;
             this.txtNroNota.Name = "txtNroNota";
             this.txtNroNota.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -309,6 +314,8 @@
             this.txtNroNota.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtNroNota.Texts = "";
             this.txtNroNota.UnderlinedStyle = false;
+            this.txtNroNota.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNroNota_KeyPress);
+            this.txtNroNota.Leave += new System.EventHandler(this.txtNroNota_Leave);
             // 
             // lblDataEmissao
             // 
@@ -386,7 +393,7 @@
             this.txtCodFormaPag.DisabledForeColor = System.Drawing.Color.White;
             this.txtCodFormaPag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtCodFormaPag.Location = new System.Drawing.Point(23, 178);
-            this.txtCodFormaPag.MaxLength = 12;
+            this.txtCodFormaPag.MaxLength = 5;
             this.txtCodFormaPag.Multiline = false;
             this.txtCodFormaPag.Name = "txtCodFormaPag";
             this.txtCodFormaPag.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -398,6 +405,7 @@
             this.txtCodFormaPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodFormaPag.Texts = "";
             this.txtCodFormaPag.UnderlinedStyle = false;
+            this.txtCodFormaPag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNroNota_KeyPress);
             this.txtCodFormaPag.Leave += new System.EventHandler(this.txtCodFormaPag_Leave);
             // 
             // lblFormaPag
@@ -431,7 +439,7 @@
             this.txtParcela.DisabledForeColor = System.Drawing.Color.White;
             this.txtParcela.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtParcela.Location = new System.Drawing.Point(23, 247);
-            this.txtParcela.MaxLength = 12;
+            this.txtParcela.MaxLength = 5;
             this.txtParcela.Multiline = false;
             this.txtParcela.Name = "txtParcela";
             this.txtParcela.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -443,6 +451,8 @@
             this.txtParcela.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtParcela.Texts = "";
             this.txtParcela.UnderlinedStyle = false;
+            this.txtParcela.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNroNota_KeyPress);
+            this.txtParcela.Leave += new System.EventHandler(this.txtParcela_Leave);
             // 
             // lblParcela
             // 
@@ -475,7 +485,7 @@
             this.txtValorParcela.DisabledForeColor = System.Drawing.Color.White;
             this.txtValorParcela.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtValorParcela.Location = new System.Drawing.Point(152, 248);
-            this.txtValorParcela.MaxLength = 32767;
+            this.txtValorParcela.MaxLength = 13;
             this.txtValorParcela.Multiline = false;
             this.txtValorParcela.Name = "txtValorParcela";
             this.txtValorParcela.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -487,6 +497,8 @@
             this.txtValorParcela.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorParcela.Texts = "0";
             this.txtValorParcela.UnderlinedStyle = false;
+            this.txtValorParcela.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorParcela_KeyPress);
+            this.txtValorParcela.Leave += new System.EventHandler(this.txtValorParcela_Leave);
             // 
             // lblDataVencimento
             // 
@@ -574,7 +586,7 @@
             this.txtDesconto.Enabled = false;
             this.txtDesconto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtDesconto.Location = new System.Drawing.Point(278, 315);
-            this.txtDesconto.MaxLength = 12;
+            this.txtDesconto.MaxLength = 13;
             this.txtDesconto.Multiline = false;
             this.txtDesconto.Name = "txtDesconto";
             this.txtDesconto.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -586,6 +598,7 @@
             this.txtDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDesconto.Texts = "";
             this.txtDesconto.UnderlinedStyle = false;
+            this.txtDesconto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorParcela_KeyPress);
             // 
             // txtMulta
             // 
@@ -601,7 +614,7 @@
             this.txtMulta.Enabled = false;
             this.txtMulta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtMulta.Location = new System.Drawing.Point(152, 315);
-            this.txtMulta.MaxLength = 12;
+            this.txtMulta.MaxLength = 13;
             this.txtMulta.Multiline = false;
             this.txtMulta.Name = "txtMulta";
             this.txtMulta.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -613,6 +626,7 @@
             this.txtMulta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtMulta.Texts = "";
             this.txtMulta.UnderlinedStyle = false;
+            this.txtMulta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorParcela_KeyPress);
             // 
             // txtJuros
             // 
@@ -628,7 +642,7 @@
             this.txtJuros.Enabled = false;
             this.txtJuros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtJuros.Location = new System.Drawing.Point(23, 314);
-            this.txtJuros.MaxLength = 12;
+            this.txtJuros.MaxLength = 13;
             this.txtJuros.Multiline = false;
             this.txtJuros.Name = "txtJuros";
             this.txtJuros.Padding = new System.Windows.Forms.Padding(9, 7, 9, 7);
@@ -640,6 +654,7 @@
             this.txtJuros.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtJuros.Texts = "";
             this.txtJuros.UnderlinedStyle = false;
+            this.txtJuros.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorParcela_KeyPress);
             // 
             // lblDesconto
             // 
@@ -688,6 +703,7 @@
             this.txtValorPago.DisabledBackColor = System.Drawing.Color.White;
             this.txtValorPago.DisabledBorderColor = System.Drawing.Color.Gainsboro;
             this.txtValorPago.DisabledForeColor = System.Drawing.Color.White;
+            this.txtValorPago.Enabled = false;
             this.txtValorPago.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.txtValorPago.Location = new System.Drawing.Point(152, 383);
             this.txtValorPago.MaxLength = 32767;
@@ -702,6 +718,7 @@
             this.txtValorPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorPago.Texts = "0";
             this.txtValorPago.UnderlinedStyle = false;
+            this.txtValorPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorParcela_KeyPress);
             this.txtValorPago.Leave += new System.EventHandler(this.txtValorPago_Leave);
             // 
             // btnPagar
@@ -834,6 +851,7 @@
             this.txtTotalPagar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTotalPagar.Texts = "";
             this.txtTotalPagar.UnderlinedStyle = false;
+            this.txtTotalPagar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorParcela_KeyPress);
             // 
             // btnCancelar
             // 

@@ -202,7 +202,7 @@ namespace Sistema_Vendas.Views
                     AtualizarCampoData(funcionario.data_admissao, txtDataAdmissao);
                     AtualizarCampoData(funcionario.data_demissao, txtDataDemissao);
 
-                    List<string> cidadeEstadoPais = funcionarioController.GetCEPByIdCidade(funcionario.idCidade);
+                    List<string> cidadeEstadoPais = funcionarioController.carregaCEP(funcionario.idCidade);
 
                     if (cidadeEstadoPais.Count > 0)
                     {
@@ -422,9 +422,17 @@ namespace Sistema_Vendas.Views
         private void txtCPF_Leave(object sender, EventArgs e)
         {
             string cpf = new string(txtCPF.Texts.Where(char.IsDigit).ToArray());
+            int idAtual = idAlterar != -1 ? idAlterar : -1;
+
             if (!ValidaCPF(cpf))
             {
                 MessageBox.Show("CPF inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCPF.Focus();
+                return; 
+            }
+            if (funcionarioController.JaCadastrado(cpf, idAtual))
+            {
+                MessageBox.Show("Funcionário já cadastrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCPF.Focus();
             }
         }
