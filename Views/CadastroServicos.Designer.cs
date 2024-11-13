@@ -165,6 +165,7 @@
             this.txtPreco.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPreco.Texts = "";
             this.txtPreco.UnderlinedStyle = false;
+            this.txtPreco._TextChanged += new System.EventHandler(this.txtPreco__TextChanged);
             this.txtPreco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPreco_KeyPress);
             this.txtPreco.Leave += new System.EventHandler(this.txtPreco_Leave);
             // 

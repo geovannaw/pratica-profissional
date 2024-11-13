@@ -197,6 +197,7 @@
             this.txtNroNota.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtNroNota.Texts = "";
             this.txtNroNota.UnderlinedStyle = false;
+            this.txtNroNota._TextChanged += new System.EventHandler(this.txtNroNota__TextChanged);
             this.txtNroNota.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNroNota_KeyPress);
             this.txtNroNota.Leave += new System.EventHandler(this.txtNroNota_Leave);
             // 
@@ -225,6 +226,7 @@
             this.txtSerie.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtSerie.Texts = "";
             this.txtSerie.UnderlinedStyle = false;
+            this.txtSerie._TextChanged += new System.EventHandler(this.txtSerie__TextChanged);
             this.txtSerie.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerie_KeyPress);
             this.txtSerie.Leave += new System.EventHandler(this.txtSerie_Leave);
             // 
@@ -280,6 +282,7 @@
             this.txtCodFornecedor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodFornecedor.Texts = "";
             this.txtCodFornecedor.UnderlinedStyle = false;
+            this.txtCodFornecedor._TextChanged += new System.EventHandler(this.txtCodFornecedor__TextChanged);
             this.txtCodFornecedor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodFornecedor_KeyPress);
             this.txtCodFornecedor.Leave += new System.EventHandler(this.txtCodFornecedor_Leave);
             // 
@@ -326,6 +329,7 @@
             this.txtModelo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtModelo.Texts = "";
             this.txtModelo.UnderlinedStyle = false;
+            this.txtModelo._TextChanged += new System.EventHandler(this.txtModelo__TextChanged);
             this.txtModelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtModelo_KeyPress);
             this.txtModelo.Leave += new System.EventHandler(this.txtModelo_Leave);
             // 
@@ -1003,6 +1007,7 @@
             this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCondPag.Texts = "";
             this.txtCodCondPag.UnderlinedStyle = false;
+            this.txtCodCondPag._TextChanged += new System.EventHandler(this.txtCodCondPag__TextChanged);
             this.txtCodCondPag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCondPag_KeyPress);
             this.txtCodCondPag.Leave += new System.EventHandler(this.txtCodCondPag_Leave);
             // 

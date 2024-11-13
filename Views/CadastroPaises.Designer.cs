@@ -178,9 +178,10 @@
             this.txtDDI.PlaceholderText = "";
             this.txtDDI.Size = new System.Drawing.Size(114, 28);
             this.txtDDI.TabIndex = 3;
-            this.txtDDI.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtDDI.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDDI.Texts = "";
             this.txtDDI.UnderlinedStyle = false;
+            this.txtDDI._TextChanged += new System.EventHandler(this.txtDDI__TextChanged);
             this.txtDDI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDDI_KeyPress);
             // 
             // CadastroPaises

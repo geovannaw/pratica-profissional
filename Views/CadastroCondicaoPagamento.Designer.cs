@@ -309,6 +309,7 @@
             this.txtJuros.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtJuros.Texts = "";
             this.txtJuros.UnderlinedStyle = false;
+            this.txtJuros._TextChanged += new System.EventHandler(this.txtJuros__TextChanged);
             this.txtJuros.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtJuros_KeyPress);
             this.txtJuros.Leave += new System.EventHandler(this.txtJuros_Leave);
             // 
@@ -337,6 +338,7 @@
             this.txtMulta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtMulta.Texts = "";
             this.txtMulta.UnderlinedStyle = false;
+            this.txtMulta._TextChanged += new System.EventHandler(this.txtMulta__TextChanged);
             this.txtMulta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMulta_KeyPress);
             this.txtMulta.Leave += new System.EventHandler(this.txtMulta_Leave);
             // 
@@ -365,6 +367,7 @@
             this.txtDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDesconto.Texts = "";
             this.txtDesconto.UnderlinedStyle = false;
+            this.txtDesconto._TextChanged += new System.EventHandler(this.txtDesconto__TextChanged);
             this.txtDesconto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDesconto_KeyPress);
             this.txtDesconto.Leave += new System.EventHandler(this.txtDesconto_Leave);
             // 
@@ -393,6 +396,7 @@
             this.txtParcela.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtParcela.Texts = "";
             this.txtParcela.UnderlinedStyle = false;
+            this.txtParcela._TextChanged += new System.EventHandler(this.txtParcela__TextChanged);
             this.txtParcela.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtParcela_KeyPress);
             this.txtParcela.Leave += new System.EventHandler(this.txtParcela_Leave);
             // 
@@ -421,6 +425,7 @@
             this.txtDias.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDias.Texts = "";
             this.txtDias.UnderlinedStyle = false;
+            this.txtDias._TextChanged += new System.EventHandler(this.txtDias__TextChanged);
             this.txtDias.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDias_KeyPress);
             // 
             // txtPorcentagem
@@ -448,6 +453,7 @@
             this.txtPorcentagem.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPorcentagem.Texts = "";
             this.txtPorcentagem.UnderlinedStyle = false;
+            this.txtPorcentagem._TextChanged += new System.EventHandler(this.txtPorcentagem__TextChanged);
             this.txtPorcentagem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentagem_KeyPress);
             this.txtPorcentagem.Leave += new System.EventHandler(this.txtPorcentagem_Leave);
             // 
@@ -503,6 +509,7 @@
             this.txtCodFormaPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodFormaPag.Texts = "";
             this.txtCodFormaPag.UnderlinedStyle = false;
+            this.txtCodFormaPag._TextChanged += new System.EventHandler(this.txtCodFormaPag__TextChanged);
             this.txtCodFormaPag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodFormaPag_KeyPress);
             this.txtCodFormaPag.Leave += new System.EventHandler(this.txtCodFormaPag_Leave);
             // 

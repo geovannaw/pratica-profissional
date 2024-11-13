@@ -196,6 +196,7 @@
             this.txtCodPais.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodPais.Texts = "";
             this.txtCodPais.UnderlinedStyle = false;
+            this.txtCodPais._TextChanged += new System.EventHandler(this.txtCodPais__TextChanged);
             this.txtCodPais.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodPais_KeyPress);
             this.txtCodPais.Leave += new System.EventHandler(this.txtCodPais_Leave);
             // 

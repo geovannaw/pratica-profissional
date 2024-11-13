@@ -1177,19 +1177,78 @@ namespace Sistema_Vendas.Views
 
         private void txtDescontoProd__TextChanged(object sender, EventArgs e)
         {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtDescontoProd.Texts, "^[0-9.,]*$"))
+            {
+                txtDescontoProd.Texts = System.Text.RegularExpressions.Regex.Replace(txtDescontoProd.Texts, "[^0-9.,]", "");
+            }
             CalcularPrecoTotalProd();
             dataGridViewParcelas.Rows.Clear();
         }
 
         private void txtQtdeProduto__TextChanged(object sender, EventArgs e)
         {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtQtdeProduto.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtQtdeProduto.Texts = System.Text.RegularExpressions.Regex.Replace(txtQtdeProduto.Texts, "[^0-9]", "");
+            }
             CalcularPrecoTotalProd();
             dataGridViewParcelas.Rows.Clear(); 
         }
 
         private void txtCodProduto__TextChanged(object sender, EventArgs e)
         {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodProduto.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodProduto.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodProduto.Texts, "[^0-9]", "");
+            }
             dataGridViewParcelas.Rows.Clear();
+        }
+
+        private void txtNroNota__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNroNota.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtNroNota.Texts = System.Text.RegularExpressions.Regex.Replace(txtNroNota.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtModelo__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtModelo.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtModelo.Texts = System.Text.RegularExpressions.Regex.Replace(txtModelo.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtSerie__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtSerie.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtSerie.Texts = System.Text.RegularExpressions.Regex.Replace(txtSerie.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtCodCliente__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodCliente.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodCliente.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodCliente.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtCodCondPag__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodCondPag.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodCondPag.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodCondPag.Texts, "[^0-9]", "");
+            }
         }
     }
 }

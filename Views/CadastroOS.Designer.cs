@@ -575,6 +575,7 @@
             this.txtValorRetirada.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorRetirada.Texts = "";
             this.txtValorRetirada.UnderlinedStyle = false;
+            this.txtValorRetirada._TextChanged += new System.EventHandler(this.txtValorRetirada__TextChanged);
             this.txtValorRetirada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorRetirada_KeyPress);
             this.txtValorRetirada.Leave += new System.EventHandler(this.txtValorRetirada_Leave);
             // 
@@ -679,6 +680,7 @@
             this.txtValorEntrada.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorEntrada.Texts = "";
             this.txtValorEntrada.UnderlinedStyle = false;
+            this.txtValorEntrada._TextChanged += new System.EventHandler(this.txtValorEntrada__TextChanged);
             this.txtValorEntrada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorEntrada_KeyPress);
             this.txtValorEntrada.Leave += new System.EventHandler(this.txtValorEntrada_Leave);
             // 
@@ -958,6 +960,7 @@
             this.txtCodServico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodServico.Texts = "";
             this.txtCodServico.UnderlinedStyle = false;
+            this.txtCodServico._TextChanged += new System.EventHandler(this.txtCodServico__TextChanged);
             this.txtCodServico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodServico_KeyPress);
             this.txtCodServico.Leave += new System.EventHandler(this.txtCodServico_Leave);
             // 
@@ -1375,6 +1378,7 @@
             this.txtCodProduto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodProduto.Texts = "";
             this.txtCodProduto.UnderlinedStyle = false;
+            this.txtCodProduto._TextChanged += new System.EventHandler(this.txtCodProduto__TextChanged);
             this.txtCodProduto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodProduto_KeyPress);
             this.txtCodProduto.Leave += new System.EventHandler(this.txtCodProduto_Leave);
             // 
@@ -1750,6 +1754,7 @@
             this.txtCodFuncionario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodFuncionario.Texts = "";
             this.txtCodFuncionario.UnderlinedStyle = false;
+            this.txtCodFuncionario._TextChanged += new System.EventHandler(this.txtCodFuncionario__TextChanged);
             this.txtCodFuncionario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodFuncionario_KeyPress);
             this.txtCodFuncionario.Leave += new System.EventHandler(this.txtCodFuncionario_Leave);
             // 
@@ -1842,6 +1847,7 @@
             this.txtCodCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCliente.Texts = "";
             this.txtCodCliente.UnderlinedStyle = false;
+            this.txtCodCliente._TextChanged += new System.EventHandler(this.txtCodCliente__TextChanged);
             this.txtCodCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCliente_KeyPress);
             this.txtCodCliente.Leave += new System.EventHandler(this.txtCodCliente_Leave);
             // 

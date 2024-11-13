@@ -232,5 +232,14 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+
+        private void txtCodEstado__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodEstado.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodEstado.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodEstado.Texts, "[^0-9]", "");
+            }
+        }
     }
 }

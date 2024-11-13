@@ -265,11 +265,7 @@ namespace Sistema_Vendas.Views
 
         private void txtCliente_razao_social_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtCliente_razao_social.Texts))
-            {
-                MessageBox.Show("Cliente inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCliente_razao_social.Focus();
-            }
+
         }
 
         private void rbFisica_CheckedChanged(object sender, EventArgs e)

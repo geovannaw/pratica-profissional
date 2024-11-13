@@ -166,7 +166,7 @@
             this.txtDDD.PlaceholderText = "";
             this.txtDDD.Size = new System.Drawing.Size(100, 28);
             this.txtDDD.TabIndex = 2;
-            this.txtDDD.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtDDD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDDD.Texts = "";
             this.txtDDD.UnderlinedStyle = false;
             this.txtDDD.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDDD_KeyPress);
@@ -196,6 +196,7 @@
             this.txtCodEstado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodEstado.Texts = "";
             this.txtCodEstado.UnderlinedStyle = false;
+            this.txtCodEstado._TextChanged += new System.EventHandler(this.txtCodEstado__TextChanged);
             this.txtCodEstado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodEstado_KeyPress);
             this.txtCodEstado.Leave += new System.EventHandler(this.txtCodEstado_Leave);
             // 

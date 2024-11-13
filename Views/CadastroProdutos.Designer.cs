@@ -311,6 +311,7 @@
             this.txtCodModelo.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCodModelo.Texts = "";
             this.txtCodModelo.UnderlinedStyle = false;
+            this.txtCodModelo._TextChanged += new System.EventHandler(this.txtCodModelo__TextChanged);
             this.txtCodModelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodModelo_KeyPress);
             this.txtCodModelo.Leave += new System.EventHandler(this.txtCodModelo_Leave);
             // 
@@ -377,6 +378,7 @@
             this.txtCodFornecedor.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCodFornecedor.Texts = "";
             this.txtCodFornecedor.UnderlinedStyle = false;
+            this.txtCodFornecedor._TextChanged += new System.EventHandler(this.txtCodFornecedor__TextChanged);
             this.txtCodFornecedor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodFornecedor_KeyPress);
             this.txtCodFornecedor.Leave += new System.EventHandler(this.txtCodFornecedor_Leave);
             // 
@@ -512,6 +514,7 @@
             this.txtPrecoVenda.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecoVenda.Texts = "";
             this.txtPrecoVenda.UnderlinedStyle = false;
+            this.txtPrecoVenda._TextChanged += new System.EventHandler(this.txtPrecoVenda__TextChanged);
             this.txtPrecoVenda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecoVenda_KeyPress);
             this.txtPrecoVenda.Leave += new System.EventHandler(this.txtPrecoVenda_Leave);
             // 

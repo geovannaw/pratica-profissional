@@ -345,6 +345,7 @@
             this.txtCodCidade.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCidade.Texts = "";
             this.txtCodCidade.UnderlinedStyle = false;
+            this.txtCodCidade._TextChanged += new System.EventHandler(this.txtCodCidade__TextChanged);
             this.txtCodCidade.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCidade_KeyPress);
             this.txtCodCidade.Leave += new System.EventHandler(this.txtCodCidade_Leave);
             // 
@@ -630,6 +631,7 @@
             this.txtPis.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtPis.Texts = "";
             this.txtPis.UnderlinedStyle = false;
+            this.txtPis._TextChanged += new System.EventHandler(this.txtPis__TextChanged);
             this.txtPis.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPis_KeyPress);
             this.txtPis.Leave += new System.EventHandler(this.txtPis_Leave);
             // 
@@ -658,6 +660,7 @@
             this.txtSalario.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtSalario.Texts = "";
             this.txtSalario.UnderlinedStyle = false;
+            this.txtSalario._TextChanged += new System.EventHandler(this.txtSalario__TextChanged);
             this.txtSalario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSalario_KeyPress);
             this.txtSalario.Leave += new System.EventHandler(this.txtSalario_Leave);
             // 
@@ -890,6 +893,7 @@
             this.txtTelefone.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtTelefone.Texts = "";
             this.txtTelefone.UnderlinedStyle = false;
+            this.txtTelefone._TextChanged += new System.EventHandler(this.txtTelefone__TextChanged);
             this.txtTelefone.Leave += new System.EventHandler(this.txtTelefone_Leave);
             // 
             // txtCelular
@@ -917,6 +921,7 @@
             this.txtCelular.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCelular.Texts = "";
             this.txtCelular.UnderlinedStyle = false;
+            this.txtCelular._TextChanged += new System.EventHandler(this.txtCelular__TextChanged);
             this.txtCelular.Leave += new System.EventHandler(this.txtCelular_Leave);
             // 
             // txtEmail
@@ -971,6 +976,7 @@
             this.txtRG.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtRG.Texts = "";
             this.txtRG.UnderlinedStyle = false;
+            this.txtRG._TextChanged += new System.EventHandler(this.txtRG__TextChanged);
             this.txtRG.Leave += new System.EventHandler(this.txtRG_Leave);
             // 
             // txtCPF

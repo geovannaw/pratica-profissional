@@ -171,5 +171,13 @@ namespace Sistema_Vendas.Views
                 txtCodigo.Texts = novoCodigo.ToString();
             }
         }
+
+        private void txtPreco__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtPreco.Texts, "^[0-9.,]*$"))
+            {
+                txtPreco.Texts = System.Text.RegularExpressions.Regex.Replace(txtPreco.Texts, "[^0-9.,]", "");
+            }
+        }
     }
 }

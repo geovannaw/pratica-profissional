@@ -254,6 +254,7 @@ CREATE TABLE OS_Produto (
     precoProduto DECIMAL(10, 2) NOT NULL,
     idOrdemServico INT NOT NULL,
     idProduto INT,
+    desconto DECIMAL(10, 2),
     CONSTRAINT FK_idOrdemServico_os_produto FOREIGN KEY (idOrdemServico) REFERENCES ordemServico(idOrdemServico),
     CONSTRAINT FK_idProduto FOREIGN KEY (idProduto) REFERENCES produto(idProduto),
     PRIMARY KEY (id_os_produto)
@@ -265,6 +266,7 @@ CREATE TABLE OS_Servico (
     precoServico DECIMAL(10, 2) NOT NULL,
     idOrdemServico INT NOT NULL,
     idServico INT NOT NULL,
+    desconto DECIMAL(10, 2),
     CONSTRAINT FK_idOrdemServico_os_servico FOREIGN KEY (idOrdemServico) REFERENCES ordemServico(idOrdemServico),
     CONSTRAINT FK_idServico FOREIGN KEY (idServico) REFERENCES servico(idServico),
     PRIMARY KEY (id_os_Servico),

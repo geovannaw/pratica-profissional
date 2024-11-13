@@ -570,5 +570,58 @@ namespace Sistema_Vendas.Views
                 }
             }
         }
+
+        private void txtCodCidade__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodCidade.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodCidade.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodCidade.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtTelefone__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtTelefone.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtTelefone.Texts = System.Text.RegularExpressions.Regex.Replace(txtTelefone.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtCelular__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCelular.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCelular.Texts = System.Text.RegularExpressions.Regex.Replace(txtCelular.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtRG__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtRG.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtRG.Texts = System.Text.RegularExpressions.Regex.Replace(txtRG.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtSalario__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtSalario.Texts, "^[0-9.,]*$"))
+            {
+                txtSalario.Texts = System.Text.RegularExpressions.Regex.Replace(txtSalario.Texts, "[^0-9.,]", "");
+            }
+        }
+
+        private void txtPis__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtPis.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtPis.Texts = System.Text.RegularExpressions.Regex.Replace(txtPis.Texts, "[^0-9]", "");
+            }
+        }
     }
 }

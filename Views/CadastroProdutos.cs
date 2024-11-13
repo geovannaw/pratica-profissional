@@ -28,7 +28,6 @@ namespace Sistema_Vendas.Views
             modeloController = new ModeloController<ModeloModel>();
             fornecedorController = new FornecedorController<FornecedorModel>();
         }
-
         public override void Salvar()
         {
             if (!VerificaCamposObrigatorios())
@@ -380,6 +379,32 @@ namespace Sistema_Vendas.Views
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
             {
                 e.Handled = true;
+            }
+        }
+
+        private void txtCodModelo__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodModelo.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodModelo.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodModelo.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtCodFornecedor__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodFornecedor.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodFornecedor.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodFornecedor.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtPrecoVenda__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtPrecoVenda.Texts, "^[0-9.,]*$"))
+            {
+                txtPrecoVenda.Texts = System.Text.RegularExpressions.Regex.Replace(txtPrecoVenda.Texts, "[^0-9.,]", "");
             }
         }
     }

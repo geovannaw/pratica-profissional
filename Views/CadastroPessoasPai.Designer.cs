@@ -371,6 +371,7 @@
             this.txtCodCondPag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCondPag.Texts = "";
             this.txtCodCondPag.UnderlinedStyle = false;
+            this.txtCodCondPag._TextChanged += new System.EventHandler(this.txtCodCondPag__TextChanged);
             this.txtCodCondPag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCondPag_KeyPress);
             // 
             // lblCondPag
@@ -644,6 +645,7 @@
             this.txtCelular.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtCelular.Texts = "";
             this.txtCelular.UnderlinedStyle = false;
+            this.txtCelular._TextChanged += new System.EventHandler(this.txtCelular__TextChanged);
             this.txtCelular.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCelular_KeyPress);
             // 
             // txtTelefone
@@ -671,6 +673,7 @@
             this.txtTelefone.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtTelefone.Texts = "";
             this.txtTelefone.UnderlinedStyle = false;
+            this.txtTelefone._TextChanged += new System.EventHandler(this.txtTelefone__TextChanged);
             this.txtTelefone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefone_KeyPress);
             // 
             // txtContato
@@ -853,6 +856,7 @@
             this.txtCodCidade.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCodCidade.Texts = "";
             this.txtCodCidade.UnderlinedStyle = false;
+            this.txtCodCidade._TextChanged += new System.EventHandler(this.txtCodCidade__TextChanged);
             this.txtCodCidade.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodCidade_KeyPress);
             this.txtCodCidade.Leave += new System.EventHandler(this.txtCodCidade_Leave);
             // 
@@ -1119,6 +1123,7 @@
             this.txtIE_RG.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtIE_RG.Texts = "";
             this.txtIE_RG.UnderlinedStyle = false;
+            this.txtIE_RG._TextChanged += new System.EventHandler(this.txtIE_RG__TextChanged);
             this.txtIE_RG.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIE_RG_KeyPress);
             this.txtIE_RG.Leave += new System.EventHandler(this.txtIE_RG_Leave);
             // 

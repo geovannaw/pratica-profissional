@@ -19,7 +19,6 @@ namespace Sistema_Vendas.Views
         {
             InitializeComponent();
         }
-
         public virtual void Salvar() { }
         public virtual void Bloqueia() { }
         public virtual void Desbloqueia() { }

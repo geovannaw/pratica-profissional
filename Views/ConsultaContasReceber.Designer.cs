@@ -39,6 +39,8 @@
             this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataRecebimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataCancelamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAnterior = new Sistema_Vendas.GButtons();
+            this.btnProximo = new Sistema_Vendas.GButtons();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewContasReceber)).BeginInit();
             this.SuspendLayout();
@@ -187,14 +189,57 @@
             this.dataCancelamento.ReadOnly = true;
             this.dataCancelamento.Width = 80;
             // 
+            // btnAnterior
+            // 
+            this.btnAnterior.BackColor = System.Drawing.Color.White;
+            this.btnAnterior.BackgroundColor = System.Drawing.Color.White;
+            this.btnAnterior.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAnterior.BorderRadius = 5;
+            this.btnAnterior.BorderSize = 1;
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnterior.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAnterior.Location = new System.Drawing.Point(345, 422);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(75, 28);
+            this.btnAnterior.TabIndex = 19;
+            this.btnAnterior.Text = "Anterior";
+            this.btnAnterior.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnAnterior.UseVisualStyleBackColor = false;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnProximo
+            // 
+            this.btnProximo.BackColor = System.Drawing.Color.White;
+            this.btnProximo.BackgroundColor = System.Drawing.Color.White;
+            this.btnProximo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnProximo.BorderRadius = 5;
+            this.btnProximo.BorderSize = 1;
+            this.btnProximo.FlatAppearance.BorderSize = 0;
+            this.btnProximo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProximo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProximo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnProximo.Location = new System.Drawing.Point(437, 422);
+            this.btnProximo.Name = "btnProximo";
+            this.btnProximo.Size = new System.Drawing.Size(75, 28);
+            this.btnProximo.TabIndex = 20;
+            this.btnProximo.Text = "Próximo";
+            this.btnProximo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(23)))), ((int)(((byte)(159)))));
+            this.btnProximo.UseVisualStyleBackColor = false;
+            this.btnProximo.Click += new System.EventHandler(this.btnProximo_Click);
+            // 
             // ConsultaContasReceber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(902, 462);
+            this.Controls.Add(this.btnProximo);
+            this.Controls.Add(this.btnAnterior);
             this.Controls.Add(this.dataGridViewContasReceber);
             this.Name = "ConsultaContasReceber";
             this.Text = "Consulta Contas Receber";
             this.Load += new System.EventHandler(this.ConsultaContasReceber_Load);
+            this.Controls.SetChildIndex(this.dataGridViewContasReceber, 0);
             this.Controls.SetChildIndex(this.cbBuscaInativos, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
             this.Controls.SetChildIndex(this.btnIncluir, 0);
@@ -203,7 +248,8 @@
             this.Controls.SetChildIndex(this.btnSair, 0);
             this.Controls.SetChildIndex(this.btnPesquisar, 0);
             this.Controls.SetChildIndex(this.txtPesquisa, 0);
-            this.Controls.SetChildIndex(this.dataGridViewContasReceber, 0);
+            this.Controls.SetChildIndex(this.btnAnterior, 0);
+            this.Controls.SetChildIndex(this.btnProximo, 0);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewContasReceber)).EndInit();
@@ -225,5 +271,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataVencimento;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataRecebimento;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataCancelamento;
+        public GButtons btnAnterior;
+        public GButtons btnProximo;
     }
 }

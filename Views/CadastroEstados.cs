@@ -210,7 +210,7 @@ namespace Sistema_Vendas.Views
                      txtCodPais.Clear();
                      txtPais.Clear();
                  }
-                }
+            }
         }
 
         private void txtCodPais_KeyPress(object sender, KeyPressEventArgs e)
@@ -240,6 +240,15 @@ namespace Sistema_Vendas.Views
                     txtCodPais.Texts = paisID.ToString();
                     txtPais.Texts = paisNome;
                 }
+            }
+        }
+
+        private void txtCodPais__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodPais.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodPais.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodPais.Texts, "[^0-9]", "");
             }
         }
     }

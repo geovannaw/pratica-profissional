@@ -176,5 +176,14 @@ namespace Sistema_Vendas.Views
                 txtPais.Focus();
             }
         }
+
+        private void txtDDI__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtDDI.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtDDI.Texts = System.Text.RegularExpressions.Regex.Replace(txtDDI.Texts, "[^0-9]", "");
+            }
+        }
     }
 }

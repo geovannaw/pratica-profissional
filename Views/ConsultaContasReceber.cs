@@ -16,6 +16,10 @@ namespace Sistema_Vendas.Views
         private CadastroContasReceber cadastroContasReceber;
         private ClienteController<ClienteModel> clienteController;
         private ContasReceberController<ContasReceberModel> contasReceberController;
+
+        private int paginaAtual = 1;
+        private const int registrosPorPagina = 10;
+        private int totalPaginas;
         public ConsultaContasReceber()
         {
             InitializeComponent();
@@ -60,12 +64,28 @@ namespace Sistema_Vendas.Views
         {
             try
             {
-                dataGridViewContasReceber.DataSource = contasReceberController.GetAll(incluirInativos);
+                List<ContasReceberModel> todasContas = contasReceberController.GetAll(incluirInativos);
+                totalPaginas = (int)Math.Ceiling((double)todasContas.Count / registrosPorPagina);
+                CarregarPagina(paginaAtual, todasContas);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Ocorreu um erro ao atualizar a consulta de Contas a Receber: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void CarregarPagina(int pagina, List<ContasReceberModel> todasContas)
+        {
+            int inicio = (pagina - 1) * registrosPorPagina;
+            var contasPagina = todasContas.Skip(inicio).Take(registrosPorPagina).ToList();
+
+            dataGridViewContasReceber.DataSource = contasPagina;
+            AtualizarEstadoBotoes();
+        }
+
+        private void AtualizarEstadoBotoes()
+        {
+            btnAnterior.Enabled = paginaAtual > 1;
+            btnProximo.Enabled = paginaAtual < totalPaginas;
         }
         public override void Pesquisar()
         {
@@ -200,6 +220,24 @@ namespace Sistema_Vendas.Views
                         e.CellStyle.ForeColor = dataGridViewContasReceber.DefaultCellStyle.ForeColor; //se esta em dia fica a cor padrao
                     }
                 }
+            }
+        }
+
+        private void btnProximo_Click(object sender, EventArgs e)
+        {
+            if (paginaAtual < totalPaginas)
+            {
+                paginaAtual++;
+                AtualizarConsultaContasReceber(cbBuscaInativos.Checked);
+            }
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaAtual > 1)
+            {
+                paginaAtual--;
+                AtualizarConsultaContasReceber(cbBuscaInativos.Checked);
             }
         }
     }

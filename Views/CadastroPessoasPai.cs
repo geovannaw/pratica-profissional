@@ -299,11 +299,7 @@ namespace Sistema_Vendas.Views
 
         private void txtCliente_razao_social_Leave(object sender, EventArgs e)
         {
-            if (!VerificaLetras(txtCliente_razao_social.Texts))
-            {
-                MessageBox.Show("Campo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCliente_razao_social.Focus();
-            }
+
         }
 
         private void txtCodCidade_KeyPress(object sender, KeyPressEventArgs e)
@@ -386,6 +382,51 @@ namespace Sistema_Vendas.Views
                     txtDataNasc.Focus();
                     return;
                 }
+            }
+        }
+
+        private void txtTelefone__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtTelefone.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtTelefone.Texts = System.Text.RegularExpressions.Regex.Replace(txtTelefone.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtCelular__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCelular.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCelular.Texts = System.Text.RegularExpressions.Regex.Replace(txtCelular.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtCodCidade__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodCidade.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodCidade.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodCidade.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtIE_RG__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtIE_RG.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtIE_RG.Texts = System.Text.RegularExpressions.Regex.Replace(txtIE_RG.Texts, "[^0-9]", "");
+            }
+        }
+
+        private void txtCodCondPag__TextChanged(object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCodCondPag.Texts, "^[0-9]*$"))
+            {
+                //remove caracteres não numéricos
+                txtCodCondPag.Texts = System.Text.RegularExpressions.Regex.Replace(txtCodCondPag.Texts, "[^0-9]", "");
             }
         }
     }
